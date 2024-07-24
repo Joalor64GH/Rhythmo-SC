@@ -25,9 +25,7 @@ class PlayState extends FlxState {
 		notes = new FlxTypedGroup<Note>();
         add(notes);
 
-		new FlxTimer().start(1, () -> {
-			spawnNote();
-		});
+		new FlxTimer().start(1, spawnNote);
 	}
 
 	override function update(elapsed:Float) {
