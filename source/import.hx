@@ -8,6 +8,7 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.input.gamepad.FlxGamepad;
 import flixel.input.keyboard.FlxKey;
 import flixel.sound.FlxSound;
 import flixel.ui.FlxButton;
