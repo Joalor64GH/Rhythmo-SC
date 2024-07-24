@@ -2,7 +2,7 @@ package game;
 
 class Note extends FlxSprite {
     public var dir:String = ''; // note direction
-    public var type:String = '' // receptor of plain note
+    public var type:String = ''; // receptor of plain note
 
     public function new(x:Float, y:Float, dir:String) {
         super(x, y);
