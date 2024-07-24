@@ -26,7 +26,7 @@ class InitialState extends FlxState {
 		super.update(elapsed);
 
         new FlxTimer().start(4, (tmr:FlxTimer) -> {
-            FlxTween.tween(logo, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+            FlxTween.tween(intro, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
             new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
                 FlxG.switchState(MenuState.new);
             });
