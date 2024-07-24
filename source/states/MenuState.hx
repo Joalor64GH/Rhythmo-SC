@@ -19,21 +19,21 @@ class MenuState extends FlxState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-        logo = new FlxSprite(FlxG.width / 2, 0).loadGraphic(Paths.image('title/logo'));
+        logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
         logo.scale.set(0.4, 0.4);
         add(logo);
 
-        playBtn = new Button(FlxG.width / 2, logo.y + 120, 'title/play', () -> {
+        playBtn = new Button(0, logo.y + 120, 'title/play', () -> {
             FlxG.switchState(PlayState.new);
         });
         add(playBtn);
 
-        optionsBtn = new Button(FlxG.width / 2, playBtn.y + 120, 'title/options', () -> {
+        optionsBtn = new Button(0, playBtn.y + 120, 'title/options', () -> {
             trace('options menu unfinished sorry');
         });
         add(optionsBtn);
         
-        exitBtn = new Button(FlxG.width / 2, optionsBtn.y + 120, 'title/exit', () -> {
+        exitBtn = new Button(0, optionsBtn.y + 120, 'title/exit', () -> {
             #if sys
             Sys.exit(0);
             #else
