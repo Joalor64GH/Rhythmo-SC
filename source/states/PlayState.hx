@@ -64,7 +64,7 @@ class PlayState extends FlxState {
         }
 	}
 
-	private function spawnNote(timer:FlxTimer):Void {
+	function spawnNote() {
         var randomIndex = FlxG.random.int(0, noteDirs.length - 1);
         var note:Note = new Note(randomIndex * 60 + 100, 0, noteDirs[randomIndex], "note");
         notes.add(note);

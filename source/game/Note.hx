@@ -4,7 +4,7 @@ class Note extends FlxSprite {
     public var dir:String = ''; // note direction
     public var type:String = ''; // receptor of plain note
 
-    public function new(x:Float, y:Float, dir:String) {
+    public function new(x:Float, y:Float, dir:String, type:String) {
         super(x, y);
 
         this.dir = dir;
