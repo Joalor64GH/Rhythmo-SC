@@ -17,32 +17,28 @@ class MenuState extends FlxState {
 
         var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
-		grid.alpha = 0;
-		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
-        logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
-        logo.x = (FlxG.width - logo.width * logo.scale.x) / 2;
-        logo.y = 0;
-        logo.scale.set(0.4, 0.4);
+        logo = new FlxSprite(FlxG.width / 2, 0).loadGraphic(Paths.image('title/logo'));
         add(logo);
 
-        playBtn = new Button(0, logo.y + 120, 'title/play', () -> {
+        playBtn = new Button(FlxG.width / 2, logo.y + 120, 'title/play', () -> {
             FlxG.switchState(PlayState.new);
         });
-        playBtn.screenCenter(X);
         add(playBtn);
 
-        optionsBtn = new Button(0, playBtn.y + 120, 'title/options', () -> {
+        optionsBtn = new Button(FlxG.width / 2, playBtn.y + 120, 'title/options', () -> {
             trace('options menu unfinished sorry');
         });
-        optionsBtn.screenCenter(X);
         add(optionsBtn);
         
-        exitBtn = new Button(0, optionsBtn.y + 120, 'title/exit', () -> {
+        exitBtn = new Button(FlxG.width / 2, optionsBtn.y + 120, 'title/exit', () -> {
+            #if sys
             Sys.exit(0);
+            #else
+            System.exit(0);
+            #end
         });
-        exitBtn.screenCenter(X);
         add(exitBtn);
 
         var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}' , 12);
