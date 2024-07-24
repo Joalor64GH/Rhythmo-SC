@@ -17,7 +17,7 @@ class PlayState extends FlxState {
 		add(strumline);
 
 		for (i in 0...noteDirs.length) {
-			var note:Note = new Note(i * 50, 50, noteDirs[i], "receptor");
+			var note:Note = new Note(i * 150, 50, noteDirs[i], "receptor");
 			strumline.add(note);
 		}
 	}
