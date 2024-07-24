@@ -20,6 +20,7 @@ class MenuState extends FlxState {
 		add(grid);
 
         logo = new FlxSprite(FlxG.width / 2, 0).loadGraphic(Paths.image('title/logo'));
+        logo.scale.set(0.4, 0.4);
         add(logo);
 
         playBtn = new Button(FlxG.width / 2, logo.y + 120, 'title/play', () -> {
