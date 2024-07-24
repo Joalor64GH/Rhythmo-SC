@@ -18,14 +18,16 @@ class PlayState extends FlxState {
 		add(strumline);
 
 		for (i in 0...noteDirs.length) {
-			var note:Note = new Note(i * 40, 50, noteDirs[i], "receptor");
+			var note:Note = new Note(i * 40 + 200, FlxG.height - 100, noteDirs[i], "receptor");
 			strumline.add(note);
 		}
 
 		notes = new FlxTypedGroup<Note>();
         add(notes);
 
-		new FlxTimer().start(1, spawnNote);
+		new FlxTimer().start(1, (tmr:FlxTimer) -> {
+            spawnNote();
+        });
 	}
 
 	override function update(elapsed:Float) {
@@ -64,7 +66,7 @@ class PlayState extends FlxState {
 
 	function spawnNote() {
         var randomIndex = FlxG.random.int(0, noteDirs.length - 1);
-        var note:Note = new Note(randomIndex * 60 + 100, 0, noteDirs[randomIndex], "note");
+        var note:Note = new Note(randomIndex * 40 + 100, 0, noteDirs[randomIndex], "note");
         notes.add(note);
     }
 }
