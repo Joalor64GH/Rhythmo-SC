@@ -19,6 +19,6 @@ class Rating extends FlxSprite {
         this.hitWindow = rating.hitWindow;
         if (hitWindow == null) hitWindow = 0;
 
-        loadGraphic(Paths.image('ui/' + name));
+        loadGraphic(Paths.image('ui/$name'));
     }
 }
