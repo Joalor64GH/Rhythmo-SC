@@ -29,7 +29,7 @@ class InitialState extends FlxState {
             FlxTween.tween(logo, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
             new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
                 FlxG.switchState(MenuState.new);
-            })
+            });
         });
 	}
 }
