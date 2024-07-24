@@ -21,7 +21,7 @@ class MenuState extends FlxState {
 		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
-        var logo:FlxSprite = new FlxSprite().loadGraphic('title/logo');
+        var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/logo'));
         logo.screenCenter(X);
         logo.setGraphicSize(0.55, 0.55);
         add(logo);
