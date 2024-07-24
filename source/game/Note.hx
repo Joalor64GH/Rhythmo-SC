@@ -2,7 +2,7 @@ package game;
 
 class Note extends FlxSprite {
     public var dir:String = ''; // note direction
-    public var type:String = ''; // receptor of plain note
+    public var type:String = ''; // receptor or plain note
 
     public function new(x:Float, y:Float, dir:String, type:String) {
         super(x, y);
@@ -21,11 +21,5 @@ class Note extends FlxSprite {
 
     public function press() {
         animation.play("press");
-    }
-
-    override function update(elapsed:Float) {
-        if (type != "receptor")
-            y += 200 * elapsed;
-        super.update(elapsed);
     }
 }

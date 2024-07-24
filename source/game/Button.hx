@@ -9,7 +9,7 @@ class Button extends FlxSprite {
 
         this.clickCallback = clickCallback;
         loadGraphic(Paths.image(file));
-        scale.set(0.6, 0.6);
+        scale.set(0.45, 0.45);
     }
 
     override function update(elapsed:Float) {

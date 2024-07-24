@@ -21,9 +21,9 @@ class MenuState extends FlxState {
 		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
-        logo = new FlxSprite().loadGraphic(Paths.image('title/logo'));
+        logo = new FlxSprite(0, 40).loadGraphic(Paths.image('title/logo'));
         logo.screenCenter(X);
-        logo.scale.set(0.8, 0.8);
+        logo.scale.set(0.55, 0.55);
         add(logo);
 
         playBtn = new Button(0, logo.y + 150, 'title/play', () -> {
