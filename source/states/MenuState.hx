@@ -15,6 +15,12 @@ class MenuState extends FlxState {
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
         add(bg);
 
+        var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+		grid.velocity.set(40, 40);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
+		add(grid);
+
         var logo:FlxSprite = new FlxSprite().loadGraphic('title/logo');
         logo.screenCenter(X);
         logo.setGraphicSize(0.55, 0.55);

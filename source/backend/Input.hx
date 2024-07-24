@@ -1,8 +1,6 @@
 package backend;
 
-import flixel.input.keyboard.FlxKey;
 import flixel.input.FlxInput.FlxInputState;
-import flixel.input.gamepad.FlxGamepadInputID;
 
 class Input {
     public static var actionMap:Map<String, FlxKey> = [
