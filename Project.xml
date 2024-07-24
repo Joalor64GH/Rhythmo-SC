@@ -23,7 +23,6 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
-	<haxelib name="flixel-ui" />
 
 	<haxelib name="hscript" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
@@ -42,6 +41,9 @@
 
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
+
+	<haxedef name="no-deprecation-warnings" />
+	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- _________________________________ Icons _______________________________ -->
 
