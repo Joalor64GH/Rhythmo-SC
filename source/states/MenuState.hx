@@ -21,9 +21,9 @@ class MenuState extends FlxState {
 		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
-        logo = new FlxSprite(0, 40).loadGraphic(Paths.image('title/logo'));
+        logo = new FlxSprite().loadGraphic(Paths.image('title/logo'));
         logo.screenCenter(X);
-        logo.scale.set(0.55, 0.55);
+        logo.scale.set(0.4, 0.4);
         add(logo);
 
         playBtn = new Button(0, logo.y + 150, 'title/play', () -> {
@@ -31,16 +31,22 @@ class MenuState extends FlxState {
         });
         playBtn.screenCenter(X);
         add(playBtn);
+
         optionsBtn = new Button(0, playBtn.y + 200, 'title/options', () -> {
             trace('options menu unfinished sorry');
         });
         optionsBtn.screenCenter(X);
         add(optionsBtn);
+        
         exitBtn = new Button(0, optionsBtn.y + 300, 'title/exit', () -> {
             Sys.exit(0);
         });
         exitBtn.screenCenter(X);
         add(exitBtn);
+
+        var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}' , 12);
+        versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(versii);
     }
 
     override function update(elapsed:Float) {

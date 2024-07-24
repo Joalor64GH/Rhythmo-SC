@@ -10,7 +10,7 @@ class Note extends FlxSprite {
         this.dir = dir;
         this.type = type;
 
-        loadGraphic(Paths.image('ui/note_$dir'), 200, 200);
+        loadGraphic(Paths.image('ui/note_$dir'), true, 200, 200);
 
         animation.add("note", [0], 1);
         animation.add("press", [1], 1);

@@ -47,6 +47,9 @@ class Paths {
 		return getPath(null, file);
 	}
 
+	inline public static function getText(path:String):Array<String>
+        return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
+
 	inline static public function txt(key:String)
 		return file('data/$key.txt');
 
