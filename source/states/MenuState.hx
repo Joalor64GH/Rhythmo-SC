@@ -1,9 +1,9 @@
 package states;
 
 class MenuState extends FlxState {
-    var playBtn:Button;
-    var optionsBtn:Button;
-    var exitBtn:Button;
+    var curSelected:Int = 0;
+    var grpSelection:FlxTypedGroup<FlxSprite>;
+    var selections:Array<String> = ['play', 'options', 'exit'];
 
     var logo:FlxSprite;
 
@@ -20,34 +20,56 @@ class MenuState extends FlxState {
 		add(grid);
 
         logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
-        logo.scale.set(0.4, 0.4);
+        logo.scale.set(0.25, 0.25);
+        logo.screenCenter(X);
         add(logo);
 
-        playBtn = new Button(0, logo.y + 120, 'title/play', () -> {
-            FlxG.switchState(PlayState.new);
-        });
-        add(playBtn);
+        grpSelection = new FlxTypedGroup<FlxSprite>();
+        add(grpSelection);
 
-        optionsBtn = new Button(0, playBtn.y + 120, 'title/options', () -> {
-            trace('options menu unfinished sorry');
-        });
-        add(optionsBtn);
-        
-        exitBtn = new Button(0, optionsBtn.y + 120, 'title/exit', () -> {
-            #if sys
-            Sys.exit(0);
-            #else
-            System.exit(0);
-            #end
-        });
-        add(exitBtn);
+        for (i in 0...selections.length) {
+            var menuItem:FlxSprite = new FlxSprite(0, i * 200).loadGraphic(Paths.image('title/' + selections[i]));
+            menuItem.scale.set(0.3, 0.3);
+            menuItem.screenCenter(X);
+            menuItem.ID = i;
+            grpSelection.add(menuItem);
+        }
 
         var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}' , 12);
         versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(versii);
+
+        changeSelection();
     }
 
     override function update(elapsed:Float) {
 		super.update(elapsed);
+
+        if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
+            changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+
+        if (FlxG.kes.justPressed.ENTER) {
+            switch (curSelected) {
+                case 0:
+                    FlxG.switchState(PlayState.new);
+                case 1:
+                    trace('options menu unfinished sorry');
+                case 2:
+                    Sys.exit(0);
+            }
+        }
 	}
+
+    function changeSelection(change:Int = 0) {
+        curSelected += change;
+
+        if (curSelected < 0)
+            curSelected = grpSelection.length - 1;
+        if (curSelected >= grpSelection.length)
+            curSelected = 0;
+
+        grpSelection.forEach((spr:FlxSprite) -> {
+            spr.color = (spr.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
+        });
+    }
 }
