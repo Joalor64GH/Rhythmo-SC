@@ -177,7 +177,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == note.rawNoteData) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == Std.parseInt(note.dir)) {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
@@ -189,7 +189,7 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == note.dir) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == Std.parseInt(note.dir)) {
 				curSelectedNote = sectionNote;
 			}
 
@@ -208,12 +208,12 @@ class ChartingState extends ExtendableState {
 		renderedNotes.clear();
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			var note:Note = new Note(0, 0, sectionNote.noteData % 4, "note");
+			var note:Note = new Note(0, 0, Std.string(sectionNote.noteData % 4), "note");
 
 			note.setGraphicSize(gridSize, gridSize);
 			note.updateHitbox();
 
-			note.x = gridBG.x + Math.floor((sectionNote.noteData % song.keyCount) * gridSize);
+			note.x = gridBG.x + Math.floor((sectionNote.noteData % 4) * gridSize);
 			note.y = Math.floor(getYfromStrum((sectionNote.noteStrum - sectionStartTime())));
 
 			note.rawNoteData = sectionNote.noteData;
@@ -288,7 +288,7 @@ class ChartingState extends ExtendableState {
 	}
 
 	function resetSection(songBeginning:Bool = false):Void {
-		updateGrid();
+	    updateGrid();
 
 		FlxG.sound.music.pause();
 		FlxG.sound.music.time = sectionStartTime();
