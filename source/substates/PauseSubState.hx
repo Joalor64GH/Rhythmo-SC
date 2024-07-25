@@ -26,7 +26,7 @@ class PauseSubState extends ExtendableSubState {
 		super.update(elapsed);
 
 		if (Input.is("exit"))
-			FlxG.switchState(new MenuState());
+			ExtendableState.switchState(new MenuState());
 		else if (Input.is("accept"))
 			close();
 	}

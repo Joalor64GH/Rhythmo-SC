@@ -1,25 +1,33 @@
 package game;
 
-typedef RatingData = {
-	var name:String;
-	var score:Int;
-	var hitWindow:Int;
-}
-
 class Rating extends GameSprite {
-	public var name:String = '';
-	public var score:Int = 350;
-	public var hitWindow:Null<Int> = 0;
-
-	public function new(x:Float, y:Float, rating:RatingData) {
+	public function new(x:Float, y:Float) {
 		super(x, y);
+	}
 
-		this.name = rating.name;
-		this.score = rating.score;
-		this.hitWindow = rating.hitWindow;
-		if (hitWindow == null)
-			hitWindow = 0;
+	public function showCurrentRating() {
+		var rating:String = PlayState.instance.curRating;
 
-		loadGraphic(Paths.image('ui/$name'));
+		scale.set(1.2, 1.2);
+		alpha = 1;
+		FlxTween.cancelTweensOf(this);
+
+		FlxTween.tween(this, {alpha: 0}, 0.6, {
+			ease: FlxEase.cubeInOut,
+			startDelay: 1
+		});
+
+		loadGraphic(Paths.image('ui/$rating'));
+		centerOffsets();
+		centerOrigin();
+	}
+
+	override public function update(elapsed:Float) {
+		super.update(elapsed);
+
+		var scaleX:Float = FlxMath.lerp(scale.x, 1, elapsed * 7);
+		var scaleY:Float = FlxMath.lerp(scale.x, 1, elapsed * 7);
+
+		scale.set(scaleX, scaleY);
 	}
 }

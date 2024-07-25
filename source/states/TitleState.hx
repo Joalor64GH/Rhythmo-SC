@@ -13,12 +13,12 @@ class TitleState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
+		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
 		logo.scale.set(0.4, 0.4);
         logo.screenCenter();
 		add(logo);
 
-        var text:FlxText = new FlxText(0, logo.y + 30, 0, "Press ENTER to Start!", 12);
+        var text:FlxText = new FlxText(0, logo.y + 300, 0, "Press ENTER to Start!", 12);
 		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);

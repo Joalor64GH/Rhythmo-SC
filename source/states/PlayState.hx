@@ -8,14 +8,14 @@ class PlayState extends ExtendableState {
 
 	public var speed:Float = 1;
 	public var song:SongData;
-	
+
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
 
 	var spawnNotes:Array<Note> = [];
 
-	var ratings:FlxTypedGroup<Rating>;
+	var ratingDisplay:Rating;
 
 	var score:Int = 0;
 	var scoreTxt:FlxText;
@@ -39,13 +39,14 @@ class PlayState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		if (songMultiplier < 0.1) songMultiplier = 0.1;
+		if (songMultiplier < 0.1)
+			songMultiplier = 0.1;
 
 		Conductor.changeBPM(song.bpm, songMultiplier);
 		Conductor.recalculateStuff(songMultiplier);
 		Conductor.safeZoneOffset *= songMultiplier;
 
-		resetSongPos();
+		// resetSongPos();
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
 		text.screenCenter();
@@ -70,23 +71,28 @@ class PlayState extends ExtendableState {
 		timeBar.screenCenter(X);
 		timeBar.y = FlxG.height + 10;
 		add(timeBar);
+
+		ratingDisplay = new Rating(0, 0);
+		ratingDisplay.screenCenter();
+		ratingDisplay.alpha = 0;
+		add(ratingDisplay);
 	}
 
-	function resetSongPos()
-	{
-		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
-		timeBar.value = 0;
-	}
-
+	/*function resetSongPos()
+		{
+			Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
+			timeBar.value = 0;
+	}*/
+	
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
-			Conductor.songPosition = FlxG.sound.music.time;
-			timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-		}
-		else
-			Conductor.songPosition += (FlxG.elapsed) * 1000;
+		/*if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
+				Conductor.songPosition = FlxG.sound.music.time;
+				timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
+			}
+			else
+				Conductor.songPosition += (FlxG.elapsed) * 1000; */
 
 		if (spawnNotes[0] != null) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -111,22 +117,136 @@ class PlayState extends ExtendableState {
 		}
 
 		if (Input.is("exit"))
-			ExtendableState.switchState(new MenuState());
+			opensSubState(new PauseSubState());
 
-		// TO-DO: better input system
-		strumline.forEach((spr:Note) -> {
-			switch (spr.dir) {
-				case "left":
-					if (Input.is("left", PRESSED)) spr.press(); else spr.animation.play("receptor");
-				case "down":
-					if (Input.is("down", PRESSED)) spr.press(); else spr.animation.play("receptor");
-				case "up":
-					if (Input.is("up", PRESSED)) spr.press(); else spr.animation.play("receptor");
-				case "right":
-					if (Input.is("right", PRESSED)) spr.press(); else spr.animation.play("receptor");
-			}
-		});
+		inputFunction();
 	}
+
+	var justPressed:Array<Bool> = [Input.is("left"), Input.is("down"), Input.is("up"), Input.is("right")];
+	var pressed:Array<Bool> = [
+		Input.is("left", PRESSED),
+		Input.is("down", PRESSED),
+		Input.is("up", PRESSED),
+		Input.is("right", PRESSED)
+	];
+	var released:Array<Bool> = [
+		Input.is("left", RELEASED),
+		Input.is("down", RELEASED),
+		Input.is("up", RELEASED),
+		Input.is("right", RELEASED)
+	];
+
+	public var curRating:String = "perfect";
+
+	function inputFunction() {
+		for (i in 0...justPressed.length)
+			if (justPressed[i])
+				strumline.members[i].press();
+
+		for (i in 0...released.length)
+			if (released[i])
+				strumline.members[i].playAnim("receptor");
+
+		var possibleNotes:Array<Note> = [];
+
+		for (note in notes) {
+			note.calculateCanBeHit();
+			if (note.canBeHit && !note.tooLate)
+				possibleNotes.push(note);
+		}
+
+		possibleNotes.sort((a, b) -> Std.int(a.strum - b.strum));
+
+		var doNotHit:Array<Bool> = [false, false, false, false];
+		var noteDataTimes:Array<Float> = [-1, -1, -1, -1];
+
+		if (possibleNotes.length > 0) {
+			for (i in 0...possibleNotes.length) {
+				var note = possibleNotes[i];
+
+				if ((justPressed[note.dir] && !doNotHit[note.dir])) {
+					var ratingScores:Array<Int> = [350, 200, 100, 50];
+
+					var noteMs = (Conductor.songPosition - note.strum) / songMultiplier;
+
+					var roundedDecimalNoteMs:Float = FlxMath.roundDecimal(noteMs, 3);
+
+					curRating = "perfect";
+
+					if (Math.abs(noteMs) > 22.5)
+						curRating = 'perfect';
+
+					if (Math.abs(noteMs) > 45)
+						curRating = 'nice';
+
+					if (Math.abs(noteMs) > 90)
+						curRating = 'okay';
+
+					if (Math.abs(noteMs) > 135)
+						curRating = 'no';
+
+					noteDataTimes[note.dir] = note.strum;
+					doNotHit[note.dir] = true;
+
+					strumline.members[note.direction].press();
+
+					ratingDisplay.showCurrentRating();
+					ratingDisplay.screenCenter(X);
+
+					note.active = false;
+					notes.remove(note);
+					note.kill();
+					note.destroy();
+				}
+			}
+
+			if (possibleNotes.length > 0) {
+				for (i in 0...possibleNotes.length) {
+					var note = possibleNotes[i];
+
+					if (note.strum == noteDataTimes[note.dir] && doNotHit[note.dir]) {
+						note.active = false;
+						notes.remove(note);
+						note.kill();
+						note.destroy();
+					}
+				}
+			}
+		}
+	}
+
+	function generateNotes() {
+		for (section in song.notes) {
+			Conductor.recalculateStuff(songMultiplier);
+
+			for (note in section.sectionNotes) {
+				var strum = strumline.members[note.noteData % noteDirs.length];
+
+				var daStrumTime:Float = note.noteStrum + 1 * songMultiplier;
+				var daNoteData:Int = Std.int(note.noteData % noteDirs.length);
+
+				var oldNote:Note;
+
+				if (spawnNotes.length > 0)
+					oldNote = spawnNotes[Std.int(spawnNotes.length - 1)];
+				else
+					oldNote = null;
+
+				var swagNote:Note = new Note(strum.x, strum.y, noteDirs[daNoteData], "note");
+				swagNote.scrollFactor.set();
+				swagNote.lastNote = oldNote;
+
+				swagNote.animation.play('note');
+
+				spawnNotes.push(swagNote);
+			}
+		}
+
+		spawnNotes.sort(sortStuff);
+	}
+
+	function sortStuff(Obj1:Note, Obj2:Note):Int
+		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strum, Obj2.strum);
 
 	function getNoteIndex(direction:String):Int {
 		return switch (direction) {
