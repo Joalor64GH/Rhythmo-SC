@@ -47,7 +47,7 @@ class OptionState extends FlxState {
 
 	function changeItem(number:Int = 0) {
 		curSelected = FlxMath.wrap(curSelected + number, 0, options.length - 1);
-		camObject.y = usersAssets[curSelected].text.y;
+		camObject.y = options[curSelected].text.y;
 		FlxG.sound.play(Paths.sound('scroll'));
 	}
 }
