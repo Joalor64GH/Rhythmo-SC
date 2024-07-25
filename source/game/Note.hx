@@ -32,23 +32,23 @@ class Note extends GameSprite {
 		animation.play("press");
 	}
 
-	public function calculateCanBeHit(conductor:Conductor) {
+	public function calculateCanBeHit() {
 		if (this != null) {
 			if (shouldHit) {
-				if (y > conductor.songPosition - conductor.safeZoneOffset
-					&& y < conductor.songPosition + conductor.safeZoneOffset)
+				if (y > Conductor.songPosition - Conductor.safeZoneOffset
+					&& y < Conductor.songPosition + Conductor.safeZoneOffset)
 					canBeHit = true;
 				else
 					canBeHit = false;
 			} else {
-				if (y > conductor.songPosition - conductor.safeZoneOffset * 0.3
-					&& y < conductor.songPosition + conductor.safeZoneOffset * 0.2)
+				if (y > Conductor.songPosition - Conductor.safeZoneOffset * 0.3
+					&& y < Conductor.songPosition + Conductor.safeZoneOffset * 0.2)
 					canBeHit = true;
 				else
 					canBeHit = false;
 			}
 
-			if (y < conductor.songPosition - conductor.safeZoneOffset && !wasGoodHit)
+			if (y < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
 				tooLate = true;
 		}
 	}
