@@ -1,36 +1,37 @@
 package backend;
 
+@:structInit class SaveSettings {
+	public var lang:String = 'en';
+	public var framerate:Int = 60;
+	public var antialiasing:Bool = true;
+	public var fpsCounter:Bool = true;
+	#if desktop
+	public var fullscreen:Bool = false;
+	#end
+	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE];
+	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];
+}
+
 class SaveData {
-	static public var defaultOptions:Array<Array<Dynamic>> = [
-		// name, value
-		["lang", 'en'],
-		["fpsCounter", true],
-		#if desktop
-		["fullscreen", false],
-		#end
-		["antialiasing", true],
-		["framerate", 60],
-		["keyboardBinds", [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE]],
-		["gamepadBinds", [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B]]
-	];
+	public static var settings:SaveSettings = {};
 
-	static public function init() {
-		for (option in defaultOptions)
-			if (getData(option[0]) == null)
-				saveData(option[0], option[1]);
+	public static function init() {
+		for (key in Reflect.fields(settings))
+			if (Reflect.field(FlxG.save.data, key) != null)
+				Reflect.setField(settings, key, Reflect.field(FlxG.save.data, key));
+		
+		if (Main.fpsDisplay != null)
+			Main.fpsDisplay.visible = settings.fpsCounter;
+		
+		Main.updateFramerate(settings.framerate);
 	}
 
-	static public function saveData(save:String, value:Dynamic) {
-		Reflect.setProperty(FlxG.save.data, save, value);
+	public static function saveSettings() {
+		for (key in Reflect.fields(settings))
+			Reflect.setField(FlxG.save.data, key, Reflect.field(settings, key));
+
 		FlxG.save.flush();
-	}
 
-	static public function getData(save:String):Dynamic {
-		return Reflect.getProperty(FlxG.save.data, save);
-	}
-
-	static public function resetData() {
-		FlxG.save.erase();
-		init();
+		trace('settings saved!');
 	}
 }

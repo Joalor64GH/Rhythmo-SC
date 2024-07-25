@@ -1,4 +1,13 @@
+### VS Code
 export/
 .vscode/*
 .haxelib/
+!.code-workspace
+vscode-project.hxml
+.history
+.ionide
+
+### Misc
 .DS_Store
+desktop.ini
+dump/

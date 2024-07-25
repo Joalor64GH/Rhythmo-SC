@@ -30,13 +30,10 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="FLX_RECORD" />
-
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
-
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
-
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<haxeflag name="--macro" value="allowPackage('flash')" />
@@ -45,8 +42,13 @@
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
 
-	<!-- _________________________________ Icons _______________________________ -->
+	<!-- _________________________________ Miscellaneous _______________________________ -->
 
-	<!-- not yet -->
+	<target id="haxe" tool="linker" if="linux">
+		<lib name="/usr/lib64/libX11.so" if="HXCPP_M64" /> <!-- linux support -->
+	</target> 
+	<target id="haxe" tool="linker" if="macos">
+		<lib name="/lib64/libX11.a" if="HXCPP_M64" /> <!-- mac support -->
+	</target>
 
 </project>

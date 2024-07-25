@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  buildWindows64:
+  buildWindows:
     runs-on: windows-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
             export/debug/windows/obj/
           restore-keys: |
             cache-build-windows
-      - name: Install Haxelib
+      - name: Install Libraries
         run: |
           haxe -cp ./compileData -D analyzer-optimize -main Libraries --interp
       - name: Create Version Tag

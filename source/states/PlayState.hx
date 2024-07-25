@@ -16,10 +16,14 @@ class PlayState extends FlxState {
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
 
-		for (i in 0...noteDirs.length) {
-			var note:Note = new Note(i * 200, 50, noteDirs[i], "receptor");
-			strumline.add(note);
-		}
+		var noteWidth:Float = 200;
+        var totalWidth:Float = noteDirs.length * noteWidth;
+        var startX:Float = (FlxG.width - totalWidth) / 2;
+
+        for (i in 0...noteDirs.length) {
+            var note:Note = new Note(startX + i * noteWidth, 50, noteDirs[i], "receptor");
+            strumline.add(note);
+        }
 	}
 
 	override function update(elapsed:Float) {
