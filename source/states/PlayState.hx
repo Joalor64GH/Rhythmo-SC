@@ -58,7 +58,7 @@ class PlayState extends ExtendableState {
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
 
-		var noteWidth:Float = 150;
+		var noteWidth:Float = 200;
 		var totalWidth:Float = noteDirs.length * noteWidth;
 		var startX:Float = (FlxG.width - totalWidth) / 2;
 
@@ -122,23 +122,23 @@ class PlayState extends ExtendableState {
 		inputFunction();
 	}
 
-	var justPressed:Array<Bool> = [Input.is("left"), Input.is("down"), Input.is("up"), Input.is("right")];
-	var pressed:Array<Bool> = [
-		Input.is("left", PRESSED),
-		Input.is("down", PRESSED),
-		Input.is("up", PRESSED),
-		Input.is("right", PRESSED)
-	];
-	var released:Array<Bool> = [
-		Input.is("left", RELEASED),
-		Input.is("down", RELEASED),
-		Input.is("up", RELEASED),
-		Input.is("right", RELEASED)
-	];
-
 	public var curRating:String = "perfect";
 
 	function inputFunction() {
+		var justPressed:Array<Bool> = [Input.is("left"), Input.is("down"), Input.is("up"), Input.is("right")];
+		var pressed:Array<Bool> = [
+			Input.is("left", PRESSED),
+			Input.is("down", PRESSED),
+			Input.is("up", PRESSED),
+			Input.is("right", PRESSED)
+		];
+		var released:Array<Bool> = [
+			Input.is("left", RELEASED),
+			Input.is("down", RELEASED),
+			Input.is("up", RELEASED),
+			Input.is("right", RELEASED)
+		];
+
 		for (i in 0...justPressed.length)
 			if (justPressed[i])
 				strumline.members[i].press();
