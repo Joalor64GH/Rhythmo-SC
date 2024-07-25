@@ -48,7 +48,7 @@ class MenuState extends FlxState {
 				case 0:
 					FlxG.switchState(PlayState.new);
 				case 1:
-					FlxG.switchState(OptionState.new);
+					FlxG.switchState(OptionsState.new);
 				case 2:
 					Sys.exit(0);
 			}

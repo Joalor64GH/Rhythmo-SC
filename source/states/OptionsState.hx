@@ -15,6 +15,7 @@ class OptionState extends FlxState {
 		camObject.screenCenter(X);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('options/options_bg'));
+		bg.scrollFactor.set();
 		add(bg);
 
 		var grid = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x2C00FF95, 0x0));
