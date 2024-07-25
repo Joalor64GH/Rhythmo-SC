@@ -48,7 +48,7 @@ class MenuState extends FlxState {
         if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
             changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
 
-        if (FlxG.kes.justPressed.ENTER) {
+        if (FlxG.keys.justPressed.ENTER) {
             switch (curSelected) {
                 case 0:
                     FlxG.switchState(PlayState.new);
