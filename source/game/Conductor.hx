@@ -42,7 +42,7 @@ class Conductor {
 		stepsPerSection = Math.floor((16 / timeScale[1]) * timeScale[0]);
 	}
 
-	public static function mapBPMChanges(song:SwagSong, ?songMultiplier:Float = 1.0) {
+	public static function mapBPMChanges(song:SongData, ?songMultiplier:Float = 1.0) {
 		bpmChangeMap = [];
 		timeScaleChangeMap = [];
 
@@ -88,7 +88,7 @@ class Conductor {
 		recalculateStuff(songMultiplier);
 	}
 
-	public static function set_bpm(newBpm:Float) {
+	public static function set_bpm(newBpm:Float):Float {
 		crochet = calculateCrochet(newBpm);
 		stepCrochet = crochet / 4;
 		return bpm = newBpm;
