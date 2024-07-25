@@ -83,7 +83,7 @@ class PlayState extends ExtendableState {
 			Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
 			timeBar.value = 0;
 	}*/
-	
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
@@ -117,7 +117,7 @@ class PlayState extends ExtendableState {
 		}
 
 		if (Input.is("exit"))
-			opensSubState(new PauseSubState());
+			openSubState(new PauseSubState());
 
 		inputFunction();
 	}
@@ -145,7 +145,7 @@ class PlayState extends ExtendableState {
 
 		for (i in 0...released.length)
 			if (released[i])
-				strumline.members[i].playAnim("receptor");
+				strumline.members[i].animation.play("receptor");
 
 		var possibleNotes:Array<Note> = [];
 
@@ -164,7 +164,7 @@ class PlayState extends ExtendableState {
 			for (i in 0...possibleNotes.length) {
 				var note = possibleNotes[i];
 
-				if ((justPressed[note.dir] && !doNotHit[note.dir])) {
+				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)])) {
 					var ratingScores:Array<Int> = [350, 200, 100, 50];
 
 					var noteMs = (Conductor.songPosition - note.strum) / songMultiplier;
@@ -185,10 +185,10 @@ class PlayState extends ExtendableState {
 					if (Math.abs(noteMs) > 135)
 						curRating = 'no';
 
-					noteDataTimes[note.dir] = note.strum;
-					doNotHit[note.dir] = true;
+					noteDataTimes[getNoteIndex(note.dir)] = note.strum;
+					doNotHit[getNoteIndex(note.dir)] = true;
 
-					strumline.members[note.direction].press();
+					strumline.members[note.dir].press();
 
 					ratingDisplay.showCurrentRating();
 					ratingDisplay.screenCenter(X);
@@ -204,7 +204,7 @@ class PlayState extends ExtendableState {
 				for (i in 0...possibleNotes.length) {
 					var note = possibleNotes[i];
 
-					if (note.strum == noteDataTimes[note.dir] && doNotHit[note.dir]) {
+					if (note.strum == noteDataTimes[getNoteIndex(note.dir)] && doNotHit[getNoteIndex(note.dir)]) {
 						note.active = false;
 						notes.remove(note);
 						note.kill();
