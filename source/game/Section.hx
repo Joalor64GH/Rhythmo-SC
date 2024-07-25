@@ -1,7 +1,7 @@
 package game;
 
-typedef SwagSection = {
-	var sectionNotes:Array<SwagNote>;
+typedef SectionData = {
+	var sectionNotes:Array<NoteData>;
 	var bpm:Float;
 	var changeBPM:Bool;
 
@@ -9,7 +9,7 @@ typedef SwagSection = {
 	var changeTimeScale:Bool;
 }
 
-typedef SwagNote = {
+typedef NoteData = {
 	var noteStrum:Float;
 	var noteData:Int;
 }
