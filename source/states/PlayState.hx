@@ -188,7 +188,7 @@ class PlayState extends ExtendableState {
 					noteDataTimes[getNoteIndex(note.dir)] = note.strum;
 					doNotHit[getNoteIndex(note.dir)] = true;
 
-					strumline.members[note.dir].press();
+					strumline.members[getNoteIndex(note.dir)].press();
 
 					ratingDisplay.showCurrentRating();
 					ratingDisplay.screenCenter(X);
