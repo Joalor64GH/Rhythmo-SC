@@ -1,6 +1,6 @@
 package states;
 
-class MenuState extends FlxState {
+class MenuState extends ExtendableState {
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', 'options', 'exit'];
@@ -15,8 +15,6 @@ class MenuState extends FlxState {
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
-		grid.alpha = 0;
-		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
 		grpSelection = new FlxTypedGroup<FlxSprite>();
@@ -46,9 +44,9 @@ class MenuState extends FlxState {
 		if (Input.is("accept")) {
 			switch (curSelected) {
 				case 0:
-					FlxG.switchState(PlayState.new);
+					transitionState(new PlayState());
 				case 1:
-					FlxG.switchState(OptionsState.new);
+					transitionState(new OptionsState());
 				case 2:
 					Sys.exit(0);
 			}

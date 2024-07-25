@@ -1,6 +1,6 @@
 package substates;
 
-class PauseSubState extends FlxSubState {
+class PauseSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
@@ -26,7 +26,7 @@ class PauseSubState extends FlxSubState {
 		super.update(elapsed);
 
 		if (Input.is("exit"))
-			FlxG.switchState(MenuState.new);
+			FlxG.switchState(new MenuState());
 		else if (Input.is("accept"))
 			close();
 	}

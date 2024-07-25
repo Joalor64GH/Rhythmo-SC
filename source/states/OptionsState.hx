@@ -1,8 +1,7 @@
 package states;
 
-class OptionsState extends FlxState {
+class OptionsState extends ExtendableState {
 	final options:Array<String> = ["FPS Counter", "Fullscreen", "Antialiasing", "Framerate", "Controls", "Language"];
-
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var daText:FlxText;
@@ -41,7 +40,7 @@ class OptionsState extends FlxState {
 			changeSelection(Input.is('up') ? -1 : 1);
 
 		if (Input.is('exit')) {
-			FlxG.switchState(MenuState.new);
+			transitionState(MenuState.new);
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();
 		}
