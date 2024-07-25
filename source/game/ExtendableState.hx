@@ -1,5 +1,8 @@
 package game;
 
+import Conductor.BPMChangeEvent;
+import Conductor.TimeScaleChangeEvent;
+
 class ExtendableState extends FlxState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;

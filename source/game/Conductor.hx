@@ -1,5 +1,7 @@
 package game;
 
+import game.Song.SongData;
+
 typedef BPMChangeEvent = {
 	var stepTime:Int;
 	var songTime:Float;
@@ -86,7 +88,7 @@ class Conductor {
 
 	public static function changeBPM(newBpm:Float, ?multi:Float = 1) {
 		bpm = newBpm;
-		
+
 		recalculateStuff(multi);
 	}
 }

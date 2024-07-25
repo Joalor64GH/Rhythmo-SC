@@ -1,5 +1,7 @@
 package states;
 
+import game.Song.SongData;
+
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
 	public static var songMultiplier:Float = 1;
