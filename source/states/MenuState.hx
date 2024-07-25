@@ -15,6 +15,8 @@ class MenuState extends FlxState {
 
         var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
+        grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 0.6}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
         grpSelection = new FlxTypedGroup<FlxSprite>();
@@ -46,7 +48,7 @@ class MenuState extends FlxState {
                 case 0:
                     FlxG.switchState(PlayState.new);
                 case 1:
-                    trace('options menu unfinished sorry');
+                    FlxG.switchState(OptionState.new);
                 case 2:
                     Sys.exit(0);
             }
@@ -54,15 +56,8 @@ class MenuState extends FlxState {
 	}
 
     function changeSelection(change:Int = 0) {
-        curSelected += change;
-
+        curSelected = FlxMath.wrap(curSelected + change, 0, selections - 1);
         FlxG.sound.play(Paths.sound('scroll'));
-
-        if (curSelected < 0)
-            curSelected = grpSelection.length - 1;
-        if (curSelected >= grpSelection.length)
-            curSelected = 0;
-
         grpSelection.forEach((spr:FlxSprite) -> {
             spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
         });
