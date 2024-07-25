@@ -40,7 +40,7 @@ class OptionsState extends ExtendableState {
 			changeSelection(Input.is('up') ? -1 : 1);
 
 		if (Input.is('exit')) {
-			transitionState(MenuState.new);
+			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();
 		}

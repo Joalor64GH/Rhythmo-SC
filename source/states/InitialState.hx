@@ -26,7 +26,7 @@ class InitialState extends ExtendableState {
 		super.update(elapsed);
 
 		new FlxTimer().start(3, (tmr:FlxTimer) -> {
-			transitionState(new TitleState());
+			ExtendableState.switchState(new TitleState());
 		});
 	}
 }

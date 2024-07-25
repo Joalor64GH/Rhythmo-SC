@@ -31,7 +31,7 @@ class TitleState extends ExtendableState {
             FlxG.sound.play(Paths.sound('select'));
             FlxG.camera.flash(FlxColor.WHITE, 1);
             new FlxTimer().start(1, (tmr:FlxTimer) -> {
-                transitionState(new MenuState());
+                ExtendableState.switchState(new MenuState());
             });
         }
 	}

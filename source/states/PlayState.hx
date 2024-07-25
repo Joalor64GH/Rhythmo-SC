@@ -111,7 +111,7 @@ class PlayState extends ExtendableState {
 		}
 
 		if (Input.is("exit"))
-			FlxG.switchState(new MenuState());
+			ExtendableState.switchState(new MenuState());
 
 		// TO-DO: better input system
 		strumline.forEach((spr:Note) -> {

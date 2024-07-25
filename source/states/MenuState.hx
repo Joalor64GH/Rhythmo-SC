@@ -44,9 +44,9 @@ class MenuState extends ExtendableState {
 		if (Input.is("accept")) {
 			switch (curSelected) {
 				case 0:
-					transitionState(new PlayState());
+					ExtendableState.switchState(new PlayState());
 				case 1:
-					transitionState(new OptionsState());
+					ExtendableState.switchState(new OptionsState());
 				case 2:
 					Sys.exit(0);
 			}
