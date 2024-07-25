@@ -3,7 +3,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Rhythmo" file="Rhythmo" main="Main" version="0.0.1" company="Joalor64" />
+	<app title="Rhythmo" file="Rhythmo" main="Main" version="0.0.5" company="Joalor64" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
