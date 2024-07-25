@@ -4,6 +4,14 @@ class Note extends GameSprite {
 	public var dir:String = ''; // note direction
 	public var type:String = ''; // receptor or plain note
 
+	public var shouldHit:Bool = true;
+
+	public var canBeHit:Bool = false;
+	public var tooLate:Bool = false;
+	public var wasGoodHit:Bool = false;
+
+	public var lastNote:Note;
+
 	public function new(x:Float, y:Float, dir:String, type:String) {
 		super(x, y);
 
@@ -22,5 +30,26 @@ class Note extends GameSprite {
 
 	public function press() {
 		animation.play("press");
+	}
+
+	public function calculateCanBeHit(conductor:Conductor) {
+		if (this != null) {
+			if (shouldHit) {
+				if (y > conductor.songPosition - conductor.safeZoneOffset
+					&& y < conductor.songPosition + conductor.safeZoneOffset)
+					canBeHit = true;
+				else
+					canBeHit = false;
+			} else {
+				if (y > conductor.songPosition - conductor.safeZoneOffset * 0.3
+					&& y < conductor.songPosition + conductor.safeZoneOffset * 0.2)
+					canBeHit = true;
+				else
+					canBeHit = false;
+			}
+
+			if (y < conductor.songPosition - conductor.safeZoneOffset && !wasGoodHit)
+				tooLate = true;
+		}
 	}
 }
