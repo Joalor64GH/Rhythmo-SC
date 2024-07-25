@@ -100,7 +100,7 @@ class OptionsState extends ExtendableState {
 				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
 			case 4:
 				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
-			case 0:
+			case 5:
 				daText.text = "Edit your controls.";
 		}
 	}
