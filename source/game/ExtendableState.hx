@@ -6,6 +6,7 @@ import game.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
+import flixel.graphics.FlxGraphic;
 
 class ExtendableState extends FlxState {
 	var curBeat:Int = 0;

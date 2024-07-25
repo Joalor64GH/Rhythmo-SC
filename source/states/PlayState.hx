@@ -99,7 +99,7 @@ class PlayState extends ExtendableState {
 		}
 
 		for (note in notes) {
-			var strum = strumline.members[note.dir % 4];
+			var strum = strumline.members[getNoteIndex(note.dir)];
 
 			note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
@@ -111,7 +111,7 @@ class PlayState extends ExtendableState {
 		}
 
 		if (Input.is("exit"))
-			FlxG.switchState(MenuState.new);
+			FlxG.switchState(new MenuState());
 
 		// TO-DO: better input system
 		strumline.forEach((spr:Note) -> {
@@ -126,5 +126,15 @@ class PlayState extends ExtendableState {
 					if (Input.is("right", PRESSED)) spr.press(); else spr.animation.play("receptor");
 			}
 		});
+	}
+
+	function getNoteIndex(direction:String):Int {
+		return switch (direction) {
+			case "left": 0;
+			case "down": 1;
+			case "up": 2;
+			case "right": 3;
+			default: -1;
+		}
 	}
 }
