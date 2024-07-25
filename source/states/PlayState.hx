@@ -21,6 +21,8 @@ class PlayState extends ExtendableState {
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
 
+	var paused:Bool = false;
+
 	override public function new() {
 		super();
 
@@ -78,21 +80,21 @@ class PlayState extends ExtendableState {
 		add(ratingDisplay);
 	}
 
-	/*function resetSongPos()
-		{
-			Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
-			timeBar.value = 0;
-	}*/
+	function resetSongPos()
+	{
+		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
+		timeBar.value = 0;
+	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		/*if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
-				Conductor.songPosition = FlxG.sound.music.time;
-				timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-			}
-			else
-				Conductor.songPosition += (FlxG.elapsed) * 1000; */
+		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
+			Conductor.songPosition = FlxG.sound.music.time;
+			timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
+		}
+		else
+			Conductor.songPosition += (FlxG.elapsed) * 1000; 
 
 		if (spawnNotes[0] != null) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -119,7 +121,28 @@ class PlayState extends ExtendableState {
 		if (Input.is("exit"))
 			openSubState(new PauseSubState());
 
+		if (Input.is("seven")) {
+			ExtendableState.switchState(new ChartingState());
+			ChartingState.instance.song = song;
+		}
+
 		inputFunction();
+	}
+
+	override function openSubState(SubState:FlxSubState) {
+		if (paused)
+			FlxG.sound.music.pause();
+
+		super.openSubState(SubState);
+	}
+
+	override function closeSubState() {
+		if (paused) {
+			FlxG.sound.music.resume();
+			paused = false;
+		}
+
+		super.closeSubState();
 	}
 
 	public var curRating:String = "perfect";

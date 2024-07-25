@@ -11,6 +11,7 @@ class Note extends GameSprite {
 	public var wasGoodHit:Bool = false;
 
 	public var lastNote:Note;
+	public var rawNoteData:Int = 0;
 
 	public var strum:Float = 0.0;
 

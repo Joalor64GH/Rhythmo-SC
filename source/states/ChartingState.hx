@@ -5,6 +5,8 @@ import game.Note;
 import game.Section;
 import game.Song;
 
+import flixel.ui.FlxButton;
+
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState;
 
@@ -36,7 +38,7 @@ class ChartingState extends ExtendableState {
 		};
 	}
 
-	var curSelectedNote:SwagNote;
+	var curSelectedNote:NoteData;
 
 	var songInfoText:FlxText;
 
@@ -51,7 +53,7 @@ class ChartingState extends ExtendableState {
 		gridBG.screenCenter();
 		add(gridBG);
 
-		dummyArrow = new game.BasicSprite().makeGraphic(gridSize, gridSize);
+		dummyArrow = new GameSprite().makeGraphic(gridSize, gridSize);
 		add(dummyArrow);
 
 		renderedNotes = new FlxTypedGroup<Note>();
@@ -62,6 +64,9 @@ class ChartingState extends ExtendableState {
 
 		songInfoText = new FlxText(10, 10, 0, 18);
 		add(songInfoText);
+
+        var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
+        add(saveButton);
 	}
 
 	override public function update(elapsed:Float) {
@@ -76,7 +81,7 @@ class ChartingState extends ExtendableState {
 		if (Input.is("right"))
 			changeSection(curSection + 1);
 
-		if (INput.is("accept")) {
+		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
 			PlayState.instance.song = song;
 		}
@@ -232,7 +237,7 @@ class ChartingState extends ExtendableState {
 		if (coolLength == 0)
 			col = Std.int(Conductor.timeScale[0] * Conductor.timeScale[1]);
 
-		var sec:SwagSection = {
+		var sec:SectionData = {
 			sectionNotes: [],
 			bpm: song.bpm,
 			changeBPM: false,
@@ -307,13 +312,24 @@ class ChartingState extends ExtendableState {
 		var daPos:Float = 0;
 
 		for (i in 0...section) {
-			if (song.notes[i].changeBPM) {
+			if (song.notes[i].changeBPM)
 				daBPM = song.notes[i].bpm;
-			}
 
 			daPos += Conductor.timeScale[0] * (1000 * (60 / daBPM));
 		}
 
 		return daPos;
 	}
+
+    function saveChart():Void {
+        var serializedData:String = Serializer.run(song);
+        var fileName:String = "assets/data/charts/" + song.song + ".json";
+
+        try {
+            File.saveContent(fileName, serializedData);
+            trace("Chart saved successfully to " + fileName);
+        } catch (e:Dynamic) {
+            trace("Error saving chart: " + e);
+        }
+    }
 }
