@@ -1,7 +1,7 @@
 package game;
 
 // TO-DO: maybe add a color tween??
-class Button extends FlxSprite {
+class Button extends GameSprite {
     public var clickCallback:Void->Void;
 
     public function new(x:Float = 0, y:Float = 0, file:String = null, clickCallback:Void->Void) {

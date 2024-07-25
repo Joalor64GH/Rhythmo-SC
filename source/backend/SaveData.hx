@@ -8,7 +8,10 @@ class SaveData {
 		#if desktop
 		["fullscreen", false],
 		#end
-		["framerate", 60]
+		["antialiasing", true],
+		["framerate", 60],
+		["keyboardBinds", [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE]],
+		["gamepadBinds", [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B]]
 	];
 
 	static public function init() {

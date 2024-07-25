@@ -18,47 +18,35 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.3
-
-      - name: Restore Cache for Haxelib
+      - name: Restore Cache
         uses: actions/cache@main
         with:
-          key: cache-haxelib-${{ runner.os }}-${{ hashFiles('**/*.hxml') }}
+          key: cache-build-windows
           path: |
             .haxelib/
-
-      - name: Restore Cache for Build Artifacts
-        uses: actions/cache@main
-        with:
-          key: cache-build-${{ runner.os }}-${{ github.sha }}
-          path: |
-            export/debug/windows/
-
+            export/debug/windows/haxe/
+            export/debug/windows/obj/
+          restore-keys: |
+            cache-build-windows
       - name: Install Haxelib
         run: |
-          haxe -cp ./compileData -D analyzer-optimize -D incremental -main Libraries --interp
-
+          haxe -cp ./compileData -D analyzer-optimize -main Libraries --interp
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
-
       - name: Compile
         run: haxelib run lime build windows -debug
-
       - name: Publish Artifact
         uses: actions/upload-artifact@main
         with:
           name: windowsBuild
           path: export/debug/windows/bin
-
-      - name: Update Cache for Haxelib
+      - name: Uploading new cache
         uses: actions/cache@main
         with:
-          key: cache-haxelib-${{ runner.os }}-${{ hashFiles('**/*.hxml') }}
+          key: cache-build-windows
           path: |
             .haxelib/
-
-      - name: Update Cache for Build Artifacts
-        uses: actions/cache@main
-        with:
-          key: cache-build-${{ runner.os }}-${{ github.sha }}
-          path: |
-            export/debug/windows/
+            export/debug/windows/haxe/
+            export/debug/windows/obj/
+          restore-keys: |
+            cache-build-windows

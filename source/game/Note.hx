@@ -1,6 +1,6 @@
 package game;
 
-class Note extends FlxSprite {
+class Note extends GameSprite {
     public var dir:String = ''; // note direction
     public var type:String = ''; // receptor or plain note
 

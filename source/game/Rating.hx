@@ -6,7 +6,7 @@ typedef RatingData = {
     var hitWindow:Int;
 }
 
-class Rating extends FlxSprite {
+class Rating extends GameSprite {
     public var name:String = '';
     public var score:Int = 350;
     public var hitWindow:Null<Int> = 0;

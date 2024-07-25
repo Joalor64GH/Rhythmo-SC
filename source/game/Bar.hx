@@ -4,7 +4,7 @@ import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
 
-class Bar extends FlxSprite
+class Bar extends GameSprite
 {
 	private var _bgBarBit:BitmapData;
 	private var _bgBarRect:Rectangle;

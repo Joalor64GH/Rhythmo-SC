@@ -20,15 +20,16 @@ class MenuState extends FlxState {
 		add(grid);
 
         logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
-        logo.scale.set(0.25, 0.25);
-        logo.screenCenter(X);
+        logo.scale.set(0.3, 0.3);
+        logo.x = (FlxG.width - logo.width * logo.scale.x) / 2;
+        logo.y = 0;
         add(logo);
 
         grpSelection = new FlxTypedGroup<FlxSprite>();
         add(grpSelection);
 
         for (i in 0...selections.length) {
-            var menuItem:FlxSprite = new FlxSprite(0, i * 200).loadGraphic(Paths.image('title/' + selections[i]));
+            var menuItem:FlxSprite = new FlxSprite(0, i * 160).loadGraphic(Paths.image('title/' + selections[i]));
             menuItem.scale.set(0.3, 0.3);
             menuItem.screenCenter(X);
             menuItem.ID = i;
@@ -45,10 +46,10 @@ class MenuState extends FlxState {
     override function update(elapsed:Float) {
 		super.update(elapsed);
 
-        if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
-            changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+        if (Input.is("up") || Input.is("down"))
+            changeSelection(Input.is("up") ? -1 : 1);
 
-        if (FlxG.keys.justPressed.ENTER) {
+        if (Input.is("accept")) {
             switch (curSelected) {
                 case 0:
                     FlxG.switchState(PlayState.new);
@@ -63,13 +64,15 @@ class MenuState extends FlxState {
     function changeSelection(change:Int = 0) {
         curSelected += change;
 
+        FlxG.sound.play(Paths.sound('scroll'));
+
         if (curSelected < 0)
             curSelected = grpSelection.length - 1;
         if (curSelected >= grpSelection.length)
             curSelected = 0;
 
         grpSelection.forEach((spr:FlxSprite) -> {
-            spr.color = (spr.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
+            spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
         });
     }
 }
