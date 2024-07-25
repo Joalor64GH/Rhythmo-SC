@@ -20,15 +20,11 @@ class Main extends openfl.display.Sprite {
 		addChild(fpsDisplay);
 	}
 
-	public static function updateFramerate(newFramerate:Int)
-	{
-		if (newFramerate > FlxG.updateFramerate)
-		{
+	public static function updateFramerate(newFramerate:Int) {
+		if (newFramerate > FlxG.updateFramerate) {
 			FlxG.updateFramerate = newFramerate;
 			FlxG.drawFramerate = newFramerate;
-		}
-		else
-		{
+		} else {
 			FlxG.drawFramerate = newFramerate;
 			FlxG.updateFramerate = newFramerate;
 		}

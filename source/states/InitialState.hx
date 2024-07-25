@@ -2,6 +2,7 @@ package states;
 
 class InitialState extends FlxState {
     var intro:FlxSprite;
+    var logo:FlxSprite;
 
     override function create() {
         super.create();
@@ -19,16 +20,25 @@ class InitialState extends FlxState {
         intro.alpha = 0;
         add(intro);
 
+        logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
+        logo.scale.set(0.4, 0.4);
+        logo.alpha = 0;
+        add(logo);
+
         FlxTween.tween(intro, {alpha: 1}, 1, {ease: FlxEase.quadOut});
     }
 
     override function update(elapsed:Float) {
 		super.update(elapsed);
 
-        new FlxTimer().start(4, (tmr:FlxTimer) -> {
+        new FlxTimer().start(3, (tmr:FlxTimer) -> {
             FlxTween.tween(intro, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
-            new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
-                FlxG.switchState(MenuState.new);
+            FlxTween.tween(logo, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+            new FlxTimer().start(4.5, (tmr:FlxTimer) -> {
+                FlxTween.tween(logo, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+                new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
+                    FlxG.switchState(MenuState.new);
+                });
             });
         });
 	}

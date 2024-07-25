@@ -5,8 +5,6 @@ class MenuState extends FlxState {
     var grpSelection:FlxTypedGroup<FlxSprite>;
     var selections:Array<String> = ['play', 'options', 'exit'];
 
-    var logo:FlxSprite;
-
     override function create() {
         super.create();
 
@@ -18,12 +16,6 @@ class MenuState extends FlxState {
         var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
 		add(grid);
-
-        logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
-        logo.scale.set(0.3, 0.3);
-        logo.x = (FlxG.width - logo.width * logo.scale.x) / 2;
-        logo.y = 0;
-        add(logo);
 
         grpSelection = new FlxTypedGroup<FlxSprite>();
         add(grpSelection);
