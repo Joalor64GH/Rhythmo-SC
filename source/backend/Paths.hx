@@ -76,6 +76,9 @@ class Paths {
 	inline static public function music(key:String)
 		return file('music/$key.ogg');
 
+	inline static public function song(key:String)
+		return file('songs/$key/music.ogg');
+
 	inline static public function image(key:String)
 		return file('images/$key.png');
 

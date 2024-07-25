@@ -2,6 +2,7 @@ package states;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
+	public static var songMultiplier:Float = 1;
 
 	public var song:SongData;
 	
@@ -35,7 +36,7 @@ class PlayState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		Conductor.bpm = song.bpm;
+		Conductor.changeBPM(song.bpm);
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
 		text.screenCenter();
