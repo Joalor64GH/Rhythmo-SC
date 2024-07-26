@@ -69,8 +69,8 @@ class ChartingState extends ExtendableState {
 		var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
 
-		bpmStepper = new FlxUINumericStepper(FlxG.width - 110, 50, 100, 20, 60, 300, song.bpm, 0, updateBPM);
-		bpmStepper.stepSize = 1;
+		bpmStepper = new FlxUINumericStepper(10, 70, 1, 1, 1, 9999, 3);
+		bpmStepper.value = Conductor.bpm;
 		add(bpmStepper);
 	}
 
@@ -347,10 +347,5 @@ class ChartingState extends ExtendableState {
 			case 3: "right";
 			default: "unknown";
 		}
-	}
-
-	function updateBPM(value:Int):Void {
-		song.bpm = value;
-		Conductor.bpm = value;
 	}
 }
