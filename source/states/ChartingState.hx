@@ -183,7 +183,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.dir)) {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
@@ -195,7 +195,7 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.dir)) {
 				curSelectedNote = sectionNote;
 			}
 
@@ -346,6 +346,16 @@ class ChartingState extends ExtendableState {
 			case 2: "up";
 			case 3: "right";
 			default: "unknown";
+		}
+	}
+
+	function getNoteIndex(direction:String):Int {
+		return switch (direction) {
+			case "left": 0;
+			case "down": 1;
+			case "up": 2;
+			case "right": 3;
+			default: -1;
 		}
 	}
 }
