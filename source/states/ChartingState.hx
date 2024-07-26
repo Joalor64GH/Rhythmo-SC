@@ -183,7 +183,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.direction)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.direction)) {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
@@ -195,7 +195,7 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.direction)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.direction)) {
 				curSelectedNote = sectionNote;
 			}
 
