@@ -69,7 +69,7 @@ class ChartingState extends ExtendableState {
 		var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
 
-		bpmStepper = new FlxUINumericStepper(FlxG.width - 110, 50, 100, 20, 60, 300, song.bpm, 1, updateBPM);
+		bpmStepper = new FlxUINumericStepper(FlxG.width - 110, 50, 100, 20, 60, 300, song.bpm, 0, updateBPM);
 		bpmStepper.stepSize = 1;
 		add(bpmStepper);
 	}
@@ -183,7 +183,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.direction)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.dir)) {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
@@ -195,7 +195,7 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.direction)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getDirection(note.dir)) {
 				curSelectedNote = sectionNote;
 			}
 
