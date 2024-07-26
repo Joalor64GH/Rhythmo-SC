@@ -23,6 +23,7 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
+	<haxelib name="flixel-ui" />
 
 	<haxelib name="hscript" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />

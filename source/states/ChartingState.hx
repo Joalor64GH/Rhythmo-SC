@@ -5,6 +5,7 @@ import game.Note;
 import game.Section;
 import game.Song;
 import flixel.ui.FlxButton;
+import flixel.addons.ui.FlxUINumericStepper;
 
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState;
@@ -40,6 +41,7 @@ class ChartingState extends ExtendableState {
 	var curSelectedNote:NoteData;
 
 	var songInfoText:FlxText;
+	var bpmStepper:FlxUINumericStepper;
 
 	override public function create() {
 		super.create();
@@ -66,6 +68,10 @@ class ChartingState extends ExtendableState {
 
 		var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
+
+		bpmStepper = new FlxUINumericStepper(FlxG.width - 110, 50, 100, 20, 60, 300, song.bpm, 1, updateBPM);
+		bpmStepper.stepSize = 1;
+		add(bpmStepper);
 	}
 
 	override public function update(elapsed:Float) {
@@ -177,7 +183,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == Std.parseInt(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.direction)) {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
@@ -189,11 +195,11 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == Std.parseInt(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.direction)) {
 				curSelectedNote = sectionNote;
 			}
 
-			swagNum += 1;
+			swagNum++;
 		}
 
 		updateGrid();
@@ -208,7 +214,8 @@ class ChartingState extends ExtendableState {
 		renderedNotes.clear();
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			var note:Note = new Note(0, 0, Std.string(sectionNote.noteData % 4), "note");
+			var direction:String = getDirection(sectionNote.noteData % 4);
+			var note:Note = new Note(0, 0, direction, "note");
 
 			note.setGraphicSize(gridSize, gridSize);
 			note.updateHitbox();
@@ -288,7 +295,7 @@ class ChartingState extends ExtendableState {
 	}
 
 	function resetSection(songBeginning:Bool = false):Void {
-	    updateGrid();
+		updateGrid();
 
 		FlxG.sound.music.pause();
 		FlxG.sound.music.time = sectionStartTime();
@@ -330,5 +337,20 @@ class ChartingState extends ExtendableState {
 		} catch (e:Dynamic) {
 			trace("Error saving chart: " + e);
 		}
+	}
+
+	function getDirection(index:Int):String {
+		return switch (index) {
+			case 0: "left";
+			case 1: "down";
+			case 2: "up";
+			case 3: "right";
+			default: "unknown";
+		}
+	}
+
+	function updateBPM(value:Int):Void {
+		song.bpm = value;
+		Conductor.bpm = value;
 	}
 }
