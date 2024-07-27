@@ -34,8 +34,8 @@ class PlayState extends ExtendableState {
 				timeSignature: [4, 4]
 			};
 		}
-		else
-			song = Paths.json("songs/" + song.song.toLowerCase());
+		/*else
+			song = Paths.json("songs/" + song.song.toLowerCase());*/
 
 		instance = this;
 	}
