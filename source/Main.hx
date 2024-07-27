@@ -2,7 +2,7 @@ package;
 
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
-		gameDimensions: [720, 720],
+		gameDimensions: [1280, 720],
 		initialState: InitialState,
 		defaultFPS: 60,
 		skipSplash: true,

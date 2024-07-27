@@ -50,7 +50,7 @@ class Paths {
 	inline public static function getText(path:String):Array<String>
         return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
 
-	static public function getTextFromFile(key:String,):String {
+	static public function getTextFromFile(key:String):String {
 		#if sys
 		if (FileSystem.exists(file(key)))
 			return File.getContent(file(key));

@@ -35,9 +35,9 @@ class Localization {
 	}
 
 	public static function init(config:ApplicationConfig) {
-		directory = config.directory ?? "languages";
-		DEFAULT_LANGUAGE = config.default_language ?? "en";
-
+		directory = config.directory != null ? config.directory : "languages";
+		DEFAULT_LANGUAGE = config.default_language != null ? config.default_language : "en";
+	
 		loadLanguages(config.languages);
 		switchLanguage(DEFAULT_LANGUAGE);
 	}
@@ -84,18 +84,18 @@ class Localization {
 	}
 
 	public static function get(key:String, ?language:String):String {
-		var targetLanguage:String = language ?? currentLanguage;
+		var targetLanguage:String = language != null ? language : currentLanguage;
 		var languageData = data.get(targetLanguage);
-
+	
 		if (data == null) {
 			trace("You haven't initialized the class!");
 			return null;
 		}
-
-		if (data.exists(targetLanguage))
-			if (Reflect.hasField(languageData, key))
-				return Reflect.field(languageData, key);
-
+	
+		if (languageData != null && Reflect.hasField(languageData, key)) {
+			return Reflect.field(languageData, key);
+		}
+	
 		return null;
 	}
 
