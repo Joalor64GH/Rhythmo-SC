@@ -31,6 +31,13 @@
     {
       "name": "hscript",
       "type": "haxelib"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "dir": null,
+      "ref": "38261833590773cb1de34ac5d11e0825696fc340",
+      "url": "https://github.com/FunkinCrew/funkVis"
     }
   ]
 }

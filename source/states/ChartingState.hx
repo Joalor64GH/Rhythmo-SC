@@ -43,10 +43,10 @@ class ChartingState extends ExtendableState {
 	var songInfoText:FlxText;
 	var bpmStepper:FlxUINumericStepper;
 
-	override public function create() {
+	override function create() {
 		super.create();
 
-		loadSong(song.song);
+		loadSong(song.song.toLowerCase());
 
 		beatSnap = Conductor.stepsPerSection;
 
@@ -74,7 +74,7 @@ class ChartingState extends ExtendableState {
 		add(bpmStepper);
 	}
 
-	override public function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (Input.is("exit"))
@@ -329,7 +329,7 @@ class ChartingState extends ExtendableState {
 
 	function saveChart():Void {
 		var serializedData:String = Serializer.run(song);
-		var fileName:String = "assets/data/charts/" + song.song + ".json";
+		var fileName:String = "assets/data/songs/" + song.song + ".json";
 
 		try {
 			File.saveContent(fileName, serializedData);

@@ -34,6 +34,8 @@ class PlayState extends ExtendableState {
 				timeSignature: [4, 4]
 			};
 		}
+		else
+			song = Paths.json("songs/" + song.song.toLowerCase());
 
 		instance = this;
 	}
@@ -78,6 +80,8 @@ class PlayState extends ExtendableState {
 		ratingDisplay.screenCenter();
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
+
+		generateNotes();
 	}
 
 	function resetSongPos()
@@ -118,8 +122,11 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.is("exit"))
+		if (Input.is("exit")) {
 			openSubState(new PauseSubState());
+			persistentUpdate = false;
+			paused = true;
+		}
 
 		if (Input.is("seven")) {
 			ExtendableState.switchState(new ChartingState());
