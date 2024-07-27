@@ -44,6 +44,7 @@ class MenuState extends ExtendableState {
 		if (Input.is("accept")) {
 			switch (curSelected) {
 				case 0:
+					PlayState.instance.song = "Test";
 					ExtendableState.switchState(new PlayState());
 				case 1:
 					ExtendableState.switchState(new OptionsState());
