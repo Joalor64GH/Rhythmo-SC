@@ -329,16 +329,9 @@ class ChartingState extends ExtendableState {
 	}
 
 	function saveChart():Void {
-		var serializedData:String = Serializer.run(song);
-		var fileName:String = "assets/data/songs/" + song.song + ".json";
-
-		try {
-			File.saveContent(fileName, serializedData);
-			trace("Chart saved successfully to " + fileName);
-		} catch (e:Dynamic) {
-			trace("Error saving chart: " + e);
-		}
-	}
+        var chart:String = Json.stringify(song);
+        File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + 'chart.json'), chart);
+    }
 
 	function getDirection(index:Int):String {
 		return switch (index) {

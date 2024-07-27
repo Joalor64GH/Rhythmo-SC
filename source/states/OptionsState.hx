@@ -32,7 +32,7 @@ class OptionsState extends ExtendableState {
 
 			if (i < 3) {
 				var checked:Bool = getOptionState(i);
-				var checker:Checker = new Checker(optionTxt.x + 20, optionTxt.y, checked);
+				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked); // Adjust the x position
 				checkers.add(checker);
 			}
 		}
@@ -59,39 +59,41 @@ class OptionsState extends ExtendableState {
 		}
 
 		if (Input.is("accept")) {
-            switch (options[curSelected]) {
-                #if desktop
-                case "Fullscreen":
-                    SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
-                    FlxG.fullscreen = SaveData.settings.fullscreen;
-                #end
-                case "FPS Counter":
-                    SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
-                    if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
-                case "Antialiasing":
-                    SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
+			switch (options[curSelected]) {
+				#if desktop
+				case "Fullscreen":
+					SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
+					FlxG.fullscreen = SaveData.settings.fullscreen;
+				#end
+				case "FPS Counter":
+					SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
+					if (Main.fpsDisplay != null)
+						Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
+				case "Antialiasing":
+					SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
 				/*
-				case "Controls":
-					ExtendableState.switchState(new ControlsState());
-				*/
+					case "Controls":
+						ExtendableState.switchState(new ControlsState());
+				 */
 				case "Language":
 					openSubState(new LanguageSubState());
-            }
+			}
 
 			updateCheckers();
 			updateText();
-        }
+		}
 
 		if (options[curSelected] == "Framerate") {
-            if (Input.is('right') || Input.is('left')) {
-                FlxG.sound.play(Paths.sound('scroll'));
-                if (!Input.is('left')) SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
-                else SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
-                
-                Main.updateFramerate(SaveData.settings.framerate);
-            }
-        }
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
+				else
+					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
+
+				Main.updateFramerate(SaveData.settings.framerate);
+			}
+		}
 	}
 
 	private function changeSelection(change:Int = 0) {
@@ -129,10 +131,14 @@ class OptionsState extends ExtendableState {
 
 	function getOptionState(index:Int):Bool {
 		switch (index) {
-			case 0: return SaveData.settings.fpsCounter;
-			case 1: return SaveData.settings.fullscreen;
-			case 2: return SaveData.settings.antialiasing;
-			default: return false;
+			case 0:
+				return SaveData.settings.fpsCounter;
+			case 1:
+				return SaveData.settings.fullscreen;
+			case 2:
+				return SaveData.settings.antialiasing;
+			default:
+				return false;
 		}
 	}
 }

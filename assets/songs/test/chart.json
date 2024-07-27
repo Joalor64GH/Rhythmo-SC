@@ -1,6 +1,29 @@
 {
     "song": "Test",
-    "notes": [],
-    "bpm": 100,
+    "notes": [{
+        "sectionNotes": [
+            { "noteStrum": 0.0, "noteData": 0 },
+            { "noteStrum": 1.0, "noteData": 1 },
+            { "noteStrum": 2.0, "noteData": 2 },
+            { "noteStrum": 3.0, "noteData": 3 }
+        ],
+        "bpm": 140,
+        "changeBPM": false,
+        "timeScale": [4, 4],
+        "changeTimeScale": false
+    },
+    {
+        "sectionNotes": [
+            { "noteStrum": 4.0, "noteData": 0 },
+            { "noteStrum": 5.0, "noteData": 1 },
+            { "noteStrum": 6.0, "noteData": 2 },
+            { "noteStrum": 7.0, "noteData": 3 }
+        ],
+        "bpm": 140,
+        "changeBPM": false,
+        "timeScale": [4, 4],
+        "changeTimeScale": false
+    }],
+    "bpm": 140,
     "timeSignature": [4, 4]
 }
