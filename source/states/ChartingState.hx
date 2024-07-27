@@ -4,6 +4,7 @@ import game.Conductor;
 import game.Note;
 import game.Section;
 import game.Song;
+
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUINumericStepper;
 
@@ -70,7 +71,7 @@ class ChartingState extends ExtendableState {
 		add(saveButton);
 
 		bpmStepper = new FlxUINumericStepper(10, 70, 1, 1, 1, 9999, 3);
-		bpmStepper.value = Conductor.bpm;
+		bpmStepper.value = song.bpm;
 		add(bpmStepper);
 	}
 
@@ -142,7 +143,7 @@ class ChartingState extends ExtendableState {
 			+ "\nSection: "
 			+ curSection
 			+ "\nBPM: "
-			+ Conductor.bpm
+			+ song.bpm
 			+ "\nCurStep: "
 			+ curStep
 			+ "\nCurBeat: "

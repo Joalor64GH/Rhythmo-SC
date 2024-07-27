@@ -17,7 +17,7 @@ class TitleState extends ExtendableState {
 
         // will use this later
         /*
-        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
+        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
         add(audio);
         */
 

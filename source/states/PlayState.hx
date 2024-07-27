@@ -18,6 +18,7 @@ class PlayState extends ExtendableState {
 	var ratingDisplay:Rating;
 
 	var score:Int = 0;
+	var misses:Int = 0;
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
 
@@ -33,9 +34,9 @@ class PlayState extends ExtendableState {
 				bpm: 100,
 				timeSignature: [4, 4]
 			};
-		} // idk if i can uncomment this yet
-		/*else
-			song = Json.parse(Paths.file("songs/" + song.song.toLowerCase() + "chart.json"));*/
+		}
+		else
+			song = Json.parse(Paths.file("songs/" + song.song.toLowerCase() + "chart.json"));
 
 		instance = this;
 	}
@@ -55,9 +56,9 @@ class PlayState extends ExtendableState {
 
 		resetSongPos();
 
-		var text = new FlxText(0, 0, 0, "Hello World", 64);
-		text.screenCenter();
-		add(text);
+		var tempBG:FlxSprite = FlxGridOverlay.create(720, 720);
+		tempBG.screenCenter(XY);
+		add(tempBG);
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -74,6 +75,11 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
+		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "Score: 0 // Misses: 0", 20);
+		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.screenCenter(X);
+		add(scoreTxt);
+
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
 		timeBar.y = FlxG.height + 10;
@@ -84,16 +90,20 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
+		FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()));
+		FlxG.sound.music.onComplete = () -> endSong;
+
 		generateNotes();
 	}
 
-	function resetSongPos()
-	{
+	function resetSongPos() {
 		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		scoreTxt.text = 'Score: $score // Misses: $misses';
 
 		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
 			Conductor.songPosition = FlxG.sound.music.time;
@@ -118,6 +128,7 @@ class PlayState extends ExtendableState {
 			note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
+				misses++;
 				notes.remove(note);
 				note.kill();
 				note.destroy();
@@ -245,6 +256,11 @@ class PlayState extends ExtendableState {
 				}
 			}
 		}
+	}
+
+	function endSong() {
+		ExtendableState.switchState(new MenuState());
+		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
 	}
 
 	function generateNotes() {
