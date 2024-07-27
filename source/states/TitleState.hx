@@ -15,6 +15,12 @@ class TitleState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
+        // will use this later
+        /*
+        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
+        add(audio);
+        */
+
 		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
 		logo.scale.set(0.4, 0.4);
         logo.screenCenter();

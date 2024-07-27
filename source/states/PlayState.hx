@@ -33,15 +33,18 @@ class PlayState extends ExtendableState {
 				bpm: 100,
 				timeSignature: [4, 4]
 			};
-		}
+		} // idk if i can uncomment this yet
 		/*else
-			song = Paths.json("songs/" + song.song.toLowerCase());*/
+			song = Json.parse(Paths.file("songs/" + song.song.toLowerCase() + "chart.json"));*/
 
 		instance = this;
 	}
 
 	override function create() {
 		super.create();
+
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 
 		if (songMultiplier < 0.1)
 			songMultiplier = 0.1;
@@ -50,7 +53,7 @@ class PlayState extends ExtendableState {
 		Conductor.recalculateStuff(songMultiplier);
 		Conductor.safeZoneOffset *= songMultiplier;
 
-		// resetSongPos();
+		resetSongPos();
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
 		text.screenCenter();

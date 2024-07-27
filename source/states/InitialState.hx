@@ -16,6 +16,7 @@ class InitialState extends ExtendableState {
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
+		into.screenCenter();
 		intro.alpha = 0;
 		add(intro);
 
