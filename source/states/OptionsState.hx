@@ -32,7 +32,7 @@ class OptionsState extends ExtendableState {
 
 			if (i < 3) {
 				var checked:Bool = getOptionState(i);
-				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked);
+				var checker:Checker = new Checker(optionTxt.x + 20, optionTxt.y, checked);
 				checkers.add(checker);
 			}
 		}
@@ -71,18 +71,32 @@ class OptionsState extends ExtendableState {
                         Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
                 case "Antialiasing":
                     SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
+				/*
+				case "Controls":
+					ExtendableState.switchState(new ControlsState());
+				*/
+				case "Language":
+					openSubState(new LanguageSubState());
             }
 
 			updateCheckers();
 			updateText();
         }
+
+		if (options[curSelected] == "Framerate") {
+            if (Input.is('right') || Input.is('left')) {
+                FlxG.sound.play(Paths.sound('scroll'));
+                if (!Input.is('left')) SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
+                else SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
+                
+                Main.updateFramerate(SaveData.settings.framerate);
+            }
+        }
 	}
 
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
-
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
-
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 		});

@@ -1,3 +1,32 @@
 {
-    "greeting": "Hola mundo!"
+    "memTxt": "Memory: ",
+    "pressEnter": "Press ENTER to Start!",
+
+    "opFPS": "FPS Counter",
+    "opFlScrn": "Fullscreen",
+    "opAnti": "Antialiasing",
+    "opFrm": "Framerate",
+    "opLang": "Language",
+    "opCtrls": "Controls",
+
+    "descFPS": "Toggles the FPS Display. Set to: ",
+    "descFlScrn": "Toggles fullscreen. Set to: ",
+    "descAnti": "Toggles global antialiasing. Set to: ",
+    "descFrm": "Use LEFT/RIGHT to change the framerate (Max 240). Set to: ",
+    "descLang": "Changes the language. Set to: ",
+    "descCtrls": "Edit your controls.",
+
+    "scoreTxt": "Score: ",
+    "missTxt": "Misses: ",
+    "pauseTxt": "PAUSED?",
+    "pauseCtrls": "ENTER - Resume / R - Restart / ESCAPE - Menu",
+
+    "timeTxt": "Time: ",
+    "secTxt": "Section: ",
+    "bpmTxt": "BPM: ",
+    "curSTxt": "CurStep: ",
+    "curBTxt": "CurBeat: ",
+    "snapTxt": "Note Snap: ",
+    "disTxt": "DISABLED",
+    "ctrlArrTxt": "CONTROL + ARROWS"
 }

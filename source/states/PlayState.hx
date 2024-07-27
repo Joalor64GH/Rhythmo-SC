@@ -56,7 +56,7 @@ class PlayState extends ExtendableState {
 
 		resetSongPos();
 
-		var tempBG:FlxSprite = FlxGridOverlay.create(720, 720);
+		var tempBG:FlxSprite = FlxGridOverlay.create(50, 50);
 		tempBG.screenCenter(XY);
 		add(tempBG);
 
@@ -90,7 +90,8 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()));
+		if (!paused)
+			FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
 		FlxG.sound.music.onComplete = () -> endSong;
 
 		generateNotes();
@@ -261,6 +262,8 @@ class PlayState extends ExtendableState {
 	function endSong() {
 		ExtendableState.switchState(new MenuState());
 		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
+		// HighScore.saveScore(song, score);
+		// HighScore.saveScoresToFile();
 	}
 
 	function generateNotes() {

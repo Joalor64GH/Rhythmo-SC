@@ -13,7 +13,7 @@ class InitialState extends ExtendableState {
 			default_language: "en"
 		});
 
-		// HighScore.loadHighScores();
+		// HighScore.load();
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
