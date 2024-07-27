@@ -21,8 +21,8 @@ class MenuState extends ExtendableState {
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, i * 160).loadGraphic(Paths.image('title/' + selections[i]));
-			menuItem.scale.set(0.3, 0.3);
+			var menuItem:FlxSprite = new FlxSprite(0, i * 190).loadGraphic(Paths.image('title/' + selections[i]));
+			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
 			menuItem.ID = i;
 			grpSelection.add(menuItem);
@@ -48,7 +48,11 @@ class MenuState extends ExtendableState {
 				case 1:
 					ExtendableState.switchState(new OptionsState());
 				case 2:
+					#if sys
 					Sys.exit(0);
+					#else
+					System.exit(0);
+					#end
 			}
 		}
 	}

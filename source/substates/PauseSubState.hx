@@ -4,7 +4,7 @@ class PauseSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 		bg.scrollFactor.set();
 		bg.alpha = 0.55;
 		add(bg);
@@ -15,7 +15,7 @@ class PauseSubState extends ExtendableSubState {
 		text.screenCenter();
 		add(text);
 
-		var text2:FlxText = new FlxText(0, text.y + 100, 0, "ENTER - Resume / ESCAPE - Menu", 12);
+		var text2:FlxText = new FlxText(0, text.y + 100, 0, "ENTER - Resume / R - Restart / ESCAPE - Menu", 12);
 		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text2.scrollFactor.set();
 		text2.screenCenter(X);
@@ -27,6 +27,8 @@ class PauseSubState extends ExtendableSubState {
 
 		if (Input.is("exit"))
 			ExtendableState.switchState(new MenuState());
+		else if (Input.is("r"))
+			ExtendableState.resetState();
 		else if (Input.is("accept"))
 			close();
 	}

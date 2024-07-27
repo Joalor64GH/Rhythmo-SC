@@ -13,6 +13,8 @@ class InitialState extends ExtendableState {
 			default_language: "en"
 		});
 
+		// HighScore.loadHighScores();
+
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));

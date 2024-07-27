@@ -22,7 +22,7 @@ class TitleState extends ExtendableState {
         */
 
 		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
-		logo.scale.set(0.4, 0.4);
+		logo.scale.set(0.7, 0.7);
         logo.screenCenter();
         logo.angle = -4;
 		add(logo);
@@ -37,7 +37,7 @@ class TitleState extends ExtendableState {
                 FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
         }, 0);
 
-        var text:FlxText = new FlxText(0, logo.y + 350, 0, "Press ENTER to Start!", 12);
+        var text:FlxText = new FlxText(0, logo.y + 400, 0, "Press ENTER to Start!", 12);
 		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);

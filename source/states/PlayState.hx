@@ -90,7 +90,6 @@ class PlayState extends ExtendableState {
 	function resetSongPos()
 	{
 		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
-		timeBar.value = 0;
 	}
 
 	override function update(elapsed:Float) {
