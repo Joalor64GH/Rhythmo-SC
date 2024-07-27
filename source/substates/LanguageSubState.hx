@@ -25,7 +25,7 @@ class LanguageSubState extends ExtendableSubState {
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
-			grpOptions.add(text);
+			group.add(text);
 		}
 
 		changeSelection();
@@ -58,7 +58,7 @@ class LanguageSubState extends ExtendableSubState {
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, languages.length - 1);
-		grpOptions.forEach(function(txt:FlxText) {
+		group.forEach(function(txt:FlxText) {
 			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
 		});
 	}
