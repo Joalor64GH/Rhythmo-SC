@@ -3,6 +3,7 @@ package backend;
 @:structInit class SaveSettings {
 	public var lang:String = 'en';
 	public var framerate:Int = 60;
+	public var songSpeed:Int = 2;
 	public var antialiasing:Bool = true;
 	public var fpsCounter:Bool = true;
 	#if desktop

@@ -2,6 +2,7 @@ package states;
 
 import game.Song.SongData;
 
+// to-do: maybe add a countdown??
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
 	public static var songMultiplier:Float = 1;
@@ -34,8 +35,7 @@ class PlayState extends ExtendableState {
 				bpm: 100,
 				timeSignature: [4, 4]
 			};
-		}
-		else
+		} else
 			song = Json.parse(Paths.file("songs/" + song.song.toLowerCase() + "chart.json"));
 
 		instance = this;
@@ -92,7 +92,7 @@ class PlayState extends ExtendableState {
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
-		FlxG.sound.music.onComplete = () -> endSong;
+		FlxG.sound.music.onComplete = () -> endSong();
 
 		generateNotes();
 	}
@@ -109,11 +109,10 @@ class PlayState extends ExtendableState {
 		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
 			Conductor.songPosition = FlxG.sound.music.time;
 			timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-		}
-		else
-			Conductor.songPosition += (FlxG.elapsed) * 1000; 
+		} else
+			Conductor.songPosition += (FlxG.elapsed) * 1000;
 
-		if (spawnNotes[0] != null) {
+		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
 				var dunceNote:Note = spawnNotes[0];
 				notes.add(dunceNote);
@@ -286,7 +285,7 @@ class PlayState extends ExtendableState {
 				var swagNote:Note = new Note(strum.x, strum.y, noteDirs[daNoteData], "note");
 				swagNote.scrollFactor.set();
 				swagNote.lastNote = oldNote;
-
+				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
 
 				spawnNotes.push(swagNote);

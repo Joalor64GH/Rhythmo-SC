@@ -1,3 +1,5 @@
 {
-    "songs": []
+    "songs": [
+        {"name": "Test", "diff": "☆☆"}
+    ]
 }

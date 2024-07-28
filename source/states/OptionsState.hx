@@ -1,7 +1,7 @@
 package states;
 
 class OptionsState extends ExtendableState {
-	final options:Array<String> = ["FPS Counter", #if desktop "Fullscreen", #end "Antialiasing", "Framerate", "Language", "Controls"];
+	final options:Array<String> = ["FPS Counter", #if desktop "Fullscreen", #end "Antialiasing", "Framerate", "Song Speed", "Language", "Controls"];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var daText:FlxText;
@@ -32,7 +32,7 @@ class OptionsState extends ExtendableState {
 
 			if (i < 3) {
 				var checked:Bool = getOptionState(i);
-				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked); // Adjust the x position
+				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked);
 				checkers.add(checker);
 			}
 		}
@@ -71,10 +71,8 @@ class OptionsState extends ExtendableState {
 						Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
 				case "Antialiasing":
 					SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
-				/*
-					case "Controls":
-						ExtendableState.switchState(new ControlsState());
-				 */
+				case "Controls":
+					ExtendableState.switchState(new ControlsState());
 				case "Language":
 					openSubState(new LanguageSubState());
 			}
@@ -92,6 +90,14 @@ class OptionsState extends ExtendableState {
 					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
 
 				Main.updateFramerate(SaveData.settings.framerate);
+			}
+		} else if (options[curSelected] == "Song Speed") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
+				else
+					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
 		}
 	}
@@ -114,6 +120,8 @@ class OptionsState extends ExtendableState {
 				daText.text = "Toggles global antialiasing. Set to: " + SaveData.settings.antialiasing;
 			case 3:
 				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
+			case 4:
+				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
 			case 4:
 				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
 			case 5:

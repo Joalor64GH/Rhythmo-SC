@@ -12,7 +12,6 @@ class InitialState extends ExtendableState {
 			directory: "languages",
 			default_language: "en"
 		});
-
 		// HighScore.load();
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
@@ -28,8 +27,12 @@ class InitialState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		new FlxTimer().start(3, (tmr:FlxTimer) -> {
+		if (Input.is("accept"))
 			ExtendableState.switchState(new TitleState());
-		});
+		else {
+			new FlxTimer().start(3, (tmr:FlxTimer) -> {
+				ExtendableState.switchState(new TitleState());
+			});
+		}
 	}
 }

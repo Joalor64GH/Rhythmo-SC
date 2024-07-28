@@ -21,7 +21,7 @@ class LanguageSubState extends ExtendableSubState {
 		add(group);
 
 		for (i in 0...languages.length) {
-			var text:FlxText = new FlxText(0, 400 + (i * 70), 0, languages[i], 32);
+			var text:FlxText = new FlxText(0, 300 + (i * 70), 0, languages[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;

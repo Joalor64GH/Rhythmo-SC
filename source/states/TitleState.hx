@@ -15,7 +15,6 @@ class TitleState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-        // will use this later
         /*
         var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
         add(audio);

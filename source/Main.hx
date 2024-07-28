@@ -1,5 +1,7 @@
 package;
 
+// to-do: add a crash handler (easy)
+
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
