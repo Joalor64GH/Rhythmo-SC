@@ -56,6 +56,11 @@ class PlayState extends ExtendableState {
 
 		resetSongPos();
 
+		speed = SaveData.settings.songSpeed;
+		speed /= songMultiplier;
+		if (speed < 0.1 && songMultiplier > 1)
+			speed = 0.1;
+
 		var tempBG:FlxSprite = FlxGridOverlay.create(50, 50);
 		tempBG.screenCenter(XY);
 		add(tempBG);
@@ -232,6 +237,17 @@ class PlayState extends ExtendableState {
 					doNotHit[getNoteIndex(note.dir)] = true;
 
 					strumline.members[getNoteIndex(note.dir)].press();
+
+					switch (curRating) {
+						case "perfect":
+							score += ratingScores[0];
+						case "nice":
+							score += ratingScores[1];
+						case "okay":
+							score += ratingScores[2];
+						case "no":
+							score += ratingScores[3];
+					}
 
 					ratingDisplay.showCurrentRating();
 					ratingDisplay.screenCenter(X);
