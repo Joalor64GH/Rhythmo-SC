@@ -155,7 +155,7 @@ class ControlsState extends ExtendableState {
 				if (inChange) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
 					if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') && gamepad.anyJustPressed([ANY])
-						&& keyPressed.toString() != NONE) {
+						&& keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (init) {
 							case 0:
 								SaveData.settings.gamepadBinds[0] = keyPressed;

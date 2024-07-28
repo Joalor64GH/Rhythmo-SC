@@ -122,9 +122,9 @@ class OptionsState extends ExtendableState {
 				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
 			case 4:
 				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
-			case 4:
-				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
 			case 5:
+				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+			case 6:
 				daText.text = "Edit your controls.";
 		}
 	}
