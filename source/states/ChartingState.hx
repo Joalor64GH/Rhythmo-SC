@@ -89,7 +89,7 @@ class ChartingState extends ExtendableState {
 
 		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
-			PlayState.instance.song = song;
+			PlayState.song = song;
 		}
 
 		if (FlxG.mouse.x > gridBG.x

@@ -36,7 +36,7 @@ class SongSelectState extends ExtendableState {
     var bottomPanel:FlxSprite;
 
     var titleTxt:FlxText;
-    var panelT:FlxSprite;
+    var topPanel:FlxSprite;
 
     var lerpScore:Int = 0;
     var intendedScore:Int = 0;
