@@ -59,7 +59,12 @@ class SongSelectState extends ExtendableState {
         for (i in 0...songListData.songs.length)
         {
             var newItem:Cover = new Cover();
-            newItem.loadGraphic(Paths.image('selector/thumbnails/' + songListData.songs[i].name.toLowerCase()));
+            try {
+                newItem.loadGraphic(Paths.image('selector/covers/' + songListData.songs[i].name.toLowerCase()));
+            } catch(e) {
+                trace("oops! cover returned null!");
+                newItem.loadGraphic(Paths.image('selector/covers/placeholder'));
+            }
             newItem.scale.set(0.6, 0.6);
             newItem.ID = i;
             coverGrp.add(newItem);
@@ -112,7 +117,7 @@ class SongSelectState extends ExtendableState {
         }
 
         if (Input.is("accept")) {
-            PlayState.instance.song = songListData.songs[currentIndex].name.toLowerCase();
+            PlayState.instance.song = Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
             ExtendableState.switchState(new PlayState());
         }
     }

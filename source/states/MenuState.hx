@@ -57,11 +57,12 @@ class MenuState extends ExtendableState {
 				new FlxTimer().start(1, (tmr:FlxTimer) -> {
 					switch (curSelected) {
 						case 0:
+							// ExtendableState.switchState(new SongSelectState());
 							ExtendableState.switchState(new PlayState());
 						case 1:
 							ExtendableState.switchState(new OptionsState());
 					}
-				})
+				});
 			}
 		}
 	}

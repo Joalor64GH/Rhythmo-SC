@@ -46,7 +46,7 @@ class PlayState extends ExtendableState {
 				timeSignature: [4, 4]
 			};
 		} else
-			song = Json.parse(File.getContent(Paths.file("songs/" + song.song.toLowerCase() + "/chart.json")));
+			song = Song.loadSongfromJson(song.song.toLowerCase());
 
 		instance = this;
 	}
@@ -105,31 +105,28 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new FlxSprite(0, 0, Paths.image('ui/three'));
+		countdown3 = new GameSprite(0, 0, Paths.image('ui/three'));
         countdown3.screenCenter();
         countdown3.visible = false;
         add(countdown3);
 
-        countdown2 = new FlxSprite(0, 0, Paths.image('ui/two'));
+        countdown2 = new GameSprite(0, 0, Paths.image('ui/two'));
         countdown2.screenCenter();
         countdown2.visible = false;
         add(countdown2);
 
-        countdown1 = new FlxSprite(0, 0, Paths.image('ui/one'));
+        countdown1 = new GameSprite(0, 0, Paths.image('ui/one'));
         countdown1.screenCenter();
         countdown1.visible = false;
         add(countdown1);
 
-        go = new FlxSprite(0, 0, Paths.image('ui/go'));
+        go = new GameSprite(0, 0, Paths.image('ui/go'));
         go.screenCenter();
         go.visible = false;
         add(go);
 
-		if (!paused)
-			FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
-		FlxG.sound.music.onComplete = () -> endSong();
-
 		generateNotes();
+		startCountdown();
 	}
 
 	function resetSongPos() {
@@ -137,11 +134,44 @@ class PlayState extends ExtendableState {
 	}
 
 	function startCountdown() {
-		// to-do: add a countdown function idk
+		countdown3.visible = true;
+		FlxG.sound.play(Paths.sound('wis_short'));
+        FlxTween.tween(countdown3, {alpha: 0}, 1, {
+            onComplete: () -> {
+                countdown3.visible = false;
+                countdown2.visible = true;
+				FlxG.sound.play(Paths.sound('wis_short'));
+                FlxTween.tween(countdown2, {alpha: 0}, 1, {
+                    onComplete: () -> {
+                        countdown2.visible = false;
+                        countdown1.visible = true;
+						FlxG.sound.play(Paths.sound('wis_short'));
+                        FlxTween.tween(countdown1, {alpha: 0}, 1, {
+                            onComplete: () -> {
+                                countdown1.visible = false;
+                                go.visible = true;
+								FlxG.sound.play(Paths.sound('wis_long'));
+                                FlxTween.tween(go, {alpha: 0}, 1, {
+                                    onComplete: () -> {
+                                        go.visible = false;
+                                        cDownIsDone = true;
+                                        FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
+										FlxG.sound.music.onComplete = () -> endSong();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (paused || !cDownIsDone)
+            return;
 
 		scoreTxt.text = 'Score: $score // Misses: $misses';
 
@@ -164,7 +194,10 @@ class PlayState extends ExtendableState {
 		for (note in notes) {
 			var strum = strumline.members[getNoteIndex(note.dir)];
 
-			note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
+			if (SaveData.settings.downScroll)
+				note.y = strum.y + (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
+			else
+				note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
 				misses++;

@@ -4,7 +4,6 @@ import game.Conductor;
 import game.Note;
 import game.Section;
 import game.Song;
-
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUINumericStepper;
 
@@ -190,6 +189,10 @@ class ChartingState extends ExtendableState {
 			}
 		}
 
+		renderedNotes.remove(note, true);
+		note.kill();
+		note.destroy();
+
 		updateGrid();
 	}
 
@@ -330,9 +333,14 @@ class ChartingState extends ExtendableState {
 	}
 
 	function saveChart():Void {
-        var chart:String = Json.stringify(song);
-        File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + '/chart.json'), chart);
-    }
+		try {
+			var chart:String = Json.stringify(song);
+			File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + '/chart.json'), chart);
+			trace("chart saved!");
+		} catch (e:Dynamic) {
+			trace("Error while saving chart: " + e);
+		}
+	}
 
 	function getDirection(index:Int):String {
 		return switch (index) {
