@@ -1,10 +1,10 @@
 package states;
 
 typedef BasicData = {
-    var songs:Array<Song>;
+    var songs:Array<SongArray>;
 }
 
-typedef Song = {
+typedef SongArray = {
     var name:String;
     var diff:String;
 }
@@ -33,7 +33,7 @@ class SongSelectState extends ExtendableState {
     var songListData:BasicData;
 
     var panelTxt:FlxText;
-    var panelB:FlxSprite;
+    var bottomPanel:FlxSprite;
 
     var titleTxt:FlxText;
     var panelT:FlxSprite;
@@ -56,8 +56,7 @@ class SongSelectState extends ExtendableState {
         coverGrp = new FlxTypedGroup<Cover>();
         add(coverGrp);
 
-        for (i in 0...songListData.songs.length)
-        {
+        for (i in 0...songListData.songs.length) {
             var newItem:Cover = new Cover();
             try {
                 newItem.loadGraphic(Paths.image('selector/covers/' + songListData.songs[i].name.toLowerCase()));
@@ -70,21 +69,24 @@ class SongSelectState extends ExtendableState {
             coverGrp.add(newItem);
         }
 
-        panelB = new FlxSprite(0, -FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
-		panelB.alpha = 0.6;
-		add(panelB);
+        bottomPanel = new FlxSprite(0, FlxG.height - 100).makeGraphic(FlxG.width, 100, 0xFF000000);
+		bottomPanel.alpha = 0.6;
+		add(bottomPanel);
 
-        panelT = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
-		panelT.alpha = 0.6;
-		add(panelT);
+        topPanel = new FlxSprite().makeGraphic(FlxG.width, 26, FlxColor.BLACK);
+		topPanel.scrollFactor.set();
+		topPanel.alpha = 0.6;
+		add(topPanel);
 
-        panelTxt = new FlxText(panelB.x, panelB.y + 4, FlxG.width, "", 32);
+        panelTxt = new FlxText(bottomPanel.x, bottomPanel.y + 4, FlxG.width, "", 32);
 		panelTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        panelTxt.scrollFactor.set();
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-        titleTxt = new FlxText(panelT.x, panelT.y - 4, FlxG.width, "", 32);
+        titleTxt = new FlxText(topPanel.x, topPanel.y - 4, FlxG.width, "", 32);
 		titleTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        titleTxt.scrollFactor.set();
 		titleTxt.screenCenter(X);
 		add(titleTxt);
 
@@ -117,7 +119,7 @@ class SongSelectState extends ExtendableState {
         }
 
         if (Input.is("accept")) {
-            PlayState.instance.song = game.Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
+            PlayState.song = Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
             ExtendableState.switchState(new PlayState());
         }
     }

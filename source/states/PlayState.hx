@@ -4,12 +4,12 @@ import game.Song.SongData;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
+	public static var song:SongData;
 
 	public static var songMultiplier:Float = 1;
 	public static var chartingMode:Bool = false;
 
 	public var speed:Float = 1;
-	public var song:SongData;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
@@ -95,7 +95,7 @@ class PlayState extends ExtendableState {
 		timeBar.y = FlxG.height - 20;
 		add(timeBar);
 
-		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "Score: 0 // Misses: 0", 20);
+		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
 		add(scoreTxt);
