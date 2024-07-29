@@ -117,7 +117,7 @@ class SongSelectState extends ExtendableState {
         }
 
         if (Input.is("accept")) {
-            PlayState.instance.song = Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
+            PlayState.instance.song = game.Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
             ExtendableState.switchState(new PlayState());
         }
     }
@@ -131,6 +131,6 @@ class SongSelectState extends ExtendableState {
 
         titleTxt.text = songListData.songs[currentIndex].name;
 
-        intendedScore = Highscore.getScore(songListData.songs[currentIndex].name);
+        intendedScore = HighScore.getScore(songListData.songs[currentIndex].name);
     }
 }
