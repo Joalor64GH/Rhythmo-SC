@@ -12,12 +12,12 @@ class InitialState extends ExtendableState {
 			directory: "languages",
 			default_language: "en"
 		});
-		// HighScore.load();
+		HighScore.load();
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
-		if (!WarningState.leftState)
-			ExtendableState.switchState(new WarningState());
+		if (!WarningState.leftState && SaveData.settings.flashing == null)
+			FlxG.switchState(new WarningState());
 
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
 		intro.screenCenter();

@@ -52,13 +52,12 @@ class MenuState extends ExtendableState {
 					#end
 				});
 			} else {
-				FlxG.sound.play(Paths.sound('switch'));
+				FlxG.sound.play(Paths.sound('select'));
 				if (SaveData.settings.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 				new FlxTimer().start(1, (tmr:FlxTimer) -> {
 					switch (curSelected) {
 						case 0:
-							// ExtendableState.switchState(new SongSelectState());
-							ExtendableState.switchState(new PlayState());
+							ExtendableState.switchState(new SongSelectState());
 						case 1:
 							ExtendableState.switchState(new OptionsState());
 					}

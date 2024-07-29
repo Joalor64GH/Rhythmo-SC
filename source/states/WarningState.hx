@@ -14,7 +14,7 @@ class WarningState extends ExtendableState {
 	override function update(elapsed:Float) {
 		if (!leftState) {
 			var accept:Bool = Input.is("accept");
-			if (FlxG.keys.justPressed.ESCAPE || accept) {
+			if (Input.is("exit") || accept) {
 				leftState = true;
 				FlxG.sound.play(Paths.sound('cancel'));
 				FlxTween.tween(bg, {alpha: 0}, 1, {

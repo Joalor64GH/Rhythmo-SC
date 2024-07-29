@@ -4,12 +4,12 @@ import game.Song.SongData;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
+
 	public static var songMultiplier:Float = 1;
+	public static var chartingMode:Bool = false;
 
 	public var speed:Float = 1;
 	public var song:SongData;
-
-	public var chartingMode:Bool = false;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
@@ -25,7 +25,7 @@ class PlayState extends ExtendableState {
 	var timeBar:Bar;
 
 	var paused:Bool = false;
-	var canPause:Bool = false;
+	var canPause:Bool = true;
 
 	var cDown:Int = 3;
 	var cDownIsDone:Bool = false;
@@ -90,15 +90,22 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
+		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
+		timeBar.screenCenter(X);
+		timeBar.y = FlxG.height - 20;
+		add(timeBar);
+
 		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "Score: 0 // Misses: 0", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
 		add(scoreTxt);
 
-		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
-		timeBar.screenCenter(X);
-		timeBar.y = FlxG.height - 20;
-		add(timeBar);
+		var ratingDisplayYPos:Float = 80;
+
+		if (!SaveData.settings,downScroll)
+			ratingDisplayYPos = FlxG.height - 180;
+
+		ratingDisplayYPos -= 20;
 
 		ratingDisplay = new Rating(0, 0);
 		ratingDisplay.screenCenter();
@@ -129,7 +136,6 @@ class PlayState extends ExtendableState {
         go.visible = false;
         add(go);
 
-		generateNotes();
 		startCountdown();
 	}
 
@@ -159,6 +165,7 @@ class PlayState extends ExtendableState {
                                     onComplete: (twn:FlxTween) -> {
                                         go.visible = false;
                                         cDownIsDone = true;
+										generateNotes();
                                         FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
 										FlxG.sound.music.onComplete = () -> endSong();
                                     }
@@ -343,9 +350,14 @@ class PlayState extends ExtendableState {
 	}
 
 	function endSong() {
-		ExtendableState.switchState((chartingMode) ? new ChartingState() : new MenuState());
+		if (chartingMode) {
+			ExtendableState.switchState(new ChartingState());
+			ChartingState.instance.song = song;
+			return false;
+		}
+		ExtendableState.switchState(new MenuState());
 		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
-		// HighScore.saveScore(song.song, score);
+		HighScore.saveScore(song.song, score);
 		canPause = false;
 	}
 
