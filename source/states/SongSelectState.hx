@@ -70,20 +70,20 @@ class SongSelectState extends ExtendableState {
             coverGrp.add(newItem);
         }
 
-        panelB:FlxSprite = new FlxSprite(0, -FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
+        panelB = new FlxSprite(0, -FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
 		panelB.alpha = 0.6;
 		add(panelB);
 
-        panelT:FlxSprite = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
+        panelT = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
 		panelT.alpha = 0.6;
 		add(panelT);
 
-        panelTxt:FlxText = new FlxText(panelB.x, panelB.y + 4, FlxG.width, "", 32);
+        panelTxt = new FlxText(panelB.x, panelB.y + 4, FlxG.width, "", 32);
 		panelTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-        titleTxt:FlxText = new FlxText(panelT.x, panelT.y - 4, FlxG.width, "", 32);
+        titleTxt = new FlxText(panelT.x, panelT.y - 4, FlxG.width, "", 32);
 		titleTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleTxt.screenCenter(X);
 		add(titleTxt);

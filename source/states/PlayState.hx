@@ -359,6 +359,7 @@ class PlayState extends ExtendableState {
 		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
 		HighScore.saveScore(song.song, score);
 		canPause = false;
+		return true;
 	}
 
 	function generateNotes() {
