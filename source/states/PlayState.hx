@@ -105,22 +105,22 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new GameSprite(0, 0, Paths.image('ui/three'));
+		countdown3 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/three'));
         countdown3.screenCenter();
         countdown3.visible = false;
         add(countdown3);
 
-        countdown2 = new GameSprite(0, 0, Paths.image('ui/two'));
+        countdown2 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/two'));
         countdown2.screenCenter();
         countdown2.visible = false;
         add(countdown2);
 
-        countdown1 = new GameSprite(0, 0, Paths.image('ui/one'));
+        countdown1 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/one'));
         countdown1.screenCenter();
         countdown1.visible = false;
         add(countdown1);
 
-        go = new GameSprite(0, 0, Paths.image('ui/go'));
+        go = new GameSprite(0, 0).loadGraphic(Paths.image('ui/go'));
         go.screenCenter();
         go.visible = false;
         add(go);
@@ -137,22 +137,22 @@ class PlayState extends ExtendableState {
 		countdown3.visible = true;
 		FlxG.sound.play(Paths.sound('wis_short'));
         FlxTween.tween(countdown3, {alpha: 0}, 1, {
-            onComplete: () -> {
+            onComplete: (twn:FlxTween) -> {
                 countdown3.visible = false;
                 countdown2.visible = true;
 				FlxG.sound.play(Paths.sound('wis_short'));
                 FlxTween.tween(countdown2, {alpha: 0}, 1, {
-                    onComplete: () -> {
+                    onComplete: (twn:FlxTween) -> {
                         countdown2.visible = false;
                         countdown1.visible = true;
 						FlxG.sound.play(Paths.sound('wis_short'));
                         FlxTween.tween(countdown1, {alpha: 0}, 1, {
-                            onComplete: () -> {
+                            onComplete: (twn:FlxTween) -> {
                                 countdown1.visible = false;
                                 go.visible = true;
 								FlxG.sound.play(Paths.sound('wis_long'));
                                 FlxTween.tween(go, {alpha: 0}, 1, {
-                                    onComplete: () -> {
+                                    onComplete: (twn:FlxTween) -> {
                                         go.visible = false;
                                         cDownIsDone = true;
                                         FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
