@@ -80,7 +80,7 @@ class SongSelectState extends ExtendableState {
 		titleTxt.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         titleTxt.scrollFactor.set();
 		titleTxt.screenCenter(X);
-		add(title);
+		add(titleTxt);
 
         var arrowL:FlxSprite = new FlxSprite(-FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
         arrowL.scrollFactor.set();
