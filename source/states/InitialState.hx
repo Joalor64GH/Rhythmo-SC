@@ -16,8 +16,8 @@ class InitialState extends ExtendableState {
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
-		if (!WarningState.leftState && SaveData.settings.flashing == null)
-			FlxG.switchState(new WarningState());
+		// if (!WarningState.leftState && SaveData.settings.flashing == null)
+			// FlxG.switchState(new WarningState());
 
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
 		intro.screenCenter();
