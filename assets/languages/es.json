@@ -6,6 +6,7 @@
     "opFlScrn": "Fullscreen",
     "opAnti": "Antialiasing",
     "opFrm": "Framerate",
+    "opSpeed": "Song Speed",
     "opLang": "Language",
     "opCtrls": "Controls",
 
@@ -13,8 +14,20 @@
     "descFlScrn": "Toggles fullscreen. Set to: ",
     "descAnti": "Toggles global antialiasing. Set to: ",
     "descFrm": "Use LEFT/RIGHT to change the framerate (Max 240). Set to: ",
+    "descSpeed": "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: ",
     "descLang": "Changes the language. Set to: ",
     "descCtrls": "Edit your controls.",
+
+    "langSelect": "SELECT A LANGUAGE",
+
+    "ctrlGuide1": "Press LEFT/RIGHT to scroll through keys.",
+    "ctrlGuide2": "PRESS ANY KEY TO CONTINUE",
+    "leftKey": "LEFT KEY: ",
+    "downKey": "DOWN KEY: ",
+    "upKey": "UP KEY: ",
+    "rightKey": "RIGHT KEY: ",
+    "acceptKey": "ACCEPT KEY: ",
+    "exitKey": "EXIT KEY: ",
 
     "scoreTxt": "Score: ",
     "missTxt": "Misses: ",

@@ -46,8 +46,8 @@ class TitleState extends ExtendableState {
 		super.update(elapsed);
 
         if (Input.is("accept")) {
-            FlxG.sound.play(Paths.sound('select'));
-            FlxG.camera.flash(FlxColor.WHITE, 1);
+            FlxG.sound.play(Paths.sound('start'));
+            if (SaveData.settings.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
             new FlxTimer().start(1, (tmr:FlxTimer) -> {
                 ExtendableState.switchState(new MenuState());
             });

@@ -42,18 +42,26 @@ class MenuState extends ExtendableState {
 			changeSelection(Input.is("up") ? -1 : 1);
 
 		if (Input.is("accept")) {
-			switch (curSelected) {
-				case 0:
-					// PlayState.instance.song = Json.parse(Paths.file('songs/test/chart.json'));
-					ExtendableState.switchState(new PlayState());
-				case 1:
-					ExtendableState.switchState(new OptionsState());
-				case 2:
+			if (curSelected == 2) {
+				FlxG.sound.play(Paths.sound('cancel'));
+				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
 					#if sys
 					Sys.exit(0);
 					#else
 					System.exit(0);
 					#end
+				});
+			} else {
+				FlxG.sound.play(Paths.sound('switch'));
+				if (SaveData.settings.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+				new FlxTimer().start(1, (tmr:FlxTimer) -> {
+					switch (curSelected) {
+						case 0:
+							ExtendableState.switchState(new PlayState());
+						case 1:
+							ExtendableState.switchState(new OptionsState());
+					}
+				})
 			}
 		}
 	}

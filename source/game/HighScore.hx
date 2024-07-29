@@ -1,43 +1,36 @@
 package game;
 
-class HighScore {
-    public static var songScores:Map<String, Int> = new Map();
+class HighScore { // yes i know this is fnf code, but WHATEVER
+	public static var songScores:Map<String, Int> = new Map();
 
-    public static function saveScore(song:String, score:Int = 0):Void {
-        var formattedSong:String = formatSong(song);
-        if (songScores.exists(formattedSong)) {
-            if (songScores.get(formattedSong) < score) {
-                setScore(formattedSong, score);
-            }
-        } else
-            setScore(formattedSong, score);
-    }
+	public static function saveScore(song:String, score:Int = 0):Void {
+		var daSong:String = formatSong(song);
+		if (songScores.exists(song)) {
+			if (songScores.get(daSong) < score)
+				setScore(daSong, score);
+		} else
+			setScore(daSong, score);
+	}
 
-    static function setScore(song:String, score:Int):Void {
-        songScores.set(song, score);
-        saveScoresToFile();
-    }
+	static function setScore(song:String, score:Int):Void {
+		songScores.set(song, score);
+		FlxG.save.data.songScores = songScores;
+		FlxG.save.flush();
+	}
 
-    public static function formatSong(song:String):String {
-        return song.toLowerCase().replace(" ", "_");
-    }
+	public static function formatSong(song:String):String {
+		return song;
+	}
 
-    public static function getScore(song:String):Int {
-        var formattedSong:String = formatSong(song);
-        if (!songScores.exists(formattedSong))
-            setScore(formattedSong, 0);
-        return songScores.get(formattedSong);
-    }
+	public static function getScore(song:String):Int {
+		if (!songScores.exists(formatSong(song)))
+			setScore(formatSong(song), 0);
 
-    public static function load():Void {
-        if (FileSystem.exists(Paths.json("highScores"))) {
-            var loadedScores:Map<String, Int> = Json.parse(File.getContent(Paths.json("highScores")));
-            songScores = loadedScores;
-        }
-    }
+		return songScores.get(formatSong(song));
+	}
 
-    public static function saveScoresToFile():Void {
-        var serializedData:String = Json.stringify(songScores);
-        File.saveContent(Paths.json("highScores"), serializedData);
-    }
+	public static function load():Void {
+		if (FlxG.save.data.songScores != null)
+			songScores = FlxG.save.data.songScores;
+	}
 }

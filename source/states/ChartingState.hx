@@ -43,6 +43,7 @@ class ChartingState extends ExtendableState {
 
 	var songInfoText:FlxText;
 	var bpmStepper:FlxUINumericStepper;
+	var saveButton:FlxButton;
 
 	override function create() {
 		super.create();
@@ -67,10 +68,10 @@ class ChartingState extends ExtendableState {
 		songInfoText = new FlxText(10, 10, 0, 18);
 		add(songInfoText);
 
-		var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
+		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
 
-		bpmStepper = new FlxUINumericStepper(10, 70, 1, 1, 1, 9999, 3);
+		bpmStepper = new FlxUINumericStepper(saveButton.x, 55, 1, 1, 1, 9999, 3);
 		bpmStepper.value = song.bpm;
 		add(bpmStepper);
 	}
@@ -330,7 +331,7 @@ class ChartingState extends ExtendableState {
 
 	function saveChart():Void {
         var chart:String = Json.stringify(song);
-        File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + 'chart.json'), chart);
+        File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + '/chart.json'), chart);
     }
 
 	function getDirection(index:Int):String {

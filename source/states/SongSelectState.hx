@@ -33,7 +33,13 @@ class SongSelectState extends ExtendableState {
     var songListData:BasicData;
 
     var panelTxt:FlxText;
-    var panel:FlxSprite;
+    var panelB:FlxSprite;
+
+    var titleTxt:FlxText;
+    var panelT:FlxSprite;
+
+    var lerpScore:Int = 0;
+    var intendedScore:Int = 0;
 
     override function create() {
         super.create();
@@ -59,14 +65,23 @@ class SongSelectState extends ExtendableState {
             coverGrp.add(newItem);
         }
 
-        panel:FlxSprite = new FlxSprite(0, -FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
-		panel.alpha = 0.6;
-		add(panel);
+        panelB:FlxSprite = new FlxSprite(0, -FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
+		panelB.alpha = 0.6;
+		add(panelB);
 
-        panelTxt:FlxText = new FlxText(panel.x, panel.y + 4, FlxG.width, "Score: 0 // Difficulty: ☆☆", 32);
+        panelT:FlxSprite = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, 26, FlxColor.BLACK);
+		panelT.alpha = 0.6;
+		add(panelT);
+
+        panelTxt:FlxText = new FlxText(panelB.x, panelB.y + 4, FlxG.width, "", 32);
 		panelTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		panelTxt.screenCenter(X);
 		add(panelTxt);
+
+        titleTxt:FlxText = new FlxText(panelT.x, panelT.y - 4, FlxG.width, "", 32);
+		titleTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleTxt.screenCenter(X);
+		add(titleTxt);
 
         var arrowL:FlxSprite = new FlxSprite(-FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
         arrowL.screenCenter(Y);
@@ -83,6 +98,9 @@ class SongSelectState extends ExtendableState {
     override function update(elapsed:Float) {
         super.update(elapsed);
 
+        lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
+        panelTxt.text = "Score: " + lerpScore + " // Difficulty: " + songListData.songs[currentIndex].diff;
+
         if (Input.is("exit")) {
             ExtendableState.switchState(new MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
@@ -92,6 +110,11 @@ class SongSelectState extends ExtendableState {
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(Input.is("left") ? -1 : 1);
         }
+
+        if (Input.is("accept")) {
+            PlayState.instance.song = songListData.songs[currentIndex].name.toLowerCase();
+            ExtendableState.switchState(new PlayState());
+        }
     }
 
     private function changeSelection(i:Int = 0) {
@@ -100,5 +123,9 @@ class SongSelectState extends ExtendableState {
             item.posX = num++ - currentIndex;
             item.alpha = (item.ID == currentIndex) ? 1 : 0.6;
         }
+
+        titleTxt.text = songListData.songs[currentIndex].name;
+
+        intendedScore = Highscore.getScore(songListData.songs[currentIndex].name);
     }
 }

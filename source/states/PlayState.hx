@@ -2,13 +2,14 @@ package states;
 
 import game.Song.SongData;
 
-// to-do: maybe add a countdown??
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
 	public static var songMultiplier:Float = 1;
 
 	public var speed:Float = 1;
 	public var song:SongData;
+
+	public var chartingMode:Bool = false;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
@@ -24,6 +25,15 @@ class PlayState extends ExtendableState {
 	var timeBar:Bar;
 
 	var paused:Bool = false;
+	var canPause:Bool = false;
+
+	var cDown:Int = 3;
+	var cDownIsDone:Bool = false;
+
+	var countdown3:GameSprite;
+    var countdown2:GameSprite;
+    var countdown1:GameSprite;
+    var go:GameSprite;
 
 	override public function new() {
 		super();
@@ -36,7 +46,7 @@ class PlayState extends ExtendableState {
 				timeSignature: [4, 4]
 			};
 		} else
-			song = Json.parse(Paths.file("songs/" + song.song.toLowerCase() + "chart.json"));
+			song = Json.parse(File.getContent(Paths.file("songs/" + song.song.toLowerCase() + "/chart.json")));
 
 		instance = this;
 	}
@@ -87,13 +97,33 @@ class PlayState extends ExtendableState {
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
-		timeBar.y = FlxG.height + 10;
+		timeBar.y = FlxG.height - 20;
 		add(timeBar);
 
 		ratingDisplay = new Rating(0, 0);
 		ratingDisplay.screenCenter();
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
+
+		countdown3 = new FlxSprite(0, 0, Paths.image('ui/three'));
+        countdown3.screenCenter();
+        countdown3.visible = false;
+        add(countdown3);
+
+        countdown2 = new FlxSprite(0, 0, Paths.image('ui/two'));
+        countdown2.screenCenter();
+        countdown2.visible = false;
+        add(countdown2);
+
+        countdown1 = new FlxSprite(0, 0, Paths.image('ui/one'));
+        countdown1.screenCenter();
+        countdown1.visible = false;
+        add(countdown1);
+
+        go = new FlxSprite(0, 0, Paths.image('ui/go'));
+        go.screenCenter();
+        go.visible = false;
+        add(go);
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
@@ -104,6 +134,10 @@ class PlayState extends ExtendableState {
 
 	function resetSongPos() {
 		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
+	}
+
+	function startCountdown() {
+		// to-do: add a countdown function idk
 	}
 
 	override function update(elapsed:Float) {
@@ -140,7 +174,7 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.is("exit")) {
+		if (Input.is("exit") && canPause) {
 			openSubState(new PauseSubState());
 			persistentUpdate = false;
 			paused = true;
@@ -149,24 +183,21 @@ class PlayState extends ExtendableState {
 		if (Input.is("seven")) {
 			ExtendableState.switchState(new ChartingState());
 			ChartingState.instance.song = song;
+			chartingMode = true;
 		}
 
 		inputFunction();
 	}
 
 	override function openSubState(SubState:FlxSubState) {
-		if (paused)
-			FlxG.sound.music.pause();
-
+		paused = true;
+		FlxG.sound.music.pause();
 		super.openSubState(SubState);
 	}
 
 	override function closeSubState() {
-		if (paused) {
-			FlxG.sound.music.resume();
-			paused = false;
-		}
-
+		paused = false;
+		FlxG.sound.music.resume();
 		super.closeSubState();
 	}
 
@@ -275,10 +306,10 @@ class PlayState extends ExtendableState {
 	}
 
 	function endSong() {
-		ExtendableState.switchState(new MenuState());
+		ExtendableState.switchState((chartingMode) ? new ChartingState() : new MenuState());
 		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
-		// HighScore.saveScore(song, score);
-		// HighScore.saveScoresToFile();
+		// HighScore.saveScore(song.song, score);
+		canPause = false;
 	}
 
 	function generateNotes() {

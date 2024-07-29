@@ -22,8 +22,10 @@ class PauseSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("exit"))
+		if (Input.is("exit")) {
 			ExtendableState.switchState(new MenuState());
+			PlayState.instance.chartingMode = false;
+		}
 		else if (Input.is("r"))
 			ExtendableState.resetState();
 		else if (Input.is("accept"))
