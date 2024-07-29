@@ -30,10 +30,10 @@ class PlayState extends ExtendableState {
 	var cDown:Int = 3;
 	var cDownIsDone:Bool = false;
 
-	var countdown3:GameSprite;
-    var countdown2:GameSprite;
-    var countdown1:GameSprite;
-    var go:GameSprite;
+	var countdown3:FlxSprite;
+    var countdown2:FlxSprite;
+    var countdown1:FlxSprite;
+    var go:FlxSprite;
 
 	override public function new() {
 		super();
@@ -105,22 +105,26 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/three'));
+		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/three'));
+		countdown3.antialiasing = SaveData.settings.antialiasing;
         countdown3.screenCenter();
         countdown3.visible = false;
         add(countdown3);
 
-        countdown2 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/two'));
+        countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/two'));
+		countdown2.antialiasing = SaveData.settings.antialiasing;
         countdown2.screenCenter();
         countdown2.visible = false;
         add(countdown2);
 
-        countdown1 = new GameSprite(0, 0).loadGraphic(Paths.image('ui/one'));
+        countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/one'));
+		countdown1.antialiasing = SaveData.settings.antialiasing;
         countdown1.screenCenter();
         countdown1.visible = false;
         add(countdown1);
 
-        go = new GameSprite(0, 0).loadGraphic(Paths.image('ui/go'));
+        go = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/go'));
+		go.antialiasing = SaveData.settings.antialiasing;
         go.screenCenter();
         go.visible = false;
         add(go);
