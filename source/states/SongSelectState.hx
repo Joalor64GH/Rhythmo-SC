@@ -9,8 +9,7 @@ typedef SongArray = {
     var diff:String;
 }
 
-class Cover extends FlxSprite
-{
+class Cover extends FlxSprite {
     public var lerpSpeed:Float = 6;
     public var posX:Float = 0;
 
@@ -18,8 +17,7 @@ class Cover extends FlxSprite
         return Math.max(min, Math.min(max, value));
     }
 
-    override function update(elapsed:Float)
-    {
+    override function update(elapsed:Float) {
         super.update(elapsed);
         x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, boundTo(elapsed * lerpSpeed, 0, 1));
     }
@@ -36,7 +34,6 @@ class SongSelectState extends ExtendableState {
     var bottomPanel:FlxSprite;
 
     var titleTxt:FlxText;
-    var topPanel:FlxSprite;
 
     var lerpScore:Int = 0;
     var intendedScore:Int = 0;
@@ -73,29 +70,26 @@ class SongSelectState extends ExtendableState {
 		bottomPanel.alpha = 0.6;
 		add(bottomPanel);
 
-        topPanel = new FlxSprite().makeGraphic(FlxG.width, 26, FlxColor.BLACK);
-		topPanel.scrollFactor.set();
-		topPanel.alpha = 0.6;
-		add(topPanel);
-
         panelTxt = new FlxText(bottomPanel.x, bottomPanel.y + 4, FlxG.width, "", 32);
-		panelTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		panelTxt.setFormat(Paths.font("vcr.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         panelTxt.scrollFactor.set();
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-        titleTxt = new FlxText(topPanel.x, topPanel.y - 4, FlxG.width, "", 32);
-		titleTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        titleTxt = new FlxText(0, 0, FlxG.width, "", 32);
+		titleTxt.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         titleTxt.scrollFactor.set();
 		titleTxt.screenCenter(X);
-		add(titleTxt);
+		add(title);
 
         var arrowL:FlxSprite = new FlxSprite(-FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
+        arrowL.scrollFactor.set();
         arrowL.screenCenter(Y);
         arrowL.flipX = true;
         add(arrowL);
 
         var arrowR:FlxSprite = new FlxSprite(FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
+        arrowR.scrollFactor.set();
         arrowR.screenCenter(Y);
         add(arrowR);
 

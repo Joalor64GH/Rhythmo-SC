@@ -14,7 +14,6 @@ class PlayState extends ExtendableState {
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
-
 	var spawnNotes:Array<Note> = [];
 
 	var ratingDisplay:Rating;
@@ -23,6 +22,8 @@ class PlayState extends ExtendableState {
 	var misses:Int = 0;
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
+
+	var camZooming:Bool = false;
 
 	var paused:Bool = false;
 	var canPause:Bool = true;
@@ -71,9 +72,9 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		var tempBG:FlxSprite = FlxGridOverlay.create(50, 50);
-		tempBG.screenCenter(XY);
-		add(tempBG);
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/bg'));
+		bg.screenCenter(XY);
+		add(bg);
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -184,6 +185,8 @@ class PlayState extends ExtendableState {
 		if (paused || !cDownIsDone)
             return;
 
+		camZooming = (FlxG.sound.music.playing) ? true : false;
+
 		scoreTxt.text = 'Score: $score // Misses: $misses';
 
 		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
@@ -231,6 +234,18 @@ class PlayState extends ExtendableState {
 		}
 
 		inputFunction();
+	}
+
+	override function stepHit() {
+		super.stepHit();
+	}
+
+	override function beatHit() {
+		super.beatHit();
+
+		if (camZooming)
+			if (curBeat % 2 == 0)
+				FlxTween.tween(FlxG.camera, {zoom:1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 	}
 
 	override function openSubState(SubState:FlxSubState) {
@@ -355,7 +370,7 @@ class PlayState extends ExtendableState {
 			ChartingState.instance.song = song;
 			return false;
 		}
-		ExtendableState.switchState(new MenuState());
+		ExtendableState.switchState(new SongSelectState());
 		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
 		HighScore.saveScore(song.song, score);
 		canPause = false;
