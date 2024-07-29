@@ -102,7 +102,7 @@ class PlayState extends ExtendableState {
 
 		var ratingDisplayYPos:Float = 80;
 
-		if (!SaveData.settings,downScroll)
+		if (!SaveData.settings.downScroll)
 			ratingDisplayYPos = FlxG.height - 180;
 
 		ratingDisplayYPos -= 20;
