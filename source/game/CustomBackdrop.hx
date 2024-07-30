@@ -5,8 +5,8 @@ class CustomBackdrop extends FlxBackdrop {
 	private var oscillationAmplitude:Float;
 	private var initialY:Float;
 
-	public function new(graphic:Dynamic, repeatX:Bool = true, repeatY:Bool = true, scrollX:Float = 1, scrollY:Float = 1) {
-		super(graphic, repeatX, repeatY, scrollX, scrollY);
+	public function new(graphic:Dynamic) {
+		super(graphic);
 		oscillationSpeed = 1;
 		oscillationAmplitude = 20;
 		initialY = y;

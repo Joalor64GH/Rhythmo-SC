@@ -76,8 +76,10 @@ class PlayState extends ExtendableState {
 		bg.screenCenter(XY);
 		add(bg);
 
+		/*
         var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
         add(audio);
+		*/
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -374,7 +376,7 @@ class PlayState extends ExtendableState {
 			return false;
 		}
 		ExtendableState.switchState(new SongSelectState());
-		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
+		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'));
 		HighScore.saveScore(song.song, score);
 		canPause = false;
 		return true;

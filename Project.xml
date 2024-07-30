@@ -25,7 +25,8 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<haxelib name="funkin.vis"/>
+	<haxelib name="funkin.vis" />
+	<haxelib name="grig.audio" />
 
 	<haxelib name="hscript" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
