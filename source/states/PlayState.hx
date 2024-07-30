@@ -4,24 +4,37 @@ import game.Song.SongData;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState;
+	public static var song:SongData;
+
 	public static var songMultiplier:Float = 1;
+	public static var chartingMode:Bool = false;
 
 	public var speed:Float = 1;
-	public var song:SongData;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
-
 	var spawnNotes:Array<Note> = [];
 
 	var ratingDisplay:Rating;
 
 	var score:Int = 0;
+	var misses:Int = 0;
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
 
+	var camZooming:Bool = false;
+
 	var paused:Bool = false;
+	var canPause:Bool = true;
+
+	var cDown:Int = 3;
+	var cDownIsDone:Bool = false;
+
+	var countdown3:FlxSprite;
+    var countdown2:FlxSprite;
+    var countdown1:FlxSprite;
+    var go:FlxSprite;
 
 	override public function new() {
 		super();
@@ -33,15 +46,17 @@ class PlayState extends ExtendableState {
 				bpm: 100,
 				timeSignature: [4, 4]
 			};
-		}
-		/*else
-			song = Paths.json("songs/" + song.song.toLowerCase());*/
+		} else
+			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
 	}
 
 	override function create() {
 		super.create();
+
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 
 		if (songMultiplier < 0.1)
 			songMultiplier = 0.1;
@@ -50,11 +65,21 @@ class PlayState extends ExtendableState {
 		Conductor.recalculateStuff(songMultiplier);
 		Conductor.safeZoneOffset *= songMultiplier;
 
-		// resetSongPos();
+		resetSongPos();
 
-		var text = new FlxText(0, 0, 0, "Hello World", 64);
-		text.screenCenter();
-		add(text);
+		speed = SaveData.settings.songSpeed;
+		speed /= songMultiplier;
+		if (speed < 0.1 && songMultiplier > 1)
+			speed = 0.1;
+
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/bg'));
+		bg.screenCenter(XY);
+		add(bg);
+
+		/*
+        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
+        add(audio);
+		*/
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -73,36 +98,109 @@ class PlayState extends ExtendableState {
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
-		timeBar.y = FlxG.height + 10;
+		timeBar.y = FlxG.height - 20;
 		add(timeBar);
+
+		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
+		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.screenCenter(X);
+		add(scoreTxt);
+
+		var ratingDisplayYPos:Float = 80;
+
+		if (!SaveData.settings.downScroll)
+			ratingDisplayYPos = FlxG.height - 180;
+
+		ratingDisplayYPos -= 20;
 
 		ratingDisplay = new Rating(0, 0);
 		ratingDisplay.screenCenter();
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		FlxG.sound.playMusic(Paths.song("test" + "/" + "music.ogg"), 1, false);
+		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/three'));
+		countdown3.antialiasing = SaveData.settings.antialiasing;
+        countdown3.screenCenter();
+        countdown3.visible = false;
+        add(countdown3);
 
-		generateNotes();
+        countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/two'));
+		countdown2.antialiasing = SaveData.settings.antialiasing;
+        countdown2.screenCenter();
+        countdown2.visible = false;
+        add(countdown2);
+
+        countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/one'));
+		countdown1.antialiasing = SaveData.settings.antialiasing;
+        countdown1.screenCenter();
+        countdown1.visible = false;
+        add(countdown1);
+
+        go = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/go'));
+		go.antialiasing = SaveData.settings.antialiasing;
+        go.screenCenter();
+        go.visible = false;
+        add(go);
+
+		startCountdown();
 	}
 
-	function resetSongPos()
-	{
+	function resetSongPos() {
 		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
-		timeBar.value = 0;
+	}
+
+	function startCountdown() {
+		countdown3.visible = true;
+		FlxG.sound.play(Paths.sound('wis_short'));
+        FlxTween.tween(countdown3, {alpha: 0}, 1, {
+            onComplete: (twn:FlxTween) -> {
+                countdown3.visible = false;
+                countdown2.visible = true;
+				FlxG.sound.play(Paths.sound('wis_short'));
+                FlxTween.tween(countdown2, {alpha: 0}, 1, {
+                    onComplete: (twn:FlxTween) -> {
+                        countdown2.visible = false;
+                        countdown1.visible = true;
+						FlxG.sound.play(Paths.sound('wis_short'));
+                        FlxTween.tween(countdown1, {alpha: 0}, 1, {
+                            onComplete: (twn:FlxTween) -> {
+                                countdown1.visible = false;
+                                go.visible = true;
+								FlxG.sound.play(Paths.sound('wis_long'));
+                                FlxTween.tween(go, {alpha: 0}, 1, {
+                                    onComplete: (twn:FlxTween) -> {
+                                        go.visible = false;
+                                        cDownIsDone = true;
+										generateNotes();
+                                        FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+										FlxG.sound.music.onComplete = () -> endSong();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		if (paused || !cDownIsDone)
+            return;
+
+		camZooming = (FlxG.sound.music.playing) ? true : false;
+
+		scoreTxt.text = 'Score: $score // Misses: $misses';
+
 		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
 			Conductor.songPosition = FlxG.sound.music.time;
 			timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-		}
-		else
-			Conductor.songPosition += (FlxG.elapsed) * 1000; 
+		} else
+			Conductor.songPosition += (FlxG.elapsed) * 1000;
 
-		if (spawnNotes[0] != null) {
+		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
 				var dunceNote:Note = spawnNotes[0];
 				notes.add(dunceNote);
@@ -115,16 +213,20 @@ class PlayState extends ExtendableState {
 		for (note in notes) {
 			var strum = strumline.members[getNoteIndex(note.dir)];
 
-			note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
+			if (SaveData.settings.downScroll)
+				note.y = strum.y + (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
+			else
+				note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
+				misses++;
 				notes.remove(note);
 				note.kill();
 				note.destroy();
 			}
 		}
 
-		if (Input.is("exit")) {
+		if (Input.is("exit") && canPause) {
 			openSubState(new PauseSubState());
 			persistentUpdate = false;
 			paused = true;
@@ -133,24 +235,33 @@ class PlayState extends ExtendableState {
 		if (Input.is("seven")) {
 			ExtendableState.switchState(new ChartingState());
 			ChartingState.instance.song = song;
+			chartingMode = true;
 		}
 
 		inputFunction();
 	}
 
-	override function openSubState(SubState:FlxSubState) {
-		if (paused)
-			FlxG.sound.music.pause();
+	override function stepHit() {
+		super.stepHit();
+	}
 
+	override function beatHit() {
+		super.beatHit();
+
+		if (camZooming)
+			if (curBeat % 2 == 0)
+				FlxTween.tween(FlxG.camera, {zoom:1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+	}
+
+	override function openSubState(SubState:FlxSubState) {
+		paused = true;
+		FlxG.sound.music.pause();
 		super.openSubState(SubState);
 	}
 
 	override function closeSubState() {
-		if (paused) {
-			FlxG.sound.music.resume();
-			paused = false;
-		}
-
+		paused = false;
+		FlxG.sound.music.resume();
 		super.closeSubState();
 	}
 
@@ -222,6 +333,17 @@ class PlayState extends ExtendableState {
 
 					strumline.members[getNoteIndex(note.dir)].press();
 
+					switch (curRating) {
+						case "perfect":
+							score += ratingScores[0];
+						case "nice":
+							score += ratingScores[1];
+						case "okay":
+							score += ratingScores[2];
+						case "no":
+							score += ratingScores[3];
+					}
+
 					ratingDisplay.showCurrentRating();
 					ratingDisplay.screenCenter(X);
 
@@ -247,6 +369,19 @@ class PlayState extends ExtendableState {
 		}
 	}
 
+	function endSong() {
+		if (chartingMode) {
+			ExtendableState.switchState(new ChartingState());
+			ChartingState.instance.song = song;
+			return false;
+		}
+		ExtendableState.switchState(new SongSelectState());
+		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+		HighScore.saveScore(song.song, score);
+		canPause = false;
+		return true;
+	}
+
 	function generateNotes() {
 		for (section in song.notes) {
 			Conductor.recalculateStuff(songMultiplier);
@@ -267,7 +402,7 @@ class PlayState extends ExtendableState {
 				var swagNote:Note = new Note(strum.x, strum.y, noteDirs[daNoteData], "note");
 				swagNote.scrollFactor.set();
 				swagNote.lastNote = oldNote;
-
+				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
 
 				spawnNotes.push(swagNote);

@@ -1,3 +1,50 @@
 {
-    "greeting": "Hello, world!"
+    "memTxt": "Memory: ",
+    "pressEnter": "Press ENTER to Start!",
+
+    "opFPS": "FPS Counter",
+    "opFlScrn": "Fullscreen",
+    "opAnti": "Antialiasing",
+    "opFrm": "Framerate",
+    "opDwnScrl": "Downscroll",
+    "opFlash": "Flashing Lights",
+    "opSpeed": "Song Speed",
+    "opLang": "Language",
+    "opCtrls": "Controls",
+
+    "descFPS": "Toggles the FPS Display. Set to: ",
+    "descFlScrn": "Toggles fullscreen. Set to: ",
+    "descAnti": "Toggles global antialiasing. Set to: ",
+    "descFrm": "Use LEFT/RIGHT to change the framerate (Max 240). Set to: ",
+    "descDwnScrl": "Toggles downscroll. Set to: ",
+    "descFlash": "Toggles flashing lights. Turn this off if you're photosensitive. Set to: ",
+    "descSpeed": "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: ",
+    "descLang": "Changes the language. Set to: ",
+    "descCtrls": "Edit your controls.",
+
+    "langSelect": "SELECT A LANGUAGE",
+
+    "ctrlGuide1": "Press LEFT/RIGHT to scroll through keys.",
+    "ctrlGuide2": "PRESS ANY KEY TO CONTINUE",
+    "leftKey": "LEFT KEY: ",
+    "downKey": "DOWN KEY: ",
+    "upKey": "UP KEY: ",
+    "rightKey": "RIGHT KEY: ",
+    "acceptKey": "ACCEPT KEY: ",
+    "exitKey": "EXIT KEY: ",
+
+    "diffTxt": "Difficulty: ",
+    "scoreTxt": "Score: ",
+    "missTxt": "Misses: ",
+    "pauseTxt": "PAUSED?",
+    "pauseCtrls": "ENTER - Resume / R - Restart / ESCAPE - Menu",
+
+    "timeTxt": "Time: ",
+    "secTxt": "Section: ",
+    "bpmTxt": "BPM: ",
+    "curSTxt": "CurStep: ",
+    "curBTxt": "CurBeat: ",
+    "snapTxt": "Note Snap: ",
+    "disTxt": "DISABLED",
+    "ctrlArrTxt": "CONTROL + ARROWS"
 }

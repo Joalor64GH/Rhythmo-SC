@@ -13,10 +13,15 @@ class InitialState extends ExtendableState {
 			default_language: "en"
 		});
 		Main.updateFramerate(SaveData.settings.framerate);
+		HighScore.load();
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
+		// if (!WarningState.leftState && SaveData.settings.flashing == null)
+			// FlxG.switchState(new WarningState());
+
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
+		intro.screenCenter();
 		intro.alpha = 0;
 		add(intro);
 
@@ -26,8 +31,12 @@ class InitialState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		new FlxTimer().start(3, (tmr:FlxTimer) -> {
+		if (Input.is("accept"))
 			ExtendableState.switchState(new TitleState());
-		});
+		else {
+			new FlxTimer().start(3, (tmr:FlxTimer) -> {
+				ExtendableState.switchState(new TitleState());
+			});
+		}
 	}
 }

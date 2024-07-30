@@ -42,11 +42,12 @@ class ChartingState extends ExtendableState {
 
 	var songInfoText:FlxText;
 	var bpmStepper:FlxUINumericStepper;
+	var saveButton:FlxButton;
 
 	override function create() {
 		super.create();
 
-		loadSong(song.song.toLowerCase());
+		loadSong(Paths.formatToSongPath(song.song));
 
 		beatSnap = Conductor.stepsPerSection;
 
@@ -66,11 +67,11 @@ class ChartingState extends ExtendableState {
 		songInfoText = new FlxText(10, 10, 0, 18);
 		add(songInfoText);
 
-		var saveButton:FlxButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
+		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
 
-		bpmStepper = new FlxUINumericStepper(10, 70, 1, 1, 1, 9999, 3);
-		bpmStepper.value = Conductor.bpm;
+		bpmStepper = new FlxUINumericStepper(saveButton.x, 55, 1, 1, 1, 9999, 3);
+		bpmStepper.value = song.bpm;
 		add(bpmStepper);
 	}
 
@@ -88,7 +89,7 @@ class ChartingState extends ExtendableState {
 
 		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
-			PlayState.instance.song = song;
+			PlayState.song = song;
 		}
 
 		if (FlxG.mouse.x > gridBG.x
@@ -142,7 +143,7 @@ class ChartingState extends ExtendableState {
 			+ "\nSection: "
 			+ curSection
 			+ "\nBPM: "
-			+ Conductor.bpm
+			+ song.bpm
 			+ "\nCurStep: "
 			+ curStep
 			+ "\nCurBeat: "
@@ -187,6 +188,10 @@ class ChartingState extends ExtendableState {
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
+
+		renderedNotes.remove(note, true);
+		note.kill();
+		note.destroy();
 
 		updateGrid();
 	}
@@ -328,14 +333,12 @@ class ChartingState extends ExtendableState {
 	}
 
 	function saveChart():Void {
-		var serializedData:String = Serializer.run(song);
-		var fileName:String = "assets/data/songs/" + song.song + ".json";
-
 		try {
-			File.saveContent(fileName, serializedData);
-			trace("Chart saved successfully to " + fileName);
+			var chart:String = Json.stringify(song);
+			File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
+			trace("chart saved!");
 		} catch (e:Dynamic) {
-			trace("Error saving chart: " + e);
+			trace("Error while saving chart: " + e);
 		}
 	}
 

@@ -1,7 +1,17 @@
 package states;
 
 class OptionsState extends ExtendableState {
-	final options:Array<String> = ["FPS Counter", #if desktop "Fullscreen", #end "Antialiasing", "Framerate", "Language", "Controls"];
+	final options:Array<String> = [
+		"FPS Counter",
+		#if desktop "Fullscreen", #end
+		"Antialiasing",
+		"Downscroll",
+		"Flashing Lights",
+		"Framerate",
+		"Song Speed",
+		"Language",
+		"Controls"
+	];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var daText:FlxText;
@@ -14,9 +24,10 @@ class OptionsState extends ExtendableState {
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('options/options_bg'));
 		add(bg);
 
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 40);
+        grid.setOscillation(2, 10);
+        add(grid);
 
 		grpOptions = new FlxTypedGroup<FlxText>();
 		add(grpOptions);
@@ -26,11 +37,11 @@ class OptionsState extends ExtendableState {
 
 		for (i in 0...options.length) {
 			var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i], 32);
-			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
 
-			if (i < 3) {
+			if (i < 5) {
 				var checked:Bool = getOptionState(i);
 				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked);
 				checkers.add(checker);
@@ -81,30 +92,56 @@ class OptionsState extends ExtendableState {
 		}
 
 		if (Input.is("accept")) {
-            switch (options[curSelected]) {
-                #if desktop
-                case "Fullscreen":
-                    SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
-                    FlxG.fullscreen = SaveData.settings.fullscreen;
-                #end
-                case "FPS Counter":
-                    SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
-                    if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
-                case "Antialiasing":
-                    SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
-            }
+			switch (options[curSelected]) {
+				#if desktop
+				case "Fullscreen":
+					SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
+					FlxG.fullscreen = SaveData.settings.fullscreen;
+				#end
+				case "FPS Counter":
+					SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
+					if (Main.fpsDisplay != null)
+						Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
+				case "Antialiasing":
+					SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
+				case "Downscroll":
+					SaveData.settings.downScroll = !SaveData.settings.downScroll;
+				case "Flashing Lights":
+					SaveData.settings.flashing = !SaveData.settings.flashing;
+				case "Controls":
+					ExtendableState.switchState(new ControlsState());
+				case "Language":
+					openSubState(new LanguageSubState());
+			}
 
 			updateCheckers();
 			updateText();
-        }
+		}
+
+		if (options[curSelected] == "Framerate") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
+				else
+					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
+
+				Main.updateFramerate(SaveData.settings.framerate);
+			}
+		} else if (options[curSelected] == "Song Speed") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
+				else
+					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
+			}
+		}
 	}
 
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
-
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
-
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 		});
@@ -119,10 +156,16 @@ class OptionsState extends ExtendableState {
 			case 2:
 				daText.text = "Toggles global antialiasing. Set to: " + SaveData.settings.antialiasing;
 			case 3:
-				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
+				daText.text = "Toggles downscroll. Set to: " + SaveData.settings.downScroll;
 			case 4:
-				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+				daText.text = "Toggles flashing lights. Turn this off if you're photosensitive. Set to: " + SaveData.settings.flashing;
 			case 5:
+				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
+			case 6:
+				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
+			case 7:
+				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+			case 8:
 				daText.text = "Edit your controls.";
 		}
 	}
@@ -132,15 +175,26 @@ class OptionsState extends ExtendableState {
 			var checker:Checker = checkers.members[i];
 			checker.checked = getOptionState(i);
 			checker.animation.play((checker.checked) ? "check" : "uncheck");
+			var optionTxt:FlxText = grpOptions.members[i];
+			checker.x = optionTxt.x + optionTxt.width + 20;
+			checker.y = optionTxt.y;
 		}
 	}
 
 	function getOptionState(index:Int):Bool {
 		switch (index) {
-			case 0: return SaveData.settings.fpsCounter;
-			case 1: return SaveData.settings.fullscreen;
-			case 2: return SaveData.settings.antialiasing;
-			default: return false;
+			case 0:
+				return SaveData.settings.fpsCounter;
+			case 1:
+				return SaveData.settings.fullscreen;
+			case 2:
+				return SaveData.settings.antialiasing;
+			case 3:
+				return SaveData.settings.downScroll;
+			case 4:
+				return SaveData.settings.flashing;
+			default:
+				return false;
 		}
 	}
 }

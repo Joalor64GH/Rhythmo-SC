@@ -35,8 +35,7 @@ class Paths {
 	inline static public function exists(asset:String)
 		return FileAssets.exists(asset);
 
-	static public function getPath(folder:Null<String>, file:String)
-	{
+	static public function getPath(folder:Null<String>, file:String) {
 		if (folder == null) folder = DEFAULT_FOLDER;
 		return folder + '/' + file;
 	}
@@ -87,6 +86,17 @@ class Paths {
 
 	inline static public function song(key:String)
 		return file('songs/$key/music.ogg');
+
+	inline static public function formatToSongPath(path:String) {
+		var invalidChars = ~/[~&\\;:<>#]/;
+		var hideChars = ~/[.,'"%?!]/;
+
+		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		return hideChars.split(path).join("").toLowerCase();
+	}
+
+	inline static public function chart(key:String)
+		return file('songs/$key/chart.json');
 
 	inline static public function image(key:String)
 		return file('images/$key.png');

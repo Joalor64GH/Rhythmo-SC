@@ -8,21 +8,20 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		FlxG.mouse.visible = true;
-
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		add(bg);
 
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 40);
+        grid.setOscillation(2, 10);
+        add(grid);
 
 		grpSelection = new FlxTypedGroup<FlxSprite>();
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, i * 160).loadGraphic(Paths.image('title/' + selections[i]));
-			menuItem.scale.set(0.3, 0.3);
+			var menuItem:FlxSprite = new FlxSprite(0, i * 190).loadGraphic(Paths.image('title/' + selections[i]));
+			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
 			menuItem.ID = i;
 			grpSelection.add(menuItem);
@@ -42,14 +41,32 @@ class MenuState extends ExtendableState {
 			changeSelection(Input.is("up") ? -1 : 1);
 
 		if (Input.is("accept")) {
-			switch (curSelected) {
-				case 0:
-					ExtendableState.switchState(new PlayState());
-				case 1:
-					ExtendableState.switchState(new OptionsState());
-				case 2:
+			if (curSelected == 2) {
+				FlxG.sound.play(Paths.sound('cancel'));
+				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
+					#if sys
 					Sys.exit(0);
+					#else
+					System.exit(0);
+					#end
+				});
+			} else {
+				FlxG.sound.play(Paths.sound('select'));
+				if (SaveData.settings.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+				new FlxTimer().start(1, (tmr:FlxTimer) -> {
+					switch (curSelected) {
+						case 0:
+							ExtendableState.switchState(new SongSelectState());
+						case 1:
+							ExtendableState.switchState(new OptionsState());
+					}
+				});
 			}
+		}
+
+		if (Input.is("exit")) {
+			ExtendableState.switchState(new TitleState());
+			FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}
 

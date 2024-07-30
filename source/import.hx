@@ -19,6 +19,7 @@ import flixel.tweens.FlxTween;
 import openfl.Lib;
 import openfl.Assets;
 import openfl.system.System;
+import lime.app.Application;
 
 import haxe.*;
 import haxe.io.Path;

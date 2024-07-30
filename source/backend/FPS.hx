@@ -1,11 +1,8 @@
 package backend;
 
-class FPS extends openfl.text.TextField
-{
+class FPS extends openfl.text.TextField {
 	var times:Array<Float> = [];
-
-	public function new(x:Float, y:Float, color:Int, ?font:String)
-	{
+	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
 
 		text = "";
@@ -17,8 +14,7 @@ class FPS extends openfl.text.TextField
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 12, color);
 		alpha = 0.8; // to see things from the back better
 
-		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
-		{
+		addEventListener(openfl.events.Event.ENTER_FRAME, (_) -> {
 			final now:Float = haxe.Timer.stamp() * 1000;
 			times.push(now);
 			while (times[0] < now - 1000) times.shift();

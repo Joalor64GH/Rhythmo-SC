@@ -38,20 +38,20 @@ class Note extends GameSprite {
 	public function calculateCanBeHit() {
 		if (this != null) {
 			if (shouldHit) {
-				if (y > Conductor.songPosition - Conductor.safeZoneOffset
-					&& y < Conductor.songPosition + Conductor.safeZoneOffset)
+				if (strum > Conductor.songPosition - Conductor.safeZoneOffset
+					&& strum < Conductor.songPosition + Conductor.safeZoneOffset)
 					canBeHit = true;
 				else
 					canBeHit = false;
 			} else {
-				if (y > Conductor.songPosition - Conductor.safeZoneOffset * 0.3
-					&& y < Conductor.songPosition + Conductor.safeZoneOffset * 0.2)
+				if (strum > Conductor.songPosition - Conductor.safeZoneOffset * 0.3
+					&& strum < Conductor.songPosition + Conductor.safeZoneOffset * 0.2)
 					canBeHit = true;
 				else
 					canBeHit = false;
 			}
 
-			if (y < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+			if (strum < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
 				tooLate = true;
 		}
 	}

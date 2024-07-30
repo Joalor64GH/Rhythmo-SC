@@ -1,6 +1,5 @@
 package game;
 
-import flixel.sound.FlxSound;
 import flixel.group.FlxSpriteGroup;
 import funkin.vis.dsp.SpectralAnalyzer;
 
