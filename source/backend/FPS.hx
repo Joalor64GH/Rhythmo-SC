@@ -14,7 +14,7 @@ class FPS extends openfl.text.TextField
 		width = 1280;
 		height = 720;
 		selectable = false;
-		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 18, color);
+		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 12, color);
 		alpha = 0.8; // to see things from the back better
 
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->

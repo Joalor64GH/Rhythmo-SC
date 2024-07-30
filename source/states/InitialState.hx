@@ -12,6 +12,7 @@ class InitialState extends ExtendableState {
 			directory: "languages",
 			default_language: "en"
 		});
+		Main.updateFramerate(SaveData.settings.framerate);
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 

@@ -81,6 +81,8 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
+		FlxG.sound.playMusic(Paths.song("test" + "/" + "music.ogg"), 1, false);
+
 		generateNotes();
 	}
 

@@ -52,6 +52,28 @@ class OptionsState extends ExtendableState {
 		if (Input.is('up') || Input.is('down'))
 			changeSelection(Input.is('up') ? -1 : 1);
 
+		if (Input.is('left')) {
+			switch (options[curSelected]) { 
+				case "Framerate":
+					if (SaveData.settings.framerate != 60) {
+						SaveData.settings.framerate -= 10;
+					}
+					Main.updateFramerate(SaveData.settings.framerate);
+					updateText();
+			}
+		}
+
+		if (Input.is('right')) {
+			switch (options[curSelected]) { 
+				case "Framerate":
+					if (SaveData.settings.framerate != 240) {
+						SaveData.settings.framerate += 10;
+					}
+					Main.updateFramerate(SaveData.settings.framerate);
+					updateText();
+			}
+		}
+
 		if (Input.is('exit')) {
 			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
