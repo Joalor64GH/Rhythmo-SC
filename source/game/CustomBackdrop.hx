@@ -1,6 +1,6 @@
 package game;
 
-class OscillatingBackdrop extends FlxBackdrop {
+class CustomBackdrop extends FlxBackdrop {
 	private var oscillationSpeed:Float;
 	private var oscillationAmplitude:Float;
 	private var initialY:Float;
@@ -14,7 +14,7 @@ class OscillatingBackdrop extends FlxBackdrop {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		var oscillation:Float = Math.sin(FlxG.elapsedTime * oscillationSpeed) * oscillationAmplitude;
+		var oscillation:Float = Math.sin(elapsed * oscillationSpeed) * oscillationAmplitude;
 		y = initialY + oscillation;
 	}
 
