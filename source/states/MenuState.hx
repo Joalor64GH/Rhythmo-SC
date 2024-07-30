@@ -8,14 +8,13 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		FlxG.mouse.visible = true;
-
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		add(bg);
 
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 0);
+        grid.setOscillation(2, 10);
+        add(grid);
 
 		grpSelection = new FlxTypedGroup<FlxSprite>();
 		add(grpSelection);

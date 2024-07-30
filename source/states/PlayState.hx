@@ -47,7 +47,7 @@ class PlayState extends ExtendableState {
 				timeSignature: [4, 4]
 			};
 		} else
-			song = Song.loadSongfromJson(song.song.toLowerCase());
+			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
 	}
@@ -75,6 +75,9 @@ class PlayState extends ExtendableState {
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/bg'));
 		bg.screenCenter(XY);
 		add(bg);
+
+        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
+        add(audio);
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -167,7 +170,7 @@ class PlayState extends ExtendableState {
                                         go.visible = false;
                                         cDownIsDone = true;
 										generateNotes();
-                                        FlxG.sound.playMusic(Paths.song(song.song.toLowerCase()), 1, false);
+                                        FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
 										FlxG.sound.music.onComplete = () -> endSong();
                                     }
                                 });

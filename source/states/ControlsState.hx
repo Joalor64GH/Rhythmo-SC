@@ -15,9 +15,10 @@ class ControlsState extends ExtendableState {
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('options/options_bg'));
 		add(bg);
 
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 0);
+        grid.setOscillation(2, 10);
+        add(grid);
 
 		controllerSpr = new FlxSprite(50, 40).makeGraphic(82, 60, FlxColor.BLACK); // placeholder
 		add(controllerSpr);

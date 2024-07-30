@@ -6,19 +6,19 @@ class TitleState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		// FlxG.sound.playMusic(Paths.music('Rhythmic_Odyssey'));
+        FlxG.mouse.visible = true;
+		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'));
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		add(bg);
 
-        var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+        var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 0);
+        grid.setOscillation(2, 10);
+        add(grid);
 
-        /*
         var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
         add(audio);
-        */
 
 		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
 		logo.scale.set(0.7, 0.7);

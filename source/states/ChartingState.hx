@@ -47,7 +47,7 @@ class ChartingState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		loadSong(song.song.toLowerCase());
+		loadSong(Paths.formatToSongPath(song.song));
 
 		beatSnap = Conductor.stepsPerSection;
 
@@ -335,7 +335,7 @@ class ChartingState extends ExtendableState {
 	function saveChart():Void {
 		try {
 			var chart:String = Json.stringify(song);
-			File.saveContent(Paths.file('songs/' + song.song.toLowerCase() + '/chart.json'), chart);
+			File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
 			trace("chart saved!");
 		} catch (e:Dynamic) {
 			trace("Error while saving chart: " + e);

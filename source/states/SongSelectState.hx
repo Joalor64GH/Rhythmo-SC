@@ -46,9 +46,10 @@ class SongSelectState extends ExtendableState {
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('selector/selector_bg'));
 		add(bg);
 
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		add(grid);
+		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        grid.velocity.set(40, 0);
+        grid.setOscillation(2, 10);
+        add(grid);
 
         coverGrp = new FlxTypedGroup<Cover>();
         add(coverGrp);
@@ -82,15 +83,15 @@ class SongSelectState extends ExtendableState {
 		titleTxt.screenCenter(X);
 		add(titleTxt);
 
-        var arrowL:FlxSprite = new FlxSprite(-FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
+        var arrowL:FlxSprite = new FlxSprite(-FlxG.width + 280, 0).loadGraphic(Paths.image('selector/arrow'));
         arrowL.scrollFactor.set();
-        arrowL.screenCenter(Y);
+        arrowL.screenCenter(X);
         arrowL.flipX = true;
         add(arrowL);
 
-        var arrowR:FlxSprite = new FlxSprite(FlxG.width, 0).loadGraphic(Paths.image('selector/arrow'));
+        var arrowR:FlxSprite = new FlxSprite(FlxG.width - 280, 0).loadGraphic(Paths.image('selector/arrow'));
         arrowR.scrollFactor.set();
-        arrowR.screenCenter(Y);
+        arrowR.screenCenter(X);
         add(arrowR);
 
         changeSelection();
@@ -113,7 +114,7 @@ class SongSelectState extends ExtendableState {
         }
 
         if (Input.is("accept")) {
-            PlayState.song = Song.loadSongfromJson(songListData.songs[currentIndex].name.toLowerCase());
+            PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
             ExtendableState.switchState(new PlayState());
         }
     }
@@ -126,7 +127,6 @@ class SongSelectState extends ExtendableState {
         }
 
         titleTxt.text = songListData.songs[currentIndex].name;
-
         intendedScore = HighScore.getScore(songListData.songs[currentIndex].name);
     }
 }
