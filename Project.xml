@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 
-	<!-- _________________________ Application Settings _________________________ -->
+	<!-- [ Application Settings ] -->
 
 	<app title="Rhythmo" file="Rhythmo" main="Main" version="0.2.5" company="Joalor64" />
 
-	<!-- ____________________________ Window Settings ___________________________ -->
+	<!-- [ Window Settings ]  -->
 
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
-	<!-- _____________________________ Path Settings ____________________________ -->
+	<!-- [ Path Settings ] -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
@@ -19,7 +19,7 @@
 	<source path="source" />
 	<assets path="assets" />
 
-	<!-- _______________________________ Libraries ______________________________ -->
+	<!-- [ Libraries ] -->
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
@@ -31,7 +31,7 @@
 	<haxelib name="hscript" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
-	<!-- ______________________________ Haxedefines _____________________________ -->
+	<!-- [ Defines ] -->
 
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
@@ -39,14 +39,24 @@
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-
-	<haxeflag name="--macro" value="allowPackage('flash')" />
-	<haxeflag name="--macro" value="include('my.pack')" />
+	<haxedef name="HXCPP_CHECK_POINTER" if="desktop release" />
+	<haxedef name="HXCPP_STACK_LINE" if="desktop release" />
+	<haxedef name="HXCPP_STACK_TRACE" if="desktop release" />
+	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
 
-	<!-- _________________________________ Miscellaneous _______________________________ -->
+	<!-- [ Flags ] -->
+
+	<haxeflag name="--macro" value="allowPackage('flash')" />
+	<haxeflag name="--macro" value="include('my.pack')" />
+
+	<!-- [ Icons ] -->
+
+	<icon path="icon.png" />
+
+	<!-- [ Miscellaneous ] -->
 
 	<target id="haxe" tool="linker" if="linux">
 		<lib name="/usr/lib64/libX11.so" if="HXCPP_M64" /> <!-- linux support -->

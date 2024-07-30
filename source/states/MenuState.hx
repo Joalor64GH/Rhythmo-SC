@@ -12,7 +12,7 @@ class MenuState extends ExtendableState {
 		add(bg);
 
 		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-        grid.velocity.set(40, 0);
+        grid.velocity.set(40, 40);
         grid.setOscillation(2, 10);
         add(grid);
 
@@ -62,6 +62,11 @@ class MenuState extends ExtendableState {
 					}
 				});
 			}
+		}
+
+		if (Input.is("exit")) {
+			ExtendableState.switchState(new TitleState());
+			FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}
 

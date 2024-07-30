@@ -376,7 +376,7 @@ class PlayState extends ExtendableState {
 			return false;
 		}
 		ExtendableState.switchState(new SongSelectState());
-		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'));
+		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 		HighScore.saveScore(song.song, score);
 		canPause = false;
 		return true;

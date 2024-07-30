@@ -83,15 +83,15 @@ class SongSelectState extends ExtendableState {
 		titleTxt.screenCenter(X);
 		add(titleTxt);
 
-        var arrowL:FlxSprite = new FlxSprite(-FlxG.width + 280, 0).loadGraphic(Paths.image('selector/arrow'));
+        var arrowL:FlxSprite = new FlxSprite(-FlxG.width + 280, FlxG.height / 2).loadGraphic(Paths.image('selector/arrow'));
         arrowL.scrollFactor.set();
-        arrowL.screenCenter(X);
+        arrowL.scale.set(0.5, 0.5);
         arrowL.flipX = true;
         add(arrowL);
 
-        var arrowR:FlxSprite = new FlxSprite(FlxG.width - 280, 0).loadGraphic(Paths.image('selector/arrow'));
+        var arrowR:FlxSprite = new FlxSprite(FlxG.width - 280, FlxG.height / 2).loadGraphic(Paths.image('selector/arrow'));
         arrowR.scrollFactor.set();
-        arrowR.screenCenter(X);
+        arrowR.scale.set(0.5, 0.5);
         add(arrowR);
 
         changeSelection();
@@ -116,6 +116,7 @@ class SongSelectState extends ExtendableState {
         if (Input.is("accept")) {
             PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
             ExtendableState.switchState(new PlayState());
+            FlxG.sound.music.stop();
         }
     }
 

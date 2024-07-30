@@ -7,13 +7,13 @@ class TitleState extends ExtendableState {
 		super.create();
 
         FlxG.mouse.visible = true;
-		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'));
+		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		add(bg);
 
         var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-        grid.velocity.set(40, 0);
+        grid.velocity.set(40, 40);
         grid.setOscillation(2, 10);
         add(grid);
 
@@ -28,8 +28,7 @@ class TitleState extends ExtendableState {
 
 		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-        new FlxTimer().start(0.01, (timer) ->
-        {
+        new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
             if (logo.angle == -4)
                 FlxTween.angle(logo, logo.angle, 4, 4, {ease: FlxEase.quartInOut});
             if (logo.angle == 4)
