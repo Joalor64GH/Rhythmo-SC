@@ -2,7 +2,7 @@ package game;
 
 import hscript.*;
 
-class Script extends FlxBasic {
+class Hscript extends FlxBasic {
 	public var hscript:Interp;
 
 	public override function new() {

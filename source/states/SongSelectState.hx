@@ -46,10 +46,9 @@ class SongSelectState extends ExtendableState {
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('selector/selector_bg'));
 		add(bg);
 
-		var grid:CustomBackdrop = new CustomBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-        grid.velocity.set(40, 0);
-        grid.setOscillation(2, 10);
-        add(grid);
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+		grid.velocity.set(40, 40);
+		add(grid);
 
         coverGrp = new FlxTypedGroup<Cover>();
         add(coverGrp);
