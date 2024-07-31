@@ -4,10 +4,12 @@ import hscript.*;
 
 class Hscript extends FlxBasic {
 	public var hscript:Interp;
+	public var emulatedHscript:Array<String> = []; // this var is not doing anything
 
-	public override function new() {
+	public override function new(script:String) {
 		super();
 		hscript = new Interp();
+		emulatedHscript.push(script);
 	}
 
 	public function runScript(script:String) {

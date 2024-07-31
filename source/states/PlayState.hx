@@ -50,6 +50,30 @@ class PlayState extends ExtendableState {
 			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
+
+		/**
+		 * Hscript Part
+		 * 
+		 * for this one, i will try to make them can load all .hsc from the chart folder
+		 */
+		var filePushed:Array<String> = [];
+		var folderNeedCheck:Array<String> = [Paths.chart(song.song) + "/"];
+		var hscript:Hscript = new Hscript(null);
+
+		for (folder in folderNeedCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					if(file.endsWith('.hxs') && !filePushed.contains(file))
+					{
+						hscript.runScript(file); // emu thing
+						filePushed.push(file);
+					}
+				}
+			}
+		}
 	}
 
 	override function create() {
