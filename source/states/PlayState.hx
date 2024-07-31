@@ -69,6 +69,8 @@ class PlayState extends ExtendableState {
 					if(file.endsWith('.hxs') && !filePushed.contains(file))
 					{
 						hscript.runScript(file); // emu thing
+						hscript.setVariable("FlxG", flixel.FlxG);
+						hscript.setVariable("PlayState", this);
 						filePushed.push(file);
 					}
 				}
