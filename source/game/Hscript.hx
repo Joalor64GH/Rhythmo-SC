@@ -70,16 +70,15 @@ class Hscript extends FlxBasic {
 		setVariable('ExtendableSubState', ExtendableSubState);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
-		setVariable('FlxColor', FlxColor);
 		setVariable('FlxEase', FlxEase);
 		setVariable('FlxG', FlxG);
-		setVariable('FlxGroup', flixel.group.FlxGroup);
+		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxMath', FlxMath);
 		setVariable('FlxObject', FlxObject);
 		setVariable('FlxSave', FlxSave);
 		setVariable('FlxSound', FlxSound);
 		setVariable('FlxSprite', FlxSprite);
-		setVariable('FlxSpriteGroup', flixel.group.FlxSpriteGroup);
+		setVariable('FlxSpriteGroup', FlxSpriteGroup);
 		setVariable('FlxText', FlxText);
 		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
 		setVariable('FlxTimer', FlxTimer);
@@ -87,6 +86,7 @@ class Hscript extends FlxBasic {
 		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
 		setVariable('game', PlayState.instance);
+		setVariable('Highscore', Highscore);
 		setVariable('Input', Input);
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
