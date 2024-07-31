@@ -73,6 +73,49 @@ class Main extends openfl.display.Sprite {
 			Sys.exit(1);
 		});
 		#end
+
+		Application.current.window.onFocusOut.add(onWindowFocusOut);
+		Application.current.window.onFocusIn.add(onWindowFocusIn);
+	}
+
+	var oldVol:Float = 1.0;
+	var newVol:Float = 0.3;
+
+	var focused:Bool = true;
+	var focusMusicTween:FlxTween;
+
+	function onWindowFocusOut() {
+		focused = false;
+
+		if (Type.getClass(FlxG.state) != PlayState) {
+			oldVol = FlxG.sound.volume;
+			newVol = (oldVol > 0.3) ? 0.3 : (oldVol > 0.1) ? 0.1 : 0;
+
+			trace("Game unfocused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: newVol}, 0.5);
+
+			FlxG.drawFramerate = 30;
+		}
+	}
+
+	function onWindowFocusIn() {
+		new FlxTimer().start(0.2, (tmr:FlxTimer) -> {
+			focused = true;
+		});
+
+		if (Type.getClass(FlxG.state) != PlayState) {
+			trace("Game focused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: oldVol}, 0.5);
+
+			FlxG.drawFramerate = config.defaultFPS;
+		}
 	}
 
 	public static function updateFramerate(newFramerate:Int) {

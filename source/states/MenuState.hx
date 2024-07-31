@@ -40,7 +40,7 @@ class MenuState extends ExtendableState {
 			changeSelection(Input.is("up") ? -1 : 1);
 
 		if (Input.is("accept")) {
-			if (curSelected == 2) {
+			if (selections[curSelected] == 'exit') {
 				FlxG.sound.play(Paths.sound('cancel'));
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
 					#if sys
@@ -54,10 +54,10 @@ class MenuState extends ExtendableState {
 				if (SaveData.settings.flashing)
 					FlxG.camera.flash(FlxColor.WHITE, 1);
 				new FlxTimer().start(1, (tmr:FlxTimer) -> {
-					switch (curSelected) {
-						case 0:
+					switch (selections[curSelected]) {
+						case 'play':
 							ExtendableState.switchState(new SongSelectState());
-						case 1:
+						case 'options':
 							ExtendableState.switchState(new OptionsState());
 					}
 				});

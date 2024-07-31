@@ -3,64 +3,145 @@ package game;
 import hscript.*;
 
 class Hscript extends FlxBasic {
-	public var hscript:Interp;
+	public static var Function_Stop:Dynamic = 1;
+	public static var Function_Continue:Dynamic = 0;
+
+	public var parser:Parser;
+	public var interp:Interp;
+
 	public var emulatedHscript:Array<String> = []; // this var is not doing anything
 
-	public override function new(script:String) {
+	public function new(file:String, ?execute:Bool = true) {
 		super();
-		hscript = new Interp();
+
+		parser = new Parser();
+		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
+
+		interp = new Interp();
+
+		setVariable('this', this);
+		setVariable('import', function(daClass:String, ?asDa:String) {
+			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
+			final className:String = splitClassName.join('.');
+			final daClass:Class<Dynamic> = Type.resolveClass(className);
+			final daEnum:Enum<Dynamic> = Type.resolveEnum(className);
+
+			if (daClass == null && daEnum == null)
+				Lib.application.window.alert('Class / Enum at $className does not exist.', 'Hscript Error!');
+			else {
+				if (daEnum != null) {
+					var daEnumField = {};
+					for (daConstructor in daEnum.getConstructors())
+						Reflect.setField(daEnumField, daConstructor, daEnum.createByName(daConstructor));
+
+					if (asDa != null && asDa != '')
+						setVariable(asDa, daEnumField);
+					else
+						setVariable(splitClassName[splitClassName.length - 1], daEnumField);
+				} else {
+					if (asDa != null && asDa != '')
+						setVariable(asDa, daClass);
+					else
+						setVariable(splitClassName[splitClassName.length - 1], daClass);
+				}
+			}
+		});
+
+		setVariable('Function_Stop', Function_Stop);
+		setVariable('Function_Continue', Function_Continue);
+
+		setVariable('Date', Date);
+		setVariable('DateTools', DateTools);
+		setVariable('EReg', EReg);
+		setVariable('Lambda', Lambda);
+		setVariable('Math', Math);
+		setVariable('Reflect', Reflect);
+		setVariable('Std', Std);
+		setVariable('StringBuf', StringBuf);
+		setVariable('StringTools', StringTools);
+		setVariable('Sys', Sys);
+		setVariable('Type', Type);
+		setVariable('Xml', Xml);
+
+		if (execute)
+			this.execute(file);
+
 		emulatedHscript.push(script);
 	}
 
-	public function runScript(script:String) {
-		var parser = new hscript.Parser();
-
+	public function execute(file:String, ?executeCreate:Bool = true):Void {
 		try {
-			var ast = parser.parseString(script);
+			interp.execute(parser.parseString(Assets.getText(file)));
+		} catch (e:Dynamic)
+			Lib.application.window.alert(e, 'Hscript Error!');
 
-			hscript.execute(ast);
-		} catch (e) {
-			Lib.application.window.alert(e.message, "HSCRIPT ERROR!1111");
-		}
+		trace('Script Loaded Succesfully: $file');
+
+		if (executeCreate)
+			executeFunc('create', []);
 	}
 
-	public function setVariable(name:String, val:Dynamic) {
-		hscript.variables.set(name, val);
+	public function setVariable(name:String, val:Dynamic):Void {
+		if (interp == null)
+			return;
+
+		try {
+			interp.variables.set(name, val);
+		} catch (e:Dynamic)
+			Lib.application.window.alert(e, 'Hscript Error!');
 	}
 
 	public function getVariable(name:String):Dynamic {
-		return hscript.variables.get(name);
-	}
-
-	public function executeFunc(funcName:String, ?args:Array<Any>):Dynamic {
-		if (hscript == null)
+		if (interp == null)
 			return null;
 
-		if (hscript.variables.exists(funcName)) {
-			var func = hscript.variables.get(funcName);
-			if (args == null) {
-				var result = null;
-				try {
-					result = func();
-				} catch (e) {
-					trace('$e');
-				}
-				return result;
-			} else {
-				var result = null;
-				try {
-					result = Reflect.callMethod(null, func, args);
-				} catch (e) {
-					trace('$e');
-				}
-				return result;
-			}
-		}
+		try {
+			return interp.variables.get(name);
+		} catch (e:Dynamic)
+			Lib.application.window.alert(e, 'Hscript Error!');
+
 		return null;
 	}
 
-	public override function destroy() {
+	public function removeVariable(name:String):Void {
+		if (interp == null)
+			return;
+
+		try {
+			interp.variables.remove(name);
+		} catch (e:Dynamic)
+			Lib.application.window.alert(e, 'Hscript Error!');
+	}
+
+	public function existsVariable(name:String):Bool {
+		if (interp == null)
+			return false;
+
+		try {
+			return interp.variables.exists(name);
+		} catch (e:Dynamic)
+			Lib.application.window.alert(e, 'Hscript Error!');
+
+		return false;
+	}
+
+	public function executeFunc(funcName:String, ?args:Array<Dynamic>):Dynamic {
+		if (interp == null)
+			return null;
+
+		if (existsVariable(funcName)) {
+			try {
+				return Reflect.callMethod(this, getVariable(funcName), args == null ? [] : args);
+			} catch (e:Dynamic)
+				Lib.application.window.alert(e, 'Hscript Error!');
+		}
+
+		return null;
+	}
+
+	override function destroy() {
 		super.destroy();
-		hscript = null;
+		parser = null;
+		interp = null;
 	}
 }

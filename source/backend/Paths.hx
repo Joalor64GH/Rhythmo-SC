@@ -99,6 +99,9 @@ class Paths {
 	inline static public function chart(key:String)
 		return file('songs/$key/chart.json');
 
+	inline static public function script(key:String)
+		return file('$key.hxs');
+
 	inline static public function image(key:String)
 		return file('images/$key.png');
 

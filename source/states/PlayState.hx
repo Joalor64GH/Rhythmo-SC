@@ -28,13 +28,14 @@ class PlayState extends ExtendableState {
 	var paused:Bool = false;
 	var canPause:Bool = true;
 
-	var cDown:Int = 3;
 	var cDownIsDone:Bool = false;
 
 	var countdown3:FlxSprite;
 	var countdown2:FlxSprite;
 	var countdown1:FlxSprite;
 	var go:FlxSprite;
+
+	private var scriptArray:Array<Hscript> = [];
 
 	override public function new() {
 		super();
@@ -50,29 +51,6 @@ class PlayState extends ExtendableState {
 			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
-
-		/**
-		 * Hscript Part
-		 * 
-		 * for this one, i will try to make them can load all .hsc from the chart folder
-		 */
-		var filePushed:Array<String> = [];
-
-		var folderNeedCheck:Array<String> = [Paths.file(Paths.formatToSongPath(song.song)) + "/"];
-		var hscript:Hscript = new Hscript(null);
-
-		for (folder in folderNeedCheck) {
-			if (FileSystem.exists(folder)) {
-				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.hxs') && !filePushed.contains(file)) {
-						hscript.runScript(file); // emu thing
-						hscript.setVariable("FlxG", flixel.FlxG);
-						hscript.setVariable("PlayState", this);
-						filePushed.push(file);
-					}
-				}
-			}
-		}
 	}
 
 	override function create() {
@@ -99,11 +77,6 @@ class PlayState extends ExtendableState {
 		bg.screenCenter(XY);
 		add(bg);
 
-		/*
-			var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
-			add(audio);
-		 */
-
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
 
@@ -118,6 +91,10 @@ class PlayState extends ExtendableState {
 			var note:Note = new Note(startX + i * noteWidth, 50, noteDirs[i], "receptor");
 			strumline.add(note);
 		}
+
+		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/scripts')))
+			if (script.endsWith('.hxs'))
+				scriptArray.push(new Hscript(script));
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
@@ -165,6 +142,9 @@ class PlayState extends ExtendableState {
 		go.visible = false;
 		add(go);
 
+		if (Assets.exists(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')))
+			scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')));
+
 		startCountdown();
 	}
 
@@ -173,42 +153,52 @@ class PlayState extends ExtendableState {
 	}
 
 	function startCountdown() {
-		countdown3.visible = true;
-		FlxG.sound.play(Paths.sound('wis_short'));
-		FlxTween.tween(countdown3, {alpha: 0}, 1, {
-			onComplete: (twn:FlxTween) -> {
-				countdown3.visible = false;
-				countdown2.visible = true;
-				FlxG.sound.play(Paths.sound('wis_short'));
-				FlxTween.tween(countdown2, {alpha: 0}, 1, {
-					onComplete: (twn:FlxTween) -> {
-						countdown2.visible = false;
-						countdown1.visible = true;
-						FlxG.sound.play(Paths.sound('wis_short'));
-						FlxTween.tween(countdown1, {alpha: 0}, 1, {
-							onComplete: (twn:FlxTween) -> {
-								countdown1.visible = false;
-								go.visible = true;
-								FlxG.sound.play(Paths.sound('wis_long'));
-								FlxTween.tween(go, {alpha: 0}, 1, {
-									onComplete: (twn:FlxTween) -> {
-										go.visible = false;
-										cDownIsDone = true;
-										generateNotes();
-										FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
-										FlxG.sound.music.onComplete = () -> endSong();
-									}
-								});
-							}
-						});
-					}
-				});
-			}
-		});
+		if (!cDownIsDone) {
+			callOnScripts('startCountdown', []);
+			return;
+		}
+
+		var ret:Dynamic = callOnScripts('startCountdown', []);
+		if (ret != Hscript.Function_Stop) {
+			countdown3.visible = true;
+			FlxG.sound.play(Paths.sound('wis_short'));
+			FlxTween.tween(countdown3, {alpha: 0}, 1, {
+				onComplete: (twn:FlxTween) -> {
+					countdown3.visible = false;
+					countdown2.visible = true;
+					FlxG.sound.play(Paths.sound('wis_short'));
+					FlxTween.tween(countdown2, {alpha: 0}, 1, {
+						onComplete: (twn:FlxTween) -> {
+							countdown2.visible = false;
+							countdown1.visible = true;
+							FlxG.sound.play(Paths.sound('wis_short'));
+							FlxTween.tween(countdown1, {alpha: 0}, 1, {
+								onComplete: (twn:FlxTween) -> {
+									countdown1.visible = false;
+									go.visible = true;
+									FlxG.sound.play(Paths.sound('wis_long'));
+									FlxTween.tween(go, {alpha: 0}, 1, {
+										onComplete: (twn:FlxTween) -> {
+											go.visible = false;
+											cDownIsDone = true;
+											generateNotes();
+											FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+											FlxG.sound.music.onComplete = () -> endSong();
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		callOnScripts('update', [elapsed]);
 
 		if (paused || !cDownIsDone)
 			return;
@@ -264,16 +254,31 @@ class PlayState extends ExtendableState {
 		inputFunction();
 	}
 
+	var lastStepHit:Int = -1;
+	var lastBeatHit:Int = -1;
+
 	override function stepHit() {
 		super.stepHit();
+
+		if (curStep == lastStepHit)
+			return;
+
+		lastStepHit = curStep;
+		callOnScripts('stepHit', [curStep]);
 	}
 
 	override function beatHit() {
 		super.beatHit();
 
+		if (lastBeatHit >= curBeat)
+			return;
+
 		if (camZooming)
 			if (curBeat % 2 == 0)
 				FlxTween.tween(FlxG.camera, {zoom: 1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+
+		lastBeatHit = curBeat;
+		callOnScripts('beatHit', [curBeat]);
 	}
 
 	override function openSubState(SubState:FlxSubState) {
@@ -393,15 +398,18 @@ class PlayState extends ExtendableState {
 	}
 
 	function endSong() {
-		if (chartingMode) {
-			ExtendableState.switchState(new ChartingState());
-			ChartingState.instance.song = song;
-			return false;
+		var ret:Dynamic = callOnScripts('endSong', []);
+		if (ret != Hscript.Function_Stop) {
+			if (chartingMode) {
+				ExtendableState.switchState(new ChartingState());
+				ChartingState.instance.song = song;
+				return false;
+			}
+			ExtendableState.switchState(new SongSelectState());
+			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+			HighScore.saveScore(song.song, score);
+			canPause = false;
 		}
-		ExtendableState.switchState(new SongSelectState());
-		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-		HighScore.saveScore(song.song, score);
-		canPause = false;
 		return true;
 	}
 
@@ -446,5 +454,25 @@ class PlayState extends ExtendableState {
 			case "right": 3;
 			default: -1;
 		}
+	}
+
+	override function destroy() {
+		scriptArray = [];
+		callOnScripts('destroy', []);
+
+		super.destroy();
+	}
+
+	private function callOnScripts(funcName:String, args:Array<Dynamic>):Dynamic {
+		var value:Dynamic = Hscript.Function_Continue;
+
+		for (i in 0...scriptArray.length) {
+			final call:Dynamic = scriptArray[i].executeFunc(funcName, args);
+			final bool:Bool = call == Hscript.Function_Continue;
+			if (!bool && call != null)
+				value = call;
+		}
+
+		return value;
 	}
 }

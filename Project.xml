@@ -50,6 +50,9 @@
 
 	<!-- [ Flags ] -->
 
+	<haxeflag name="-dce no" />
+
+	<haxeflag name="--macro" value="macros.Includes.run()" />
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
 
