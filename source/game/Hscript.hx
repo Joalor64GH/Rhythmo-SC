@@ -63,10 +63,43 @@ class Hscript extends FlxBasic {
 		setVariable('Type', Type);
 		setVariable('Xml', Xml);
 
+		setVariable('Application', Application);
+		setVariable('Conductor', Conductor);
+		setVariable('ExtendableState', ExtendableState);
+		setVariable('ExtendableSubState', ExtendableSubState);
+		setVariable('FlxBar', FlxBar);
+		setVariable('FlxBasic', FlxBasic);
+		setVariable('FlxCamera', FlxCamera);
+		setVariable('FlxColor', FlxColor);
+		setVariable('FlxEase', FlxEase);
+		setVariable('FlxG', FlxG);
+		setVariable('FlxGroup', FlxGroup);
+		setVariable('FlxMath', FlxMath);
+		setVariable('FlxObject', FlxObject);
+		setVariable('FlxSave', FlxSave);
+		setVariable('FlxSound', FlxSound);
+		setVariable('FlxSprite', FlxSprite);
+		setVariable('FlxSpriteGroup', FlxSpriteGroup);
+		setVariable('FlxText', FlxText);
+		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
+		setVariable('FlxTimer', FlxTimer);
+		setVariable('FlxTween', FlxTween);
+		setVariable('FlxTypedGroup', FlxTypedGroup);
+		setVariable('FlxTypedSpriteGroup', FlxTypedSpriteGroup);
+		setVariable('game', PlayState.instance);
+		setVariable('Input', Input);
+		setVariable('Lib', Lib);
+		setVariable('Localization', Localization);
+		setVariable('Main', Main);
+		setVariable('Note', Note);
+		setVariable('Paths', Paths);
+		setVariable('PlayState', PlayState);
+		setVariable('SaveData', SaveData);
+
 		if (execute)
 			this.execute(file);
 
-		emulatedHscript.push(script);
+		emulatedHscript.push(file);
 	}
 
 	public function execute(file:String, ?executeCreate:Bool = true):Void {

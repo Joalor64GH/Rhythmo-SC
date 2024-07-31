@@ -28,7 +28,6 @@
 	<haxelib name="funkin.vis" />
 	<haxelib name="grig.audio" />
 
-	<haxelib name="spine" />
 	<haxelib name="hscript" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
@@ -45,15 +44,13 @@
 	<haxedef name="HXCPP_STACK_TRACE" if="desktop release" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
+	<haxedef name="hscriptPos" />
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
-	<haxedef name="hscriptPos" if="hscript" />
 
 	<!-- [ Flags ] -->
 
 	<haxeflag name="-dce no" />
-
-	<haxeflag name="--macro" value="macros.Includes.run()" />
 	
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
