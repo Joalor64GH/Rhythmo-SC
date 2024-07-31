@@ -86,7 +86,7 @@ class Hscript extends FlxBasic {
 		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
 		setVariable('game', PlayState.instance);
-		setVariable('Highscore', Highscore);
+		setVariable('HighScore', HighScore);
 		setVariable('Input', Input);
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
