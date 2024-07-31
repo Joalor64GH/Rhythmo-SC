@@ -1,0 +1,8 @@
+import('Paths');
+import('flixel.FlxSprite');
+import('states.PlayState');
+
+function create() {
+    var spr:FlxSprite = new FlxSprite(0, 0).makeGraphic(50, 50, 0xFF000000);
+    PlayState.instance.add(spr);
+}

@@ -153,46 +153,38 @@ class PlayState extends ExtendableState {
 	}
 
 	function startCountdown() {
-		if (!cDownIsDone) {
-			callOnScripts('startCountdown', []);
-			return;
-		}
-
-		var ret:Dynamic = callOnScripts('startCountdown', []);
-		if (ret != Hscript.Function_Stop) {
-			countdown3.visible = true;
-			FlxG.sound.play(Paths.sound('wis_short'));
-			FlxTween.tween(countdown3, {alpha: 0}, 1, {
-				onComplete: (twn:FlxTween) -> {
-					countdown3.visible = false;
-					countdown2.visible = true;
-					FlxG.sound.play(Paths.sound('wis_short'));
-					FlxTween.tween(countdown2, {alpha: 0}, 1, {
-						onComplete: (twn:FlxTween) -> {
-							countdown2.visible = false;
-							countdown1.visible = true;
-							FlxG.sound.play(Paths.sound('wis_short'));
-							FlxTween.tween(countdown1, {alpha: 0}, 1, {
-								onComplete: (twn:FlxTween) -> {
-									countdown1.visible = false;
-									go.visible = true;
-									FlxG.sound.play(Paths.sound('wis_long'));
-									FlxTween.tween(go, {alpha: 0}, 1, {
-										onComplete: (twn:FlxTween) -> {
-											go.visible = false;
-											cDownIsDone = true;
-											generateNotes();
-											FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
-											FlxG.sound.music.onComplete = () -> endSong();
-										}
-									});
-								}
-							});
-						}
-					});
-				}
-			});
-		}
+		countdown3.visible = true;
+		FlxG.sound.play(Paths.sound('wis_short'));
+		FlxTween.tween(countdown3, {alpha: 0}, 1, {
+			onComplete: (twn:FlxTween) -> {
+				countdown3.visible = false;
+				countdown2.visible = true;
+				FlxG.sound.play(Paths.sound('wis_short'));
+				FlxTween.tween(countdown2, {alpha: 0}, 1, {
+					onComplete: (twn:FlxTween) -> {
+						countdown2.visible = false;
+						countdown1.visible = true;
+						FlxG.sound.play(Paths.sound('wis_short'));
+						FlxTween.tween(countdown1, {alpha: 0}, 1, {
+							onComplete: (twn:FlxTween) -> {
+								countdown1.visible = false;
+								go.visible = true;
+								FlxG.sound.play(Paths.sound('wis_long'));
+								FlxTween.tween(go, {alpha: 0}, 1, {
+									onComplete: (twn:FlxTween) -> {
+										go.visible = false;
+										cDownIsDone = true;
+										generateNotes();
+										FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+										FlxG.sound.music.onComplete = () -> endSong();
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
 	}
 
 	override function update(elapsed:Float) {
