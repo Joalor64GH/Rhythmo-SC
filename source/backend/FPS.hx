@@ -2,6 +2,7 @@ package backend;
 
 class FPS extends openfl.text.TextField {
 	var times:Array<Float> = [];
+
 	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
 
@@ -17,14 +18,15 @@ class FPS extends openfl.text.TextField {
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) -> {
 			final now:Float = haxe.Timer.stamp() * 1000;
 			times.push(now);
-			while (times[0] < now - 1000) times.shift();
+			while (times[0] < now - 1000)
+				times.shift();
 
 			var mem:Float = System.totalMemory;
 			var memPeak:Float = 0;
-			if (mem > memPeak) memPeak = mem;
-			
-			text = (visible) ? 
-				'FPS: ${times.length}\nMemory: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' : '';
+			if (mem > memPeak)
+				memPeak = mem;
+
+			text = (visible) ? 'FPS: ${times.length}\nMemory: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' : '';
 
 			textColor = (times.length < FlxG.drawFramerate * 0.5) ? 0xFFFF0000 : 0xFFFFFFFF;
 		});

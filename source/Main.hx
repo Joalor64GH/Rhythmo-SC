@@ -2,10 +2,8 @@ package;
 
 #if desktop
 import openfl.events.UncaughtErrorEvent;
-
 import haxe.CallStack;
 import haxe.io.Path;
-
 import sys.io.Process;
 #end
 
@@ -62,7 +60,7 @@ class Main extends openfl.display.Sprite {
 
 				Sys.println(errMsg);
 				Sys.println("Crash dump saved in " + Path.normalize(path));
-			} catch(e:Dynamic) {
+			} catch (e:Dynamic) {
 				Sys.println("Error!\nCouldn't save the crash dump because:\n" + e);
 			}
 

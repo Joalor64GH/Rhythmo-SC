@@ -32,9 +32,9 @@ class PlayState extends ExtendableState {
 	var cDownIsDone:Bool = false;
 
 	var countdown3:FlxSprite;
-    var countdown2:FlxSprite;
-    var countdown1:FlxSprite;
-    var go:FlxSprite;
+	var countdown2:FlxSprite;
+	var countdown1:FlxSprite;
+	var go:FlxSprite;
 
 	override public function new() {
 		super();
@@ -57,17 +57,14 @@ class PlayState extends ExtendableState {
 		 * for this one, i will try to make them can load all .hsc from the chart folder
 		 */
 		var filePushed:Array<String> = [];
+
 		var folderNeedCheck:Array<String> = [Paths.file(Paths.formatToSongPath(song.song)) + "/"];
 		var hscript:Hscript = new Hscript(null);
 
-		for (folder in folderNeedCheck)
-		{
-			if(FileSystem.exists(folder))
-			{
-				for (file in FileSystem.readDirectory(folder))
-				{
-					if(file.endsWith('.hxs') && !filePushed.contains(file))
-					{
+		for (folder in folderNeedCheck) {
+			if (FileSystem.exists(folder)) {
+				for (file in FileSystem.readDirectory(folder)) {
+					if (file.endsWith('.hxs') && !filePushed.contains(file)) {
 						hscript.runScript(file); // emu thing
 						hscript.setVariable("FlxG", flixel.FlxG);
 						hscript.setVariable("PlayState", this);
@@ -103,9 +100,9 @@ class PlayState extends ExtendableState {
 		add(bg);
 
 		/*
-        var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
-        add(audio);
-		*/
+			var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.WHITE);
+			add(audio);
+		 */
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -146,27 +143,27 @@ class PlayState extends ExtendableState {
 
 		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/three'));
 		countdown3.antialiasing = SaveData.settings.antialiasing;
-        countdown3.screenCenter();
-        countdown3.visible = false;
-        add(countdown3);
+		countdown3.screenCenter();
+		countdown3.visible = false;
+		add(countdown3);
 
-        countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/two'));
+		countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/two'));
 		countdown2.antialiasing = SaveData.settings.antialiasing;
-        countdown2.screenCenter();
-        countdown2.visible = false;
-        add(countdown2);
+		countdown2.screenCenter();
+		countdown2.visible = false;
+		add(countdown2);
 
-        countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/one'));
+		countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/one'));
 		countdown1.antialiasing = SaveData.settings.antialiasing;
-        countdown1.screenCenter();
-        countdown1.visible = false;
-        add(countdown1);
+		countdown1.screenCenter();
+		countdown1.visible = false;
+		add(countdown1);
 
-        go = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/go'));
+		go = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/go'));
 		go.antialiasing = SaveData.settings.antialiasing;
-        go.screenCenter();
-        go.visible = false;
-        add(go);
+		go.screenCenter();
+		go.visible = false;
+		add(go);
 
 		startCountdown();
 	}
@@ -178,43 +175,43 @@ class PlayState extends ExtendableState {
 	function startCountdown() {
 		countdown3.visible = true;
 		FlxG.sound.play(Paths.sound('wis_short'));
-        FlxTween.tween(countdown3, {alpha: 0}, 1, {
-            onComplete: (twn:FlxTween) -> {
-                countdown3.visible = false;
-                countdown2.visible = true;
+		FlxTween.tween(countdown3, {alpha: 0}, 1, {
+			onComplete: (twn:FlxTween) -> {
+				countdown3.visible = false;
+				countdown2.visible = true;
 				FlxG.sound.play(Paths.sound('wis_short'));
-                FlxTween.tween(countdown2, {alpha: 0}, 1, {
-                    onComplete: (twn:FlxTween) -> {
-                        countdown2.visible = false;
-                        countdown1.visible = true;
+				FlxTween.tween(countdown2, {alpha: 0}, 1, {
+					onComplete: (twn:FlxTween) -> {
+						countdown2.visible = false;
+						countdown1.visible = true;
 						FlxG.sound.play(Paths.sound('wis_short'));
-                        FlxTween.tween(countdown1, {alpha: 0}, 1, {
-                            onComplete: (twn:FlxTween) -> {
-                                countdown1.visible = false;
-                                go.visible = true;
+						FlxTween.tween(countdown1, {alpha: 0}, 1, {
+							onComplete: (twn:FlxTween) -> {
+								countdown1.visible = false;
+								go.visible = true;
 								FlxG.sound.play(Paths.sound('wis_long'));
-                                FlxTween.tween(go, {alpha: 0}, 1, {
-                                    onComplete: (twn:FlxTween) -> {
-                                        go.visible = false;
-                                        cDownIsDone = true;
+								FlxTween.tween(go, {alpha: 0}, 1, {
+									onComplete: (twn:FlxTween) -> {
+										go.visible = false;
+										cDownIsDone = true;
 										generateNotes();
-                                        FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+										FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
 										FlxG.sound.music.onComplete = () -> endSong();
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        });
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (paused || !cDownIsDone)
-            return;
+			return;
 
 		camZooming = (FlxG.sound.music.playing) ? true : false;
 
@@ -276,7 +273,7 @@ class PlayState extends ExtendableState {
 
 		if (camZooming)
 			if (curBeat % 2 == 0)
-				FlxTween.tween(FlxG.camera, {zoom:1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+				FlxTween.tween(FlxG.camera, {zoom: 1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 	}
 
 	override function openSubState(SubState:FlxSubState) {

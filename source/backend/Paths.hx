@@ -36,7 +36,8 @@ class Paths {
 		return FileAssets.exists(asset);
 
 	static public function getPath(folder:Null<String>, file:String) {
-		if (folder == null) folder = DEFAULT_FOLDER;
+		if (folder == null)
+			folder = DEFAULT_FOLDER;
 		return folder + '/' + file;
 	}
 
@@ -47,14 +48,14 @@ class Paths {
 	}
 
 	inline public static function getText(path:String):Array<String>
-        return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
+		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
 
 	static public function getTextFromFile(key:String):String {
 		#if sys
 		if (FileSystem.exists(file(key)))
 			return File.getContent(file(key));
 		#end
-		
+
 		return (Assets.exists(file(key))) ? Assets.getText(file(key)) : null;
 	}
 

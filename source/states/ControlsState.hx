@@ -5,7 +5,7 @@ class ControlsState extends ExtendableState {
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
-	
+
 	var text1:FlxText;
 	var text2:FlxText;
 
@@ -154,7 +154,9 @@ class ControlsState extends ExtendableState {
 
 				if (inChange) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-					if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') && gamepad.anyJustPressed([ANY])
+					if (!Input.gamepadIs('gamepad_accept')
+						&& !Input.gamepadIs('gamepad_exit')
+						&& gamepad.anyJustPressed([ANY])
 						&& keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (init) {
 							case 0:

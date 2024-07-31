@@ -2,7 +2,6 @@ package game;
 
 import game.Conductor.BPMChangeEvent;
 import game.Conductor.TimeScaleChangeEvent;
-
 import flixel.addons.transition.FlxTransitionableState;
 
 class ExtendableState extends FlxState {
@@ -19,8 +18,7 @@ class ExtendableState extends FlxState {
 			cam.fade(FlxColor.BLACK, 0.7, true, function() {
 				FlxTransitionableState.skipNextTransOut = false;
 			});
-		}
-		else
+		} else
 			FlxTransitionableState.skipNextTransOut = false;
 	}
 

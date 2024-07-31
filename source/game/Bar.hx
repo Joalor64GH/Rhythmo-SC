@@ -4,8 +4,7 @@ import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
 
-class Bar extends GameSprite
-{
+class Bar extends GameSprite {
 	private var _bgBarBit:BitmapData;
 	private var _bgBarRect:Rectangle;
 	private var _zeroOffset:Point;
@@ -19,8 +18,7 @@ class Bar extends GameSprite
 
 	public var value:Float = 0;
 
-	public function new(x:Float = 0, y:Float = 0, width:Int = 100, height:Int = 10, bgColor:FlxColor, fgColor:FlxColor)
-	{
+	public function new(x:Float = 0, y:Float = 0, width:Int = 100, height:Int = 10, bgColor:FlxColor, fgColor:FlxColor) {
 		super(x, y);
 
 		this.barWidth = width;
@@ -41,8 +39,7 @@ class Bar extends GameSprite
 		makeGraphic(width, height, FlxColor.TRANSPARENT, true);
 	}
 
-	override public function destroy()
-	{
+	override public function destroy() {
 		_bgBarBit = null;
 		Paths.disposeBitmap("bgBarBitmap");
 		_bgBarRect = null;
@@ -56,8 +53,7 @@ class Bar extends GameSprite
 		super.destroy();
 	}
 
-	override public function update(elapsed:Float)
-	{
+	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
 		pixels.copyPixels(_bgBarBit, _bgBarRect, _zeroOffset);

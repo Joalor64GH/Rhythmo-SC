@@ -64,8 +64,7 @@ class Conductor {
 
 			if (song.notes[i].changeTimeScale
 				&& song.notes[i].timeScale[0] != curTimeScale[0]
-				&& song.notes[i].timeScale[1] != curTimeScale[1])
-			{
+				&& song.notes[i].timeScale[1] != curTimeScale[1]) {
 				curTimeScale = song.notes[i].timeScale;
 
 				var event:TimeScaleChangeEvent = {

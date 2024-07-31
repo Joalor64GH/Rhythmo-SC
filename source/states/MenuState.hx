@@ -42,7 +42,6 @@ class MenuState extends ExtendableState {
 		if (Input.is("accept")) {
 			if (curSelected == 2) {
 				FlxG.sound.play(Paths.sound('cancel'));
-				// FlxG.sound.music.fadeOut(0.3);
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
 					#if sys
 					Sys.exit(0);
@@ -52,7 +51,8 @@ class MenuState extends ExtendableState {
 				});
 			} else {
 				FlxG.sound.play(Paths.sound('select'));
-				if (SaveData.settings.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
+				if (SaveData.settings.flashing)
+					FlxG.camera.flash(FlxColor.WHITE, 1);
 				new FlxTimer().start(1, (tmr:FlxTimer) -> {
 					switch (curSelected) {
 						case 0:

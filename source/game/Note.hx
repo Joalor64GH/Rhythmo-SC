@@ -38,8 +38,7 @@ class Note extends GameSprite {
 	public function calculateCanBeHit() {
 		if (this != null) {
 			if (shouldHit) {
-				if (strum > Conductor.songPosition - Conductor.safeZoneOffset
-					&& strum < Conductor.songPosition + Conductor.safeZoneOffset)
+				if (strum > Conductor.songPosition - Conductor.safeZoneOffset && strum < Conductor.songPosition + Conductor.safeZoneOffset)
 					canBeHit = true;
 				else
 					canBeHit = false;

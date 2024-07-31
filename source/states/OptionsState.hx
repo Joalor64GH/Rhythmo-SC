@@ -62,32 +62,24 @@ class OptionsState extends ExtendableState {
 		if (Input.is('up') || Input.is('down'))
 			changeSelection(Input.is('up') ? -1 : 1);
 
-		if (Input.is('left')) {
-			switch (options[curSelected]) { 
-				case "Framerate":
-					if (SaveData.settings.framerate != 60) {
-						SaveData.settings.framerate -= 10;
-					}
-					Main.updateFramerate(SaveData.settings.framerate);
-					updateText();
-			}
-		}
+		if (options[curSelected] == "Framerate") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
+				else
+					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
 
-		if (Input.is('right')) {
-			switch (options[curSelected]) { 
-				case "Framerate":
-					if (SaveData.settings.framerate != 240) {
-						SaveData.settings.framerate += 10;
-					}
-					Main.updateFramerate(SaveData.settings.framerate);
-					updateText();
+				Main.updateFramerate(SaveData.settings.framerate);
 			}
-		}
-
-		if (Input.is('exit')) {
-			ExtendableState.switchState(new MenuState());
-			FlxG.sound.play(Paths.sound('cancel'));
-			SaveData.saveSettings();
+		} else if (options[curSelected] == "Song Speed") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
+				else
+					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
+			}
 		}
 
 		if (Input.is("accept")) {
@@ -117,24 +109,10 @@ class OptionsState extends ExtendableState {
 			updateText();
 		}
 
-		if (options[curSelected] == "Framerate") {
-			if (Input.is('right') || Input.is('left')) {
-				FlxG.sound.play(Paths.sound('scroll'));
-				if (!Input.is('left'))
-					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
-				else
-					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
-
-				Main.updateFramerate(SaveData.settings.framerate);
-			}
-		} else if (options[curSelected] == "Song Speed") {
-			if (Input.is('right') || Input.is('left')) {
-				FlxG.sound.play(Paths.sound('scroll'));
-				if (!Input.is('left'))
-					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
-				else
-					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
-			}
+		if (Input.is('exit')) {
+			ExtendableState.switchState(new MenuState());
+			FlxG.sound.play(Paths.sound('cancel'));
+			SaveData.saveSettings();
 		}
 	}
 
