@@ -64,10 +64,10 @@ class Hscript extends FlxBasic {
 		setVariable('Xml', Xml);
 
 		setVariable('Application', Application);
+		setVariable('Assets', Assets);
 		setVariable('Conductor', Conductor);
 		setVariable('ExtendableState', ExtendableState);
 		setVariable('ExtendableSubState', ExtendableSubState);
-		setVariable('FlxBar', FlxBar);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
 		setVariable('FlxColor', FlxColor);
