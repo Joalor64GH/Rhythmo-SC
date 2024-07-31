@@ -84,8 +84,8 @@ class Hscript extends FlxBasic {
 		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
 		setVariable('FlxTimer', FlxTimer);
 		setVariable('FlxTween', FlxTween);
+		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
-		setVariable('FlxTypedSpriteGroup', flixel.group.FlxTypedSpriteGroup);
 		setVariable('game', PlayState.instance);
 		setVariable('Input', Input);
 		setVariable('Lib', Lib);
