@@ -57,7 +57,7 @@ class PlayState extends ExtendableState {
 		 * for this one, i will try to make them can load all .hsc from the chart folder
 		 */
 		var filePushed:Array<String> = [];
-		var folderNeedCheck:Array<String> = [Paths.chart(song.song) + "/"];
+		var folderNeedCheck:Array<String> = [Paths.file(Paths.formatToSongPath(song.song)) + "/"];
 		var hscript:Hscript = new Hscript(null);
 
 		for (folder in folderNeedCheck)
