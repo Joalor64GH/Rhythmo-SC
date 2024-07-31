@@ -42,7 +42,7 @@ class MenuState extends ExtendableState {
 		if (Input.is("accept")) {
 			if (curSelected == 2) {
 				FlxG.sound.play(Paths.sound('cancel'));
-				FlxG.sound.music.fadeOut(0.3);
+				// FlxG.sound.music.fadeOut(0.3);
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
 					#if sys
 					Sys.exit(0);
