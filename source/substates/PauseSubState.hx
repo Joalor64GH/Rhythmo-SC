@@ -25,8 +25,7 @@ class PauseSubState extends ExtendableSubState {
 		if (Input.is("exit")) {
 			ExtendableState.switchState(new MenuState());
 			PlayState.chartingMode = false;
-		}
-		else if (Input.is("r"))
+		} else if (Input.is("r"))
 			ExtendableState.resetState();
 		else if (Input.is("accept"))
 			close();

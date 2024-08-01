@@ -42,7 +42,8 @@ class OptionsState extends ExtendableState {
 
 			if (i < 5) {
 				var checked:Bool = getOptionState(i);
-				var checker:Checker = new Checker(optionTxt.x + optionTxt.width + 20, optionTxt.y, checked);
+				var checker:Checker = new Checker(0, 0, checked);
+				checker.sprTracker = optionTxt;
 				checkers.add(checker);
 			}
 		}
@@ -119,6 +120,7 @@ class OptionsState extends ExtendableState {
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
+		for (i in checkers.members) i.alpha = (i.ID == curSelected ? 1 : 0.6);
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 		});
@@ -152,9 +154,6 @@ class OptionsState extends ExtendableState {
 			var checker:Checker = checkers.members[i];
 			checker.checked = getOptionState(i);
 			checker.animation.play((checker.checked) ? "check" : "uncheck");
-			var optionTxt:FlxText = grpOptions.members[i];
-			checker.x = optionTxt.x + optionTxt.width + 20;
-			checker.y = optionTxt.y;
 		}
 	}
 

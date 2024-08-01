@@ -153,38 +153,41 @@ class PlayState extends ExtendableState {
 	}
 
 	function startCountdown() {
-		countdown3.visible = true;
-		FlxG.sound.play(Paths.sound('wis_short'));
-		FlxTween.tween(countdown3, {alpha: 0}, 1, {
-			onComplete: (twn:FlxTween) -> {
-				countdown3.visible = false;
-				countdown2.visible = true;
-				FlxG.sound.play(Paths.sound('wis_short'));
-				FlxTween.tween(countdown2, {alpha: 0}, 1, {
-					onComplete: (twn:FlxTween) -> {
-						countdown2.visible = false;
-						countdown1.visible = true;
-						FlxG.sound.play(Paths.sound('wis_short'));
-						FlxTween.tween(countdown1, {alpha: 0}, 1, {
-							onComplete: (twn:FlxTween) -> {
-								countdown1.visible = false;
-								go.visible = true;
-								FlxG.sound.play(Paths.sound('wis_long'));
-								FlxTween.tween(go, {alpha: 0}, 1, {
-									onComplete: (twn:FlxTween) -> {
-										go.visible = false;
-										cDownIsDone = true;
-										generateNotes();
-										FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
-										FlxG.sound.music.onComplete = () -> endSong();
-									}
-								});
-							}
-						});
-					}
-				});
-			}
-		});
+		var ret:Dynamic = callOnScripts('startCountdown', []);
+		if (ret != ScriptCore.Function_Stop) {
+			countdown3.visible = true;
+			FlxG.sound.play(Paths.sound('wis_short'));
+			FlxTween.tween(countdown3, {alpha: 0}, 1, {
+				onComplete: (twn:FlxTween) -> {
+					countdown3.visible = false;
+					countdown2.visible = true;
+					FlxG.sound.play(Paths.sound('wis_short'));
+					FlxTween.tween(countdown2, {alpha: 0}, 1, {
+						onComplete: (twn:FlxTween) -> {
+							countdown2.visible = false;
+							countdown1.visible = true;
+							FlxG.sound.play(Paths.sound('wis_short'));
+							FlxTween.tween(countdown1, {alpha: 0}, 1, {
+								onComplete: (twn:FlxTween) -> {
+									countdown1.visible = false;
+									go.visible = true;
+									FlxG.sound.play(Paths.sound('wis_long'));
+									FlxTween.tween(go, {alpha: 0}, 1, {
+										onComplete: (twn:FlxTween) -> {
+											go.visible = false;
+											cDownIsDone = true;
+											generateNotes();
+											FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+											FlxG.sound.music.onComplete = () -> endSong();
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
 	}
 
 	override function update(elapsed:Float) {
@@ -224,6 +227,7 @@ class PlayState extends ExtendableState {
 				note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
+				combo = 0;
 				misses++;
 				notes.remove(note);
 				note.kill();
@@ -390,6 +394,7 @@ class PlayState extends ExtendableState {
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);
 						numScore.velocity.x = FlxG.random.float(-5, 5);
+						add(numScore);
 
 						FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 							onComplete: (twn:FlxTween) -> {

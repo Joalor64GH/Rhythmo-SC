@@ -58,16 +58,27 @@ class Hscript extends FlxBasic {
 		setVariable('Reflect', Reflect);
 		setVariable('Std', Std);
 		setVariable('StringBuf', StringBuf);
+		setVariable("String", String);
 		setVariable('StringTools', StringTools);
 		setVariable('Sys', Sys);
 		setVariable('Type', Type);
 		setVariable('Xml', Xml);
 
 		setVariable('Application', Application);
+		setVariable("Array", Array);
 		setVariable('Assets', Assets);
+		setVariable("Bool", Bool);
 		setVariable('Conductor', Conductor);
+		setVariable("Dynamic", Dynamic);
 		setVariable('ExtendableState', ExtendableState);
 		setVariable('ExtendableSubState', ExtendableSubState);
+		#if sys
+		setVariable('File', File);
+		setVariable('FileSystem', FileSystem);
+		#end
+		setVariable("Float", Float);
+		setVariable("FlxAtlasFrames", FlxAtlasFrames);
+		setVariable("FlxBackdrop", FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
 		setVariable('FlxEase', FlxEase);
@@ -86,8 +97,11 @@ class Hscript extends FlxBasic {
 		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
 		setVariable('game', PlayState.instance);
+		setVariable('GameSprite', GameSprite);
 		setVariable('HighScore', HighScore);
 		setVariable('Input', Input);
+		setVariable("Int", Int);
+		setVariable('Json', Json);
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
 		setVariable('Main', Main);
@@ -95,6 +109,7 @@ class Hscript extends FlxBasic {
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
 		setVariable('SaveData', SaveData);
+		setVariable('Song', Song);
 
 		if (execute)
 			this.execute(file);
