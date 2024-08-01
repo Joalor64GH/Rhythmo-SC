@@ -154,7 +154,7 @@ class PlayState extends ExtendableState {
 
 	function startCountdown() {
 		var ret:Dynamic = callOnScripts('startCountdown', []);
-		if (ret != ScriptCore.Function_Stop) {
+		if (ret != Hscript.Function_Stop) {
 			countdown3.visible = true;
 			FlxG.sound.play(Paths.sound('wis_short'));
 			FlxTween.tween(countdown3, {alpha: 0}, 1, {
