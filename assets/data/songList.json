@@ -1,5 +1,9 @@
 {
     "songs": [
-        {"name": "Test", "diff": "||"}
+        {"name": "Ascension", "diff": "1/5"},
+        {"name": "Oceanic Cascade", "diff": "2/5"},
+        {"name": "Hexes and Frostbite", "diff": "3/5"},
+        {"name": "Harmony of No Tomorrow", "diff": "4.5/5"},
+        {"name": "Test", "diff": "1/5"}
     ]
 }

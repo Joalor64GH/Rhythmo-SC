@@ -16,8 +16,6 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
-	var checkers:Array<Checker> = [];
-
 	override function create() {
 		super.create();
 
@@ -36,15 +34,6 @@ class OptionsState extends ExtendableState {
 			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
-
-			if (i < 5) {
-				var checked:Bool = getOptionState(i);
-				var checker:Checker = new Checker(0, 0, checked);
-				checker.xAdd = -checker.width - 10;
-				checker.sprTracker = optionTxt;
-				checkers.push(checker);
-				add(checker);
-			}
 		}
 
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
@@ -105,7 +94,6 @@ class OptionsState extends ExtendableState {
 					openSubState(new LanguageSubState());
 			}
 
-			updateCheckers();
 			updateText();
 		}
 
@@ -147,14 +135,6 @@ class OptionsState extends ExtendableState {
 				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
 			case 8:
 				daText.text = "Edit your controls.";
-		}
-	}
-
-	function updateCheckers() {
-		for (i in 0...checkers.length) {
-			var checker:Checker = checkers[i];
-			checker.checked = getOptionState(i);
-			checker.animation.play((checker.checked) ? "check" : "uncheck");
 		}
 	}
 

@@ -13,6 +13,12 @@ class InitialState extends ExtendableState {
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
+		#if desktop
+		UpdateState.updateCheck();
+		#else
+		trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');
+		#end
+
 		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
 		intro.screenCenter();
 		intro.alpha = 0;
@@ -24,23 +30,11 @@ class InitialState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("accept")) {
-			#if desktop
-			UpdateState.updateCheck();
+		if (Input.is("accept"))
 			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
-			#else
-			trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');
-			ExtendableState.switchState(new TitleState());
-			#end
-		} else {
+		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {
-				#if desktop
-				UpdateState.updateCheck();
 				ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
-				#else
-				trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');
-				ExtendableState.switchState(new TitleState());
-				#end
 			});
 		}
 	}
