@@ -2,6 +2,7 @@
 * Add four basic songs [ ]
 * Scripting Documentation [ ]
 * Add checkers to OptionsState [ ]
+* Improve ChartingState [ ]
 
 # Future To-Dos (After release)
 * Polymod support (or modding support in general)

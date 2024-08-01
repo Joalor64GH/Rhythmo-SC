@@ -24,6 +24,7 @@ class PauseSubState extends ExtendableSubState {
 
 		if (Input.is("exit")) {
 			ExtendableState.switchState(new MenuState());
+			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			PlayState.chartingMode = false;
 		} else if (Input.is("r"))
 			ExtendableState.resetState();

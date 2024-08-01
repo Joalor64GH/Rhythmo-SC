@@ -56,7 +56,7 @@ class SongSelectState extends ExtendableState {
 		for (i in 0...songListData.songs.length) {
 			var newItem:Cover = new Cover();
 			try {
-				newItem.loadGraphic(Paths.image('selector/covers/' + songListData.songs[i].name.toLowerCase()));
+				newItem.loadGraphic(Paths.image('selector/covers/' + Paths.formatToSongPath(songListData.songs[i].name)));
 			} catch (e) {
 				trace("oops! cover returned null!");
 				newItem.loadGraphic(Paths.image('selector/covers/placeholder'));
