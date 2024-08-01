@@ -11,6 +11,8 @@ class PlayState extends ExtendableState {
 
 	public var speed:Float = 1;
 
+	private var scriptArray:Array<Hscript> = [];
+
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
@@ -19,6 +21,7 @@ class PlayState extends ExtendableState {
 	var ratingDisplay:Rating;
 
 	var score:Int = 0;
+	var combo:Int = 0;
 	var misses:Int = 0;
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
@@ -29,13 +32,10 @@ class PlayState extends ExtendableState {
 	var canPause:Bool = true;
 
 	var cDownIsDone:Bool = false;
-
 	var countdown3:FlxSprite;
 	var countdown2:FlxSprite;
 	var countdown1:FlxSprite;
 	var go:FlxSprite;
-
-	private var scriptArray:Array<Hscript> = [];
 
 	override public function new() {
 		super();
@@ -231,11 +231,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.is("exit") && canPause) {
-			openSubState(new PauseSubState());
-			persistentUpdate = false;
-			paused = true;
-		}
+		if (Input.is("exit") && canPause)
+			pause();
 
 		if (Input.is("seven")) {
 			ExtendableState.switchState(new ChartingState());
@@ -266,7 +263,7 @@ class PlayState extends ExtendableState {
 			return;
 
 		if (camZooming)
-			if (curBeat % 2 == 0)
+			if (curBeat % (song.timeSignature[0] / 2) == 0)
 				FlxTween.tween(FlxG.camera, {zoom: 1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
 		lastBeatHit = curBeat;
@@ -283,6 +280,15 @@ class PlayState extends ExtendableState {
 		paused = false;
 		FlxG.sound.music.resume();
 		super.closeSubState();
+	}
+
+	function pause() {
+		var ret:Dynamic = callOnScripts('pause', []);
+		if (ret != Hscript.Function_Stop) {
+			openSubState(new PauseSubState());
+			persistentUpdate = false;
+			persistentDraw = true;
+		}
 	}
 
 	public var curRating:String = "perfect";
@@ -366,6 +372,34 @@ class PlayState extends ExtendableState {
 
 					ratingDisplay.showCurrentRating();
 					ratingDisplay.screenCenter(X);
+
+					combo++;
+
+					var comboSplit:Array<String> = Std.string(combo).split('');
+					var seperatedScore:Array<Int> = [];
+					for (i in 0...comboSplit.length)
+						seperatedScore.push(Std.parseInt(comboSplit[i]));
+
+					var daLoop:Int = 0;
+					for (i in seperatedScore) {
+						var numScore:FlxSprite = new FlxSprite(0, 0);
+						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
+						numScore.screenCenter();
+						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 90;
+						numScore.y += 80;
+						numScore.acceleration.y = FlxG.random.int(200, 300);
+						numScore.velocity.y -= FlxG.random.int(140, 160);
+						numScore.velocity.x = FlxG.random.float(-5, 5);
+
+						FlxTween.tween(numScore, {alpha: 0}, 0.2, {
+							onComplete: (twn:FlxTween) -> {
+								numScore.destroy();
+							},
+							startDelay: 1
+						});
+
+						daLoop++;
+					}
 
 					note.active = false;
 					notes.remove(note);

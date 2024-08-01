@@ -1,6 +1,5 @@
 package game;
 
-import flixel.group.FlxSpriteGroup;
 import funkin.vis.dsp.SpectralAnalyzer;
 
 class AudioDisplay extends FlxSpriteGroup {

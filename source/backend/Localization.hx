@@ -4,12 +4,6 @@ package backend;
 import openfl.system.Capabilities;
 #end
 
-typedef ApplicationConfig = {
-	var languages:Array<String>;
-	@:optional var directory:String;
-	@:optional var default_language:String;
-}
-
 /**
  * A simple localization system.
  * Please credit me if you use it!
@@ -34,20 +28,18 @@ class Localization {
 		#end
 	}
 
-	public static function init(config:ApplicationConfig) {
-		directory = config.directory != null ? config.directory : "languages";
-		DEFAULT_LANGUAGE = config.default_language != null ? config.default_language : "en";
-	
-		loadLanguages(config.languages);
-		switchLanguage(DEFAULT_LANGUAGE);
-	}
-
-	public static function loadLanguages(languages:Array<String>) {
+	public static function loadLanguages() {
 		data = new Map<String, Dynamic>();
 
-		for (language in languages) {
-			var languageData:Dynamic = loadLanguageData(language);
-			data.set(language, languageData);
+		var path:String = Paths.file("languages/languagesList.txt");
+		if (FileSystem.exists(path)) {
+			var listContent:String = File.getContent(path);
+			var languages:Array<String> = listContent.split('\n');
+
+			for (language in languages) {
+				var languageData:Dynamic = loadLanguageData(language.trim());
+				data.set(language, languageData);
+			}
 		}
 	}
 
@@ -86,16 +78,15 @@ class Localization {
 	public static function get(key:String, ?language:String):String {
 		var targetLanguage:String = language != null ? language : currentLanguage;
 		var languageData = data.get(targetLanguage);
-	
+
 		if (data == null) {
 			trace("You haven't initialized the class!");
 			return null;
 		}
-	
-		if (languageData != null && Reflect.hasField(languageData, key)) {
+
+		if (languageData != null && Reflect.hasField(languageData, key))
 			return Reflect.field(languageData, key);
-		}
-	
+
 		return null;
 	}
 
@@ -103,5 +94,15 @@ class Localization {
 		var localDir = Path.join([directory, language + ".json"]);
 		var path:String = Paths.file(localDir);
 		return path;
+	}
+}
+
+class Locale {
+	public var lang:String;
+	public var code:String;
+
+	public function new(lang:String, code:String) {
+		this.lang = lang;
+		this.code = code;
 	}
 }

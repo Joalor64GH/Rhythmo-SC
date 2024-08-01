@@ -7,11 +7,7 @@ class InitialState extends ExtendableState {
 		super.create();
 
 		SaveData.init();
-		Localization.init({
-			languages: ['en', 'es'],
-			directory: "languages",
-			default_language: "en"
-		});
+		Localization.loadLanguages();
 		Main.updateFramerate(SaveData.settings.framerate);
 		HighScore.load();
 

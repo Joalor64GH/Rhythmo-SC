@@ -82,16 +82,9 @@ class SongSelectState extends ExtendableState {
 		titleTxt.screenCenter(X);
 		add(titleTxt);
 
-		var arrowL:FlxSprite = new FlxSprite(-1000, FlxG.height / 2).loadGraphic(Paths.image('selector/arrow'));
-		arrowL.scrollFactor.set();
-		arrowL.scale.set(0.5, 0.5);
-		arrowL.flipX = true;
-		add(arrowL);
-
-		var arrowR:FlxSprite = new FlxSprite(FlxG.width - 280, FlxG.height / 2).loadGraphic(Paths.image('selector/arrow'));
-		arrowR.scrollFactor.set();
-		arrowR.scale.set(0.5, 0.5);
-		add(arrowR);
+		var arrows:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('selector/arrows'));
+		arrows.screenCenter(XY);
+		add(arrows);
 
 		changeSelection();
 	}
