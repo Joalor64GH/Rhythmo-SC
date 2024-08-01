@@ -31,9 +31,6 @@ class OptionsState extends ExtendableState {
 		grpOptions = new FlxTypedGroup<FlxText>();
 		add(grpOptions);
 
-		checkers = new FlxTypedGroup<Checker>();
-		add(checkers);
-
 		for (i in 0...options.length) {
 			var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i], 32);
 			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -122,7 +119,9 @@ class OptionsState extends ExtendableState {
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
-		for (i in checkers.members) i.alpha = (i.ID == curSelected ? 1 : 0.6);
+		for (i in 0...checkers.length)
+			checkers[i].alpha = 0.6;
+		checkers[curSelected].alpha = 1;
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 		});
@@ -153,7 +152,7 @@ class OptionsState extends ExtendableState {
 
 	function updateCheckers() {
 		for (i in 0...checkers.length) {
-			var checker:Checker = checkers.members[i];
+			var checker:Checker = checkers[i];
 			checker.checked = getOptionState(i);
 			checker.animation.play((checker.checked) ? "check" : "uncheck");
 		}
