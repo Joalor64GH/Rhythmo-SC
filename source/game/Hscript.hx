@@ -50,9 +50,14 @@ class Hscript extends FlxBasic {
 		setVariable('Function_Stop', Function_Stop);
 		setVariable('Function_Continue', Function_Continue);
 
+		setVariable("Array", Array);
+		setVariable("Bool", Bool);
 		setVariable('Date', Date);
 		setVariable('DateTools', DateTools);
+		setVariable("Dynamic", Dynamic);
 		setVariable('EReg', EReg);
+		setVariable("Float", Float);
+		setVariable("Int", Int);
 		setVariable('Lambda', Lambda);
 		setVariable('Math', Math);
 		setVariable('Reflect', Reflect);
@@ -65,18 +70,15 @@ class Hscript extends FlxBasic {
 		setVariable('Xml', Xml);
 
 		setVariable('Application', Application);
-		setVariable("Array", Array);
 		setVariable('Assets', Assets);
-		setVariable("Bool", Bool);
+		setVariable("Bar", Bar);
 		setVariable('Conductor', Conductor);
-		setVariable("Dynamic", Dynamic);
 		setVariable('ExtendableState', ExtendableState);
 		setVariable('ExtendableSubState', ExtendableSubState);
 		#if sys
 		setVariable('File', File);
 		setVariable('FileSystem', FileSystem);
 		#end
-		setVariable("Float", Float);
 		setVariable("FlxAtlasFrames", FlxAtlasFrames);
 		setVariable("FlxBackdrop", FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
@@ -87,9 +89,11 @@ class Hscript extends FlxBasic {
 		setVariable('FlxMath', FlxMath);
 		setVariable('FlxObject', FlxObject);
 		setVariable('FlxSave', FlxSave);
+		setVariable("FlxSort", FlxSort);
 		setVariable('FlxSound', FlxSound);
 		setVariable('FlxSprite', FlxSprite);
 		setVariable('FlxSpriteGroup', FlxSpriteGroup);
+		setVariable("FlxStringUtil", FlxStringUtil);
 		setVariable('FlxText', FlxText);
 		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
 		setVariable('FlxTimer', FlxTimer);
@@ -100,7 +104,6 @@ class Hscript extends FlxBasic {
 		setVariable('GameSprite', GameSprite);
 		setVariable('HighScore', HighScore);
 		setVariable('Input', Input);
-		setVariable("Int", Int);
 		setVariable('Json', Json);
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
@@ -108,8 +111,14 @@ class Hscript extends FlxBasic {
 		setVariable('Note', Note);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
+		setVariable("Rating", Rating);
 		setVariable('SaveData', SaveData);
 		setVariable('Song', Song);
+
+		setVariable("cpp", #if cpp true #else false #end);
+		setVariable("debug", #if debug true #else false #end);
+		setVariable("desktop", #if desktop true #else false #end);
+		setVariable("sys", #if sys true #else false #end);
 
 		if (execute)
 			this.execute(file);

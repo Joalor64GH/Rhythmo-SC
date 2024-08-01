@@ -16,7 +16,7 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
-	var checkers:FlxTypedGroup<Checker>;
+	var checkers:Array<Checker> = [];
 
 	override function create() {
 		super.create();
@@ -43,8 +43,10 @@ class OptionsState extends ExtendableState {
 			if (i < 5) {
 				var checked:Bool = getOptionState(i);
 				var checker:Checker = new Checker(0, 0, checked);
+				checker.xAdd = -checker.width - 10;
 				checker.sprTracker = optionTxt;
-				checkers.add(checker);
+				checkers.push(checker);
+				add(checker);
 			}
 		}
 

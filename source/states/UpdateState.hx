@@ -9,9 +9,11 @@ class UpdateState extends ExtendableState {
 
 		var text:FlxText = new FlxText(0, 0, FlxG.width,
 			"Hey! You're running an outdated version of Rhythmo!"
-			+ '\nYour current version is v${Lib.application.meta.get('version')}!'
-			+ '\nPress ENTER to update to v${updateVersion}! Otherwise, press ESCAPE.'
-			+ "\nThanks for playing!",
+			+ '\nYour current version is v${Lib.application.meta.get('version')}, while the most recent version is v${daJson.version}!\n
+			What\'s New:\n'
+			+ daJson.description +
+			'\nPress ENTER to go to GitHub. Otherwise, press ESCAPE to proceed anyways.\n
+			Thanks for playing!',
 			32);
 		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(XY);
@@ -20,7 +22,7 @@ class UpdateState extends ExtendableState {
 
 	public static function updateCheck() {
 		trace('checking for updates...');
-		var http = new Http('https://raw.githubusercontent.com/Joalor64GH/RHythmo-SC/main/gitVersion.json');
+		var http = new Http('https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/gitVersion.json');
 		http.onData = (data:String) -> {
 			var daRawJson:Dynamic = Json.parse(data);
 			if (daRawJson.version != Lib.application.meta.get('version')) {
@@ -41,9 +43,9 @@ class UpdateState extends ExtendableState {
 		if (Input.is("accept")) {
 			FlxG.sound.play(Paths.sound('select'));
 			#if linux
-			Sys.command('/usr/bin/xdg-open', ["https://github.com/Joalor64GH/Rhythmo-SC/releases"]);
+			Sys.command('/usr/bin/xdg-open', ["https://github.com/Joalor64GH/Rhythmo-SC/releases/latest"]);
 			#else
-			FlxG.openURL("https://github.com/Joalor64GH/Rhythmo-SC/releases");
+			FlxG.openURL("https://github.com/Joalor64GH/Rhythmo-SC/releases/latest");
 			#end
 		} else if (Input.is("exit")) {
 			ExtendableState.switchState(new TitleState());
