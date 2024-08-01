@@ -107,9 +107,6 @@ class OptionsState extends ExtendableState {
 	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
-		for (i in 0...checkers.length)
-			checkers[i].alpha = 0.6;
-		checkers[curSelected].alpha = 1;
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 		});
