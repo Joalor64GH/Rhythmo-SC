@@ -13,7 +13,7 @@ class LanguageSubState extends ExtendableSubState {
 		var initLangString = Paths.getText(Paths.file('languages/languagesData.txt'));
 
 		if (Assets.exists(Paths.file('languages/languagesData.txt'))) {
-			initLangString = Paths.getText(Paths.file('languages/languagesData.txt')).trim().split('\n');
+			initLangString = Assets.getText(Paths.file('languages/languagesData.txt')).trim().split('\n');
 
 			for (i in 0...initLangString.length)
 				initLangString[i] = initLangString[i].trim();
