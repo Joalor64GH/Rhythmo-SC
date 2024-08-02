@@ -68,6 +68,12 @@ class MenuState extends ExtendableState {
 			ExtendableState.switchState(new TitleState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
+
+		#if desktop
+		if (Input.is("seven")) {
+			ExtendableState.switchState(new EditorState());
+		}
+		#end
 	}
 
 	function changeSelection(change:Int = 0) {
