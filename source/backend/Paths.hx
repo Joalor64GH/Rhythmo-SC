@@ -50,15 +50,6 @@ class Paths {
 	inline public static function getText(path:String):Array<String>
 		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
 
-	static public function getTextFromFile(key:String):String {
-		#if sys
-		if (FileSystem.exists(file(key)))
-			return File.getContent(file(key));
-		#end
-
-		return (Assets.exists(file(key))) ? Assets.getText(file(key)) : null;
-	}
-
 	inline static public function txt(key:String)
 		return file('data/$key.txt');
 
@@ -74,7 +65,7 @@ class Paths {
 	#end
 
 	inline static public function video(key:String)
-		return file('videos/$key.ogg');
+		return file('videos/$key.mp4');
 
 	inline static public function sound(key:String)
 		return file('sounds/$key.ogg');

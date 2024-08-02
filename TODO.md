@@ -1,11 +1,12 @@
 # Current To-Dos
-* Add four basic songs [ ]
-* Basic Documentation [ ]
-* Add checkers to OptionsState [ ]
-* Improve ChartingState [ ]
+* [ ] Add four basic songs
+* [X] Basic Documentation
+* [ ] Add checkers to OptionsState
+* [ ] Improve ChartingState
 
 # Future To-Dos (After release)
 * Polymod support (or modding support in general)
 * Maybe a few more songs
 * Achievements
 * Custom Skins
+* Results

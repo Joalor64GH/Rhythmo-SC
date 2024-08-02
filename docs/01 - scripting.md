@@ -29,6 +29,7 @@ This is a list of the current Libs/Classes that you can use:
 * Sys
 * Type
 * Xml
+<br>
 
 * Application
 * Assets
@@ -73,7 +74,7 @@ This is a list of the current Libs/Classes that you can use:
 * Song
 
 ## Templates
-Some templates that are useful.
+Some useful templates.
 
 ### FlxSprite
 ```hx
@@ -92,8 +93,10 @@ import('flixel.text.FlxText');
 import('states.PlayState');
 
 function create() {
-    var text:FlxText = new FlxText(0, 0, 0, "text here lol", 64);
+    var text:FlxText = new FlxText(0, 0, 0, "Hello World", 64);
     text.screenCenter();
     PlayState.instance.add(text);
 }
 ```
+
+As long as you've done everything correctly, you script should functioning. Otherwise, report an issue and a solution will be found.
