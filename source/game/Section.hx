@@ -7,6 +7,7 @@ typedef SectionData = {
 
 	var timeScale:Array<Int>;
 	var changeTimeScale:Bool;
+	var stepsPerSection:Int;
 }
 
 typedef NoteData = {

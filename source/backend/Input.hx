@@ -9,7 +9,8 @@ class Input {
 		"up" => SaveData.settings.keyboardBinds[2],
 		"right" => SaveData.settings.keyboardBinds[3],
 		"accept" => SaveData.settings.keyboardBinds[4],
-		"exit" => SaveData.settings.keyboardBinds[5]
+		"exit" => SaveData.settings.keyboardBinds[5],
+		"space" => SaveData.settings.keyboardBinds[6]
 	];
 
 	public static function is(action:String, ?state:FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool {

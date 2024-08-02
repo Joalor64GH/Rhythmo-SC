@@ -44,6 +44,8 @@ class ChartingState extends ExtendableState {
 	var bpmStepper:FlxUINumericStepper;
 	var saveButton:FlxButton;
 
+	var strumLine:FlxSprite;
+
 	override function create() {
 		super.create();
 
@@ -73,10 +75,20 @@ class ChartingState extends ExtendableState {
 		bpmStepper = new FlxUINumericStepper(saveButton.x, 55, 1, 1, 1, 9999, 3);
 		bpmStepper.value = song.bpm;
 		add(bpmStepper);
+
+		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+		add(gridBlackLine);
+
+		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
+		add(strumLine);
+
+		// FlxG.camera.follow(strumLine);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * song.notes[curSection].stepsPerSection));
 
 		if (Input.is("exit"))
 			ExtendableState.switchState(new MenuState());
@@ -90,6 +102,13 @@ class ChartingState extends ExtendableState {
 		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
 			PlayState.song = song;
+		}
+
+		if (Input.is("space")) {
+			if (FlxG.sound.music.playing)
+				FlxG.sound.music.pause();
+			else
+				FlxG.sound.music.play();
 		}
 
 		if (FlxG.mouse.x > gridBG.x
@@ -253,7 +272,8 @@ class ChartingState extends ExtendableState {
 			bpm: song.bpm,
 			changeBPM: false,
 			timeScale: Conductor.timeScale,
-			changeTimeScale: false
+			changeTimeScale: false,
+			stepsPerSection: 16
 		};
 
 		song.notes.push(sec);
