@@ -5,7 +5,7 @@
 * [ ] Improve ChartingState
 
 # Future To-Dos (After release)
-* Polymod support (or modding support in general)
+* Modding Support (Using Polymod)
 * Maybe a few more songs
 * Achievements
 * Custom Skins

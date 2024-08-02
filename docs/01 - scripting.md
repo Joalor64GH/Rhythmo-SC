@@ -1,5 +1,5 @@
 # How to Use the Scripting System
-This will teach you how to use Rhythmo's special scripting system. Basically, you can use this to make custom backgrounds, add special functions, etc.
+This will teach you how to use Rhythmo's special scripting system. Basically, you can use this to make custom backgrounds, add special functions, make cool mechanics, etc.
 
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[your-song]/script.hxs`.
 

@@ -24,7 +24,18 @@ For song data, you need the following:
 * `assets/songs/[song-name]/script.hxs` (Optional)
 
 ## Charting
-Lastly, to chart your song, go to PlayState and then press "7" to go to ChartingState. <br>
+Before you actually chart your song, you need `chart.json`.
+Use this template:
+```json
+{
+    "song": "Song Name",
+    "notes": [],
+    "bpm": 100,
+    "timeSignature": [4, 4]
+}
+```
+
+Now, to chart your song, go to PlayState and then press "7" to go to ChartingState. <br>
 When you're done, simply save the chart. It should save in `assets/songs/[song-name]/chart.json`.
 
-You might have to manually change the BPM and time signature.
+Also, you'll have to manually change the BPM and time signature beforehand.

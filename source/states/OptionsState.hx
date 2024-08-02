@@ -16,7 +16,7 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
-	var checkerArray:Array<Checker> = []; // wip
+	var checkerArray:Array<Checker> = [];
 
 	override function create() {
 		super.create();
@@ -36,6 +36,13 @@ class OptionsState extends ExtendableState {
 			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
+
+			if (i < 5) {
+				var checker:Checker = new Checker(0, 0, getOptionState(i));
+				checker.sprTracker = optionTxt;
+				checkerArray.push(checker);
+				add(checker);
+			}
 		}
 
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
@@ -95,6 +102,9 @@ class OptionsState extends ExtendableState {
 				case "Language":
 					openSubState(new LanguageSubState());
 			}
+
+			for (i in 0...checkerArray.length)
+				checkerArray[i].checked = getOptionState(i);
 
 			updateText();
 		}

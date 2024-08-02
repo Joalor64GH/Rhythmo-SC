@@ -108,7 +108,8 @@ class SongSelectState extends ExtendableState {
 		if (Input.is("accept")) {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
 			ExtendableState.switchState(new PlayState());
-			FlxG.sound.music.stop();
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.stop();
 		}
 	}
 

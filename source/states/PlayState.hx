@@ -385,12 +385,15 @@ class PlayState extends ExtendableState {
 						seperatedScore.push(Std.parseInt(comboSplit[i]));
 
 					var daLoop:Int = 0;
+
+					remove(ratingDisplay, true);
+
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
 						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
 						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 90;
+						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 100;
 						numScore.y = ratingDisplay.y + 80;
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);
@@ -406,6 +409,8 @@ class PlayState extends ExtendableState {
 
 						daLoop++;
 					}
+
+					add(ratingDisplay);
 
 					note.active = false;
 					notes.remove(note);
@@ -491,6 +496,8 @@ class PlayState extends ExtendableState {
 	override function destroy() {
 		scriptArray = [];
 		callOnScripts('destroy', []);
+
+		instance = null;
 
 		super.destroy();
 	}
