@@ -4,9 +4,6 @@ class Checker extends GameSprite {
 	public var checked:Bool = true;
 	public var sprTracker:FlxSprite;
 
-	public var xAdd:Float = 0;
-	public var yAdd:Float = 0;
-
 	public function new(x:Float = 0, y:Float = 0, checked:Bool = true) {
 		super(x, y);
 		this.checked = checked;
@@ -23,9 +20,7 @@ class Checker extends GameSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (sprTracker != null) {
-			setPosition(sprTracker.x + xAdd, sprTracker.y + yAdd);
-			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
-		}
+		if (sprTracker != null)
+			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y);
 	}
 }

@@ -13,7 +13,7 @@ class PauseSubState extends ExtendableSubState {
 		text.screenCenter();
 		add(text);
 
-		var text2:FlxText = new FlxText(0, text.y + 100, 0, "ENTER - Resume / R - Restart / ESCAPE - Menu", 12);
+		var text2:FlxText = new FlxText(0, text.y + 100, 0, "ENTER - Resume / R - Restart / BACKSPACE - Song Menu / ESCAPE - Main Menu", 12);
 		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text2.screenCenter(X);
 		add(text2);

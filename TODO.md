@@ -1,6 +1,6 @@
 # Current To-Dos
 * Add four basic songs [ ]
-* Scripting Documentation [ ]
+* Basic Documentation [ ]
 * Add checkers to OptionsState [ ]
 * Improve ChartingState [ ]
 

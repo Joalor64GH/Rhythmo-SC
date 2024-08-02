@@ -16,6 +16,8 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
+	var checkerArray:Array<Checker> = []; // wip
+
 	override function create() {
 		super.create();
 
