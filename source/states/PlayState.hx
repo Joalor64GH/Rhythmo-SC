@@ -157,22 +157,22 @@ class PlayState extends ExtendableState {
 		if (ret != Hscript.Function_Stop) {
 			countdown3.visible = true;
 			FlxG.sound.play(Paths.sound('wis_short'));
-			FlxTween.tween(countdown3, {alpha: 0}, 1, {
+			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet * 1000, {
 				onComplete: (twn:FlxTween) -> {
 					countdown3.visible = false;
 					countdown2.visible = true;
 					FlxG.sound.play(Paths.sound('wis_short'));
-					FlxTween.tween(countdown2, {alpha: 0}, 1, {
+					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet * 1000, {
 						onComplete: (twn:FlxTween) -> {
 							countdown2.visible = false;
 							countdown1.visible = true;
 							FlxG.sound.play(Paths.sound('wis_short'));
-							FlxTween.tween(countdown1, {alpha: 0}, 1, {
+							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet * 1000, {
 								onComplete: (twn:FlxTween) -> {
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
-									FlxTween.tween(go, {alpha: 0}, 1, {
+									FlxTween.tween(go, {alpha: 0}, Conductor.crochet * 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
 											cDownIsDone = true;
@@ -386,15 +386,13 @@ class PlayState extends ExtendableState {
 
 					var daLoop:Int = 0;
 
-					remove(ratingDisplay, true);
-
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
 						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
 						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 100;
-						numScore.y = ratingDisplay.y + 80;
+						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 80;
+						numScore.y = ratingDisplay.y + 100;
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);
 						numScore.velocity.x = FlxG.random.float(-5, 5);
@@ -409,8 +407,6 @@ class PlayState extends ExtendableState {
 
 						daLoop++;
 					}
-
-					add(ratingDisplay);
 
 					note.active = false;
 					notes.remove(note);

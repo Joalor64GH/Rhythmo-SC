@@ -9,8 +9,9 @@ To import a class, use:
 import('package.Class');
 ```
 
-This is a list of the current Libs/Classes that you can use:
+This is a list of the current Libraries/Classes that you can use:
 
+### Standard Haxe Classes
 * Array
 * Bool
 * Date
@@ -29,8 +30,8 @@ This is a list of the current Libs/Classes that you can use:
 * Sys
 * Type
 * Xml
-<br>
 
+### Game-Specific Classes
 * Application
 * Assets
 * Bar
@@ -96,6 +97,19 @@ function create() {
     var text:FlxText = new FlxText(0, 0, 0, "Hello World", 64);
     text.screenCenter();
     PlayState.instance.add(text);
+}
+```
+
+### Adding a new function
+```hx
+import('flixel.FlxG');
+
+function create() {
+    yourFunction();
+}
+
+function yourFunction() {
+    // code goes here...
 }
 ```
 

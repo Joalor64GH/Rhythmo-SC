@@ -15,7 +15,7 @@ The diffculty should be a scale of 1-5.
 
 Now, to add your song's cover, it should be in `assets/images/selector/covers/[song-name].png`. <br>
 Keep in mind, your song name should be lowercase and any spaces should be replaced with a dash. <br>
-Also, the size of your cover should be a square (preferably `720 by 720`).
+Also, the size of your cover should be a square, preferably `720 by 720`.
 
 ## Adding Song Data
 For song data, you need the following:
@@ -24,7 +24,7 @@ For song data, you need the following:
 * `assets/songs/[song-name]/script.hxs` (Optional)
 
 ## Charting
-Before you actually chart your song, you need `chart.json`.
+Before you actually chart your song, you need `chart.json`. <br>
 Use this template:
 ```json
 {
