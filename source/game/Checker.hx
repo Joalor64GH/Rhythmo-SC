@@ -9,7 +9,7 @@ class Checker extends GameSprite {
 		this.checked = checked;
 
 		loadGraphic(Paths.image('options/checker'), true, 400, 400);
-		setGraphicSize(200, 400);
+		setGraphicSize(100, 100);
 		scrollFactor.set();
 
 		animation.add("check", [0], 1);

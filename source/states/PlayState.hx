@@ -157,22 +157,22 @@ class PlayState extends ExtendableState {
 		if (ret != Hscript.Function_Stop) {
 			countdown3.visible = true;
 			FlxG.sound.play(Paths.sound('wis_short'));
-			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet * 1000, {
+			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
 				onComplete: (twn:FlxTween) -> {
 					countdown3.visible = false;
 					countdown2.visible = true;
 					FlxG.sound.play(Paths.sound('wis_short'));
-					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet * 1000, {
+					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet / 1000, {
 						onComplete: (twn:FlxTween) -> {
 							countdown2.visible = false;
 							countdown1.visible = true;
 							FlxG.sound.play(Paths.sound('wis_short'));
-							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet * 1000, {
+							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
-									FlxTween.tween(go, {alpha: 0}, Conductor.crochet * 1000, {
+									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
 											cDownIsDone = true;
