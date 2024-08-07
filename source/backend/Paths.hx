@@ -151,7 +151,7 @@ class Paths {
 	}
 
 	inline static public function font(key:String) {
-		final path:String = file('fonts/$key');
+		var path:String = file('fonts/$key');
 
 		if (path.extension() == '') {
 			if (exists(path.withExtension("ttf")))
