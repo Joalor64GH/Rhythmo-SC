@@ -2,5 +2,5 @@
 <TextureAtlas imagePath="errorSparrow.png">
 	<!-- Created with Adobe Animate version 21.0.6.41649 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="missing0000" x="1" y="1" width="16" height="16"/>
+	<SubTexture name="missing0000" x="0" y="0" width="16" height="16"/>
 </TextureAtlas>

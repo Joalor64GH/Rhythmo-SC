@@ -2,7 +2,6 @@ package backend;
 
 import openfl.media.Sound;
 import openfl.display.BitmapData;
-
 import flixel.graphics.FlxGraphic;
 
 using haxe.io.Path;
@@ -63,13 +62,7 @@ class Paths {
 	}
 
 	inline static public function txt(key:String)
-		return file('data/$key.txt');
-
-	inline static public function xml(key:String)
-		return file('data/$key.xml');
-
-	inline static public function json(key:String)
-		return file('data/$key.json');
+		return file('$key.txt');
 
 	#if yaml
 	inline static public function yaml(key:String)
@@ -79,11 +72,11 @@ class Paths {
 	inline static public function video(key:String)
 		return file('videos/$key.mp4');
 
-	inline static public function sound(key:String, ?customPath:Bool = false):Dynamic {
+	inline static public function sound(key:String, ?music:Bool = false, ?customPath:Bool = false):Dynamic {
 		var base:String = '';
 
 		if (!customPath)
-			base = 'sounds/';
+			base = (!music) ? 'sounds/' : 'music/';
 
 		var gamingPath = base + key + '.ogg';
 
@@ -97,27 +90,10 @@ class Paths {
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int)
-		return file('sounds/$key${FlxG.random.int(min, max)}.ogg');
-
-	inline static public function music(key:String, ?customPath:Bool = false):Dynamic {
-		var base:String = '';
-
-		if (!customPath)
-			base = 'music/';
-
-		var gamingPath = base + key + '.ogg';
-
-		if (Cache.getFromCache(gamingPath, "sound") == null) {
-			var sound:Sound = null;
-			sound = Sound.fromFile("assets/" + gamingPath);
-			Cache.addToCache(gamingPath, sound, "sound");
-		}
-
-		return Cache.getFromCache(gamingPath, "sound");
-	}
+		return sound('$key${FlxG.random.int(min, max)}');
 
 	inline static public function song(key:String)
-		return file('songs/$key/music.ogg');
+		return sound('songs/$key/music', true, true);
 
 	inline static public function formatToSongPath(path:String) {
 		var invalidChars = ~/[~&\\;:<>#]/;

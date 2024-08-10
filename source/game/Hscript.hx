@@ -47,6 +47,10 @@ class Hscript extends FlxBasic {
 			}
 		});
 
+		interp.variables.set("trace", function(value:Dynamic) {
+			trace(value);
+		});
+
 		setVariable('Function_Stop', Function_Stop);
 		setVariable('Function_Continue', Function_Continue);
 
@@ -72,6 +76,7 @@ class Hscript extends FlxBasic {
 		setVariable('Application', Application);
 		setVariable('Assets', Assets);
 		setVariable("Bar", Bar);
+		setVariable('Cache', Cache);
 		setVariable('Conductor', Conductor);
 		setVariable('ExtendableState', ExtendableState);
 		setVariable('ExtendableSubState', ExtendableSubState);

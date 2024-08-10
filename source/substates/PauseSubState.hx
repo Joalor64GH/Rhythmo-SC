@@ -1,6 +1,6 @@
 package substates;
 
-class PauseSubState extends ExtendableSubState {
+class PauseSubState extends ExtendableSubState { // to-do: add funny tip text
 	public function new() {
 		super();
 
@@ -22,13 +22,9 @@ class PauseSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("exit")) {
-			ExtendableState.switchState(new MenuState());
-			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-			PlayState.chartingMode = false;
-		} else if (Input.is("backspace")) {
-			ExtendableState.switchState(new SongSelectState());
-			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+		if (Input.is("exit") || Input.is("backspace")) {
+			ExtendableState.switchState((Input.is("backspace")) ? new SongSelectState() : new MenuState());
+			FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
 			PlayState.chartingMode = false;
 		} else if (Input.is("r"))
 			ExtendableState.resetState();

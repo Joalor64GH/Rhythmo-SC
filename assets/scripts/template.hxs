@@ -1,0 +1,31 @@
+function create() {
+    trace("Script initialized!");
+}
+
+function startCountdown() {
+    // when the countdown starts
+}
+
+function update(elapsed:Float) {
+    // while the game is updating
+}
+
+function beatHit(curBeat:Int) {
+    // every beat hit
+}
+
+function stepHit(curStep:Int) {
+    // every step hit
+}
+
+function pause() {
+    // when the game is paused
+}
+
+function endSong() {
+    // when the song ends
+}
+
+function destroy() {
+    // when playstate ends
+}

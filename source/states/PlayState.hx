@@ -391,8 +391,8 @@ class PlayState extends ExtendableState {
 						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
 						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 80;
-						numScore.y = ratingDisplay.y + 100;
+						numScore.x = (FlxG.width * 0.55) + (43 * daLoop) - 65;
+						numScore.y = ratingDisplay.y + 120;
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);
 						numScore.velocity.x = FlxG.random.float(-5, 5);

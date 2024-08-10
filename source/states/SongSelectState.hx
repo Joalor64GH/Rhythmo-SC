@@ -41,7 +41,7 @@ class SongSelectState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		songListData = Json.parse(Paths.getTextFromFile('data/songList.json'));
+		songListData = Json.parse(Paths.getTextFromFile('songs.json'));
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('selector/selector_bg'));
 		add(bg);

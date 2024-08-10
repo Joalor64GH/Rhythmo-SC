@@ -75,7 +75,7 @@ This is a list of the current Libraries/Classes that you can use:
 * Song
 
 ## Templates
-Some useful templates.
+Some useful templates. For the default template, use [this](/assets/scripts/template.hxs).
 
 ### FlxSprite
 ```hx
@@ -102,8 +102,6 @@ function create() {
 
 ### Adding a new function
 ```hx
-import('flixel.FlxG');
-
 function create() {
     yourFunction();
 }

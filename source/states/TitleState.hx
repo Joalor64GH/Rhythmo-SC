@@ -7,7 +7,7 @@ class TitleState extends ExtendableState {
 		super.create();
 
 		FlxG.mouse.visible = true;
-		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+		FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		add(bg);
