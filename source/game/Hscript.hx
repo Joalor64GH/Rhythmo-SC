@@ -47,27 +47,27 @@ class Hscript extends FlxBasic {
 			}
 		});
 
-		interp.variables.set("trace", function(value:Dynamic) {
+		setVariable('trace', function(value:Dynamic) {
 			trace(value);
 		});
 
 		setVariable('Function_Stop', Function_Stop);
 		setVariable('Function_Continue', Function_Continue);
 
-		setVariable("Array", Array);
-		setVariable("Bool", Bool);
+		setVariable('Array', Array);
+		setVariable('Bool', Bool);
 		setVariable('Date', Date);
 		setVariable('DateTools', DateTools);
-		setVariable("Dynamic", Dynamic);
+		setVariable('Dynamic', Dynamic);
 		setVariable('EReg', EReg);
-		setVariable("Float", Float);
-		setVariable("Int", Int);
+		setVariable('Float', Float);
+		setVariable('Int', Int);
 		setVariable('Lambda', Lambda);
 		setVariable('Math', Math);
 		setVariable('Reflect', Reflect);
 		setVariable('Std', Std);
 		setVariable('StringBuf', StringBuf);
-		setVariable("String", String);
+		setVariable('String', String);
 		setVariable('StringTools', StringTools);
 		setVariable('Sys', Sys);
 		setVariable('Type', Type);
@@ -75,7 +75,7 @@ class Hscript extends FlxBasic {
 
 		setVariable('Application', Application);
 		setVariable('Assets', Assets);
-		setVariable("Bar", Bar);
+		setVariable('Bar', Bar);
 		setVariable('Cache', Cache);
 		setVariable('Conductor', Conductor);
 		setVariable('ExtendableState', ExtendableState);
@@ -84,8 +84,8 @@ class Hscript extends FlxBasic {
 		setVariable('File', File);
 		setVariable('FileSystem', FileSystem);
 		#end
-		setVariable("FlxAtlasFrames", FlxAtlasFrames);
-		setVariable("FlxBackdrop", FlxBackdrop);
+		setVariable('FlxAtlasFrames', FlxAtlasFrames);
+		setVariable('FlxBackdrop', FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
 		setVariable('FlxEase', FlxEase);
@@ -94,11 +94,11 @@ class Hscript extends FlxBasic {
 		setVariable('FlxMath', FlxMath);
 		setVariable('FlxObject', FlxObject);
 		setVariable('FlxSave', FlxSave);
-		setVariable("FlxSort", FlxSort);
+		setVariable('FlxSort', FlxSort);
 		setVariable('FlxSound', FlxSound);
 		setVariable('FlxSprite', FlxSprite);
 		setVariable('FlxSpriteGroup', FlxSpriteGroup);
-		setVariable("FlxStringUtil", FlxStringUtil);
+		setVariable('FlxStringUtil', FlxStringUtil);
 		setVariable('FlxText', FlxText);
 		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
 		setVariable('FlxTimer', FlxTimer);
@@ -114,14 +114,14 @@ class Hscript extends FlxBasic {
 		setVariable('Note', Note);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
-		setVariable("Rating", Rating);
+		setVariable('Rating', Rating);
 		setVariable('SaveData', SaveData);
 		setVariable('Song', Song);
 
-		setVariable("cpp", #if cpp true #else false #end);
-		setVariable("debug", #if debug true #else false #end);
-		setVariable("desktop", #if desktop true #else false #end);
-		setVariable("sys", #if sys true #else false #end);
+		setVariable('cpp', #if cpp true #else false #end);
+		setVariable('debug', #if debug true #else false #end);
+		setVariable('desktop', #if desktop true #else false #end);
+		setVariable('sys', #if sys true #else false #end);
 
 		if (execute)
 			this.execute(file);
