@@ -103,8 +103,10 @@ class OptionsState extends ExtendableState {
 					openSubState(new LanguageSubState());
 			}
 
-			for (i in 0...checkerArray.length)
+			for (i in 0...checkerArray.length) {
 				checkerArray[i].checked = getOptionState(i);
+				checkerArray[i].animation.play((checked) ? "check" : "uncheck");
+			}
 
 			updateText();
 		}

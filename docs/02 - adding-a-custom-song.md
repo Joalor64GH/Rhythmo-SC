@@ -3,7 +3,7 @@ This will teach you how to add your own song to the game. Really, it's pretty si
 
 ## Adding your Song
 First of all, you need to add your song to the Song Selection Menu. <br>
-To do that, go to `assets/data/songList.json`. Then, to add your song, use this template:
+To do that, go to `assets/songs.json`. Then, to add your song, use this template:
 ```json
 {
     "name": "Song Name",

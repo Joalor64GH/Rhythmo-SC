@@ -6,11 +6,11 @@ class Checker extends GameSprite {
 
 	public function new(x:Float = 0, y:Float = 0, checked:Bool = true) {
 		super(x, y);
-		
 		this.checked = checked;
 
 		loadGraphic(Paths.image('options/checker'), true, 400, 400);
 		setGraphicSize(100, 100);
+		scale.set(0.6, 0.6);
 		scrollFactor.set();
 		updateHitbox();
 

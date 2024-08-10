@@ -208,11 +208,9 @@ class ChartingState extends ExtendableState {
 			}
 		}
 
-		/*
 		renderedNotes.remove(note, true);
 		note.kill();
 		note.destroy();
-		*/
 
 		updateGrid();
 	}

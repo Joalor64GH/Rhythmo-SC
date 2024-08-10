@@ -1,7 +1,7 @@
 # Current To-Dos
 * [ ] Add four basic songs
 * [X] Basic Documentation
-* [ ] Add checkers to OptionsState
+* [X] Add checkers to OptionsState
 * [ ] Improve ChartingState
 * [ ] Credits
 
