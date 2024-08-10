@@ -105,7 +105,7 @@ class OptionsState extends ExtendableState {
 
 			for (i in 0...checkerArray.length) {
 				checkerArray[i].checked = getOptionState(i);
-				checkerArray[i].animation.play((checked) ? "check" : "uncheck");
+				checkerArray[i].animation.play((checkerArray[i].checked) ? "check" : "uncheck");
 			}
 
 			updateText();
