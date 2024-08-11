@@ -37,7 +37,7 @@
     "scoreTxt": "Score: ",
     "missTxt": "Misses: ",
     "pauseTxt": "PAUSED?",
-    "pauseCtrls": "ENTER - Resume / R - Restart / BACKSPACE - Song Menu / ESCAPE - Main Menu",
+    "pauseCtrls": "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu",
 
     "timeTxt": "Time: ",
     "secTxt": "Section: ",

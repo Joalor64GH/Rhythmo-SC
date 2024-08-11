@@ -1,19 +1,25 @@
 package states;
 
 class MenuState extends ExtendableState {
+	var camera:FlxObject;
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
-	var selections:Array<String> = ['play', 'options', 'exit'];
+	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
 
 	override function create() {
 		super.create();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
+		bg.setGraphicSize(Std.int(bg.width * 1.1));
+		bg.scrollFactor.set();
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
 		add(grid);
+
+		camera = new FlxObject(0, 0, 1, 1);
+		add(camera);
 
 		grpSelection = new FlxTypedGroup<FlxSprite>();
 		add(grpSelection);
@@ -22,9 +28,12 @@ class MenuState extends ExtendableState {
 			var menuItem:FlxSprite = new FlxSprite(0, i * 190).loadGraphic(Paths.image('title/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
+			menuItem.scrollFactor.set();
 			menuItem.ID = i;
 			grpSelection.add(menuItem);
 		}
+
+		FlxG.camera.follow(camera, null, 0.60);
 
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -59,6 +68,8 @@ class MenuState extends ExtendableState {
 					switch (selections[curSelected]) {
 						case 'play':
 							ExtendableState.switchState(new SongSelectState());
+						case 'credits':
+							trace("menu not finished yet!");
 						case 'options':
 							ExtendableState.switchState(new OptionsState());
 					}
