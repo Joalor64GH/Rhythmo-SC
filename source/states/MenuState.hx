@@ -1,7 +1,7 @@
 package states;
 
 class MenuState extends ExtendableState {
-	var camera:FlxObject;
+	var cam:FlxObject;
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
@@ -18,8 +18,8 @@ class MenuState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		camera = new FlxObject(0, 0, 1, 1);
-		add(camera);
+		cam = new FlxObject(0, 0, 1, 1);
+		add(cam);
 
 		grpSelection = new FlxTypedGroup<FlxSprite>();
 		add(grpSelection);
@@ -33,7 +33,7 @@ class MenuState extends ExtendableState {
 			grpSelection.add(menuItem);
 		}
 
-		FlxG.camera.follow(camera, null, 0.60);
+		FlxG.camera.follow(cam, null, 0.60);
 
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
