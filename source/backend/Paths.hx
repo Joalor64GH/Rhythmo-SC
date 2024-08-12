@@ -64,9 +64,6 @@ class Paths {
 	inline static public function txt(key:String)
 		return file('$key.txt');
 
-	inline static public function video(key:String)
-		return file('videos/$key.mp4');
-
 	inline static public function sound(key:String, ?music:Bool = false, ?customPath:Bool = false):Dynamic {
 		var base:String = '';
 

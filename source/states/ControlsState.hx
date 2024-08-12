@@ -6,6 +6,8 @@ class ControlsState extends ExtendableState {
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
 
+	var switchTxt:FlxText;
+
 	var text1:FlxText;
 	var text2:FlxText;
 
@@ -19,8 +21,9 @@ class ControlsState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		controllerSpr = new FlxSprite(50, 40).makeGraphic(82, 60, FlxColor.BLACK); // placeholder
-		add(controllerSpr);
+		var switchTxt:FlxText = new FlxText(50, 40, 0, "Press X on your keyboard to enable/disable gamepad mode (must have a controller connected).", 12);
+		switchTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(switchTxt);
 
 		var instructionsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press LEFT/RIGHT to scroll through keys.", 12);
 		instructionsTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -44,8 +47,8 @@ class ControlsState extends ExtendableState {
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (FlxG.mouse.overlaps(controllerSpr)) {
-			if (FlxG.mouse.justPressed) {
+		if (keyboardMode) {
+			if (Input.is('x')) {
 				keyboardMode = !keyboardMode;
 				if (gamepad != null)
 					FlxG.sound.play(Paths.sound('confirm'));
@@ -54,9 +57,7 @@ class ControlsState extends ExtendableState {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}
 			}
-		}
 
-		if (keyboardMode) {
 			if ((Input.is('exit') || Input.is('backspace')) && !inChange)
 				ExtendableState.switchState(new OptionsState());
 

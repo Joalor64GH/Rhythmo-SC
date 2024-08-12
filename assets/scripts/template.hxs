@@ -22,6 +22,10 @@ function pause() {
     // when the game is paused
 }
 
+function resume() {
+    // when the game resumes
+}
+
 function endSong() {
     // when the song ends
 }
