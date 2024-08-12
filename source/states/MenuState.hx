@@ -120,7 +120,7 @@ class MenuState extends ExtendableState {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 		});
 
-		var add:Float = (grpSelection.members[curSelected].length > 3 ? grpSelection.members[curSelected].length * 8 : 0);
+		var add:Float = (selections.length > 3 ? selections.length * 8 : 0);
 		camFollow.setPosition(grpSelection.members[curSelected].getGraphicMidpoint().x, grpSelection.members[curSelected].getGraphicMidpoint().y - add);
 	}
 
