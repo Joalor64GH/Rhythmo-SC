@@ -1,7 +1,12 @@
 package states;
 
 class MenuState extends ExtendableState {
-	var cam:FlxObject;
+	var bg:FlxSprite;
+
+	var camFollow:FlxObject;
+	var camFollowPos:FlxObject;
+	var camMain:FlxCamera;
+
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
@@ -9,10 +14,21 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		camMain = new FlxCamera();
+		FlxG.cameras.reset(camMain);
+		FlxG.cameras.setDefaultDrawTarget(camMain, true);
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollowPos = new FlxObject(0, 0, 1, 1);
+		add(camFollow);
+		add(camFollowPos);
+
+		FlxG.camera.follow(camFollowPos, null, 1);
+
 		var yScroll:Float = Math.max(0.25 - (0.05 * (selections.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
+		bg = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.scrollFactor.set(0, yScroll);
+		bg.scrollFactor.set(0, yScroll / 3);
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
@@ -21,37 +37,37 @@ class MenuState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		cam = new FlxObject(0, 0, 1, 1);
-		add(cam);
-
 		grpSelection = new FlxTypedGroup<FlxSprite>();
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
 			var menuItem:FlxSprite = new FlxSprite(0, i * 190).loadGraphic(Paths.image('title/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
-			menuItem.screenCenter(X);
+			menuItem.screenCenter();
 			menuItem.updateHitbox();
-			var scr:Float = (selections.length - 4) * 0.135;
-			if (selections.length < 6)
-				scr = 0;
-			menuItem.scrollFactor.set(0, scr);
+			menuItem.scrollFactor.set(0, Math.max(0.25 - (0.05 * (selections.length - 4)), 0.1));
 			menuItem.ID = i;
 			grpSelection.add(menuItem);
 		}
 
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		versii.scrollFactor.set();
+		versii.scrollFactor.set(0, Math.max(0.25 - (0.05 * (selections.length - 4)), 0.1));
 		add(versii);
 
 		changeSelection();
-
-		FlxG.camera.follow(cam, null, 9);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		var lerpVal:Float = boundTo(elapsed * 7.5, 0, 1);
+		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+	
+		var mult:Float = FlxMath.lerp(1.07, bg.scale.x, boundTo(1 - (elapsed * 9), 0, 1));
+		bg.scale.set(mult, mult);
+		bg.updateHitbox();
+		bg.offset.set();
 
 		if (Input.is("up") || Input.is("down"))
 			changeSelection(Input.is("up") ? -1 : 1);
@@ -104,7 +120,11 @@ class MenuState extends ExtendableState {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 		});
 
-		cam.setPosition(grpSelection.members[curSelected].getGraphicMidpoint().x,
-			grpSelection.members[curSelected].getGraphicMidpoint().y - (selections.length > 3 ? selections.length * 8 : 0));
+		var add:Float = (grpSelection.members[curSelected].length > 3 ? grpSelection.members[curSelected].length * 8 : 0);
+		camFollow.setPosition(grpSelection.members[curSelected].getGraphicMidpoint().x, grpSelection.members[curSelected].getGraphicMidpoint().y - add);
+	}
+
+	function boundTo(value:Float, min:Float, max:Float):Float {
+		return Math.max(min, Math.min(max, value));
 	}
 }

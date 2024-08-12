@@ -31,8 +31,8 @@
         },
         {
             "name": "khuonghoanghuy",
-            "iconData": ["Additional Programmer", 0, -5],
-            "textData": ["Some things", "I like haxe."],
+            "iconData": ["placeholder", 0, -5],
+            "textData": ["Additional Programmer", "I like haxe."],
             "urlData": [["GitHub", "https://github.com/khuonghoanghuy/"]],
             "colors": [26, 184, 28]
         }
