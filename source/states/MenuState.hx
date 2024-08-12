@@ -104,7 +104,7 @@ class MenuState extends ExtendableState {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 		});
 
-		camFollow.setPosition(selections.members[curSelected].getGraphicMidpoint().x,
+		cam.setPosition(selections.members[curSelected].getGraphicMidpoint().x,
 			selections.members[curSelected].getGraphicMidpoint().y - (selections.length > 4 ? selections.length * 8 : 0));
 	}
 }

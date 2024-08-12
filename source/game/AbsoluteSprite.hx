@@ -1,4 +1,4 @@
-package backend;
+package game;
 
 class AbsoluteSprite extends FlxSprite {
 	public var parent:FlxObject;
