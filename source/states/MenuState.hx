@@ -9,9 +9,12 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		var yScroll:Float = Math.max(0.25 - (0.05 * (selections.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
-		bg.setGraphicSize(Std.int(bg.width * 1.1));
-		bg.scrollFactor.set();
+		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.scrollFactor.set(0, yScroll);
+		bg.updateHitbox();
+		bg.screenCenter();
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -28,18 +31,23 @@ class MenuState extends ExtendableState {
 			var menuItem:FlxSprite = new FlxSprite(0, i * 190).loadGraphic(Paths.image('title/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
-			menuItem.scrollFactor.set();
+			menuItem.updateHitbox();
+			var scr:Float = (selections.length - 4) * 0.135;
+			if (selections.length < 6)
+				scr = 0;
+			menuItem.scrollFactor.set(0, scr);
 			menuItem.ID = i;
 			grpSelection.add(menuItem);
 		}
 
-		FlxG.camera.follow(cam, null, 0.60);
-
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versii.scrollFactor.set();
 		add(versii);
 
 		changeSelection();
+
+		FlxG.camera.follow(cam, null, 9);
 	}
 
 	override function update(elapsed:Float) {
@@ -69,7 +77,7 @@ class MenuState extends ExtendableState {
 						case 'play':
 							ExtendableState.switchState(new SongSelectState());
 						case 'credits':
-							trace("menu not finished yet!");
+							ExtendableState.switchState(new CreditsState());
 						case 'options':
 							ExtendableState.switchState(new OptionsState());
 					}
@@ -95,5 +103,8 @@ class MenuState extends ExtendableState {
 		grpSelection.forEach((spr:FlxSprite) -> {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 		});
+
+		camFollow.setPosition(selections.members[curSelected].getGraphicMidpoint().x,
+			selections.members[curSelected].getGraphicMidpoint().y - (selections.length > 4 ? selections.length * 8 : 0));
 	}
 }

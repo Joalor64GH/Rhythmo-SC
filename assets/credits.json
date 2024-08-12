@@ -1,0 +1,40 @@
+{
+    "menuBG": null,
+    "menuBGColor": [255, 255, 255],
+    "tweenColor": true,
+    "users": [
+        {
+            "sectionName": "Rhythmo",
+
+            "name": "Joalor64",
+            "iconData": ["placeholder", 0, -5],
+            "textData": ["Main Creator/Programmer of Rhythmo, Artist, Composer", "I do stuff."],
+            "urlData": [
+                ["Twitter", "https://twitter.com/fnfkeith19/"],
+                ["Discord", "https://discordapp.com/users/584516163296559117/"],
+                ["GitHub", "https://github.com/Joalor64GH/"],
+                ["YT", "https://youtube.com/@joalor64ytofficial/"]
+            ],
+            "colors": [0, 210, 230]
+        },
+        {
+            "name": "Moxie",
+            "iconData": ["placeholder", 0, -5],
+            "textData": ["Additional Programmer", "love denpa engine"],
+            "urlData": [
+                ["Twitter", "https://twitter.com/moxie_specalist/"],
+                ["Discord", "https://discordapp.com/users/916691810506645585/"],
+                ["GitHub", "https://github.com/moxie-coder/"],
+                ["YT", "https://youtube.com/@moxie-the-specialist/"]
+            ],
+            "colors": [255, 237, 217]
+        },
+        {
+            "name": "khuonghoanghuy",
+            "iconData": ["Additional Programmer", 0, -5],
+            "textData": ["Some things", "I like haxe."],
+            "urlData": [["GitHub", "https://github.com/khuonghoanghuy/"]],
+            "colors": [26, 184, 28]
+        }
+    ]
+}

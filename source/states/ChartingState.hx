@@ -206,11 +206,9 @@ class ChartingState extends ExtendableState {
 			if (i.noteStrum == note.strum && i.noteData % 4 == getNoteIndex(note.dir))
 				song.notes[curSection].sectionNotes.remove(i);
 
-		/*
 		renderedNotes.remove(note, true);
 		note.kill();
 		note.destroy();
-		*/
 
 		updateGrid();
 	}
