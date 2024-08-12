@@ -3,7 +3,7 @@
 * [X] Basic Documentation
 * [X] Add checkers to OptionsState
 * [ ] Improve ChartingState
-* [ ] Credits
+* [X] Credits
 
 # Future To-Dos (After release)
 * Modding Support (Using Polymod)

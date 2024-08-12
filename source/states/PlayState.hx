@@ -282,6 +282,7 @@ class PlayState extends ExtendableState {
 
 	override function closeSubState() {
 		paused = false;
+		callOnScripts('resume', []);
 		FlxG.sound.music.resume();
 		super.closeSubState();
 	}

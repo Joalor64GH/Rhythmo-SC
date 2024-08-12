@@ -64,11 +64,6 @@ class Paths {
 	inline static public function txt(key:String)
 		return file('$key.txt');
 
-	#if yaml
-	inline static public function yaml(key:String)
-		return file('data/$key.yaml');
-	#end
-
 	inline static public function video(key:String)
 		return file('videos/$key.mp4');
 
