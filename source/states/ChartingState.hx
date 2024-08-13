@@ -136,7 +136,7 @@ class ChartingState extends ExtendableState {
 
 						if (FlxG.keys.pressed.CONTROL) {
 							selectNote(note);
-						} else {
+						} else if (!FlxG.keys.pressed.CONTROL) {
 							deleteNote(note);
 						}
 					}
