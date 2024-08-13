@@ -60,12 +60,11 @@ class CreditsState extends ExtendableState {
 
 			var offsetX = name.width + credData.users[i].iconData[1];
 			var icon:AbsoluteSprite = new AbsoluteSprite("credits/" + credData.users[i].iconData[0], name, offsetX, credData.users[i].iconData[2]);
-
 			if (credData.users[i].iconData[3] != null)
 				icon.setGraphicSize(Std.int(icon.width * credData.users[i].iconData[3]));
 			if (credData.users[i].iconData.length <= 1 || credData.users[i].iconData == null)
 				icon.visible = false;
-
+			icon.updateHitbox();
 			iconArray.push(icon);
 			add(icon);
 
@@ -112,7 +111,7 @@ class CreditsState extends ExtendableState {
 		updateSocial();
 	}
 
-	override public function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		topBar.y = FlxMath.lerp(topBar.y, 0, elapsed * 6);
@@ -185,7 +184,6 @@ class CreditsState extends ExtendableState {
 
 		updateBottomMarker();
 
-		// resets social because dumb
 		curSocial = 0;
 		updateSocial();
 	}
