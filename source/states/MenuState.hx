@@ -46,7 +46,7 @@ class MenuState extends ExtendableState {
 				changeSelection(Input.is("up") ? -1 : 1);
 
 			if (Input.is("accept") && !accepted) {
-				accepted = true
+				accepted = true;
 				if (selections[curSelected] == 'exit') {
 					FlxG.sound.play(Paths.sound('cancel'));
 					if (FlxG.sound.music != null)
