@@ -82,7 +82,7 @@ class ChartingState extends ExtendableState {
 				clearSong();
 			}, () -> {
 				closeSubState();
-			}))
+			}));
 		});
 		add(clearSongButton);
 
