@@ -170,23 +170,14 @@ class PlayState extends ExtendableState {
 							FlxG.sound.play(Paths.sound('wis_short'));
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
+									generateNotes();
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
-
-									var arrowMoveTime = Conductor.crochet / 1000;
-									for (i in 0...spawnNotes.length) {
-										var note = spawnNotes[i];
-										note.y = -note.height;
-										note.visible = true;
-										FlxTween.tween(note, {y: getNoteTargetY(i)}, arrowMoveTime);
-									}
-
 									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
 											cDownIsDone = true;
-											generateNotes();
 											FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
 											FlxG.sound.music.onComplete = () -> endSong();
 										}
@@ -198,12 +189,6 @@ class PlayState extends ExtendableState {
 				}
 			});
 		}
-	}
-
-	function getNoteTargetY(index:Int):Float {
-		var noteHeight:Float = 50;
-		var noteSpacing:Float = 100;
-		return FlxG.height - noteSpacing * (index + 1) - noteHeight;
 	}
 
 	override function update(elapsed:Float) {
@@ -406,9 +391,9 @@ class PlayState extends ExtendableState {
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
 						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
-						numScore.scale.set(0.65, 0.65);
+						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.65) + (35 * daLoop) - 160;
+						numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;
 						numScore.y = ratingDisplay.y + 120;
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);
