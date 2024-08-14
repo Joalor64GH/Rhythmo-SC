@@ -19,8 +19,8 @@ class MenuState extends ExtendableState {
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140) + (108 - (Math.max(selections.length, 4) - 4) * 80)).loadGraphic(Paths.image('title/' + selections[i]));
-			menuItem.scale.set(0.35, 0.35);
+			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)).loadGraphic(Paths.image('title/' + selections[i]));
+			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
 			menuItem.ID = i;
 			grpSelection.add(menuItem);

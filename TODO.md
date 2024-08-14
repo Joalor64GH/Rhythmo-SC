@@ -4,6 +4,7 @@
 * [X] Add checkers to OptionsState
 * [ ] Improve ChartingState
 * [X] Credits
+* [ ] Notesplashes
 
 # Future To-Dos (After release)
 * Modding Support (Using Polymod)

@@ -31,7 +31,9 @@ class PlayState extends ExtendableState {
 	var paused:Bool = false;
 	var canPause:Bool = true;
 
-	var cDownIsDone:Bool = false;
+	var startingSong:Bool = false;
+	var startedCountdown:Bool = false;
+
 	var countdown3:FlxSprite;
 	var countdown2:FlxSprite;
 	var countdown1:FlxSprite;
@@ -65,8 +67,9 @@ class PlayState extends ExtendableState {
 		Conductor.changeBPM(song.bpm, songMultiplier);
 		Conductor.recalculateStuff(songMultiplier);
 		Conductor.safeZoneOffset *= songMultiplier;
+		Conductor.songPosition = 0;
 
-		resetSongPos();
+		generateNotes();
 
 		speed = SaveData.settings.songSpeed;
 		speed /= songMultiplier;
@@ -86,7 +89,7 @@ class PlayState extends ExtendableState {
 		var noteWidth:Float = 200;
 		var totalWidth:Float = noteDirs.length * noteWidth;
 		var startX:Float = (FlxG.width - totalWidth) / 2;
-		var noteY:Float = (SaveData.settings.downScroll) ? -50 : 50;
+		var noteY:Float = (SaveData.settings.downScroll) ? FlxG.height - 150 : 50;
 
 		for (i in 0...noteDirs.length) {
 			var note:Note = new Note(startX + i * noteWidth, noteY, noteDirs[i], "receptor");
@@ -146,6 +149,7 @@ class PlayState extends ExtendableState {
 		if (Assets.exists(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')))
 			scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')));
 
+		startingSong = true;
 		startCountdown();
 	}
 
@@ -154,8 +158,15 @@ class PlayState extends ExtendableState {
 	}
 
 	function startCountdown() {
+		if (startedCountdown) {
+			callOnScripts('startCountdown', []);
+			return;
+		}
+
 		var ret:Dynamic = callOnScripts('startCountdown', []);
 		if (ret != Hscript.Function_Stop) {
+			startedCountdown = true;
+			Conductor.songPosition = -Conductor.crochet * 5;
 			countdown3.visible = true;
 			FlxG.sound.play(Paths.sound('wis_short'));
 			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
@@ -170,16 +181,12 @@ class PlayState extends ExtendableState {
 							FlxG.sound.play(Paths.sound('wis_short'));
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
-									generateNotes();
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
 									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
-											cDownIsDone = true;
-											FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
-											FlxG.sound.music.onComplete = () -> endSong();
 										}
 									});
 								}
@@ -191,23 +198,39 @@ class PlayState extends ExtendableState {
 		}
 	}
 
+	function startSong() {
+		startingSong = false;
+
+		FlxG.sound.playMusic(Paths.song(Paths.formatToSongPath(song.song)), 1, false);
+		FlxG.sound.music.onComplete = () -> endSong();
+
+		if (paused && FlxG.sound.music != null)
+			FlxG.sound.music.pause();
+	}
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		callOnScripts('update', [elapsed]);
 
-		if (paused || !cDownIsDone)
-			return;
+		if (startedCountdown)
+			Conductor.songPosition += elapsed * 1000;
+
+		if (startingSong) {
+			if (startedCountdown && Conductor.songPosition >= 0)
+				startSong();
+			else if (!startedCountdown)
+				Conductor.songPosition = -Conductor.crochet * 5;
+		} else {
+			if (!paused && FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
+				Conductor.songPosition = FlxG.sound.music.time;
+				timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
+			}
+		}
 
 		camZooming = (FlxG.sound.music.playing) ? true : false;
 
 		scoreTxt.text = 'Score: $score // Misses: $misses';
-
-		if (FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
-			Conductor.songPosition = FlxG.sound.music.time;
-			timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-		} else
-			Conductor.songPosition += (FlxG.elapsed) * 1000;
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -236,7 +259,7 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.is("exit") && canPause)
+		if (Input.is("exit") && canPause && startedCountdown)
 			pause();
 
 		if (Input.is("seven")) {

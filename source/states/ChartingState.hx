@@ -4,7 +4,6 @@ import game.Conductor;
 import game.Note;
 import game.Section;
 import game.Song;
-import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUINumericStepper;
 
 class ChartingState extends ExtendableState {
@@ -42,7 +41,10 @@ class ChartingState extends ExtendableState {
 
 	var songInfoText:FlxText;
 	var bpmStepper:FlxUINumericStepper;
+
 	var saveButton:FlxButton;
+	var clearSectionButton:FlxButton;
+	var clearSongButton:FlxButton;
 
 	var strumLine:FlxSprite;
 
@@ -72,7 +74,17 @@ class ChartingState extends ExtendableState {
 		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
 
-		bpmStepper = new FlxUINumericStepper(saveButton.x, 55, 1, 1, 1, 9999, 3);
+		clearSectionButton = new FlxButton(saveButton.x, 40, "Clear Section", clearSection);
+		add(clearSectionButton);
+
+		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", openSubState(new PromptSubState("Are you sure?", () -> {
+			clearSong();
+		}, () -> {
+			close();
+		})));
+		add(clearSongButton);
+
+		bpmStepper = new FlxUINumericStepper(clearSongButton.x, 115, 1, 1, 1, 9999, 3);
 		bpmStepper.value = song.bpm;
 		add(bpmStepper);
 
@@ -201,7 +213,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes)
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == note.rawNoteData)
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(getDirection(sectionNote.noteData % 4)))
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 
 		updateGrid();
@@ -211,7 +223,7 @@ class ChartingState extends ExtendableState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(note.dir)) {
 				curSelectedNote = sectionNote;
 			}
 
