@@ -484,7 +484,7 @@ class PlayState extends ExtendableState {
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(strumline.members[getNoteIndex(note.dir)].x, strumline.members[getNoteIndex(note.dir)].y, noteDirs[daNoteData], "note");
+				var swagNote:Note = new Note(strumline.members[note.noteData % noteDirs.length].x, strumline.members[note.noteData % noteDirs.length].y, noteDirs[daNoteData], "note");
 				swagNote.lastNote = oldNote;
 				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
