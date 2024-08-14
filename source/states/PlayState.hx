@@ -474,8 +474,6 @@ class PlayState extends ExtendableState {
 			Conductor.recalculateStuff(songMultiplier);
 
 			for (note in section.sectionNotes) {
-				var strum:Note = strumline.members[note.noteData % noteDirs.length];
-
 				var daStrumTime:Float = note.noteStrum + 1 * songMultiplier;
 				var daNoteData:Int = Std.int(note.noteData % noteDirs.length);
 
@@ -486,8 +484,7 @@ class PlayState extends ExtendableState {
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(strum.x, strum.y, noteDirs[daNoteData], "note");
-				swagNote.scrollFactor.set();
+				var swagNote:Note = new Note(strumline.members[getNoteIndex(note.dir)].x, strumline.members[getNoteIndex(note.dir)].y, noteDirs[daNoteData], "note");
 				swagNote.lastNote = oldNote;
 				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
