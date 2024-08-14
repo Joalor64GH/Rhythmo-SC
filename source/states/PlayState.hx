@@ -153,10 +153,6 @@ class PlayState extends ExtendableState {
 		startCountdown();
 	}
 
-	function resetSongPos() {
-		Conductor.songPosition = 0 - (Conductor.crochet * 4.5);
-	}
-
 	function startCountdown() {
 		if (startedCountdown) {
 			callOnScripts('startCountdown', []);
@@ -210,6 +206,8 @@ class PlayState extends ExtendableState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (paused) return;
 
 		callOnScripts('update', [elapsed]);
 

@@ -77,11 +77,13 @@ class ChartingState extends ExtendableState {
 		clearSectionButton = new FlxButton(saveButton.x, 40, "Clear Section", clearSection);
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", openSubState(new PromptSubState("Are you sure?", () -> {
-			clearSong();
-		}, () -> {
-			close();
-		})));
+		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", () -> { 
+			openSubState(new PromptSubState("Are you sure?", () -> {
+				clearSong();
+			}, () -> {
+				closeSubState();
+			}))
+		});
 		add(clearSongButton);
 
 		bpmStepper = new FlxUINumericStepper(clearSongButton.x, 115, 1, 1, 1, 9999, 3);
@@ -181,6 +183,10 @@ class ChartingState extends ExtendableState {
 			+ beatSnap
 			+ (FlxG.keys.pressed.SHIFT ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
 			+ "\n");
+	}
+
+	override function closeSubState() {
+		super.closeSubState();
 	}
 
 	function loadSong(daSong:String):Void {
