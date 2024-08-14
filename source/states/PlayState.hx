@@ -474,7 +474,7 @@ class PlayState extends ExtendableState {
 			Conductor.recalculateStuff(songMultiplier);
 
 			for (note in section.sectionNotes) {
-				var strum = strumline.members[note.noteData % noteDirs.length];
+				var strum:Note = strumline.members[note.noteData % noteDirs.length];
 
 				var daStrumTime:Float = note.noteStrum + 1 * songMultiplier;
 				var daNoteData:Int = Std.int(note.noteData % noteDirs.length);

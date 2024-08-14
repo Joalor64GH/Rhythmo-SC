@@ -1,7 +1,8 @@
 package states;
 
 class TitleState extends ExtendableState {
-	var logo:FlxSprite;
+	var accepted:Bool = false;
+	var allowInputs:Bool = false;
 
 	override function create() {
 		super.create();
@@ -19,7 +20,7 @@ class TitleState extends ExtendableState {
 		var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
 		add(audio);
 
-		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
+		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;
@@ -38,12 +39,15 @@ class TitleState extends ExtendableState {
 		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
+
+		allowInputs = true;
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("accept")) {
+		if ((Input.is("accept") || FlxG.mouse.justPressed) && allowInputs && !accepted) {
+			accepted = true;
 			FlxG.sound.play(Paths.sound('start'));
 			if (SaveData.settings.flashing)
 				FlxG.camera.flash(FlxColor.WHITE, 1);

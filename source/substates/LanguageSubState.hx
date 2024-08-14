@@ -44,6 +44,11 @@ class LanguageSubState extends ExtendableSubState {
 			group.add(text);
 		}
 
+		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "(Language translations may not be 100% accurate.)", 12);
+		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noticeTxt.screenCenter(X);
+		add(noticeTxt);
+
 		changeSelection();
 	}
 

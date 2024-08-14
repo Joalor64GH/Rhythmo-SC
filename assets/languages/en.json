@@ -23,6 +23,7 @@
     "descCtrls": "Edit your controls.",
 
     "langSelect": "SELECT A LANGUAGE",
+    "langNotCompletelyAccurate": "(Language translations may not be 100% accurate.)",
 
     "ctrlGuide1": "Press LEFT/RIGHT to scroll through keys.",
     "ctrlGuide2": "PRESS ANY KEY TO CONTINUE",

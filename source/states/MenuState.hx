@@ -5,6 +5,9 @@ class MenuState extends ExtendableState {
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
 
+	var accepted:Bool;
+	var allowInputs:Bool = false;
+
 	override function create() {
 		super.create();
 
@@ -31,53 +34,58 @@ class MenuState extends ExtendableState {
 		add(versii);
 
 		changeSelection();
+
+		allowInputs = true;
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("up") || Input.is("down"))
-			changeSelection(Input.is("up") ? -1 : 1);
+		if (allowInputs) {
+			if (Input.is("up") || Input.is("down") && !accepted)
+				changeSelection(Input.is("up") ? -1 : 1);
 
-		if (Input.is("accept")) {
-			if (selections[curSelected] == 'exit') {
-				FlxG.sound.play(Paths.sound('cancel'));
-				if (FlxG.sound.music != null)
-					FlxG.sound.music.fadeOut(0.3);
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
-					#if sys
-					Sys.exit(0);
-					#else
-					System.exit(0);
-					#end
-				});
-			} else {
-				FlxG.sound.play(Paths.sound('select'));
-				if (SaveData.settings.flashing)
-					FlxG.camera.flash(FlxColor.WHITE, 1);
-				new FlxTimer().start(1, (tmr:FlxTimer) -> {
-					switch (selections[curSelected]) {
-						case 'play':
-							ExtendableState.switchState(new SongSelectState());
-						case 'credits':
-							ExtendableState.switchState(new CreditsState());
-						case 'options':
-							ExtendableState.switchState(new OptionsState());
-					}
-				});
+			if (Input.is("accept") && !accepted) {
+				accepted = true
+				if (selections[curSelected] == 'exit') {
+					FlxG.sound.play(Paths.sound('cancel'));
+					if (FlxG.sound.music != null)
+						FlxG.sound.music.fadeOut(0.3);
+					FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> {
+						#if sys
+						Sys.exit(0);
+						#else
+						System.exit(0);
+						#end
+					});
+				} else {
+					FlxG.sound.play(Paths.sound('select'));
+					if (SaveData.settings.flashing)
+						FlxG.camera.flash(FlxColor.WHITE, 1);
+					new FlxTimer().start(1, (tmr:FlxTimer) -> {
+						switch (selections[curSelected]) {
+							case 'play':
+								ExtendableState.switchState(new SongSelectState());
+							case 'credits':
+								ExtendableState.switchState(new CreditsState());
+							case 'options':
+								ExtendableState.switchState(new OptionsState());
+						}
+					});
+				}
 			}
-		}
 
-		if (Input.is("exit")) {
-			ExtendableState.switchState(new TitleState());
-			FlxG.sound.play(Paths.sound('cancel'));
-		}
+			if (Input.is("exit") && !accepted) {
+				ExtendableState.switchState(new TitleState());
+				FlxG.sound.play(Paths.sound('cancel'));
+			}
 
-		#if desktop
-		if (Input.is("seven")) {
-			ExtendableState.switchState(new EditorState());
+			#if desktop
+			if (Input.is("seven") && !accepted) {
+				ExtendableState.switchState(new EditorState());
+			}
+			#end
 		}
-		#end
 	}
 
 	function changeSelection(change:Int = 0) {
