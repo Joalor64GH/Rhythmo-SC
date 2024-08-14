@@ -134,9 +134,10 @@ class ChartingState extends ExtendableState {
 						&& (Math.floor((gridBG.x + FlxG.mouse.x / gridSize) - 2)) == note.rawNoteData && coolNess) {
 						coolNess = false;
 
-						if (FlxG.keys.pressed.CONTROL) {
+						if (FlxG.keys.pressed.CONTROL)
 							selectNote(note);
-						} else if (!FlxG.keys.pressed.CONTROL) {
+						else {
+							trace("trying to delete note");
 							deleteNote(note);
 						}
 					}
@@ -203,12 +204,8 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes)
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == getNoteIndex(note.dir))
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(note.dir))
 				song.notes[curSection].sectionNotes.remove(sectionNote);
-
-		renderedNotes.remove(note, true);
-		note.kill();
-		note.destroy();
 
 		updateGrid();
 	}
@@ -223,6 +220,18 @@ class ChartingState extends ExtendableState {
 
 			swagNum++;
 		}
+
+		updateGrid();
+	}
+
+	function clearSection():Void {
+		song.notes[curSection].sectionNotes = [];
+		updateGrid();
+	}
+
+	function clearSong():Void {
+		for (daSection in 0...song.notes.length)
+			song.notes[daSection].sectionNotes = [];
 
 		updateGrid();
 	}

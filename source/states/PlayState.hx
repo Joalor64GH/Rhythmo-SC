@@ -86,9 +86,10 @@ class PlayState extends ExtendableState {
 		var noteWidth:Float = 200;
 		var totalWidth:Float = noteDirs.length * noteWidth;
 		var startX:Float = (FlxG.width - totalWidth) / 2;
+		var noteY:Float = (SaveData.settings.downScroll) ? -50 : 50;
 
 		for (i in 0...noteDirs.length) {
-			var note:Note = new Note(startX + i * noteWidth, 50, noteDirs[i], "receptor");
+			var note:Note = new Note(startX + i * noteWidth, noteY, noteDirs[i], "receptor");
 			strumline.add(note);
 		}
 
@@ -172,6 +173,15 @@ class PlayState extends ExtendableState {
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
+
+									var arrowMoveTime = Conductor.crochet / 1000;
+									for (i in 0...spawnNotes.length) {
+										var note = spawnNotes[i];
+										note.y = -note.height;
+										note.visible = true;
+										FlxTween.tween(note, {y: getNoteTargetY(i)}, arrowMoveTime);
+									}
+
 									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
@@ -188,6 +198,12 @@ class PlayState extends ExtendableState {
 				}
 			});
 		}
+	}
+
+	function getNoteTargetY(index:Int):Float {
+		var noteHeight:Float = 50;
+		var noteSpacing:Float = 100;
+		return FlxG.height - noteSpacing * (index + 1) - noteHeight;
 	}
 
 	override function update(elapsed:Float) {
@@ -390,9 +406,9 @@ class PlayState extends ExtendableState {
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
 						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
-						numScore.scale.set(0.45, 0.45);
+						numScore.scale.set(0.65, 0.65);
 						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.65) + (43 * daLoop) - 160;
+						numScore.x = (FlxG.width * 0.65) + (35 * daLoop) - 160;
 						numScore.y = ratingDisplay.y + 120;
 						numScore.acceleration.y = FlxG.random.int(200, 300);
 						numScore.velocity.y -= FlxG.random.int(140, 160);

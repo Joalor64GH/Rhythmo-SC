@@ -7,7 +7,7 @@
             "sectionName": "Rhythmo",
 
             "name": "Joalor64",
-            "iconData": ["placeholder", 0, 0],
+            "iconData": ["placeholder", 0, 10],
             "textData": ["Main Creator/Programmer of Rhythmo, Artist, Composer", "I do stuff."],
             "urlData": [
                 ["Twitter", "https://twitter.com/fnfkeith19/"],
@@ -19,7 +19,7 @@
         },
         {
             "name": "Moxie",
-            "iconData": ["placeholder", 0, 0],
+            "iconData": ["placeholder", 0, 10],
             "textData": ["Additional Programmer", "love denpa engine"],
             "urlData": [
                 ["Twitter", "https://twitter.com/moxie_specalist/"],
@@ -31,7 +31,7 @@
         },
         {
             "name": "huy1234th",
-            "iconData": ["huy1234th", 0, 0],
+            "iconData": ["huy1234th", 0, 10],
             "textData": ["Additional Programmer", "I like haxe."],
             "urlData": [["GitHub", "https://github.com/khuonghoanghuy/"]],
             "colors": [26, 184, 28]
