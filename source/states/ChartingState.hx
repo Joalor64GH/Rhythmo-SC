@@ -80,6 +80,7 @@ class ChartingState extends ExtendableState {
 		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", () -> { 
 			openSubState(new PromptSubState("Are you sure?", () -> {
 				clearSong();
+				closeSubState();
 			}, () -> {
 				closeSubState();
 			}));
@@ -219,7 +220,7 @@ class ChartingState extends ExtendableState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes)
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(getDirection(sectionNote.noteData % 4)))
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == note.rawNoteData)
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 
 		updateGrid();
