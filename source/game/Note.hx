@@ -21,7 +21,7 @@ class Note extends GameSprite {
 		this.dir = dir;
 		this.type = type;
 
-		loadGraphic(Paths.image('ui/note_$dir'), true, 200, 200);
+		loadGraphic(Paths.image('gameplay/note_$dir'), true, 200, 200);
 		scale.set(0.6, 0.6);
 
 		animation.add("note", [0], 1);

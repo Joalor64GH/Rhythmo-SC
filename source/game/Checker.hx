@@ -9,7 +9,7 @@ class Checker extends GameSprite {
 
 		this.checked = checked;
 
-		loadGraphic(Paths.image('options/checker'), true, 400, 400);
+		loadGraphic(Paths.image('menu/checker'), true, 400, 400);
 		setGraphicSize(65, 65);
 		scrollFactor.set();
 		updateHitbox();

@@ -19,7 +19,7 @@ function stepHit(curStep:Int) {
 }
 
 function pause() {
-    // when the game is paused
+    // when the game pauses
 }
 
 function resume() {

@@ -11,7 +11,7 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -22,7 +22,7 @@ class MenuState extends ExtendableState {
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)).loadGraphic(Paths.image('title/' + selections[i]));
+			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)).loadGraphic(Paths.image('menu/mainmenu/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
 			menuItem.ID = i;

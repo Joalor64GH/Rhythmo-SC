@@ -12,7 +12,7 @@ class EditorState extends ExtendableState {
     override function create() {
         super.create();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('options/options_bg'));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
         bg.color = 0x5a5656;
 		add(bg);
 

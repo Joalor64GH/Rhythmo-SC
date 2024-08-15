@@ -17,7 +17,7 @@ class Rating extends GameSprite {
 			startDelay: 1
 		});
 
-		loadGraphic(Paths.image('ui/$rating'));
+		loadGraphic(Paths.image('gameplay/$rating'));
 		centerOffsets();
 		centerOrigin();
 	}

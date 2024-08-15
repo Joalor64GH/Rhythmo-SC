@@ -108,7 +108,6 @@ class Paths {
 			if (Cache.getFromCache(png, "image") == null) {
 				var graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(png + ".png"), false, png, false);
 				graphic.destroyOnNoUse = false;
-
 				Cache.addToCache(png, graphic, "image");
 			}
 
@@ -141,7 +140,6 @@ class Paths {
 			if (Cache.getFromCache(png, "image") == null) {
 				var graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(png + ".png"), false, png, false);
 				graphic.destroyOnNoUse = false;
-
 				Cache.addToCache(png, graphic, "image");
 			}
 

@@ -69,8 +69,8 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/bg'));
-		bg.screenCenter(XY);
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		bg.screenCenter();
 		add(bg);
 
 		strumline = new FlxTypedGroup<Note>();
@@ -95,10 +95,10 @@ class PlayState extends ExtendableState {
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
-		timeBar.y = FlxG.height - 20;
+		timeBar.y = (SaveData.settings.downScroll) ? 20 : FlxG.height - 20;
 		add(timeBar);
 
-		scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
+		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
 		add(scoreTxt);
@@ -115,25 +115,25 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/three'));
+		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/three'));
 		countdown3.antialiasing = SaveData.settings.antialiasing;
 		countdown3.screenCenter();
 		countdown3.visible = false;
 		add(countdown3);
 
-		countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/two'));
+		countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/two'));
 		countdown2.antialiasing = SaveData.settings.antialiasing;
 		countdown2.screenCenter();
 		countdown2.visible = false;
 		add(countdown2);
 
-		countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/one'));
+		countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/one'));
 		countdown1.antialiasing = SaveData.settings.antialiasing;
 		countdown1.screenCenter();
 		countdown1.visible = false;
 		add(countdown1);
 
-		go = new FlxSprite(0, 0).loadGraphic(Paths.image('ui/go'));
+		go = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/go'));
 		go.antialiasing = SaveData.settings.antialiasing;
 		go.screenCenter();
 		go.visible = false;
@@ -223,7 +223,7 @@ class PlayState extends ExtendableState {
 
 		camZooming = (FlxG.sound.music.playing) ? true : false;
 
-		scoreTxt.text = 'Score: $score // Misses: $misses';
+		scoreTxt.text = (SaveData.settings.botPlay) ? 'BOTPLAY' : 'Score: $score // Misses: $misses';
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -342,8 +342,13 @@ class PlayState extends ExtendableState {
 
 		for (note in notes) {
 			note.calculateCanBeHit();
-			if (note.canBeHit && !note.tooLate)
-				possibleNotes.push(note);
+			if (!SaveData.settings.botPlay) {
+				if (note.canBeHit && !note.tooLate)
+					possibleNotes.push(note);
+			} else {
+				if (note.strum <= Conductor.songPosition)
+					possibleNotes.push(note);
+			}
 		}
 
 		possibleNotes.sort((a, b) -> Std.int(a.strum - b.strum));
@@ -355,11 +360,13 @@ class PlayState extends ExtendableState {
 			for (i in 0...possibleNotes.length) {
 				var note = possibleNotes[i];
 
-				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)])) {
+				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)] && !SaveData.settings.botPlay) || SaveData.settings.botPlay) {
+					if (SaveData.settings.hitSoundVolume > 0)
+						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume);
+					
 					var ratingScores:Array<Int> = [350, 200, 100, 50];
 
-					var noteMs = (Conductor.songPosition - note.strum) / songMultiplier;
-
+					var noteMs = (SaveData.settings.botPlay) ? 0 : (Conductor.songPosition - note.strum) / songMultiplier;
 					var roundedDecimalNoteMs:Float = FlxMath.roundDecimal(noteMs, 3);
 
 					curRating = "perfect";
@@ -406,7 +413,7 @@ class PlayState extends ExtendableState {
 
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
-						numScore.loadGraphic(Paths.image('ui/num' + Std.int(i)));
+						numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i)));
 						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
 						numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;
@@ -451,6 +458,7 @@ class PlayState extends ExtendableState {
 	function endSong() {
 		var ret:Dynamic = callOnScripts('endSong', []);
 		if (ret != Hscript.Function_Stop) {
+			timeBar.visible = false;
 			if (chartingMode) {
 				ExtendableState.switchState(new ChartingState());
 				ChartingState.instance.song = song;
@@ -458,7 +466,8 @@ class PlayState extends ExtendableState {
 			}
 			ExtendableState.switchState(new SongSelectState());
 			FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
-			HighScore.saveScore(song.song, score);
+			if (!SaveData.settings.botPlay)
+				HighScore.saveScore(song.song, score);
 			canPause = false;
 		}
 		return true;

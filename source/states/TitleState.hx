@@ -10,7 +10,7 @@ class TitleState extends ExtendableState {
 		FlxG.mouse.visible = true;
 		FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('title/title_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -20,7 +20,7 @@ class TitleState extends ExtendableState {
 		var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
 		add(audio);
 
-		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('title/logo'));
+		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menu/title/logo'));
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;

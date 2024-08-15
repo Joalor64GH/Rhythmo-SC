@@ -7,8 +7,10 @@ class OptionsState extends ExtendableState {
 		"Antialiasing",
 		"Downscroll",
 		"Flashing Lights",
+		"Botplay",
 		"Framerate",
 		"Song Speed",
+		"Hitsound Volume",
 		"Language",
 		"Controls"
 	];
@@ -21,7 +23,7 @@ class OptionsState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('options/options_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -37,7 +39,7 @@ class OptionsState extends ExtendableState {
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
 
-			if (i < 5) {
+			if (i < 6) {
 				var checker:Checker = new Checker(0, 0, getOptionState(i));
 				checker.sprTracker = optionTxt;
 				checkerArray.push(checker);
@@ -78,6 +80,14 @@ class OptionsState extends ExtendableState {
 				else
 					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
+		} else if (options[curSelected] == "Hitsound Volume") {
+			if (Input.is('right') || Input.is('left')) {
+				FlxG.sound.play(Paths.sound('scroll'));
+				if (!Input.is('left'))
+					SaveData.settings.hitSoundVolume += (SaveData.settings.hitSoundVolume == 1) ? 0 : 0.1;
+				else
+					SaveData.settings.hitSoundVolume -= (SaveData.settings.hitSoundVolume == 0) ? 0 : 0.1;
+			}
 		}
 
 		if (Input.is("accept")) {
@@ -97,6 +107,8 @@ class OptionsState extends ExtendableState {
 					SaveData.settings.downScroll = !SaveData.settings.downScroll;
 				case "Flashing Lights":
 					SaveData.settings.flashing = !SaveData.settings.flashing;
+				case "Botplay":
+					SaveData.settings.botPlay = !SaveData.settings.botPlay;
 				case "Controls":
 					ExtendableState.switchState(new ControlsState());
 				case "Language":
@@ -139,12 +151,16 @@ class OptionsState extends ExtendableState {
 			case 4:
 				daText.text = "Toggles flashing lights. Turn this off if you're photosensitive. Set to: " + SaveData.settings.flashing;
 			case 5:
-				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
+				daText.text = "Toggles botplay. Set to: " + SaveData.settings.botPlay;
 			case 6:
-				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
+				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
 			case 7:
-				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
 			case 8:
+				daText.text = "Use LEFT/RIGHT to change the hitsound volume (Max 1). Set to: " + SaveData.settings.hitSoundVolume;
+			case 9:
+				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+			case 10:
 				daText.text = "Edit your controls.";
 		}
 	}
@@ -161,6 +177,8 @@ class OptionsState extends ExtendableState {
 				return SaveData.settings.downScroll;
 			case 4:
 				return SaveData.settings.flashing;
+			case 5:
+				return SaveData.settings.botPlay;
 			default:
 				return false;
 		}

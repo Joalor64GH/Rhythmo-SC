@@ -19,7 +19,7 @@ class InitialState extends ExtendableState {
 		trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');
 		#end
 
-		intro = new FlxSprite().loadGraphic(Paths.image('title/credist'));
+		intro = new FlxSprite().loadGraphic(Paths.image('menu/title/intro'));
 		intro.screenCenter();
 		intro.alpha = 0;
 		add(intro);

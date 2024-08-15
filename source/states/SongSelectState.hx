@@ -43,7 +43,7 @@ class SongSelectState extends ExtendableState {
 
 		songListData = Json.parse(Paths.getTextFromFile('songs.json'));
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('selector/selector_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/selector_bg'));
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -56,10 +56,10 @@ class SongSelectState extends ExtendableState {
 		for (i in 0...songListData.songs.length) {
 			var newItem:Cover = new Cover();
 			try {
-				newItem.loadGraphic(Paths.image('selector/covers/' + Paths.formatToSongPath(songListData.songs[i].name)));
+				newItem.loadGraphic(Paths.image('covers/' + Paths.formatToSongPath(songListData.songs[i].name)));
 			} catch (e) {
 				trace("oops! cover returned null!");
-				newItem.loadGraphic(Paths.image('selector/covers/placeholder'));
+				newItem.loadGraphic(Paths.image('covers/placeholder'));
 			}
 			newItem.scale.set(0.6, 0.6);
 			newItem.ID = i;
@@ -82,7 +82,7 @@ class SongSelectState extends ExtendableState {
 		titleTxt.screenCenter(X);
 		add(titleTxt);
 
-		var arrows:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('selector/arrows'));
+		var arrows:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menu/arrows'));
 		arrows.screenCenter(XY);
 		add(arrows);
 

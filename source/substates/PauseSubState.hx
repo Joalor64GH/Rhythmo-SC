@@ -53,7 +53,7 @@ class PauseSubState extends ExtendableSubState {
 		} else if (Input.is("o"))
 			ExtendableState.switchState(new OptionsState());
 		else if (Input.is("r"))
-			ExtendableState.resetState();
+			FlxG.resetState();
 		else if (Input.is("accept"))
 			close();
 	}
