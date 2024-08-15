@@ -64,13 +64,6 @@ class PlayState extends ExtendableState {
 		if (songMultiplier < 0.1)
 			songMultiplier = 0.1;
 
-		Conductor.changeBPM(song.bpm, songMultiplier);
-		Conductor.recalculateStuff(songMultiplier);
-		Conductor.safeZoneOffset *= songMultiplier;
-		Conductor.songPosition = 0;
-
-		generateNotes();
-
 		speed = SaveData.settings.songSpeed;
 		speed /= songMultiplier;
 		if (speed < 0.1 && songMultiplier > 1)
@@ -145,6 +138,8 @@ class PlayState extends ExtendableState {
 		go.screenCenter();
 		go.visible = false;
 		add(go);
+
+		generateSong();
 
 		if (Assets.exists(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')))
 			scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')));
@@ -469,11 +464,18 @@ class PlayState extends ExtendableState {
 		return true;
 	}
 
-	function generateNotes() {
+	function generateSong() {
+		Conductor.changeBPM(song.bpm, songMultiplier);
+		Conductor.recalculateStuff(songMultiplier);
+		Conductor.safeZoneOffset *= songMultiplier;
+		Conductor.songPosition = 0;
+
 		for (section in song.notes) {
 			Conductor.recalculateStuff(songMultiplier);
 
 			for (note in section.sectionNotes) {
+				var strum = strumline.members[note.noteData % noteDirs.length];
+
 				var daStrumTime:Float = note.noteStrum + 1 * songMultiplier;
 				var daNoteData:Int = Std.int(note.noteData % noteDirs.length);
 
@@ -484,7 +486,7 @@ class PlayState extends ExtendableState {
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(strumline.members[note.noteData % noteDirs.length].x, strumline.members[note.noteData % noteDirs.length].y, noteDirs[daNoteData], "note");
+				var swagNote:Note = new Note(strum.x, strum.y, noteDirs[daNoteData], "note");
 				swagNote.lastNote = oldNote;
 				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
