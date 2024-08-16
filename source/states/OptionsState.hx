@@ -84,9 +84,9 @@ class OptionsState extends ExtendableState {
 			if (Input.is('right') || Input.is('left')) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!Input.is('left'))
-					SaveData.settings.hitSoundVolume += (SaveData.settings.hitSoundVolume == 1) ? 0 : 0.1;
+					SaveData.settings.hitSoundVolume = Math.min(1, SaveData.settings.hitSoundVolume + 0.1);
 				else
-					SaveData.settings.hitSoundVolume -= (SaveData.settings.hitSoundVolume == 0) ? 0 : 0.1;
+					SaveData.settings.hitSoundVolume = Math.max(0, SaveData.settings.hitSoundVolume - 0.1);
 			}
 		}
 

@@ -1,11 +1,8 @@
 package game;
 
 class NoteSplash extends GameSprite {
-    public var noteData:Int = 0;
-
-    public function new(x:Float = 0, y:Float = 0, noteData:Int = 0) {
-        super(x, y);
-        this.noteData = noteData;
+    public function setupSplash(x:Float = 0, y:Float = 0, noteData:Int = 0) {
+        setPosition(x, y);
 
         loadGraphic(Paths.image('gameplay/splash_${getDirection(noteData)}'), true, 200, 200);
         scale.set(0.6, 0.6);

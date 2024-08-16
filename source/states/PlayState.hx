@@ -14,6 +14,7 @@ class PlayState extends ExtendableState {
 	private var scriptArray:Array<Hscript> = [];
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
+	var noteSplashes:FlxTypedGroup<NoteSplash>;
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
 	var spawnNotes:Array<Note> = [];
@@ -26,7 +27,7 @@ class PlayState extends ExtendableState {
 	var scoreTxt:FlxText;
 	var timeBar:Bar;
 
-	var camZooming:Bool = false;
+	var camZooming:Bool = true;
 
 	var paused:Bool = false;
 	var canPause:Bool = true;
@@ -73,6 +74,9 @@ class PlayState extends ExtendableState {
 		bg.screenCenter();
 		add(bg);
 
+		noteSplashes = new FlxTypedGroup<NoteSplash>(8); // to prevent lag
+		add(noteSplashes);
+
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
 
@@ -82,7 +86,7 @@ class PlayState extends ExtendableState {
 		var noteWidth:Float = 200;
 		var totalWidth:Float = noteDirs.length * noteWidth;
 		var startX:Float = (FlxG.width - totalWidth) / 2;
-		var noteY:Float = (SaveData.settings.downScroll) ? FlxG.height - 150 : 50;
+		var noteY:Float = (SaveData.settings.downScroll) ? FlxG.height - 250 : 50;
 
 		for (i in 0...noteDirs.length) {
 			var note:Note = new Note(startX + i * noteWidth, noteY, noteDirs[i], "receptor");
@@ -96,6 +100,7 @@ class PlayState extends ExtendableState {
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
 		timeBar.y = (SaveData.settings.downScroll) ? 20 : FlxG.height - 20;
+		timeBar.x = 0;
 		add(timeBar);
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
@@ -221,8 +226,6 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		camZooming = (FlxG.sound.music.playing) ? true : false;
-
 		scoreTxt.text = (SaveData.settings.botPlay) ? 'BOTPLAY' : 'Score: $score // Misses: $misses';
 
 		if (spawnNotes.length > 0) {
@@ -283,7 +286,7 @@ class PlayState extends ExtendableState {
 		if (lastBeatHit >= curBeat)
 			return;
 
-		if (camZooming)
+		if (camZooming && FlxG.sound.music.playing)
 			if (curBeat % (song.timeSignature[0] / 2) == 0)
 				FlxTween.tween(FlxG.camera, {zoom: 1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
@@ -397,6 +400,12 @@ class PlayState extends ExtendableState {
 							score += ratingScores[2];
 						case "no":
 							score += ratingScores[3];
+					}
+
+					if (daRating == 'perfect') {
+						var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+						splash.setupSplash(note.x, note.y, getNoteIndex(note.dir));
+						noteSplashes.add(splash);
 					}
 
 					ratingDisplay.showCurrentRating();

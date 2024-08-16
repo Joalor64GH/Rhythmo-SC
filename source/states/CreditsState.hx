@@ -58,13 +58,12 @@ class CreditsState extends ExtendableState {
 			name.ID = i;
 			credsGrp.add(name);
 
-			var offsetX = name.width + credData.users[i].iconData[1];
-			var icon:AbsoluteSprite = new AbsoluteSprite("credits/" + credData.users[i].iconData[0], name, offsetX, credData.users[i].iconData[2]);
+			var icon:CreditsIcon = new CreditsIcon((name.width + credData.users[i].iconData[1]), credData.users[i].iconData[2], credData.users[i].iconData[0]);
 			if (credData.users[i].iconData[3] != null)
 				icon.setGraphicSize(Std.int(icon.width * credData.users[i].iconData[3]));
 			if (credData.users[i].iconData.length <= 1 || credData.users[i].iconData == null)
 				icon.visible = false;
-			icon.updateHitbox();
+			icon.sprTracker = name;
 			iconArray.push(icon);
 			add(icon);
 
@@ -234,5 +233,33 @@ class CreditsState extends ExtendableState {
 
 		bottomMarker.text = fullText;
 		bottomMarker.screenCenter(X);
+	}
+}
+
+class CreditsIcon extends GameSprite {
+	public var sprTracker:FlxSprite;
+	public var icon:String = '';
+
+	public function new(x:Float = 0, y:Float = 0, icon:String = '') {
+		super(x, y);
+
+		this.icon = icon;
+
+		try {
+			loadGraphic(Paths.image('credits/$icon'));
+		} catch(e:Dynamic) {
+			trace('error getting icon: $e');
+			loadGraphic(Paths.image('credits/placeholder'));
+		}
+		setGraphicSize(65, 70);
+		scrollFactor.set();
+		updateHitbox();
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		if (sprTracker != null)
+			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y);
 	}
 }
