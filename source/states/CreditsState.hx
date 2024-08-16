@@ -26,7 +26,7 @@ class CreditsState extends ExtendableState {
 	var menuBG:FlxSprite;
 	var menuColorTween:FlxTween;
 
-	var iconArray:Array<AbsoluteSprite> = [];
+	var iconArray:Array<CreditsIcon> = [];
 
 	var topBar:FlxSprite;
 	var topMarker:FlxText;

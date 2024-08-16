@@ -402,7 +402,7 @@ class PlayState extends ExtendableState {
 							score += ratingScores[3];
 					}
 
-					if (daRating == 'perfect') {
+					if (curRating == 'perfect') {
 						var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 						splash.setupSplash(note.x, note.y, getNoteIndex(note.dir));
 						noteSplashes.add(splash);
