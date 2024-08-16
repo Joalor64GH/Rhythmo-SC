@@ -218,7 +218,7 @@ class ChartingState extends ExtendableState {
 	}
 
 	function deleteNote(note:Note):Void {
-		for (i in 0...song.notes[curSection].sectionNotes.length) {
+		for (i in song.notes[curSection].sectionNotes) {
 			var sectionNote = song.notes[curSection].sectionNotes[i];
 			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == note.rawNoteData) {
 				song.notes[curSection].sectionNotes.remove(i);
