@@ -13,20 +13,16 @@ class NoteSplash extends GameSprite {
     }
 
     override function update(elapsed:Float) {
-		if (animation.curAnim != null && animation.curAnim.finished)
-			kill();
+		if (animation.finished) {
+			FlxTween.tween(this, {alpha: 0}, 0.33, {
+                onComplete: (twn:FlxTween) -> {
+                    visible = false;
+                }
+            });
+        }
 
 		super.update(elapsed);
 	}
-
-    override function kill() {
-        alive = false;
-        FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
-            ease: FlxEase.circOut, onComplete: (_) -> {
-                exists = false;
-            }
-        });
-    }
 
     function getDirection(index:Int):String {
 		return switch (index) {

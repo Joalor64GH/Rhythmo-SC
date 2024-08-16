@@ -2,9 +2,9 @@
 * [ ] Add four basic songs
 * [X] Basic Documentation
 * [X] Add checkers to OptionsState
-* [ ] Improve ChartingState
+* [X] Improve ChartingState
 * [X] Credits
-* [ ] Notesplashes
+* [X] Notesplashes
 
 # Future To-Dos (After release)
 * Modding Support (Using Polymod)

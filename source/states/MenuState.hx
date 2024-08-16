@@ -5,7 +5,7 @@ class MenuState extends ExtendableState {
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
 
-	var accepted:Bool;
+	var accepted:Bool = false;
 	var allowInputs:Bool = false;
 
 	override function create() {

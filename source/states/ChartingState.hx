@@ -9,11 +9,12 @@ import flixel.addons.ui.FlxUINumericStepper;
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState;
 
+	public var song:SongData;
+
+	var gridBG:FlxSprite;
 	var gridSize:Int = 40;
 	var columns:Int = 4;
 	var rows:Int = 16;
-
-	var gridBG:FlxSprite;
 
 	var curSection:Int = 0;
 	var dummyArrow:FlxSprite;
@@ -21,8 +22,6 @@ class ChartingState extends ExtendableState {
 	var beatSnap:Int = 16;
 
 	var renderedNotes:FlxTypedGroup<Note>;
-
-	public var song:SongData;
 
 	override public function new() {
 		super();
@@ -77,7 +76,7 @@ class ChartingState extends ExtendableState {
 		clearSectionButton = new FlxButton(saveButton.x, 40, "Clear Section", clearSection);
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", () -> { 
+		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", () -> {
 			openSubState(new PromptSubState("Are you sure?", () -> {
 				clearSong();
 				closeSubState();
@@ -219,9 +218,12 @@ class ChartingState extends ExtendableState {
 	}
 
 	function deleteNote(note:Note):Void {
-		for (sectionNote in song.notes[curSection].sectionNotes)
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(getDirection(sectionNote.noteData % 4)))
-				song.notes[curSection].sectionNotes.remove(sectionNote);
+		for (i in 0...song.notes[curSection].sectionNotes.length) {
+			var sectionNote = song.notes[curSection].sectionNotes[i];
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData == note.rawNoteData) {
+				song.notes[curSection].sectionNotes.remove(i);
+			}
+		}
 
 		updateGrid();
 	}

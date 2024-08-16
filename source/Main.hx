@@ -7,6 +7,8 @@ import haxe.io.Path;
 import sys.io.Process;
 #end
 
+import openfl.display.BitmapData;
+
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
@@ -20,6 +22,10 @@ class Main extends openfl.display.Sprite {
 
 	public function new() {
 		super();
+
+		#if windows
+		WindowsAPI.darkMode(true);
+		#end
 
 		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.defaultFPS, config.defaultFPS, config.skipSplash,
 			config.startFullscreen));
@@ -76,6 +82,30 @@ class Main extends openfl.display.Sprite {
 
 		Application.current.window.onFocusOut.add(onWindowFocusOut);
 		Application.current.window.onFocusIn.add(onWindowFocusIn);
+
+		#if windows
+		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) -> {
+			if (evt.keyCode == openfl.ui.Keyboard.F2) {
+				var sp = Lib.current.stage;
+				var position = new openfl.geom.Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
+
+				var image:BitmapData = new BitmapData(Std.int(position.width), Std.int(position.height), false, 0xFEFEFE);
+				image.draw(sp, true);
+
+				if (!FileSystem.exists("./screenshots/"))
+					FileSystem.createDirectory("./screenshots/");
+
+				var bytes = image.encode(position, new openfl.display.PNGEncoderOptions());
+
+				var curDate:String = Date.now().toString();
+
+				curDate = StringTools.replace(curDate, " ", "_");
+				curDate = StringTools.replace(curDate, ":", "'");
+
+				File.saveBytes("screenshots/Screenshot-" + curDate + ".png", bytes);
+			}
+		});
+		#end
 	}
 
 	var oldVol:Float = 1.0;
