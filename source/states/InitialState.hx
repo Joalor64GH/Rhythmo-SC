@@ -6,8 +6,6 @@ class InitialState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		FlxG.sound.play(Paths.sound('jingle'));
-
 		Localization.loadLanguages();
 		SaveData.init();
 		HighScore.load();
@@ -34,7 +32,7 @@ class InitialState extends ExtendableState {
 		if (Input.is("accept"))
 			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 		else {
-			new FlxTimer().start(4, (tmr:FlxTimer) -> {
+			new FlxTimer().start(3, (tmr:FlxTimer) -> {
 				ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 			});
 		}

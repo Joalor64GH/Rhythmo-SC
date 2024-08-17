@@ -80,7 +80,7 @@ class PlayState extends ExtendableState {
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
 
-		noteSplashes = new FlxTypedGroup<NoteSplash>(8); // to prevent lag
+		noteSplashes = new FlxTypedGroup<NoteSplash>();
 		add(noteSplashes);
 
 		var noteWidth:Float = 200;
