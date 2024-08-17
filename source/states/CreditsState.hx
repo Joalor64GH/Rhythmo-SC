@@ -34,15 +34,22 @@ class CreditsState extends ExtendableState {
 	var bottomMarker:FlxText;
 	var centerMarker:FlxText;
 
+	var camFollow:FlxObject;
+
 	override function create() {
 		super.create();
 
 		credData = Json.parse(Paths.getTextFromFile('credits.json'));
 
+		camFollow = new FlxObject(80, 0, 0, 0);
+		camFollow.screenCenter(X);
+
 		if (credData.menuBG != null && credData.menuBG.length > 0)
 			menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
 		else
 			menuBG = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/credits_bg'));
+		menuBG.screenCenter();
+		menuBG.scrollFactor.set();
 		add(menuBG);
 
 		var finalColor:FlxColor = FlxColor.fromRGB(credData.menuBGColor[0], credData.menuBGColor[1], credData.menuBGColor[2]);
@@ -77,21 +84,25 @@ class CreditsState extends ExtendableState {
 		topBar = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		topBar.setGraphicSize(FlxG.width, 48);
 		topBar.updateHitbox();
+		topBar.scrollFactor.set();
 		topBar.screenCenter(X);
 		add(topBar);
 		topBar.y -= topBar.height;
 
 		topMarker = new FlxText(8, 8, 0, "CREDITS").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+		topMarker.scrollFactor.set();
 		topMarker.alpha = 0;
 		add(topMarker);
 
 		centerMarker = new FlxText(0, 8, FlxG.width, "< PLATFORM >").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
 		centerMarker.alignment = CENTER;
 		centerMarker.screenCenter(X);
+		centerMarker.scrollFactor.set();
 		centerMarker.alpha = 0;
 		add(centerMarker);
 
 		rightMarker = new FlxText(-8, 8, FlxG.width, "RHYTHMO").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+		rightMarker.scrollFactor.set();
 		rightMarker.alignment = RIGHT;
 		rightMarker.alpha = 0;
 		add(rightMarker);
@@ -100,6 +111,7 @@ class CreditsState extends ExtendableState {
 		bottomMarker.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		bottomMarker.textField.background = true;
 		bottomMarker.textField.backgroundColor = FlxColor.BLACK;
+		bottomMarker.scrollFactor.set();
 		add(bottomMarker);
 
 		FlxTween.tween(topMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
@@ -108,6 +120,8 @@ class CreditsState extends ExtendableState {
 
 		changeSelection();
 		updateSocial();
+
+		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
 	override function update(elapsed:Float) {
@@ -161,6 +175,7 @@ class CreditsState extends ExtendableState {
 	function changeSelection(change:Int = 0) {
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
+			camFollow.y = txt.y;
 		});
 
 		updateSectionName();
