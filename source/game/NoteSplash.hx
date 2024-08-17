@@ -13,7 +13,7 @@ class NoteSplash extends GameSprite {
     }
 
     override function update(elapsed:Float) {
-		if (animation.finished && alpha > 0) {
+		if (visible && alpha > 0) {
 			FlxTween.tween(this, {alpha: 0}, 0.33, {
                 onComplete: (twn:FlxTween) -> {
                     if (alpha <= 0)

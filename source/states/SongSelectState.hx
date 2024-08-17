@@ -13,13 +13,9 @@ class Cover extends FlxSprite {
 	public var lerpSpeed:Float = 6;
 	public var posX:Float = 0;
 
-	function boundTo(value:Float, min:Float, max:Float):Float {
-		return Math.max(min, Math.min(max, value));
-	}
-
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, boundTo(elapsed * lerpSpeed, 0, 1));
+		x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, SongSelectState.boundTo(elapsed * lerpSpeed, 0, 1));
 	}
 }
 
@@ -92,7 +88,11 @@ class SongSelectState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, boundTo(elapsed * 24, 0, 1)));
+
+		if (Math.abs(lerpScore - intendedScore) <= 10)
+			lerpScore = intendedScore;
+		
 		panelTxt.text = "Score: " + lerpScore + " // Difficulty: " + songListData.songs[currentIndex].diff;
 
 		if (Input.is("exit")) {
@@ -111,6 +111,10 @@ class SongSelectState extends ExtendableState {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 		}
+	}
+
+	public function boundTo(value:Float, min:Float, max:Float):Float {
+		return Math.max(min, Math.min(max, value));
 	}
 
 	private function changeSelection(i:Int = 0) {

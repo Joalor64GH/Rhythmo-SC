@@ -47,17 +47,17 @@ class ControlsState extends ExtendableState {
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (keyboardMode) {
-			if (Input.is('x')) {
-				keyboardMode = !keyboardMode;
-				if (gamepad != null)
-					FlxG.sound.play(Paths.sound('confirm'));
-				else if (gamepad == null) {
-					keyboardMode = true;
-					FlxG.sound.play(Paths.sound('cancel'));
-				}
+		if (Input.is('x')) {
+			keyboardMode = !keyboardMode;
+			if (gamepad != null)
+				FlxG.sound.play(Paths.sound('confirm'));
+			else if (gamepad == null) {
+				keyboardMode = true;
+				FlxG.sound.play(Paths.sound('cancel'));
 			}
+		}
 
+		if (keyboardMode) {
 			if ((Input.is('exit') || Input.is('backspace')) && !inChange)
 				ExtendableState.switchState(new OptionsState());
 

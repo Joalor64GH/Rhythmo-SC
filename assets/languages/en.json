@@ -8,7 +8,9 @@
     "opFrm": "Framerate",
     "opDwnScrl": "Downscroll",
     "opFlash": "Flashing Lights",
+    "opBot": "Botplay",
     "opSpeed": "Song Speed",
+    "opHitSnd": "Hitsound Volume",
     "opLang": "Language",
     "opCtrls": "Controls",
 
@@ -18,7 +20,9 @@
     "descFrm": "Use LEFT/RIGHT to change the framerate (Max 240). Set to: ",
     "descDwnScrl": "Toggles downscroll. Set to: ",
     "descFlash": "Toggles flashing lights. Turn this off if you're photosensitive. Set to: ",
+    "descBot": "Toggles botplay. Set to: ",
     "descSpeed": "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: ",
+    "descHitSnd": "Use LEFT/RIGHT to change the hitsound volume (Max 1). Set to: ",
     "descLang": "Changes the language. Set to: ",
     "descCtrls": "Edit your controls.",
 
@@ -38,6 +42,7 @@
     "diffTxt": "Difficulty: ",
     "scoreTxt": "Score: ",
     "missTxt": "Misses: ",
+    "botplayTxt": "BOTPLAY",
     "pauseTxt": "PAUSED?",
     "pauseCtrls": "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu",
 

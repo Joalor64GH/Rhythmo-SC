@@ -8,7 +8,9 @@
     "opFrm": "Velocidad de cuadros",
     "opDwnScrl": "Desplazarse hacia abajo",
     "opFlash": "Luces intermitentes",
+    "opBot": "Jugar automático",
     "opSpeed": "Velocidad de la canción",
+    "opHitSnd": "Volumen del sonido de impacto",
     "opLang": "Idioma",
     "opCtrls": "Controles",
 
@@ -18,7 +20,9 @@
     "descFrm": "Utilice IZQUIERDA/DERECHA para cambiar la velocidad de cuadros (máximo 240). Empezar a: ",
     "descDwnScrl": "Alterna el desplazamiento hacia abajo. Empezar a: ",
     "descFlash": "Alterna las luces intermitentes. Desactiva esta opción si eres fotosensible. Empezar a: ",
+    "descBot": "Alterna jugar automático. Empezar a: ",
     "descSpeed": "Utilice IZQUIERDA/DERECHA para cambiar la velocidad predeterminada de la canción (máximo 10). Empezar a: ",
+    "descHitSnd": "Utilice IZQUIERDA/DERECHA para cambiar el volumen del sonido de impacto (máximo 1). Empezar a: ",
     "descLang": "Cambia el idioma. Empezar a: ",
     "descCtrls": "Edite sus controles.",
 
@@ -38,6 +42,7 @@
     "diffTxt": "Dificultad: ",
     "scoreTxt": "Puntaje: ",
     "missTxt": "Pérdidas: ",
+    "botplayTxt": "JUGAR AUTOMÁTICO",
     "pauseTxt": "¿PAUSADO/A?",
     "pauseCtrls": "ENTER - Continuar\nR - Reanudar\nO - Opciones\nBACKSPACE - Menú de canciones\nESCAPE - Menú principal",
 
