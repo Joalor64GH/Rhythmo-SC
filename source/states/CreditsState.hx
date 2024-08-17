@@ -70,6 +70,7 @@ class CreditsState extends ExtendableState {
 				icon.setGraphicSize(Std.int(icon.width * credData.users[i].iconData[3]));
 			if (credData.users[i].iconData.length <= 1 || credData.users[i].iconData == null)
 				icon.visible = false;
+			icon.updateHitbox();
 			icon.sprTracker = name;
 			iconArray.push(icon);
 			add(icon);
@@ -268,7 +269,6 @@ class CreditsIcon extends GameSprite {
 		}
 		setGraphicSize(65, 70);
 		scrollFactor.set();
-		updateHitbox();
 	}
 
 	override function update(elapsed:Float) {
