@@ -221,7 +221,7 @@ class ChartingState extends ExtendableState {
 		for (i in (song.notes[curSection].sectionNotes.length - 1)...0) {
 			var sectionNote = song.notes[curSection].sectionNotes[i];
 			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == note.rawNoteData % 4) {
-				song.notes[curSection].sectionNotes.remove(i);
+				song.notes[curSection].sectionNotes.remove(sectionNote);
 			}
 		}
 
