@@ -220,7 +220,7 @@ class ChartingState extends ExtendableState {
 	function deleteNote(note:Note):Void {
 		var noteDataToCheck:Int = note.rawNoteData % 4;
 
-		for (i in (song.notes[curSection].sectionNotes - 1)...-1) {
+		for (i in (song.notes[curSection].sectionNotes.length - 1)...-1) {
 			var sectionNote = song.notes[curSection].sectionNotes[i];
 			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == noteDataToCheck) {
 				if (sectionNote == curSelectedNote) curSelectedNote = null;
