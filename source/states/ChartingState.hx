@@ -223,7 +223,7 @@ class ChartingState extends ExtendableState {
 		for (i in (notes.length - 1)...0) {
 			var sectionNote = notes[i];
 			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(note.dir))
-				notes.remove(i);
+				notes.remove(sectionNote);
 		}
 
 		updateGrid();
