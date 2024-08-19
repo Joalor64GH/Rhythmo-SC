@@ -260,7 +260,7 @@ class CreditsState extends ExtendableState {
 }
 
 class CreditsIcon extends GameSprite {
-	public var sprTracker:FlxSprite;
+	public var sprTracker:FlxText;
 	public var icon:String = '';
 
 	public function new(x:Float = 0, y:Float = 0, icon:String = '') {
@@ -283,6 +283,6 @@ class CreditsIcon extends GameSprite {
 		super.update(elapsed);
 
 		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y);
+			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y + (sprTracker.height - this.height) / 2);
 	}
 }
