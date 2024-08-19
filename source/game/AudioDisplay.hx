@@ -23,7 +23,6 @@ class AudioDisplay extends FlxSpriteGroup {
 			add(newLine);
 		}
 		_height = Height;
-
 		@:privateAccess
 		if (snd._channel != null) {
 			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, line, 1, 5);
@@ -33,7 +32,8 @@ class AudioDisplay extends FlxSpriteGroup {
 
 	override function update(elapsed:Float) {
 		addAnalyzer();
-		if (analyzer == null) return;
+		if (analyzer == null)
+			return;
 		var levels = analyzer.getLevels();
 
 		for (i in 0...members.length) {

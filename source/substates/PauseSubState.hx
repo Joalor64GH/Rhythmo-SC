@@ -46,15 +46,23 @@ class PauseSubState extends ExtendableSubState {
 				changeText();
 		}
 
-		if (Input.is("exit") || Input.is("backspace")) {
-			ExtendableState.switchState((Input.is("backspace")) ? new SongSelectState() : new MenuState());
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		var op = Input.is('o') || (gamepad != null ? Input.gamepadIs('start') : false);
+		var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var exit1 = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+		var exit2 = Input.is('backspace') || (gamepad != null ? Input.gamepadIs('back') : false);
+
+		if (exit1 || exit2) {
+			ExtendableState.switchState((exit2) ? new SongSelectState() : new MenuState());
 			FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
 			PlayState.chartingMode = false;
-		} else if (Input.is("o"))
+		} else if (op)
 			ExtendableState.switchState(new OptionsState());
-		else if (Input.is("r"))
+		else if (restart)
 			FlxG.resetState();
-		else if (Input.is("accept"))
+		else if (accept)
 			close();
 	}
 

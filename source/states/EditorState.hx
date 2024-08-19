@@ -1,19 +1,16 @@
 package states;
 
 class EditorState extends ExtendableState {
-	final options:Array<String> = [
-        "Chart Editor",
-        "Song Selection Editor"
-	];
+	final options:Array<String> = ["Chart Editor", "Song Selection Editor"];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var daText:FlxText;
-    
-    override function create() {
-        super.create();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
-        bg.color = 0x5a5656;
+	override function create() {
+		super.create();
+
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg.color = 0x5a5656;
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -33,23 +30,29 @@ class EditorState extends ExtendableState {
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
 		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(daText);
-    }
+	}
 
-    override function update(elapsed:Float) {
-        super.update(elapsed);
+	override function update(elapsed:Float) {
+		super.update(elapsed);
 
-        updateText();
+		updateText();
 
-        if (Input.is('up') || Input.is('down'))
-			changeSelection(Input.is('up') ? -1 : 1);
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-        if (Input.is('exit')) {
+		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+		if (up || down)
+			changeSelection(up ? -1 : 1);
+
+		if (exit) {
 			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
-    }
+	}
 
-    private function changeSelection(change:Int = 0) {
+	private function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		grpOptions.forEach(function(txt:FlxText) {
@@ -59,8 +62,10 @@ class EditorState extends ExtendableState {
 
 	function updateText() {
 		switch (curSelected) {
-            case 0: daText.text = "Making your own chart";
-            case 1: daText.text = "Add your own song onto play selection";
+			case 0:
+				daText.text = "Making your own chart";
+			case 1:
+				daText.text = "Add your own song onto play selection";
 		}
 	}
 }

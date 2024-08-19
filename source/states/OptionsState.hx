@@ -2,17 +2,8 @@ package states;
 
 class OptionsState extends ExtendableState {
 	final options:Array<String> = [
-		"FPS Counter",
-		#if desktop "Fullscreen", #end
-		"Antialiasing",
-		"Downscroll",
-		"Flashing Lights",
-		"Botplay",
-		"Framerate",
-		"Song Speed",
-		"Hitsound Volume",
-		"Language",
-		"Controls"
+		"FPS Counter", #if desktop "Fullscreen", #end "Antialiasing", "Downscroll", "Flashing Lights", "Botplay", "Framerate", "Song Speed", "Hitsound Volume",
+		"Language", "Controls"
 	];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -59,13 +50,22 @@ class OptionsState extends ExtendableState {
 
 		updateText();
 
-		if (Input.is('up') || Input.is('down'))
-			changeSelection(Input.is('up') ? -1 : 1);
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+		if (up || down)
+			changeSelection(up ? -1 : 1);
 
 		if (options[curSelected] == "Framerate") {
-			if (Input.is('right') || Input.is('left')) {
+			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!Input.is('left'))
+				if (!left)
 					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
 				else
 					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
@@ -73,24 +73,24 @@ class OptionsState extends ExtendableState {
 				Main.updateFramerate(SaveData.settings.framerate);
 			}
 		} else if (options[curSelected] == "Song Speed") {
-			if (Input.is('right') || Input.is('left')) {
+			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!Input.is('left'))
+				if (!left)
 					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
 				else
 					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
 		} else if (options[curSelected] == "Hitsound Volume") {
-			if (Input.is('right') || Input.is('left')) {
+			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!Input.is('left'))
+				if (!left)
 					SaveData.settings.hitSoundVolume = Math.min(1, SaveData.settings.hitSoundVolume + 0.1);
 				else
 					SaveData.settings.hitSoundVolume = Math.max(0, SaveData.settings.hitSoundVolume - 0.1);
 			}
 		}
 
-		if (Input.is("accept")) {
+		if (accept) {
 			switch (options[curSelected]) {
 				#if desktop
 				case "Fullscreen":
@@ -123,7 +123,7 @@ class OptionsState extends ExtendableState {
 			updateText();
 		}
 
-		if (Input.is('exit')) {
+		if (exit) {
 			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();

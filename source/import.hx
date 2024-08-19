@@ -21,6 +21,8 @@ import flixel.tweens.FlxTween;
 import openfl.Lib;
 import openfl.Assets;
 import openfl.system.System;
+import openfl.display.BitmapData;
+
 import lime.app.Application;
 
 import haxe.*;

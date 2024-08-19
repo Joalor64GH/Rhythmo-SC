@@ -49,8 +49,6 @@ class ChartingState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		FlxG.mouse.visible = true;
-
 		loadSong(Paths.formatToSongPath(song.song));
 
 		beatSnap = Conductor.stepsPerSection;
@@ -109,7 +107,6 @@ class ChartingState extends ExtendableState {
 
 		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
-			FlxG.mouse.visible = false;
 			PlayState.song = song;
 		}
 

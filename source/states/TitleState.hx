@@ -20,12 +20,11 @@ class TitleState extends ExtendableState {
 		add(audio);
 
 		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menu/title/logo'));
+		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;
 		add(logo);
-
-		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
 			if (logo.angle == -4)
@@ -45,7 +44,10 @@ class TitleState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if ((Input.is("accept") || FlxG.mouse.justPressed) && allowInputs && !accepted) {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+
+		if (accept && allowInputs && !accepted) {
 			accepted = true;
 			FlxG.sound.play(Paths.sound('start'));
 			if (SaveData.settings.flashing)

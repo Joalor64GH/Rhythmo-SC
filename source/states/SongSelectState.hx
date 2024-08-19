@@ -92,20 +92,27 @@ class SongSelectState extends ExtendableState {
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
-		
+
 		panelTxt.text = "Score: " + lerpScore + " // Difficulty: " + songListData.songs[currentIndex].diff;
 
-		if (Input.is("exit")) {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+		if (exit) {
 			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
 
-		if (Input.is("left") || Input.is("right")) {
+		if (left || right) {
 			FlxG.sound.play(Paths.sound('scroll'));
-			changeSelection(Input.is("left") ? -1 : 1);
+			changeSelection(left ? -1 : 1);
 		}
 
-		if (Input.is("accept")) {
+		if (accept) {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
 			ExtendableState.switchState(new PlayState());
 			if (FlxG.sound.music != null)
@@ -113,9 +120,8 @@ class SongSelectState extends ExtendableState {
 		}
 	}
 
-	public static function boundTo(value:Float, min:Float, max:Float):Float {
+	public static function boundTo(value:Float, min:Float, max:Float):Float
 		return Math.max(min, Math.min(max, value));
-	}
 
 	private function changeSelection(i:Int = 0) {
 		currentIndex = FlxMath.wrap(currentIndex + i, 0, songListData.songs.length - 1);

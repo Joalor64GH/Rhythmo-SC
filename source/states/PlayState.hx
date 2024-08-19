@@ -207,7 +207,8 @@ class PlayState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (paused) return;
+		if (paused)
+			return;
 
 		callOnScripts('update', [elapsed]);
 
@@ -363,10 +364,11 @@ class PlayState extends ExtendableState {
 			for (i in 0...possibleNotes.length) {
 				var note = possibleNotes[i];
 
-				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)] && !SaveData.settings.botPlay) || SaveData.settings.botPlay) {
+				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
+					|| SaveData.settings.botPlay) {
 					if (SaveData.settings.hitSoundVolume > 0)
 						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume);
-					
+
 					var ratingScores:Array<Int> = [350, 200, 100, 50];
 
 					var noteMs = (SaveData.settings.botPlay) ? 0 : (Conductor.songPosition - note.strum) / songMultiplier;

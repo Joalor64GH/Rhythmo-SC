@@ -1,7 +1,6 @@
 package backend;
 
 import openfl.media.Sound;
-import openfl.display.BitmapData;
 import flixel.graphics.FlxGraphic;
 
 using haxe.io.Path;

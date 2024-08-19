@@ -21,15 +21,17 @@ class InitialState extends ExtendableState {
 		intro = new FlxSprite().loadGraphic(Paths.image('menu/title/intro'));
 		intro.screenCenter();
 		intro.alpha = 0;
-		add(intro);
-
 		FlxTween.tween(intro, {alpha: 1}, 1, {ease: FlxEase.quadOut});
+		add(intro);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is("accept"))
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+
+		if (accept)
 			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {

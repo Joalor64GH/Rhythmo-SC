@@ -7,8 +7,6 @@ import haxe.io.Path;
 import sys.io.Process;
 #end
 
-import openfl.display.BitmapData;
-
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
 		gameDimensions: [1280, 720],

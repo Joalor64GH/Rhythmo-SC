@@ -41,11 +41,18 @@ class MenuState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (allowInputs) {
-			if (Input.is("up") || Input.is("down") && !accepted)
-				changeSelection(Input.is("up") ? -1 : 1);
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-			if (Input.is("accept") && !accepted) {
+		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+		if (allowInputs) {
+			if (up || down && !accepted)
+				changeSelection(up ? -1 : 1);
+
+			if (accept && !accepted) {
 				accepted = true;
 				if (selections[curSelected] == 'exit') {
 					FlxG.sound.play(Paths.sound('cancel'));
@@ -75,15 +82,14 @@ class MenuState extends ExtendableState {
 				}
 			}
 
-			if (Input.is("exit") && !accepted) {
+			if (exit && !accepted) {
 				ExtendableState.switchState(new TitleState());
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 
 			#if desktop
-			if (Input.is("seven") && !accepted) {
+			if (Input.is("seven") && !accepted)
 				ExtendableState.switchState(new EditorState());
-			}
 			#end
 		}
 	}
