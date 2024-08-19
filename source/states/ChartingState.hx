@@ -39,7 +39,6 @@ class ChartingState extends ExtendableState {
 	var curSelectedNote:NoteData;
 
 	var songInfoText:FlxText;
-	var bpmStepper:FlxUINumericStepper;
 
 	var saveButton:FlxButton;
 	var clearSectionButton:FlxButton;
@@ -49,6 +48,8 @@ class ChartingState extends ExtendableState {
 
 	override function create() {
 		super.create();
+
+		FlxG.mouse.visible = true;
 
 		loadSong(Paths.formatToSongPath(song.song));
 
@@ -86,10 +87,6 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
-		bpmStepper = new FlxUINumericStepper(clearSongButton.x, 115, 1, 1, 1, 9999, 3);
-		bpmStepper.value = song.bpm;
-		add(bpmStepper);
-
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
@@ -112,6 +109,7 @@ class ChartingState extends ExtendableState {
 
 		if (Input.is("accept")) {
 			ExtendableState.switchState(new PlayState());
+			FlxG.mouse.visible = false;
 			PlayState.song = song;
 		}
 

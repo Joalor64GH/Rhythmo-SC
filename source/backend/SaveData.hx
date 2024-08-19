@@ -4,6 +4,7 @@ package backend;
 	public var lang:String = 'en';
 	public var framerate:Int = 60;
 	public var songSpeed:Int = 2;
+	public var hitSoundVolume:Float = 0;
 	public var antialiasing:Bool = true;
 	public var fpsCounter:Bool = true;
 	#if desktop
@@ -11,7 +12,6 @@ package backend;
 	#end
 	public var downScroll:Bool = false;
 	public var botPlay:Bool = false;
-	public var hitSoundVolume:Float = 0;
 	public var flashing:Bool = true;
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE, SPACE];
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];

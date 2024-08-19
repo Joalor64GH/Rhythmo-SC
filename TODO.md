@@ -5,6 +5,7 @@
 * [X] Improve ChartingState
 * [X] Credits
 * [X] Notesplashes
+* [ ] Add gamepad support
 
 # Future To-Dos (After release)
 * Modding Support (Using Polymod)
