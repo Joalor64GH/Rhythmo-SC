@@ -30,7 +30,7 @@
 
     "ctrlGuide1": "Press LEFT/RIGHT to scroll through keys.",
     "ctrlGuide2": "PRESS ANY KEY TO CONTINUE",
-    "ctrlGuide3": "Press X on your keyboard to enable/disable gamepad mode (must have a controller connected).",
+    "ctrlGuide3": "Press X on your keyboard to enable/disable gamepad mode.",
     "leftKey": "LEFT KEY: ",
     "downKey": "DOWN KEY: ",
     "upKey": "UP KEY: ",

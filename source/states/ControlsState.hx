@@ -21,11 +21,11 @@ class ControlsState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		var switchTxt:FlxText = new FlxText(50, 40, 0, "Press X on your keyboard to enable/disable gamepad mode (must have a controller connected).", 12);
+		var switchTxt:FlxText = new FlxText(50, 40, 0, Localization.get("ctrlGuide3", SaveData.settings.lang), 12);
 		switchTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(switchTxt);
 
-		var instructionsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press LEFT/RIGHT to scroll through keys.", 12);
+		var instructionsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("ctrlGuide1", SaveData.settings.lang), 12);
 		instructionsTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		instructionsTxt.screenCenter(X);
 		add(instructionsTxt);
@@ -63,7 +63,7 @@ class ControlsState extends ExtendableState {
 
 			if (Input.is('accept')) {
 				inChange = true;
-				text2.text = "PRESS ANY KEY TO CONTINUE";
+				text2.text = Localization.get("ctrlGuide2", SaveData.settings.lang);
 			}
 
 			if (Input.is('left') && !inChange) {
@@ -78,17 +78,17 @@ class ControlsState extends ExtendableState {
 
 			switch (init) {
 				case 0:
-					text1.text = "LEFT KEY: " + SaveData.settings.keyboardBinds[0].toString();
+					text1.text = Localization.get("leftKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[0].toString();
 				case 1:
-					text1.text = "DOWN KEY: " + SaveData.settings.keyboardBinds[1].toString();
+					text1.text = Localization.get("downKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[1].toString();
 				case 2:
-					text1.text = "UP KEY: " + SaveData.settings.keyboardBinds[2].toString();
+					text1.text = Localization.get("upKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[2].toString();
 				case 3:
-					text1.text = "RIGHT KEY: " + SaveData.settings.keyboardBinds[3].toString();
+					text1.text = Localization.get("rightKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[3].toString();
 				case 4:
-					text1.text = "ACCEPT KEY: " + SaveData.settings.keyboardBinds[4].toString();
+					text1.text = Localization.get("acceptKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[4].toString();
 				case 5:
-					text1.text = "EXIT KEY: " + SaveData.settings.keyboardBinds[5].toString();
+					text1.text = Localization.get("exitKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[5].toString();
 			}
 
 			if (inChange) {
@@ -125,7 +125,7 @@ class ControlsState extends ExtendableState {
 
 				if (Input.gamepadIs('gamepad_accept')) {
 					inChange = true;
-					text2.text = "PRESS ANY KEY TO CONTINUE";
+					text2.text = Localization.get("ctrlGuide2", SaveData.settings.lang);
 				}
 
 				if (Input.gamepadIs('gamepad_left') && !inChange) {
@@ -140,17 +140,17 @@ class ControlsState extends ExtendableState {
 
 				switch (init) {
 					case 0:
-						text1.text = "LEFT KEY: " + SaveData.settings.gamepadBinds[0].toString();
+						text1.text = Localization.get("leftKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[0].toString();
 					case 1:
-						text1.text = "DOWN KEY: " + SaveData.settings.gamepadBinds[1].toString();
+						text1.text = Localization.get("downKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[1].toString();
 					case 2:
-						text1.text = "UP KEY: " + SaveData.settings.gamepadBinds[2].toString();
+						text1.text = Localization.get("upKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[2].toString();
 					case 3:
-						text1.text = "RIGHT KEY: " + SaveData.settings.gamepadBinds[3].toString();
+						text1.text = Localization.get("rightKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[3].toString();
 					case 4:
-						text1.text = "ACCEPT KEY: " + SaveData.settings.gamepadBinds[4].toString();
+						text1.text = Localization.get("acceptKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[4].toString();
 					case 5:
-						text1.text = "EXIT KEY: " + SaveData.settings.gamepadBinds[5].toString();
+						text1.text = Localization.get("exitKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[5].toString();
 				}
 
 				if (inChange) {

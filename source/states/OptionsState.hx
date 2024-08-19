@@ -118,9 +118,9 @@ class OptionsState extends ExtendableState {
 			else if (curSelected == 5)
 				SaveData.settings.botPlay = !SaveData.settings.botPlay;
 			else if (curSelected == 9)
-				ExtendableState.switchState(new ControlsState());
-			else if (curSelected == 10)
 				openSubState(new LanguageSubState());
+			else if (curSelected == 10)
+				ExtendableState.switchState(new ControlsState());
 
 			for (i in 0...checkerArray.length) {
 				checkerArray[i].checked = getOptionState(i);

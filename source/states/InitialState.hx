@@ -10,6 +10,9 @@ class InitialState extends ExtendableState {
 		SaveData.init();
 		HighScore.load();
 
+		if (SaveData.settings.lang == null)
+			SaveData.settings.lang = en;
+
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
 		#if desktop

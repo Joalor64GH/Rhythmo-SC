@@ -12,12 +12,12 @@ class PauseSubState extends ExtendableSubState {
 		bg.alpha = 0.55;
 		add(bg);
 
-		var text:FlxText = new FlxText(0, 0, 0, "PAUSED?", 12);
+		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt", SaveData.settings.lang), 12);
 		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter();
 		add(text);
 
-		var text2:FlxText = new FlxText(0, text.y + 100, 0, "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu", 12);
+		var text2:FlxText = new FlxText(0, text.y + 100, 0, Localization.get("pauseCtrls", SaveData.settings.lang), 12);
 		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text2.screenCenter(X);
 		add(text2);

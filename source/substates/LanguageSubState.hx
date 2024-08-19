@@ -28,7 +28,7 @@ class LanguageSubState extends ExtendableSubState {
 		bg.alpha = 0.6;
 		add(bg);
 
-		var title:FlxText = new FlxText(0, 0, 0, 'SELECT A LANGUAGE', 12);
+		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		title.screenCenter(X);
 		add(title);
@@ -44,7 +44,7 @@ class LanguageSubState extends ExtendableSubState {
 			group.add(text);
 		}
 
-		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "(Language translations may not be 100% accurate.)", 12);
+		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
 		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);

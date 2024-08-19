@@ -20,11 +20,12 @@ class TitleState extends ExtendableState {
 		add(audio);
 
 		var logo:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menu/title/logo'));
-		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;
 		add(logo);
+
+		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
 			if (logo.angle == -4)

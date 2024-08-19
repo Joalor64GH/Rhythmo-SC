@@ -71,7 +71,6 @@ class PlayState extends ExtendableState {
 			speed = 0.1;
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
-		bg.screenCenter();
 		add(bg);
 
 		strumline = new FlxTypedGroup<Note>();
@@ -227,7 +226,12 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		scoreTxt.text = (SaveData.settings.botPlay) ? 'BOTPLAY' : 'Score: $score // Misses: $misses';
+		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
+			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
+			+ score
+			+ ' // '
+			+ Localization.get("missTxt", SaveData.settings.lang)
+			+ misses;
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -249,6 +253,7 @@ class PlayState extends ExtendableState {
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
 				combo = 0;
+				score -= 10;
 				misses++;
 				notes.remove(note);
 				note.kill();
