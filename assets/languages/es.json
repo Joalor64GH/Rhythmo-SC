@@ -1,5 +1,4 @@
 {
-    "memTxt": "Memoria: ",
     "pressEnter": "¡Pulse ENTER para empezar!",
 
     "opFPS": "Contador de FPS",
@@ -44,14 +43,5 @@
     "missTxt": "Pérdidas: ",
     "botplayTxt": "JUGAR AUTOMÁTICO",
     "pauseTxt": "¿PAUSADO/A?",
-    "pauseCtrls": "ENTER - Continuar\nR - Reanudar\nO - Opciones\nBACKSPACE - Menú de canciones\nESCAPE - Menú principal",
-
-    "timeTxt": "Tiempo: ",
-    "secTxt": "Sección: ",
-    "bpmTxt": "Latidos por minuto: ",
-    "curSTxt": "Paso a paso: ",
-    "curBTxt": "Latido a latido: ",
-    "snapTxt": "Nota Snap: ",
-    "disTxt": "DESACTIVADO/A",
-    "ctrlArrTxt": "CONTROL + FLECHAS"
+    "pauseCtrls": "ENTER - Continuar\nR - Reanudar\nO - Opciones\nBACKSPACE - Menú de canciones\nESCAPE - Menú principal"
 }

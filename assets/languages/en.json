@@ -1,5 +1,4 @@
 {
-    "memTxt": "Memory: ",
     "pressEnter": "Press ENTER to Start!",
 
     "opFPS": "FPS Counter",
@@ -44,14 +43,5 @@
     "missTxt": "Misses: ",
     "botplayTxt": "BOTPLAY",
     "pauseTxt": "PAUSED?",
-    "pauseCtrls": "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu",
-
-    "timeTxt": "Time: ",
-    "secTxt": "Section: ",
-    "bpmTxt": "BPM: ",
-    "curSTxt": "CurStep: ",
-    "curBTxt": "CurBeat: ",
-    "snapTxt": "Note Snap: ",
-    "disTxt": "DISABLED",
-    "ctrlArrTxt": "CONTROL + ARROWS"
+    "pauseCtrls": "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu"
 }

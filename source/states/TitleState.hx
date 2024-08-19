@@ -33,7 +33,7 @@ class TitleState extends ExtendableState {
 				FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
 		}, 0);
 
-		var text:FlxText = new FlxText(0, logo.y + 400, 0, "Press ENTER to Start!", 12);
+		var text:FlxText = new FlxText(0, logo.y + 400, 0, Localization.get("pressEnter", SaveData.settings.lang), 12);
 		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);

@@ -2,8 +2,19 @@ package states;
 
 class OptionsState extends ExtendableState {
 	final options:Array<String> = [
-		"FPS Counter", #if desktop "Fullscreen", #end "Antialiasing", "Downscroll", "Flashing Lights", "Botplay", "Framerate", "Song Speed", "Hitsound Volume",
-		"Language", "Controls"
+		Localization.get("opFPS", SaveData.settings.lang),
+		#if desktop
+		Localization.get("opFlScrn", SaveData.settings.lang),
+		#end
+		Localization.get("opAnti", SaveData.settings.lang),
+		Localization.get("opDwnScrl", SaveData.settings.lang),
+		Localization.get("opFlash", SaveData.settings.lang),
+		Localization.get("opBot", SaveData.settings.lang),
+		Localization.get("opFrm", SaveData.settings.lang),
+		Localization.get("opSpeed", SaveData.settings.lang),
+		Localization.get("opHitSnd", SaveData.settings.lang),
+		Localization.get("opLang", SaveData.settings.lang),
+		Localization.get("opCtrls", SaveData.settings.lang)
 	];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -62,7 +73,7 @@ class OptionsState extends ExtendableState {
 		if (up || down)
 			changeSelection(up ? -1 : 1);
 
-		if (options[curSelected] == "Framerate") {
+		if (curSelected == 6) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -72,7 +83,7 @@ class OptionsState extends ExtendableState {
 
 				Main.updateFramerate(SaveData.settings.framerate);
 			}
-		} else if (options[curSelected] == "Song Speed") {
+		} else if (curSelected == 7) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -80,7 +91,7 @@ class OptionsState extends ExtendableState {
 				else
 					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
-		} else if (options[curSelected] == "Hitsound Volume") {
+		} else if (curSelected == 8) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -91,29 +102,25 @@ class OptionsState extends ExtendableState {
 		}
 
 		if (accept) {
-			switch (options[curSelected]) {
-				#if desktop
-				case "Fullscreen":
-					SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
-					FlxG.fullscreen = SaveData.settings.fullscreen;
-				#end
-				case "FPS Counter":
-					SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
-					if (Main.fpsDisplay != null)
-						Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
-				case "Antialiasing":
-					SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
-				case "Downscroll":
-					SaveData.settings.downScroll = !SaveData.settings.downScroll;
-				case "Flashing Lights":
-					SaveData.settings.flashing = !SaveData.settings.flashing;
-				case "Botplay":
-					SaveData.settings.botPlay = !SaveData.settings.botPlay;
-				case "Controls":
-					ExtendableState.switchState(new ControlsState());
-				case "Language":
-					openSubState(new LanguageSubState());
-			}
+			if (curSelected == 0) {
+				SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
+				FlxG.fullscreen = SaveData.settings.fullscreen;
+			} else if (curSelected == 1) {
+				SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
+				if (Main.fpsDisplay != null)
+					Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
+			} else if (curSelected == 2)
+				SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
+			else if (curSelected == 3)
+				SaveData.settings.downScroll = !SaveData.settings.downScroll;
+			else if (curSelected == 4)
+				SaveData.settings.flashing = !SaveData.settings.flashing;
+			else if (curSelected == 5)
+				SaveData.settings.botPlay = !SaveData.settings.botPlay;
+			else if (curSelected == 9)
+				ExtendableState.switchState(new ControlsState());
+			else if (curSelected == 10)
+				openSubState(new LanguageSubState());
 
 			for (i in 0...checkerArray.length) {
 				checkerArray[i].checked = getOptionState(i);
@@ -141,27 +148,27 @@ class OptionsState extends ExtendableState {
 	function updateText() {
 		switch (curSelected) {
 			case 0:
-				daText.text = "Toggles the FPS Display. Set to: " + SaveData.settings.fpsCounter;
+				daText.text = Localization.get("descFPS", SaveData.settings.lang) + SaveData.settings.fpsCounter;
 			case 1:
-				daText.text = "Toggles fullscreen. Set to: " + SaveData.settings.fullscreen;
+				daText.text = Localization.get("descFlScrn", SaveData.settings.lang) + SaveData.settings.fullscreen;
 			case 2:
-				daText.text = "Toggles global antialiasing. Set to: " + SaveData.settings.antialiasing;
+				daText.text = Localization.get("descAnti", SaveData.settings.lang) + SaveData.settings.antialiasing;
 			case 3:
-				daText.text = "Toggles downscroll. Set to: " + SaveData.settings.downScroll;
+				daText.text = Localization.get("descDwnScrl", SaveData.settings.lang) + SaveData.settings.downScroll;
 			case 4:
-				daText.text = "Toggles flashing lights. Turn this off if you're photosensitive. Set to: " + SaveData.settings.flashing;
+				daText.text = Localization.get("descFlash", SaveData.settings.lang) + SaveData.settings.flashing;
 			case 5:
-				daText.text = "Toggles botplay. Set to: " + SaveData.settings.botPlay;
+				daText.text = Localization.get("descBot", SaveData.settings.lang) + SaveData.settings.botPlay;
 			case 6:
-				daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Set to: " + SaveData.settings.framerate;
+				daText.text = Localization.get("descFrm", SaveData.settings.lang) + SaveData.settings.framerate;
 			case 7:
-				daText.text = "Use LEFT/RIGHT to change the default song speed (Max 10). Set to: " + SaveData.settings.songSpeed;
+				daText.text = Localization.get("descSpeed", SaveData.settings.lang) + SaveData.settings.songSpeed;
 			case 8:
-				daText.text = "Use LEFT/RIGHT to change the hitsound volume (Max 1). Set to: " + SaveData.settings.hitSoundVolume;
+				daText.text = Localization.get("descHitSnd", SaveData.settings.lang) + SaveData.settings.hitSoundVolume;
 			case 9:
-				daText.text = "Changes the language. Set to: " + SaveData.settings.lang;
+				daText.text = Localization.get("descLang", SaveData.settings.lang) + SaveData.settings.lang;
 			case 10:
-				daText.text = "Edit your controls.";
+				daText.text = Localization.get("descCtrls", SaveData.settings.lang);
 		}
 	}
 

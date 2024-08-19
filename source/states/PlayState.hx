@@ -100,7 +100,7 @@ class PlayState extends ExtendableState {
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
 		timeBar.y = (SaveData.settings.downScroll) ? 20 : FlxG.height - 20;
-		timeBar.x = 0;
+		timeBar.x = (FlxG.width - timeBar.width) / 2;
 		add(timeBar);
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
