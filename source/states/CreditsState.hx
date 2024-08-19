@@ -61,7 +61,7 @@ class CreditsState extends ExtendableState {
 
 		for (i in 0...credData.users.length) {
 			var name:FlxText = new FlxText(20, 60 + (i * 60), 0, credData.users[i].name, 32);
-            name.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			name.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			name.ID = i;
 			credsGrp.add(name);
 
@@ -70,7 +70,6 @@ class CreditsState extends ExtendableState {
 				icon.setGraphicSize(Std.int(icon.width * credData.users[i].iconData[3]));
 			if (credData.users[i].iconData.length <= 1 || credData.users[i].iconData == null)
 				icon.visible = false;
-			icon.updateHitbox();
 			icon.sprTracker = name;
 			iconArray.push(icon);
 			add(icon);
@@ -134,7 +133,14 @@ class CreditsState extends ExtendableState {
 		centerMarker.y = topBar.y + 5;
 		rightMarker.y = topBar.y + 5;
 
-		var controlArray:Array<Bool> = [FlxG.keys.justPressed.UP, FlxG.keys.justPressed.DOWN, Input.is('up'), Input.is('down'), FlxG.mouse.wheel == 1, FlxG.mouse.wheel == -1];
+		var controlArray:Array<Bool> = [
+			FlxG.keys.justPressed.UP,
+			FlxG.keys.justPressed.DOWN,
+			Input.is('up'),
+			Input.is('down'),
+			FlxG.mouse.wheel == 1,
+			FlxG.mouse.wheel == -1
+		];
 		if (controlArray.contains(true)) {
 			for (i in 0...controlArray.length) {
 				if (controlArray[i] == true) {
@@ -160,12 +166,12 @@ class CreditsState extends ExtendableState {
 		}
 
 		if (Input.is('accept') && credData.users[curSelected].urlData[curSocial][1] != null) {
-            #if linux
-            Sys.command('/usr/bin/xdg-open', [credData.users[curSelected].urlData[curSocial][1]]);
-            #else
-            FlxG.openURL(credData.users[curSelected].urlData[curSocial][1]);
-            #end
-        }
+			#if linux
+			Sys.command('/usr/bin/xdg-open', [credData.users[curSelected].urlData[curSocial][1]]);
+			#else
+			FlxG.openURL(credData.users[curSelected].urlData[curSocial][1]);
+			#end
+		}
 
 		if (Input.is('exit')) {
 			FlxG.sound.play(Paths.sound('cancel'));
@@ -176,7 +182,8 @@ class CreditsState extends ExtendableState {
 	function changeSelection(change:Int = 0) {
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
-			camFollow.y = txt.y;
+			if (txt.ID = curSelected)
+				camFollow.y = txt.y;
 		});
 
 		updateSectionName();
@@ -263,12 +270,13 @@ class CreditsIcon extends GameSprite {
 
 		try {
 			loadGraphic(Paths.image('credits/$icon'));
-		} catch(e:Dynamic) {
+		} catch (e:Dynamic) {
 			trace('error getting icon: $e');
 			loadGraphic(Paths.image('credits/placeholder'));
 		}
 		setGraphicSize(65, 70);
 		scrollFactor.set();
+		updateHitbox();
 	}
 
 	override function update(elapsed:Float) {
