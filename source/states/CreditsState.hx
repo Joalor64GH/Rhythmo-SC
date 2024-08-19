@@ -182,7 +182,7 @@ class CreditsState extends ExtendableState {
 	function changeSelection(change:Int = 0) {
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
-			if (txt.ID = curSelected)
+			if (txt.ID == curSelected)
 				camFollow.y = txt.y;
 		});
 
