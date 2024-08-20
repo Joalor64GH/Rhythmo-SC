@@ -99,6 +99,14 @@ class ChartingState extends ExtendableState {
 
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * song.notes[curSection].stepsPerSection));
 
+		if (curBeat % 4 == 0 && curStep > 16 * (curSection + 1)) {
+			if (song.notes[curSection + 1] == null) {
+					addSection();
+			}
+
+			changeSection(curSection + 1, false);
+		}
+
 		if (Input.is("left"))
 			changeSection(curSection - 1);
 
