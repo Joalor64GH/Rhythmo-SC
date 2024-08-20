@@ -7,11 +7,9 @@ class InitialState extends ExtendableState {
 		super.create();
 
 		Localization.loadLanguages();
+		Localization.switchLanguage(SaveData.settings.lang);
 		SaveData.init();
 		HighScore.load();
-
-		if (SaveData.settings.lang == null)
-			SaveData.settings.lang = 'en';
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 

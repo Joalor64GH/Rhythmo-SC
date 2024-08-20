@@ -78,12 +78,13 @@ class Localization {
 	public static function get(key:String, ?language:String):String {
 		var targetLanguage:String = language != null ? language : currentLanguage;
 		var languageData = data.get(targetLanguage);
+		final field:String = Reflect.field(languageData, key);
 
 		if (data != null && data.exists(targetLanguage))
 			if (languageData != null && Reflect.hasField(languageData, key))
-				return Reflect.field(languageData, key);
+				return field;
 
-		return Reflect.field(languageData, key);
+		return field != null ? field : 'missing key: $key';
 	}
 
 	private static function path(language:String) {
