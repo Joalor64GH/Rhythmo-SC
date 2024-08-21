@@ -31,7 +31,7 @@ class Localization {
 	public static function loadLanguages() {
 		data = new Map<String, Dynamic>();
 
-		var path:String = Paths.file("languages/languagesList.txt");
+		var path:String = Paths.txt("languages/languagesList");
 		if (FileSystem.exists(path)) {
 			var listContent:String = File.getContent(path);
 			var languages:Array<String> = listContent.split('\n');

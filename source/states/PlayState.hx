@@ -3,6 +3,8 @@ package states;
 import game.Song.SongData;
 
 class PlayState extends ExtendableState {
+	public static var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
 	public static var instance:PlayState;
 	public static var song:SongData;
 
@@ -179,6 +181,9 @@ class PlayState extends ExtendableState {
 									countdown1.visible = false;
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
+									strumline.forEachAlive((strum:FlxSprite) -> {
+										FlxTween.tween(strum, {angle: 360}, Conductor.crochet / 1000 * 2, {ease: FlxEase.cubeInOut});
+									});
 									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
 											go.visible = false;
@@ -261,7 +266,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.is("exit") && canPause && startedCountdown)
+		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+		if (exit && canPause && startedCountdown)
 			pause();
 
 		if (Input.is("seven")) {
@@ -325,18 +331,23 @@ class PlayState extends ExtendableState {
 	public var curRating:String = "perfect";
 
 	function inputFunction() {
-		var justPressed:Array<Bool> = [Input.is("left"), Input.is("down"), Input.is("up"), Input.is("right")];
+		var justPressed:Array<Bool> = [
+			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
+			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
+			Input.is("up") || (gamepad != null ? Input.gamepadIs("gamepad_up") : false), 
+			Input.is("right") || (gamepad != null ? Input.gamepadIs("gamepad_right") : false)
+		];
 		var pressed:Array<Bool> = [
-			Input.is("left", PRESSED),
-			Input.is("down", PRESSED),
-			Input.is("up", PRESSED),
-			Input.is("right", PRESSED)
+			Input.is("left", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_left", PRESSED) : false),
+			Input.is("down", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_down", PRESSED) : false),
+			Input.is("up", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_up", PRESSED) : false),
+			Input.is("right", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_right", PRESSED) : false)
 		];
 		var released:Array<Bool> = [
-			Input.is("left", RELEASED),
-			Input.is("down", RELEASED),
-			Input.is("up", RELEASED),
-			Input.is("right", RELEASED)
+			Input.is("left", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_left", RELEASED) : false),
+			Input.is("down", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_down", RELEASED) : false),
+			Input.is("up", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_up", RELEASED) : false),
+			Input.is("right", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_right", RELEASED) : false)
 		];
 
 		for (i in 0...justPressed.length)

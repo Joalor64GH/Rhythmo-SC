@@ -10,10 +10,10 @@ class LanguageSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		var initLangString = Paths.getText(Paths.file('languages/languagesData.txt'));
+		var initLangString = Paths.getText(Paths.txt('languages/languagesData'));
 
-		if (Assets.exists(Paths.file('languages/languagesData.txt'))) {
-			initLangString = Assets.getText(Paths.file('languages/languagesData.txt')).trim().split('\n');
+		if (Assets.exists(Paths.txt('languages/languagesData'))) {
+			initLangString = Assets.getText(Paths.txt('languages/languagesData')).trim().split('\n');
 
 			for (i in 0...initLangString.length)
 				initLangString[i] = initLangString[i].trim();

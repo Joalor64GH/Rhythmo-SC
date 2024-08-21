@@ -105,18 +105,25 @@ class ChartingState extends ExtendableState {
 			changeSection(curSection + 1, false);
 		}
 
-		if (Input.is("left"))
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+		var accept1 = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var accept1 = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
+
+		if (left)
 			changeSection(curSection - 1);
 
-		if (Input.is("right"))
+		if (right)
 			changeSection(curSection + 1);
 
-		if (Input.is("accept")) {
+		if (accept1) {
 			ExtendableState.switchState(new PlayState());
 			PlayState.song = song;
 		}
 
-		if (Input.is("space")) {
+		if (accept2) {
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.pause();
 			else
