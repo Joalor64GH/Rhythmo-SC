@@ -8,12 +8,9 @@ class InitialState extends ExtendableState {
 
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.lang);
+		ModHandler.reload();
 		SaveData.init();
 		HighScore.load();
-
-		#if FUTURE_POLYMOD
-		ModHandler.reload();
-		#end
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 

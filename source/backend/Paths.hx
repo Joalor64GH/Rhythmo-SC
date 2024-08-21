@@ -32,8 +32,8 @@ class Paths {
 	}
 
 	public static function pushTracked(file:String) {
-		if (!localTracked.contains(file))
-			localTracked.push(file);
+		if (!localTrackedAssets.contains(file))
+			localTrackedAssets.push(file);
 	}
 
 	inline static public function exists(asset:String)

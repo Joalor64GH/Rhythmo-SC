@@ -76,7 +76,6 @@ class Hscript extends FlxBasic {
 		setVariable('Application', Application);
 		setVariable('Assets', Assets);
 		setVariable('Bar', Bar);
-		setVariable('Cache', Cache);
 		setVariable('Conductor', Conductor);
 		setVariable('ExtendableState', ExtendableState);
 		setVariable('ExtendableSubState', ExtendableSubState);
