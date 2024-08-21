@@ -1,12 +1,15 @@
 package backend;
 
+#if FUTURE_POLYMOD
 import polymod.Polymod;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
+#end
 
 class ModHandler {
 	private static final MOD_DIR:String = 'mods';
 
+	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
 		'ogg' => AUDIO_GENERIC,
 		'png' => IMAGE,
@@ -19,12 +22,18 @@ class ModHandler {
 	];
 
 	public static var trackedMods:Array<ModMetadata> = [];
+	#end
 
 	public static function reload():Void {
+		#if FUTURE_POLYMOD
 		trace('Reloading Polymod...');
 		loadMods(getMods());
+		#else
+		trace("Polymod reloading is not supported on your Platform!");
+		#end
 	}
 
+	#if FUTURE_POLYMOD
 	public static function loadMods(folders:Array<String>):Void {
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
@@ -83,4 +92,5 @@ class ModHandler {
 				trace(error.message);
 		}
 	}
+	#end
 }

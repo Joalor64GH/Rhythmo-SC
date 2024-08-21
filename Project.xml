@@ -11,6 +11,10 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
+	<!-- [ Custom Defines ] -->
+
+	<define name="FUTURE_POLYMOD" if="desktop" />
+
 	<!-- [ Path Settings ] -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
@@ -36,10 +40,6 @@
 
 	<!-- [ Defines ] -->
 
-	<define name="FUTURE_POLYMOD" if="desktop" />
-
-	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
-
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
@@ -50,6 +50,8 @@
 	<haxedef name="HXCPP_STACK_LINE" if="desktop release" />
 	<haxedef name="HXCPP_STACK_TRACE" if="desktop release" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+
+	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
 
 	<haxedef name="hscriptPos" />
 	<haxedef name="no-deprecation-warnings" />
