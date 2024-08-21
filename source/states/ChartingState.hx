@@ -2,7 +2,6 @@ package states;
 
 import game.Conductor;
 import game.Note;
-import game.Section;
 import game.Song;
 import flixel.addons.ui.FlxUINumericStepper;
 
@@ -50,7 +49,6 @@ class ChartingState extends ExtendableState {
 		super.create();
 
 		loadSong(Paths.formatToSongPath(song.song));
-
 		beatSnap = Conductor.stepsPerSection;
 
 		gridBG = FlxGridOverlay.create(gridSize, gridSize, gridSize * columns, gridSize * rows, true, 0xFF404040, 0xFF525252);
@@ -101,7 +99,7 @@ class ChartingState extends ExtendableState {
 
 		if (curBeat % 4 == 0 && curStep > 16 * (curSection + 1)) {
 			if (song.notes[curSection + 1] == null) {
-					addSection();
+				addSection();
 			}
 
 			changeSection(curSection + 1, false);
