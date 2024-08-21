@@ -31,7 +31,7 @@
 	<haxelib name="grig.audio" />
 
 	<haxelib name="hscript" />
-	<haxelib name="polymod" if="FUTURE_POLYMOD" />
+	<haxelib name="polymod-joalor64" if="FUTURE_POLYMOD" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
