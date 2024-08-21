@@ -19,7 +19,7 @@
 	<source path="source" />
 	<assets path="assets" />
 
-	<assets path="mods" if-"FUTURE_POLYMOD" />
+	<assets path="mods" if="FUTURE_POLYMOD" />
 
 	<!-- [ Libraries ] -->
 
