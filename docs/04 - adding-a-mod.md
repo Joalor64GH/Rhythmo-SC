@@ -1,4 +1,4 @@
-# How to make a Mod
+# How to Add a Mod
 This tutorial simply shows you how you can add your own mod.
 
 ## Creating the Folder

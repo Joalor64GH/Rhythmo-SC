@@ -79,7 +79,7 @@ class ModsState extends ExtendableState {
 	}
 
 	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scrollMenu'));
+		FlxG.sound.play(Paths.sound('scroll'));
         curSelected = FlxMath.wrap(curSelected + change, 0, ModHandler.trackedMods.length - 1);
 
 		for (i in 0...iconArray.length)
