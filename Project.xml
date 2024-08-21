@@ -3,7 +3,7 @@
 
 	<!-- [ Application Settings ] -->
 
-	<app title="Rhythmo" file="Rhythmo" main="Main" version="0.6.5" company="Joalor64" />
+	<app title="Rhythmo" file="Rhythmo" main="Main" version="0.7.0" company="Joalor64" />
 
 	<!-- [ Window Settings ] -->
 
@@ -19,6 +19,8 @@
 	<source path="source" />
 	<assets path="assets" />
 
+	<assets path="mods" if-"FUTURE_POLYMOD" />
+
 	<!-- [ Libraries ] -->
 
 	<haxelib name="flixel" />
@@ -29,9 +31,14 @@
 	<haxelib name="grig.audio" />
 
 	<haxelib name="hscript" />
+	<haxelib name="polymod" if="FUTURE_POLYMOD" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
+
+	<define name="FUTURE_POLYMOD" if="desktop" />
+
+	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
 
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />

@@ -11,6 +11,10 @@ class InitialState extends ExtendableState {
 		SaveData.init();
 		HighScore.load();
 
+		#if FUTURE_POLYMOD
+		ModHandler.reload();
+		#end
+
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
 		#if desktop

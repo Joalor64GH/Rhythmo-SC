@@ -45,6 +45,10 @@
       "dir": "src",
       "ref": "57f5d47f2533fd0c3dcd025a86cb86c0dfa0b6d2",
       "url": "https://gitlab.com/haxe-grig/grig.audio.git"
+    },
+    {
+      "name": "polymod",
+      "type": "haxelib"
     }
   ]
 }

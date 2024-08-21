@@ -6,9 +6,9 @@
 * [X] Credits
 * [X] Notesplashes
 * [X] Add gamepad support
+* [ ] Modding Support (Using Polymod)
 
 # Future To-Dos (After release)
-* Modding Support (Using Polymod)
 * Maybe a few more songs
 * Replay System
 * Achievements

@@ -3,15 +3,22 @@ package states;
 class MenuState extends ExtendableState {
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
-	var selections:Array<String> = ['play', 'credits', 'options', 'exit'];
+	var selections:Array<String> = ['play', #if FUTURE_POLYMOD 'mods', #end 'credits', 'options', 'exit'];
 
 	var accepted:Bool = false;
 	var allowInputs:Bool = false;
 
+	var camFollow:FlxObject;
+
 	override function create() {
 		super.create();
 
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollow.screenCenter(X);
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
+		bg.scrollFactor.set();
+		bg.screenCenter();
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -31,11 +38,14 @@ class MenuState extends ExtendableState {
 
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'v${Lib.application.meta.get('version')}', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versii.scrollFactor.set();
 		add(versii);
 
 		changeSelection();
 
 		allowInputs = true;
+
+		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
 	override function update(elapsed:Float) {
@@ -73,6 +83,16 @@ class MenuState extends ExtendableState {
 						switch (selections[curSelected]) {
 							case 'play':
 								ExtendableState.switchState(new SongSelectState());
+							#if FUTURE_POLYMOD
+							case 'mods':
+								if (ModHandler.trackedMods != [])
+									ExtendableState.switchState(new ModsState());
+								else {
+									accepted = false;
+									allowInputs = true;
+									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
+								}
+							#end
 							case 'credits':
 								ExtendableState.switchState(new CreditsState());
 							case 'options':
@@ -99,6 +119,8 @@ class MenuState extends ExtendableState {
 		FlxG.sound.play(Paths.sound('scroll'));
 		grpSelection.forEach((spr:FlxSprite) -> {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
+			if (spr.ID == curSelected)
+				camFollow.y = spr.y;
 		});
 	}
 }

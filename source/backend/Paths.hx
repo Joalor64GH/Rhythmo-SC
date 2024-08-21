@@ -9,7 +9,10 @@ class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
-	private static var localTracked:Array<String> = [];
+
+	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static var currentTrackedSounds:Map<String, Sound> = [];
+	public static var localTrackedAssets:Array<String> = [];
 
 	public static function setBitmap(id:String, ?bitmap:BitmapData):BitmapData {
 		if (!trackedBitmaps.exists(id) && bitmap != null)
@@ -63,28 +66,20 @@ class Paths {
 	inline static public function txt(key:String)
 		return file('$key.txt');
 
-	inline static public function sound(key:String, ?music:Bool = false, ?customPath:Bool = false):Dynamic {
-		var base:String = '';
+	inline static public function xml(key:String)
+		return file('$key.xml');
 
-		if (!customPath)
-			base = (!music) ? 'sounds/' : 'music/';
+	inline static public function script(key:String)
+		return file('$key.hxs');
 
-		var gamingPath = base + key + '.ogg';
+	static public function sound(key:String, ?cache:Bool = true):Sound
+		return returnSound('sounds/$key', cache);
 
-		if (Cache.getFromCache(gamingPath, "sound") == null) {
-			var sound:Sound = null;
-			sound = Sound.fromFile("assets/" + gamingPath);
-			Cache.addToCache(gamingPath, sound, "sound");
-		}
+	inline static public function music(key:String, ?cache:Bool = true):Sound
+		return returnSound('music/$key', cache);
 
-		return Cache.getFromCache(gamingPath, "sound");
-	}
-
-	inline static public function soundRandom(key:String, min:Int, max:Int)
-		return sound('$key${FlxG.random.int(min, max)}');
-
-	inline static public function song(key:String)
-		return sound('songs/$key/music', true, true);
+	inline static public function song(key:String, ?cache:Bool = true):Sound
+		return returnSound('songs/$key/music', cache);
 
 	inline static public function formatToSongPath(path:String) {
 		var invalidChars = ~/[~&\\;:<>#]/;
@@ -96,25 +91,6 @@ class Paths {
 
 	inline static public function chart(key:String)
 		return file('songs/$key/chart.json');
-
-	inline static public function script(key:String)
-		return file('$key.hxs');
-
-	inline static public function image(key:String, ?customPath:Bool = false):Dynamic {
-		var png = (!customPath) ? file('images/$key') : file(key);
-
-		if (FileSystem.exists(png + ".png")) {
-			if (Cache.getFromCache(png, "image") == null) {
-				var graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(png + ".png"), false, png, false);
-				graphic.destroyOnNoUse = false;
-				Cache.addToCache(png, graphic, "image");
-			}
-
-			return Cache.getFromCache(png, "image");
-		}
-
-		return null;
-	}
 
 	inline static public function font(key:String) {
 		var path:String = file('fonts/$key');
@@ -129,27 +105,45 @@ class Paths {
 		return path;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?xmlCustom:Null<String>, ?customPath:Bool = false) {
-		var png = (customPath) ? file(key) : file('images/$key');
-		var xml = (customPath) ? file(xmlCustom) : (xmlCustom != null) ? file('images/$xmlCustom') : file('images/$png');
+	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic
+		return returnGraphic('images/$key', cache);
 
-		if (FileSystem.exists(png + ".png") && FileSystem.exists(xml + ".xml")) {
-			var xmlData = File.getContent(xml + ".xml");
+	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
+		return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));}
 
-			if (Cache.getFromCache(png, "image") == null) {
-				var graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(png + ".png"), false, png, false);
-				graphic.destroyOnNoUse = false;
-				Cache.addToCache(png, graphic, "image");
+	inline static public function getPackerAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames
+		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic('images/$key', cache), txt('images/$key'));
+	
+	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {
+		var path:String = file('$key.png');
+		if (Assets.exists(path, IMAGE)) {
+			if (!currentTrackedAssets.exists(path)) {
+				var graphic:FlxGraphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path), false, path, cache);
+				graphic.persist = true;
+				currentTrackedAssets.set(path, graphic);
 			}
 
-			return FlxAtlasFrames.fromSparrow(Cache.getFromCache(png, "image"), xmlData);
+			localTrackedAssets.push(path);
+			return currentTrackedAssets.get(path);
 		}
 
-		return FlxAtlasFrames.fromSparrow(image('errorSparrow'), file('images/errorSparrow.xml'));
+		trace('oops! $key returned null');
+		return null;
 	}
 
-	inline static public function getPackerAtlas(key:String)
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
+	public static function returnSound(key:String, ?cache:Bool = true):Sound {
+		if (Assets.exists(file('$key.ogg'), SOUND)) {
+			var path:String = file('$key.ogg');
+			if (!currentTrackedSounds.exists(path))
+				currentTrackedSounds.set(path, Assets.getSound(path, cache));
+
+			localTrackedAssets.push(path);
+			return currentTrackedSounds.get(path);
+		}
+
+		trace('oops! $key returned null');
+		return null;
+	}
 }
 
 typedef FileAssets = #if sys FileSystem; #else openfl.utils.Assets; #end

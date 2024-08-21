@@ -3,8 +3,6 @@ package states;
 import game.Song.SongData;
 
 class PlayState extends ExtendableState {
-	public static var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
 	public static var instance:PlayState;
 	public static var song:SongData;
 
@@ -266,6 +264,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 		if (exit && canPause && startedCountdown)
 			pause();
@@ -331,6 +331,8 @@ class PlayState extends ExtendableState {
 	public var curRating:String = "perfect";
 
 	function inputFunction() {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		
 		var justPressed:Array<Bool> = [
 			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
 			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
@@ -492,7 +494,7 @@ class PlayState extends ExtendableState {
 				return false;
 			}
 			ExtendableState.switchState(new SongSelectState());
-			FlxG.sound.playMusic(Paths.sound('Basically_Professionally_Musically', true), 0.75);
+			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			if (!SaveData.settings.botPlay)
 				HighScore.saveScore(song.song, score);
 			canPause = false;

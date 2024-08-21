@@ -17,6 +17,7 @@ class Main extends openfl.display.Sprite {
 	};
 
 	public static var fpsDisplay:FPS;
+	public static var toast:ToastCore;
 
 	public function new() {
 		super();
@@ -104,6 +105,9 @@ class Main extends openfl.display.Sprite {
 			}
 		});
 		#end
+
+		toast = new ToastCore();
+		addChild(toast);
 	}
 
 	var oldVol:Float = 1.0;
