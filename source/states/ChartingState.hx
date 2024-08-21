@@ -110,7 +110,7 @@ class ChartingState extends ExtendableState {
 		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
 		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
 		var accept1 = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var accept1 = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
+		var accept2 = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
 
 		if (left)
 			changeSection(curSection - 1);
