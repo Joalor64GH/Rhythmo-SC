@@ -8,17 +8,17 @@ class ModsState extends ExtendableState {
 	var description:FlxText;
 	var curSelected:Int = 0;
 
-    var camFollow:FlxObject;
+	var camFollow:FlxObject;
 
 	override function create() {
-        super.create();
+		super.create();
 
-        camFollow = new FlxObject(80, 0, 0, 0);
+		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 		bg.scrollFactor.set();
-        bg.screenCenter();
+		bg.screenCenter();
 		add(bg);
 
 		daMods = new FlxTypedGroup<FlxText>();
@@ -30,8 +30,7 @@ class ModsState extends ExtendableState {
 			text.ID = i;
 			daMods.add(text);
 
-			var icon:ModIcon = new ModIcon(0, 0);
-			icon.loadGraphic((icon != null) ? BitmapData.fromBytes(ModHandler.trackedMods[i].icon) : Paths.image('menu/unknownMod'));
+			var icon:ModIcon = new ModIcon(ModHandler.trackedMods[i].icon);
 			icon.sprTracker = text;
 			iconArray.push(icon);
 			add(icon);
@@ -45,13 +44,13 @@ class ModsState extends ExtendableState {
 
 		changeSelection();
 
-        FlxG.camera.follow(camFollow, LOCKON, 0.25);
+		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
 	override function update(elapsed:Float) {
-        super.update(elapsed);
+		super.update(elapsed);
 
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
 		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
@@ -80,12 +79,12 @@ class ModsState extends ExtendableState {
 
 	function changeSelection(change:Int = 0) {
 		FlxG.sound.play(Paths.sound('scroll'));
-        curSelected = FlxMath.wrap(curSelected + change, 0, ModHandler.trackedMods.length - 1);
+		curSelected = FlxMath.wrap(curSelected + change, 0, ModHandler.trackedMods.length - 1);
 
 		for (i in 0...iconArray.length)
 			iconArray[i].alpha = (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[i].id)) ? 1 : 0.6;
 
-        daMods.forEach(function(txt:FlxText) {
+		daMods.forEach(function(txt:FlxText) {
 			txt.alpha = (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) ? 1 : 0.6;
 			if (txt.ID == curSelected)
 				camFollow.y = txt.y;
@@ -101,11 +100,12 @@ class ModsState extends ExtendableState {
 class ModIcon extends GameSprite {
 	public var sprTracker:FlxSprite;
 
-	public function new(x:Float = 0, y:Float = 0) {
-		super(x, y);
+	public function new(bytes:Bytes) {
+		super();
 
+		loadGraphic(BitmapData.fromBytes(bytes));
 		setGraphicSize(75, 75);
-        scrollFactor.set();
+		scrollFactor.set();
 		updateHitbox();
 	}
 
