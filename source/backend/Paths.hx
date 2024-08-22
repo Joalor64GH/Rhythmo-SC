@@ -109,10 +109,12 @@ class Paths {
 		return returnGraphic('images/$key', cache);
 
 	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
-		return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));}
+		if (FileSystem.exists(returnGraphic('images/$key')) && FileSystem.exists(xml('images/$key')))
+			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
 
-	inline static public function getPackerAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames
-		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic('images/$key', cache), txt('images/$key'));
+		trace('oops! couldnt find $key!');
+		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+	}
 	
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {
 		var path:String = file('$key.png');

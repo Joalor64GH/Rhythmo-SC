@@ -30,7 +30,8 @@ class ModsState extends ExtendableState {
 			text.ID = i;
 			daMods.add(text);
 
-			var icon:ModIcon = new ModIcon(ModHandler.trackedMods[i].icon);
+			var icon:ModIcon = new ModIcon(0, 0);
+			icon.loadGraphic((icon != null) ? BitmapData.fromBytes(ModHandler.trackedMods[i].icon) : Paths.image('menu/unknownMod'));
 			icon.sprTracker = text;
 			iconArray.push(icon);
 			add(icon);
@@ -40,7 +41,6 @@ class ModsState extends ExtendableState {
 		description.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		description.screenCenter(X);
 		description.scrollFactor.set();
-		description.borderSize = 3;
 		add(description);
 
 		changeSelection();
@@ -101,15 +101,9 @@ class ModsState extends ExtendableState {
 class ModIcon extends GameSprite {
 	public var sprTracker:FlxSprite;
 
-	public function new(bytes:Bytes) {
-		super();
+	public function new(x:Float = 0, y:Float = 0) {
+		super(x, y);
 
-        try {
-		    loadGraphic(BitmapData.fromBytes(bytes));
-        } catch (e:Dynamic) {
-            trace('error getting mod icon: $e');
-            loadGraphic(Paths.image('menu/unknownMod'));
-        }
 		setGraphicSize(75, 75);
         scrollFactor.set();
 		updateHitbox();
