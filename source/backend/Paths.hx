@@ -109,7 +109,7 @@ class Paths {
 		return returnGraphic('images/$key', cache);
 
 	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
-		if (FileSystem.exists(image('$key')) && FileSystem.exists(xml('images/$key')))
+		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
 			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
 
 		trace('oops! couldnt find $key!');
