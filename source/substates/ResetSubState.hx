@@ -20,7 +20,7 @@ class ResetSubState extends ExtendableSubState {
 		text.screenCenter();
 		add(text);
 
-		var text2:FlxText = new FlxText(0, text.y + 100, 0, "Y - Yes // N - No", 12);
+		var text2:FlxText = new FlxText(0, text.y + 180, 0, "Y - Yes // N - No", 12);
 		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text2.screenCenter(X);
 		add(text2);
