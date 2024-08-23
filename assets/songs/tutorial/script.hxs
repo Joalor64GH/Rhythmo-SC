@@ -1,0 +1,7 @@
+import('flixel.text.FlxText');
+import('states.PlayState');
+
+function create() {
+    var txt:FlxText = new FlxText(0, 0, 0, "Hit the notes to the beat of the song!", 48).screenCenter();
+    PlayState.instance.add(txt);
+}

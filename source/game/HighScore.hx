@@ -1,6 +1,6 @@
 package game;
 
-class HighScore { // yes i know this is fnf code, but WHATEVER
+class HighScore {
 	public static var songScores:Map<String, Int> = new Map();
 
 	public static function saveScore(song:String, score:Int = 0):Void {
@@ -27,6 +27,11 @@ class HighScore { // yes i know this is fnf code, but WHATEVER
 			setScore(formatSong(song), 0);
 
 		return songScores.get(formatSong(song));
+	}
+
+	public static function resetSong(song:String):Void {
+		var daSong:String = formatSong(song);
+		setScore(daSong, 0);
 	}
 
 	public static function load():Void {

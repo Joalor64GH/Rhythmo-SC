@@ -280,7 +280,7 @@ class CreditsIcon extends GameSprite {
 			trace('error getting icon: $e');
 			loadGraphic(Paths.image('credits/placeholder'));
 		}
-		setGraphicSize(65, 70);
+		setGraphicSize(75, 75);
 		scrollFactor.set();
 		updateHitbox();
 	}

@@ -101,6 +101,7 @@ class SongSelectState extends ExtendableState {
 		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
 		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+		var reset = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
 
 		if (exit) {
 			ExtendableState.switchState(new MenuState());
@@ -118,6 +119,9 @@ class SongSelectState extends ExtendableState {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 		}
+
+		if (reset)
+			openSubState(new ResetSubState(songListData.songs[currentIndex].name));
 	}
 
 	public static function boundTo(value:Float, min:Float, max:Float):Float
