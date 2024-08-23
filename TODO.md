@@ -7,6 +7,7 @@
 * [X] Notesplashes
 * [X] Add gamepad support
 * [X] Modding Support (Using Polymod)
+* [ ] Tutorial
 
 # Future To-Dos (After release)
 * Maybe a few more songs
