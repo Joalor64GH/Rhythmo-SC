@@ -1,32 +1,32 @@
 package substates;
 
 class ResetSubState extends ExtendableSubState {
-    var song:String;
+	var song:String;
 
-    public function new(song:String) {
-        this.song = song;
+	public function new(song:String) {
+		this.song = song;
 
-        super();
+		super();
 
-        var name:String = song;
+		var name:String = song;
 
-        var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
-        bg.screenCenter();
-        bg.alpha = 0.6;
-        add(bg);
+		var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+		bg.screenCenter();
+		bg.alpha = 0.6;
+		add(bg);
 
-        var text:FlxText = new FlxText(0, 0, FlxG.width, "Reset the score of\n$name?", 12);
-        text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        text.screenCenter();
-        add(text);
+		var text:FlxText = new FlxText(0, 0, FlxG.width, 'Reset the score of\n$name?', 12);
+		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.screenCenter();
+		add(text);
 
-        var text2:FlxText = new FlxText(0, text.y + 100, 0, "Y - Yes // N - No", 12);
+		var text2:FlxText = new FlxText(0, text.y + 100, 0, "Y - Yes // N - No", 12);
 		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text2.screenCenter(X);
 		add(text2);
-    }
+	}
 
-    override function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -37,11 +37,11 @@ class ResetSubState extends ExtendableSubState {
 
 		if (yes) {
 			FlxG.sound.play(Paths.sound('select'));
-            HighScore.resetSong(song);
+			HighScore.resetSong(song);
 			close();
 		} else if (no || exit) {
-            FlxG.sound.play(Paths.sound('cancel'));
+			FlxG.sound.play(Paths.sound('cancel'));
 			close();
-        }
+		}
 	}
 }
