@@ -59,6 +59,8 @@ class PlayState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -149,6 +151,8 @@ class PlayState extends ExtendableState {
 
 		startingSong = true;
 		startCountdown();
+
+		Paths.clearUnusedMemory();
 	}
 
 	function startCountdown() {
@@ -309,6 +313,7 @@ class PlayState extends ExtendableState {
 		paused = true;
 		FlxG.sound.music.pause();
 		super.openSubState(SubState);
+		Paths.clearUnusedMemory();
 	}
 
 	override function closeSubState() {
@@ -316,6 +321,7 @@ class PlayState extends ExtendableState {
 		callOnScripts('resume', []);
 		FlxG.sound.music.resume();
 		super.closeSubState();
+		Paths.clearUnusedMemory();
 	}
 
 	function pause() {

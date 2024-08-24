@@ -1,10 +1,20 @@
 package backend;
 
+#if cpp
+import cpp.vm.Gc;
+#elseif hl
+import hl.Gc;
+#elseif neko
+import neko.vm.Gc;
+#end
+
 import openfl.media.Sound;
 import flixel.graphics.FlxGraphic;
 
 using haxe.io.Path;
 
+@:keep
+@:access(openfl.display.BitmapData)
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
@@ -13,6 +23,64 @@ class Paths {
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var localTrackedAssets:Array<String> = [];
+
+	@:noCompletion private inline static function _gc(major:Bool) {
+		#if (cpp || neko)
+		Gc.run(major);
+		#elseif hl
+		Gc.major();
+		#end
+	}
+
+	@:noCompletion public inline static function compress() {
+		#if cpp
+		Gc.compact();
+		#elseif hl
+		Gc.major();
+		#elseif neko
+		Gc.run(true);
+		#end
+	}
+
+	public inline static function gc(major:Bool = false, repeat:Int = 1) {
+		while(repeat-- > 0) _gc(major);
+	}
+
+	public static function clearUnusedMemory()  {
+		for (key in currentTrackedAssets.keys()) {
+			if (!localTrackedAssets.contains(key)) {
+				destroyGraphic(currentTrackedAssets.get(key));
+				currentTrackedAssets.remove(key);
+			}
+		}
+		compress();
+		gc(true);
+	}
+
+	@:access(flixel.system.frontEnds.BitmapFrontEnd._cache)
+	public static function clearStoredMemory() {
+		for (key in FlxG.bitmap._cache.keys()) {
+			if (!currentTrackedAssets.exists(key))
+				destroyGraphic(FlxG.bitmap.get(key));
+		}
+
+		for (key => asset in currentTrackedSounds) {
+			if (!localTrackedAssets.contains(key) && asset != null) {
+				Assets.cache.clear(key);
+				currentTrackedSounds.remove(key);
+			}
+		}
+		localTrackedAssets = [];
+		Assets.cache.clear("songs");
+		gc(true);
+		compress();
+	}
+
+	inline static function destroyGraphic(graphic:FlxGraphic) {
+		if (graphic != null && graphic.bitmap != null && graphic.bitmap.__texture != null)
+			graphic.bitmap.__texture.dispose();
+		FlxG.bitmap.remove(graphic);
+	}
 
 	public static function setBitmap(id:String, ?bitmap:BitmapData):BitmapData {
 		if (!trackedBitmaps.exists(id) && bitmap != null)

@@ -13,6 +13,9 @@ class ModsState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 

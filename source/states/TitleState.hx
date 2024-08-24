@@ -7,6 +7,9 @@ class TitleState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));

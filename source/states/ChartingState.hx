@@ -48,6 +48,9 @@ class ChartingState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 

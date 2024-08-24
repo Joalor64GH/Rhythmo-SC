@@ -13,6 +13,9 @@ class MenuState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.screenCenter(X);
 
@@ -58,11 +61,11 @@ class MenuState extends ExtendableState {
 		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 
-		if (allowInputs) {
-			if (up || down && !accepted)
+		if (allowInputs && !accepted) {
+			if (up || down)
 				changeSelection(up ? -1 : 1);
 
-			if (accept && !accepted) {
+			if (accept) {
 				accepted = true;
 				if (selections[curSelected] == 'exit') {
 					FlxG.sound.play(Paths.sound('cancel'));
@@ -102,13 +105,13 @@ class MenuState extends ExtendableState {
 				}
 			}
 
-			if (exit && !accepted) {
+			if (exit) {
 				ExtendableState.switchState(new TitleState());
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 
 			#if desktop
-			if (Input.is("seven") && !accepted)
+			if (Input.is("seven"))
 				ExtendableState.switchState(new EditorState());
 			#end
 		}

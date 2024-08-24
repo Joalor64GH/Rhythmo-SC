@@ -7,11 +7,9 @@ To do that, go to `assets/songs.json`. Then, to add your song, use this template
 ```json
 {
     "name": "Song Name",
-    "diff": "1/5"
+    "diff": 1
 }
 ```
-
-The diffculty should be a scale of 1-5.
 
 Now, to add your song's cover, it should be in `assets/images/covers/[song-name].png`. <br>
 Keep in mind, your song name should be lowercase and any spaces should be replaced with a dash. <br>

@@ -9,11 +9,11 @@ class InitialState extends ExtendableState {
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.lang);
 		
+		ModHandler.reload();
 		if (ModHandler.trackedMods != []) {
 			for (i in ModHandler.trackedMods)
 				Main.toast.create('Mods installed', 0xFFFFFF00, ' ${i.title}');
 		}
-		ModHandler.reload();
 
 		SaveData.init();
 		HighScore.load();

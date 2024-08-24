@@ -6,7 +6,7 @@ typedef BasicData = {
 
 typedef SongArray = {
 	var name:String;
-	var diff:String;
+	var diff:Float;
 }
 
 class Cover extends FlxSprite {
@@ -36,6 +36,9 @@ class SongSelectState extends ExtendableState {
 
 	override function create() {
 		super.create();
+
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		songListData = Json.parse(Paths.getTextFromFile('songs.json'));
 
@@ -93,7 +96,8 @@ class SongSelectState extends ExtendableState {
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang) + songListData.songs[currentIndex].diff;
+		panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+			+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
