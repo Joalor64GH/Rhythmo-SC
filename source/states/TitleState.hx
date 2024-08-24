@@ -10,6 +10,13 @@ class TitleState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		#if FUTURE_POLYMOD
+		if (ModHandler.trackedMods != []) {
+			for (i in ModHandler.trackedMods)
+				Main.toast.create('Mods installed', 0xFFFFFF00, ' ${i.title}');
+		}
+		#end
+
 		FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
