@@ -106,7 +106,16 @@ class ModIcon extends GameSprite {
 	public function new(bytes:Bytes) {
 		super();
 
-		loadGraphic(BitmapData.fromBytes(bytes));
+		if (bytes != null && bytes.length > 0) {
+			try {
+				loadGraphic(BitmapData.fromBytes(bytes));
+			} catch (e:Dynamic) {
+				FlxG.log.error(e);
+				loadGraphic(Paths.image('menu/unknownMod'));
+			}
+		} else
+			loadGraphic(Paths.image('menu/unknownMod'));
+
 		setGraphicSize(75, 75);
 		scrollFactor.set();
 		updateHitbox();

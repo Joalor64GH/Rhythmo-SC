@@ -13,5 +13,5 @@
 * Maybe a few more songs
 * Replay System
 * Achievements
-* Custom Skins
+* Custom UI Skins
 * Results
