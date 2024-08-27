@@ -2,6 +2,7 @@ package backend;
 
 @:structInit class SaveSettings {
 	public var lang:String = 'en';
+	public var colorFilter = 'NONE'; // wip
 	public var framerate:Int = 60;
 	public var songSpeed:Int = 2;
 	public var hitSoundVolume:Float = 0;
@@ -38,5 +39,10 @@ class SaveData {
 		FlxG.save.flush();
 
 		trace('settings saved!');
+	}
+
+	public static function eraseData() {
+		FlxG.save.erase();
+		init();
 	}
 }
