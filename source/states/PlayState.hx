@@ -412,7 +412,7 @@ class PlayState extends ExtendableState {
 					var noteMs = (SaveData.settings.botPlay) ? 0 : (Conductor.songPosition - note.strum) / songMultiplier;
 					var roundedDecimalNoteMs:Float = FlxMath.roundDecimal(noteMs, 3);
 
-					curRating = (isPerfect) "perfect-golden" : "perfect";
+					curRating = (isPerfect) ? "perfect-golden" : "perfect";
 
 					if (Math.abs(noteMs) > 22.5)
 						curRating = (isPerfect) ? 'perfect-golden' : 'perfect';
