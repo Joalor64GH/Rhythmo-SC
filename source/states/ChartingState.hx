@@ -79,10 +79,8 @@ class ChartingState extends ExtendableState {
 		
 		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
 			notesCopied = [];
-			for (i in 0...song.notes[curSection].sectionNotes.length) {
-				var note:Array<Dynamic> = song.notes[curSection].sectionNotes[i];
-				notesCopied.push(note);
-			}
+			for (i in 0...song.notes[curSection].sectionNotes.length)
+				notesCopied.push(song.notes[curSection].sectionNotes[i]);
 		});
 		add(copySectionButton);
 
