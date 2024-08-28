@@ -40,6 +40,14 @@ class PlayState extends ExtendableState {
 	var countdown1:FlxSprite;
 	var go:FlxSprite;
 
+	var isPerfect:Bool = true;
+
+	var judgementCounter:FlxText;
+	var perfects:Int = 0;
+	var nices:Int = 0;
+	var okays:Int = 0;
+	var nos:Int = 0;
+
 	override public function new() {
 		super();
 
@@ -101,6 +109,12 @@ class PlayState extends ExtendableState {
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.height, "Score: 0 // Misses: 0", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
+
+		judgementCounter = new FlxText(20, 0, 0, "", 20);
+		judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementCounter.screenCenter(Y);
+		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}\nMisses: ${misses}';
+		add(judgementCounter);
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
@@ -232,6 +246,7 @@ class PlayState extends ExtendableState {
 			}
 		}
 
+		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}\nMisses: ${misses}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
 			+ score
@@ -397,19 +412,30 @@ class PlayState extends ExtendableState {
 					var noteMs = (SaveData.settings.botPlay) ? 0 : (Conductor.songPosition - note.strum) / songMultiplier;
 					var roundedDecimalNoteMs:Float = FlxMath.roundDecimal(noteMs, 3);
 
-					curRating = "perfect";
+					curRating = (isPerfect) "perfect-golden" : "perfect";
 
-					if (Math.abs(noteMs) > 22.5)
-						curRating = 'perfect';
+					if (Math.abs(noteMs) > 22.5) {
+						curRating = (isPerfect) ? 'perfect-golden' : 'perfect';
+						perfects++;
+					}
 
-					if (Math.abs(noteMs) > 45)
+					if (Math.abs(noteMs) > 45) {
 						curRating = 'nice';
+						isPerfect = false;
+						nices++;
+					}
 
-					if (Math.abs(noteMs) > 90)
+					if (Math.abs(noteMs) > 90) {
 						curRating = 'okay';
+						isPerfect = false;
+						okays++;
+					}
 
-					if (Math.abs(noteMs) > 135)
+					if (Math.abs(noteMs) > 135) {
 						curRating = 'no';
+						isPerfect = false;
+						nos++;
+					}
 
 					noteDataTimes[getNoteIndex(note.dir)] = note.strum;
 					doNotHit[getNoteIndex(note.dir)] = true;
@@ -447,7 +473,7 @@ class PlayState extends ExtendableState {
 
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
-						numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i)));
+						numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
 						numScore.scale.set(0.5, 0.5);
 						numScore.screenCenter();
 						numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;

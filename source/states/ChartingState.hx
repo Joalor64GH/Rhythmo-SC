@@ -43,6 +43,10 @@ class ChartingState extends ExtendableState {
 	var clearSectionButton:FlxButton;
 	var clearSongButton:FlxButton;
 
+	var notesCopied:Array<Dynamic> = [];
+	var copySectionButton:FlxButton;
+	var pasteSectionButton:FlxButton;
+
 	var strumLine:FlxSprite;
 
 	override function create() {
@@ -72,11 +76,31 @@ class ChartingState extends ExtendableState {
 
 		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
 		add(saveButton);
+		
+		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
+			notesCopied = [];
+			for (sectionNote in 0...song.notes[section].sectionNotes.length) {
+				var note:Array<Dynamic> = song.notes[curSection].sectionNotes[i];
+				notesCopied.push(note);
+			}
+		});
+		add(copySectionButton);
 
-		clearSectionButton = new FlxButton(saveButton.x, 40, "Clear Section", clearSection);
+		pasteSectionButton = new FlxButton(FlxG.width - 110, 70, "Paste Section", () -> {
+			if (notesCopied == null || notesCopied.length < 1)
+				return;
+
+			for (note in notesCopied)
+				song.notes[curSection].sectionNotes.push(note);
+
+			updateGrid();
+		});
+		add(pasteSectionButton);
+
+		clearSectionButton = new FlxButton(FlxG.width - 110, 100, "Clear Section", clearSection);
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(clearSectionButton.x, 70, "Clear Song", () -> {
+		clearSongButton = new FlxButton(FlxG.width - 110, 160, "Clear Song", () -> {
 			openSubState(new PromptSubState("Are you sure?", () -> {
 				clearSong();
 				closeSubState();

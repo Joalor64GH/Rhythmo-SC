@@ -12,6 +12,7 @@
     "opHitSnd": "Hitsound Volume",
     "opLang": "Language",
     "opCtrls": "Controls",
+    "opReset": "Reset to Defaults",
 
     "descFPS": "Toggles the FPS Display. Set to: ",
     "descFlScrn": "Toggles fullscreen. Set to: ",
@@ -24,6 +25,7 @@
     "descHitSnd": "Use LEFT/RIGHT to change the hitsound volume (Max 1). Set to: ",
     "descLang": "Changes the language. Set to: ",
     "descCtrls": "Edit your controls.",
+    "descReset": "Reset your options.",
 
     "langSelect": "SELECT A LANGUAGE",
     "langNotCompletelyAccurate": "(Language translations may not be 100% accurate.)",

@@ -1,7 +1,6 @@
 package game;
 
-import openfl.geom.Point;
-import openfl.geom.Rectangle;
+import openfl.geom.*;
 
 class Bar extends GameSprite {
 	private var _bgBarBit:BitmapData;

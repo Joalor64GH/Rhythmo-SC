@@ -12,6 +12,7 @@
     "opHitSnd": "Volumen del sonido de impacto",
     "opLang": "Idioma",
     "opCtrls": "Controles",
+    "opReset": "Restablecer valores predeterminados",
 
     "descFPS": "Alterna la visualización de FPS. Empezar a: ",
     "descFlScrn": "Alterna la pantalla completa. Empezar a: ",
@@ -24,6 +25,7 @@
     "descHitSnd": "Utilice IZQUIERDA/DERECHA para cambiar el volumen del sonido de impacto (máximo 1). Empezar a: ",
     "descLang": "Cambia el idioma. Empezar a: ",
     "descCtrls": "Edite sus controles.",
+    "descReset": "Restablezca sus opciones.",
 
     "langSelect": "SELECCIONE UN IDIOMA",
     "langNotCompletelyAccurate": "(Las traducciones de idiomas pueden no ser 100% precisas).",

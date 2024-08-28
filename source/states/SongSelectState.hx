@@ -75,7 +75,7 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 90, 1000, "Press R to reset the score of the currently selected song.", 22);
+		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song.", 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

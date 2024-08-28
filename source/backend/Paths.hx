@@ -7,7 +7,6 @@ import hl.Gc;
 #elseif neko
 import neko.vm.Gc;
 #end
-
 import openfl.media.Sound;
 import flixel.graphics.FlxGraphic;
 
@@ -43,10 +42,11 @@ class Paths {
 	}
 
 	public inline static function gc(major:Bool = false, repeat:Int = 1) {
-		while(repeat-- > 0) _gc(major);
+		while (repeat-- > 0)
+			_gc(major);
 	}
 
-	public static function clearUnusedMemory()  {
+	public static function clearUnusedMemory() {
 		for (key in currentTrackedAssets.keys()) {
 			if (!localTrackedAssets.contains(key)) {
 				destroyGraphic(currentTrackedAssets.get(key));
@@ -183,7 +183,7 @@ class Paths {
 		trace('oops! couldnt find $key!');
 		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 	}
-	
+
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {
 		var path:String = file('$key.png');
 		if (Assets.exists(path, IMAGE)) {

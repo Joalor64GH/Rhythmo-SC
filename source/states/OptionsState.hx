@@ -14,7 +14,8 @@ class OptionsState extends ExtendableState {
 		Localization.get("opSpeed", SaveData.settings.lang),
 		Localization.get("opHitSnd", SaveData.settings.lang),
 		Localization.get("opLang", SaveData.settings.lang),
-		Localization.get("opCtrls", SaveData.settings.lang)
+		Localization.get("opCtrls", SaveData.settings.lang),
+		Localization.get("opReset", SaveData.settings.lang)
 	];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -121,6 +122,14 @@ class OptionsState extends ExtendableState {
 				openSubState(new LanguageSubState());
 			else if (curSelected == 10)
 				ExtendableState.switchState(new ControlsState());
+			else if (curSelected == 11) {
+				openSubState(new PromptSubState("Are you sure?", () -> {
+					SaveData.eraseData();
+					ExtendableState.resetState();
+				}, () -> {
+					closeSubState();
+				}));
+			}
 
 			for (i in 0...checkerArray.length) {
 				checkerArray[i].checked = getOptionState(i);
@@ -135,6 +144,10 @@ class OptionsState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();
 		}
+	}
+
+	override function closeSubState() {
+		super.closeSubState();
 	}
 
 	private function changeSelection(change:Int = 0) {
@@ -169,6 +182,8 @@ class OptionsState extends ExtendableState {
 				daText.text = Localization.get("descLang", SaveData.settings.lang) + SaveData.settings.lang;
 			case 10:
 				daText.text = Localization.get("descCtrls", SaveData.settings.lang);
+			case 11:
+				daText.text = Localization.get("descReset", SaveData.settings.lang);
 		}
 	}
 
