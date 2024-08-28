@@ -414,28 +414,17 @@ class PlayState extends ExtendableState {
 
 					curRating = (isPerfect) "perfect-golden" : "perfect";
 
-					if (Math.abs(noteMs) > 22.5) {
+					if (Math.abs(noteMs) > 22.5)
 						curRating = (isPerfect) ? 'perfect-golden' : 'perfect';
-						perfects++;
-					}
 
-					if (Math.abs(noteMs) > 45) {
+					if (Math.abs(noteMs) > 45)
 						curRating = 'nice';
-						isPerfect = false;
-						nices++;
-					}
 
-					if (Math.abs(noteMs) > 90) {
+					if (Math.abs(noteMs) > 90)
 						curRating = 'okay';
-						isPerfect = false;
-						okays++;
-					}
 
-					if (Math.abs(noteMs) > 135) {
+					if (Math.abs(noteMs) > 135)
 						curRating = 'no';
-						isPerfect = false;
-						nos++;
-					}
 
 					noteDataTimes[getNoteIndex(note.dir)] = note.strum;
 					doNotHit[getNoteIndex(note.dir)] = true;
@@ -443,14 +432,21 @@ class PlayState extends ExtendableState {
 					strumline.members[getNoteIndex(note.dir)].press();
 
 					switch (curRating) {
-						case "perfect":
+						case "perfect" | "perfect-golden":
 							score += ratingScores[0];
+							perfects++;
 						case "nice":
 							score += ratingScores[1];
+							isPerfect = false;
+							nices++;
 						case "okay":
 							score += ratingScores[2];
+							isPerfect = false;
+							okays++;
 						case "no":
 							score += ratingScores[3];
+							isPerfect = false;
+							nos++;
 					}
 
 					if (curRating == 'perfect') {
