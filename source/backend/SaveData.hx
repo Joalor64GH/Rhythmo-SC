@@ -17,7 +17,7 @@ package backend;
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE, SPACE];
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];
 	public var keyboardBindsAlt:Array<FlxKey> = [A, S, W, D];
-	public var gamepadBinds:Array<FlxGamepadInputID> = [LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER];
+	public var gamepadBindsAlt:Array<FlxGamepadInputID> = [LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER];
 }
 
 class SaveData {
