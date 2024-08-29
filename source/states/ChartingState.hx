@@ -89,7 +89,7 @@ class ChartingState extends ExtendableState {
 				return;
 
 			for (note in notesCopied) {
-				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * curSection))
+				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * curSection));
 				song.notes[curSection].sectionNotes.push(note);
 			}
 
