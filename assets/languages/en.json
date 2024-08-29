@@ -39,6 +39,10 @@
     "rightKey": "RIGHT KEY: ",
     "acceptKey": "ACCEPT KEY: ",
     "exitKey": "EXIT KEY: ",
+    "leftKeyAlt": "LEFT KEY (ALT): ",
+    "downKeyAlt": "DOWN KEY (ALT): ",
+    "upKeyAlt": "UP KEY (ALT): ",
+    "rightKeyAlt": "RIGHT KEY (ALT): ",
 
     "diffTxt": "Difficulty: ",
     "scoreTxt": "Score: ",

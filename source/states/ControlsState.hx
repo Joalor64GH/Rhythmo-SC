@@ -68,12 +68,12 @@ class ControlsState extends ExtendableState {
 
 			if (Input.is('left') && !inChange) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				(init == 0) ? init = 5 : init--;
+				(init == 0) ? init = 9 : init--;
 			}
 
 			if (Input.is('right') && !inChange) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				(init == 5) ? init = 0 : init++;
+				(init == 9) ? init = 0 : init++;
 			}
 
 			switch (init) {
@@ -89,6 +89,14 @@ class ControlsState extends ExtendableState {
 					text1.text = Localization.get("acceptKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[4].toString();
 				case 5:
 					text1.text = Localization.get("exitKey", SaveData.settings.lang) + SaveData.settings.keyboardBinds[5].toString();
+				case 6:
+					text1.text = Localization.get("leftKeyAlt", SaveData.settings.lang) + SaveData.settings.keyboardBindsAlt[0].toString();
+				case 7:
+					text1.text = Localization.get("downKeyAlt", SaveData.settings.lang) + SaveData.settings.keyboardBindsAlt[1].toString();
+				case 8:
+					text1.text = Localization.get("upKeyAlt", SaveData.settings.lang) + SaveData.settings.keyboardBindsAlt[2].toString();
+				case 9:
+					text1.text = Localization.get("rightKeyAlt", SaveData.settings.lang) + SaveData.settings.keyboardBindsAlt[3].toString();
 			}
 
 			if (inChange) {
@@ -112,6 +120,18 @@ class ControlsState extends ExtendableState {
 						case 5:
 							SaveData.settings.keyboardBinds[5] = FlxG.keys.getIsDown()[0].ID.toString();
 							Input.actionMap.set("exit", SaveData.settings.keyboardBinds[5]);
+						case 6:
+							SaveData.settings.keyboardBinds[0] = FlxG.keys.getIsDown()[0].ID.toString();
+							Input.actionMap.set("left_alt", SaveData.settings.keyboardBindsAlt[0]);
+						case 7:
+							SaveData.settings.keyboardBinds[1] = FlxG.keys.getIsDown()[0].ID.toString();
+							Input.actionMap.set("down_alt", SaveData.settings.keyboardBindsAlt[1]);
+						case 8:
+							SaveData.settings.keyboardBinds[2] = FlxG.keys.getIsDown()[0].ID.toString();
+							Input.actionMap.set("up_alt", SaveData.settings.keyboardBindsAlt[2]);
+						case 9:
+							SaveData.settings.keyboardBinds[3] = FlxG.keys.getIsDown()[0].ID.toString();
+							Input.actionMap.set("right_alt", SaveData.settings.keyboardBindsAlt[3]);
 					}
 					FlxG.sound.play(Paths.sound('scroll'));
 					text2.text = "";
@@ -151,6 +171,14 @@ class ControlsState extends ExtendableState {
 						text1.text = Localization.get("acceptKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[4].toString();
 					case 5:
 						text1.text = Localization.get("exitKey", SaveData.settings.lang) + SaveData.settings.gamepadBinds[5].toString();
+					case 6:
+						text1.text = Localization.get("leftKeyAlt", SaveData.settings.lang) + SaveData.settings.gamepadBindsAlt[0].toString();
+					case 7:
+						text1.text = Localization.get("downKeyAlt", SaveData.settings.lang) + SaveData.settings.gamepadBindsAlt[1].toString();
+					case 8:
+						text1.text = Localization.get("upKeyAlt", SaveData.settings.lang) + SaveData.settings.gamepadBindsAlt[2].toString();
+					case 9:
+						text1.text = Localization.get("rightKeyAlt", SaveData.settings.lang) + SaveData.settings.gamepadBindsAlt[3].toString();
 				}
 
 				if (inChange) {
@@ -178,6 +206,18 @@ class ControlsState extends ExtendableState {
 							case 5:
 								SaveData.settings.gamepadBinds[5] = keyPressed;
 								Input.controllerMap.set("gamepad_exit", SaveData.settings.gamepadBinds[5]);
+							case 6:
+								SaveData.settings.gamepadBinds[0] = keyPressed;
+								Input.controllerMap.set("gamepad_left_alt", SaveData.settings.gamepadBindsAlt[0]);
+							case 7:
+								SaveData.settings.gamepadBinds[1] = keyPressed;
+								Input.controllerMap.set("gamepad_down_alt", SaveData.settings.gamepadBindsAlt[1]);
+							case 8:
+								SaveData.settings.gamepadBinds[2] = keyPressed;
+								Input.controllerMap.set("gamepad_up_alt", SaveData.settings.gamepadBindsAlt[2]);
+							case 9:
+								SaveData.settings.gamepadBinds[3] = keyPressed;
+								Input.controllerMap.set("gamepad_right_alt", SaveData.settings.gamepadBindsAlt[3]);
 						}
 						FlxG.sound.play(Paths.sound('scroll'));
 						text2.text = "";

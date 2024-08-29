@@ -57,10 +57,10 @@ class Input {
 		"gamepad_right" => SaveData.settings.gamepadBinds[3],
 		"gamepad_accept" => SaveData.settings.gamepadBinds[4],
 		"gamepad_exit" => SaveData.settings.gamepadBinds[5],
-		"left_alt" => SaveData.settings.gamepadBindsAlt[0],
-		"down_alt" => SaveData.settings.gamepadBindsAlt[1],
-		"up_alt" => SaveData.settings.gamepadBindsAlt[2],
-		"right_alt" => SaveData.settings.gamepadBindsAlt[3]
+		"gamepad_left_alt" => SaveData.settings.gamepadBindsAlt[0],
+		"gamepad_down_alt" => SaveData.settings.gamepadBindsAlt[1],
+		"gamepad_up_alt" => SaveData.settings.gamepadBindsAlt[2],
+		"gamepad_right_alt" => SaveData.settings.gamepadBindsAlt[3]
 	];
 
 	public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool {
