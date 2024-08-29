@@ -88,8 +88,10 @@ class ChartingState extends ExtendableState {
 			if (notesCopied == null || notesCopied.length < 1)
 				return;
 
-			for (note in notesCopied)
+			for (note in notesCopied) {
+				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * curSection))
 				song.notes[curSection].sectionNotes.push(note);
+			}
 
 			updateGrid();
 		});
@@ -98,7 +100,7 @@ class ChartingState extends ExtendableState {
 		clearSectionButton = new FlxButton(FlxG.width - 110, 100, "Clear Section", clearSection);
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(FlxG.width - 110, 160, "Clear Song", () -> {
+		clearSongButton = new FlxButton(FlxG.width - 110, 130, "Clear Song", () -> {
 			openSubState(new PromptSubState("Are you sure?", () -> {
 				clearSong();
 				closeSubState();
