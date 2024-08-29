@@ -357,31 +357,19 @@ class PlayState extends ExtendableState {
 			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
 			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
 			Input.is("up") || (gamepad != null ? Input.gamepadIs("gamepad_up") : false), 
-			Input.is("right") || (gamepad != null ? Input.gamepadIs("gamepad_right") : false),
-			Input.is("left_alt") || (gamepad != null ? Input.gamepadIs("gamepad_left_alt") : false), 
-			Input.is("down_alt") || (gamepad != null ? Input.gamepadIs("gamepad_down_alt") : false), 
-			Input.is("up_alt") || (gamepad != null ? Input.gamepadIs("gamepad_up_alt") : false), 
-			Input.is("right_alt") || (gamepad != null ? Input.gamepadIs("gamepad_right_alt") : false)
+			Input.is("right") || (gamepad != null ? Input.gamepadIs("gamepad_right") : false)
 		];
 		var pressed:Array<Bool> = [
 			Input.is("left", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_left", PRESSED) : false),
 			Input.is("down", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_down", PRESSED) : false),
 			Input.is("up", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_up", PRESSED) : false),
-			Input.is("right", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_right", PRESSED) : false),
-			Input.is("left_alt", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_left_alt", PRESSED) : false),
-			Input.is("down_alt", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_down_alt", PRESSED) : false),
-			Input.is("up_alt", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_up_alt", PRESSED) : false),
-			Input.is("right_alt", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_right_alt", PRESSED) : false)
+			Input.is("right", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_right", PRESSED) : false)
 		];
 		var released:Array<Bool> = [
 			Input.is("left", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_left", RELEASED) : false),
 			Input.is("down", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_down", RELEASED) : false),
 			Input.is("up", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_up", RELEASED) : false),
-			Input.is("right", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_right", RELEASED) : false),
-			Input.is("left_alt", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_left_alt", RELEASED) : false),
-			Input.is("down_alt", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_down_alt", RELEASED) : false),
-			Input.is("up_alt", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_up_alt", RELEASED) : false),
-			Input.is("right_alt", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_right_alt", RELEASED) : false)
+			Input.is("right", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_right", RELEASED) : false)
 		];
 
 		for (i in 0...justPressed.length)
