@@ -35,6 +35,13 @@ class Note extends GameSprite {
 		animation.play("press");
 	}
 
+	override function update(elasped:Float) {
+		super.update(elapsed);
+
+		if (tooLate && alpha > 0.3)
+			alpha = 0.3;
+	}
+
 	public function calculateCanBeHit() {
 		if (this != null) {
 			if (shouldHit) {

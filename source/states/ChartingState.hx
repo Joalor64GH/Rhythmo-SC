@@ -50,6 +50,8 @@ class ChartingState extends ExtendableState {
 
 	var strumLine:FlxSprite;
 
+	var undos = [];
+
 	override function create() {
 		super.create();
 
@@ -75,7 +77,15 @@ class ChartingState extends ExtendableState {
 		songInfoText = new FlxText(10, 10, 0, 18);
 		add(songInfoText);
 
-		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", saveChart);
+		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", () -> {
+			try {
+				var chart:String = Json.stringify(song);
+				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
+				trace("chart saved!");
+			} catch (e:Dynamic) {
+				trace("Error while saving chart: " + e);
+			}
+		});
 		add(saveButton);
 		
 		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
@@ -91,7 +101,7 @@ class ChartingState extends ExtendableState {
 				return;
 
 			for (note in notesCopied) {
-				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * (curSection - sectionToCopy)));
+				note.strumTime += Conductor.stepCrochet * (4 * 4 * (curSection - sectionToCopy));
 				song.notes[curSection].sectionNotes.push(note);
 			}
 
@@ -99,12 +109,17 @@ class ChartingState extends ExtendableState {
 		});
 		add(pasteSectionButton);
 
-		clearSectionButton = new FlxButton(FlxG.width - 110, 100, "Clear Section", clearSection);
+		clearSectionButton = new FlxButton(FlxG.width - 110, 100, "Clear Section", () -> {
+			song.notes[curSection].sectionNotes = [];
+			updateGrid();
+		});
 		add(clearSectionButton);
 
 		clearSongButton = new FlxButton(FlxG.width - 110, 130, "Clear Song", () -> {
 			openSubState(new PromptSubState("Are you sure?", () -> {
-				clearSong();
+				for (daSection in 0...song.notes.length)
+					song.notes[daSection].sectionNotes = [];
+				updateGrid();
 				closeSubState();
 			}, () -> {
 				closeSubState();
@@ -158,6 +173,9 @@ class ChartingState extends ExtendableState {
 			else
 				FlxG.sound.music.play();
 		}
+
+		if (Input.is('z') && Input.is('control'))
+			undo();
 
 		if (FlxG.mouse.x > gridBG.x
 			&& FlxG.mouse.x < gridBG.x + gridBG.width
@@ -272,18 +290,6 @@ class ChartingState extends ExtendableState {
 
 			swagNum++;
 		}
-
-		updateGrid();
-	}
-
-	function clearSection():Void {
-		song.notes[curSection].sectionNotes = [];
-		updateGrid();
-	}
-
-	function clearSong():Void {
-		for (daSection in 0...song.notes.length)
-			song.notes[daSection].sectionNotes = [];
 
 		updateGrid();
 	}
@@ -412,16 +418,6 @@ class ChartingState extends ExtendableState {
 		return daPos;
 	}
 
-	function saveChart():Void {
-		try {
-			var chart:String = Json.stringify(song);
-			File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-			trace("chart saved!");
-		} catch (e:Dynamic) {
-			trace("Error while saving chart: " + e);
-		}
-	}
-
 	function getDirection(index:Int):String {
 		return switch (index) {
 			case 0: "left";
@@ -440,5 +436,9 @@ class ChartingState extends ExtendableState {
 			case "right": 3;
 			default: -1;
 		}
+	}
+
+	inline function undo() {
+		undos.pop();
 	}
 }
