@@ -35,7 +35,7 @@ class Note extends GameSprite {
 		animation.play("press");
 	}
 
-	override function update(elasped:Float) {
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (tooLate && alpha > 0.3)
