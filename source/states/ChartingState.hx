@@ -43,6 +43,7 @@ class ChartingState extends ExtendableState {
 	var clearSectionButton:FlxButton;
 	var clearSongButton:FlxButton;
 
+	var sectionToCopy:Int = 0;
 	var notesCopied:Array<Dynamic> = [];
 	var copySectionButton:FlxButton;
 	var pasteSectionButton:FlxButton;
@@ -79,6 +80,7 @@ class ChartingState extends ExtendableState {
 		
 		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
 			notesCopied = [];
+			sectionToCopy = curSection;
 			for (i in 0...song.notes[curSection].sectionNotes.length)
 				notesCopied.push(song.notes[curSection].sectionNotes[i]);
 		});
@@ -89,7 +91,7 @@ class ChartingState extends ExtendableState {
 				return;
 
 			for (note in notesCopied) {
-				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * curSection));
+				note.strumTime += (Conductor.stepCrochet * (song.notes[curSection].stepsPerSection * (curSection - sectionToCopy)));
 				song.notes[curSection].sectionNotes.push(note);
 			}
 

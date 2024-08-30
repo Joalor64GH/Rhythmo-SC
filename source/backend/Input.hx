@@ -10,11 +10,7 @@ class Input {
 		"right" => SaveData.settings.keyboardBinds[3],
 		"accept" => SaveData.settings.keyboardBinds[4],
 		"exit" => SaveData.settings.keyboardBinds[5],
-		"space" => SaveData.settings.keyboardBinds[6],
-		"left_alt" => SaveData.settings.keyboardBindsAlt[0],
-		"down_alt" => SaveData.settings.keyboardBindsAlt[1],
-		"up_alt" => SaveData.settings.keyboardBindsAlt[2],
-		"right_alt" => SaveData.settings.keyboardBindsAlt[3]
+		"space" => SaveData.settings.keyboardBinds[6]
 	];
 
 	public static function is(action:String, ?state:FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool {
@@ -56,11 +52,7 @@ class Input {
 		"gamepad_up" => SaveData.settings.gamepadBinds[2],
 		"gamepad_right" => SaveData.settings.gamepadBinds[3],
 		"gamepad_accept" => SaveData.settings.gamepadBinds[4],
-		"gamepad_exit" => SaveData.settings.gamepadBinds[5],
-		"gamepad_left_alt" => SaveData.settings.gamepadBindsAlt[0],
-		"gamepad_down_alt" => SaveData.settings.gamepadBindsAlt[1],
-		"gamepad_up_alt" => SaveData.settings.gamepadBindsAlt[2],
-		"gamepad_right_alt" => SaveData.settings.gamepadBindsAlt[3]
+		"gamepad_exit" => SaveData.settings.gamepadBinds[5]
 	];
 
 	public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool {
