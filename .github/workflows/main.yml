@@ -17,7 +17,7 @@ jobs:
 
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.3
+          haxe-version: 4.3.6
 
       - name: Restore Previous Cache
         id: cache-build-restore
@@ -26,7 +26,7 @@ jobs:
           path: |
             .haxelib
             export/debug/windows/haxe
-            export/debugwindows/obj
+            export/debug/windows/obj
           key: cache-windows-build
 
       - name: Set Cache Status
