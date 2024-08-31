@@ -51,18 +51,22 @@
 	<haxedef name="HXCPP_STACK_TRACE" if="desktop release" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
-	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
+	<section if="polymod">
+		<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
+		<haxedef name="POLYMOD_SCRIPT_CLASS_EXT" value=".hxs" />
+	</section>
 
 	<haxedef name="hscriptPos" />
+	<haxedef name="analyzer-optimize" />
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- [ Flags ] -->
 
 	<haxeflag name="-dce no" />
-	
+
 	<haxeflag name="--macro" value="allowPackage('flash')" />
-	<haxeflag name="--macro" value="include('my.pack')" />
+	<haxeflag name="--macro" value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
 
 	<!-- [ Icons ] -->
 
