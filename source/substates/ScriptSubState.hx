@@ -3,8 +3,8 @@ package substates;
 class ScriptSubState extends ExtendableSubState {
 	var daScript:Hscript;
 
-	public function new(path:String, args:Array<Dynamic>) {
-		daScript = new Hscript('');
+	public function new(path:String, ?args:Array<Dynamic>) {
+		daScript = new Hscript(Paths.script('classes/$path'));
 		daScript.setVariable('this', this);
 		daScript.setVariable('add', function(Object:FlxBasic) {
 			add(Object);
@@ -15,11 +15,8 @@ class ScriptSubState extends ExtendableSubState {
 		daScript.setVariable('insert', function(position:Int, object:FlxBasic) {
 			insert(position, object);
 		});
-		daScript.execute(Paths.script('classes/$path'));
 
 		super();
-
-		daScript.executeFunc('new', args);
 	}
 
 	public override function create() {
