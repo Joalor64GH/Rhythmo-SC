@@ -36,7 +36,7 @@ jobs:
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
-        - name: Create Version Tag
+      - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
 
       - name: Compile
