@@ -117,6 +117,9 @@ class Hscript extends FlxBasic {
 		setVariable('SaveData', SaveData);
 		setVariable('Song', Song);
 
+		setVariable('ScriptState', ScriptState);
+		setVariable('ScriptSubState', ScriptSubState);
+
 		setVariable('cpp', #if cpp true #else false #end);
 		setVariable('debug', #if debug true #else false #end);
 		setVariable('desktop', #if desktop true #else false #end);

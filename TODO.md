@@ -7,6 +7,7 @@
 * [X] Notesplashes
 * [X] Add gamepad support
 * [X] Modding Support (Using Polymod)
+* [ ] Scripted States
 * [X] Tutorial
 
 # Future To-Dos (After release)
@@ -16,5 +17,4 @@
 * Custom UI Skins
 * Results
 * RGB Notes + Note Coloring
-* Scripted States
 * Add alternate controls
