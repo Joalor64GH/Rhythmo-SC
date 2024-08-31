@@ -87,7 +87,7 @@ class ChartingState extends ExtendableState {
 			}
 		});
 		add(saveButton);
-		
+
 		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
 			notesCopied = [];
 			sectionToCopy = curSection;
@@ -101,8 +101,11 @@ class ChartingState extends ExtendableState {
 				return;
 
 			for (note in notesCopied) {
-				note.strumTime += Conductor.stepCrochet * (4 * 4 * (curSection - sectionToCopy));
-				song.notes[curSection].sectionNotes.push(note);
+				var clonedNote = {
+					noteStrum: note.noteStrum + Conductor.stepCrochet * (4 * 4 * (curSection - sectionToCopy)),
+					noteData: note.noteData
+				};
+				song.notes[curSection].sectionNotes.push(clonedNote);
 			}
 
 			updateGrid();
