@@ -18,35 +18,47 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.3
-      - name: Restore Cache
-        uses: actions/cache@main
+
+      - name: Restore Previous Cache
+        id: cache-build-restore
+        uses: actions/cache/restore@main
         with:
-          key: cache-build-windows
           path: |
-            .haxelib/
-            export/debug/windows/haxe/
-            export/debug/windows/obj/
-          restore-keys: |
-            cache-build-windows
-      - name: Install Libraries
-        run: |
-          haxe -cp ./compileData -D analyzer-optimize -main Libraries --interp
-      - name: Create Version Tag
+            .haxelib
+            export/debug/windows/haxe
+            export/debugwindows/obj
+          key: cache-windows-build
+
+      - name: Set Cache Status
+        id: cache-status
+        run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+        shell: powershell
+
+      - name: Installing Libraries
+        run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
+        - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
+
       - name: Compile
         run: haxelib run lime build windows -debug
-      - name: Publish Artifact
+
+      - name: Clear Previous Cache
+        uses: actions/github-script@main
+        with:
+          script: await require('./actions/cache/clear-cache.js')({github, context}, 'cache-windows-build');
+
+      - name: Save Current Cache
+        id: cache-build-save
+        uses: actions/cache/save@main
+        with:
+          path: |
+            .haxelib
+            export/debug/windows/haxe
+            export/debug/windows/obj
+          key: cache-windows-build
+
+      - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: windowsBuild
           path: export/debug/windows/bin
-      - name: Uploading new cache
-        uses: actions/cache@main
-        with:
-          key: cache-build-windows
-          path: |
-            .haxelib/
-            export/debug/windows/haxe/
-            export/debug/windows/obj/
-          restore-keys: |
-            cache-build-windows

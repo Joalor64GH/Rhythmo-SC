@@ -8,7 +8,6 @@
 * [X] Add gamepad support
 * [X] Modding Support (Using Polymod)
 * [X] Tutorial
-* [ ] Add alternate controls
 
 # Future To-Dos (After release)
 * Maybe a few more songs
@@ -18,3 +17,4 @@
 * Results
 * RGB Notes + Note Coloring
 * Scripted States
+* Add alternate controls
