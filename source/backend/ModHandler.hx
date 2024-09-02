@@ -4,6 +4,7 @@ package backend;
 import polymod.Polymod;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
+import polymod.util.VersionUtil;
 #end
 
 class ModHandler {
@@ -25,31 +26,36 @@ class ModHandler {
 	#end
 
 	public static function reload():Void {
-		#if FUTURE_POLYMOD
-		trace('Reloading Polymod...');
-		loadMods(getMods());
-		#else
-		trace("Polymod reloading is not supported on your Platform!");
-		#end
-	}
-
-	#if FUTURE_POLYMOD
-	public static function loadMods(folders:Array<String>):Void {
-		var loadedModlist:Array<ModMetadata> = Polymod.init({
+		Polymod.onError = function(error:PolymodError):Void {
+			switch (error.severity) {
+				case NOTICE:
+					trace(error.message);
+				case WARNING:
+					trace(error.message);
+				case ERROR:
+					trace(error.message);
+			}
+		}
+		
+		final loadedModlist:PolymodParams = {
 			modRoot: MOD_DIR,
-			dirs: folders,
+			dirs: getMods(),
 			framework: OPENFL,
-			apiVersion: Lib.application.meta.get('version'),
-			errorCallback: onError,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
-			frameworkParams: {
+			/*frameworkParams: {
 				assetLibraryPaths: [
 					"default" => "./assets"
 				]
-			},
+			},*/
 			ignoredFiles: Polymod.getDefaultIgnoreList()
-		});
+		};
+
+		final appVersion:Null<String> = Lib.application.meta?.get('version');
+		if (appVersion != null)
+			polymodParams.apiVersionRule = VersionUtil.anyPatch(appVersion);
+
+		Polymod.init(polymodParams);
 
 		if (loadedModlist == null) return;
 
@@ -67,11 +73,17 @@ class ModHandler {
 			FlxG.save.flush();
 		}
 
-		var daList:Array<String> = [];
+		final daList:Array<String> = [];
 
 		trace('Searching for Mods...');
 
-		for (i in Polymod.scan(MOD_DIR, '*.*.*', onError)) {
+		final scanParams:ScanParams = {modRoot: MOD_DIR};
+
+		final appVersion:Null<String> = Lib.application.meta?.get('version');
+		if (appVersion != null)
+			scanParams.apiVersionRule = VersionUtil.anyPatch(appVersion);
+
+		for (i in Polymod.scan(scanParams)) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);
@@ -88,17 +100,6 @@ class ModHandler {
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
-	}
-
-	static function onError(error:PolymodError):Void {
-		switch (error.severity) {
-			case NOTICE:
-				trace(error.message);
-			case WARNING:
-				trace(error.message);
-			case ERROR:
-				trace(error.message);
-		}
 	}
 	#end
 }

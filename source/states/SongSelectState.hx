@@ -75,7 +75,7 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song. // Press R + ENTER for a random song.", 22);
+		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song. // Press R + SPACE for a random song.", 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 14, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -110,6 +110,7 @@ class SongSelectState extends ExtendableState {
 		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
 		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
 		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+		var accept2 = Input.is('space', PRESSED) || (gamepad != null ? Input.gamepadIs('start', PRESSED) : false);
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 		var reset = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
 
@@ -118,10 +119,8 @@ class SongSelectState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
 
-		if (left || right) {
-			FlxG.sound.play(Paths.sound('scroll'));
+		if (left || right)
 			changeSelection(left ? -1 : 1);
-		}
 
 		if (accept) {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
@@ -131,7 +130,7 @@ class SongSelectState extends ExtendableState {
 		}
 
 		if (reset) {
-			if (accept) {
+			if (accept2) {
 				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
 				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
 				ExtendableState.switchState(new PlayState());
@@ -146,6 +145,7 @@ class SongSelectState extends ExtendableState {
 		return Math.max(min, Math.min(max, value));
 
 	private function changeSelection(i:Int = 0) {
+		FlxG.sound.play(Paths.sound('scroll'));
 		currentIndex = FlxMath.wrap(currentIndex + i, 0, songListData.songs.length - 1);
 		for (num => item in coverGrp) {
 			item.posX = num++ - currentIndex;
