@@ -16,5 +16,5 @@
 * Custom UI Skins
 * Results
 * RGB Notes + Note Coloring
-* Add alternate controls
+* Better controls system
 * Scripted States

@@ -75,7 +75,7 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song.", 22);
+		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song. // Press Z for a random song.", 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -125,6 +125,14 @@ class SongSelectState extends ExtendableState {
 
 		if (accept) {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
+			ExtendableState.switchState(new PlayState());
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+		}
+
+		if (Input.is('z')) {
+			var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
+			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
 			ExtendableState.switchState(new PlayState());
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
