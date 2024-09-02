@@ -2,6 +2,7 @@ package backend;
 
 #if FUTURE_POLYMOD
 import polymod.Polymod;
+import polymod.Polymod.Framework;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
 #end
@@ -38,7 +39,7 @@ class ModHandler {
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
 			dirs: folders,
-			framework: OPENFL,
+			framework: Framework.FLIXEL,
 			apiVersion: Lib.application.meta.get('version'),
 			errorCallback: onError,
 			parseRules: getParseRules(),

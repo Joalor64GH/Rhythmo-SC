@@ -124,9 +124,9 @@ class MenuState extends ExtendableState {
 			if (spr.ID == curSelected) {
 				camFollow.y = spr.y;
 				if (doZoomThing) {
-					spr.scale.set(1.1, 1.1);
+					spr.scale.set(0.6, 0.6);
 					FlxTween.cancelTweensOf(spr.scale);
-					FlxTween.tween(spr.scale, {x: 1.0, y:1.0}, 0.3, {ease: FlxEase.quadOut});
+					FlxTween.tween(spr.scale, {x: 0.4, y: 0.4}, 0.3, {ease: FlxEase.quadOut});
 				}
 			}
 		});
