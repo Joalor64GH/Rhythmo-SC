@@ -1,16 +1,13 @@
 package backend;
 
-#if FUTURE_POLYMOD
 import polymod.Polymod;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
 import polymod.util.VersionUtil;
-#end
 
 class ModHandler {
 	private static final MOD_DIR:String = 'mods';
 
-	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
 		'ogg' => AUDIO_GENERIC,
 		'png' => IMAGE,
@@ -23,7 +20,6 @@ class ModHandler {
 	];
 
 	public static var trackedMods:Array<ModMetadata> = [];
-	#end
 
 	public static function reload():Void {
 		Polymod.onError = function(error:PolymodError):Void {
@@ -101,5 +97,4 @@ class ModHandler {
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
 	}
-	#end
 }
