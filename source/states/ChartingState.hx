@@ -177,7 +177,7 @@ class ChartingState extends ExtendableState {
 				FlxG.sound.music.play();
 		}
 
-		if (Input.is('z') && Input.is('control'))
+		if (Input.is('z') && Input.is('control', PRESSED))
 			undo();
 
 		if (FlxG.mouse.x > gridBG.x
@@ -441,7 +441,7 @@ class ChartingState extends ExtendableState {
 		}
 	}
 
-	inline function undo() {
+	function undo() {
 		undos.pop();
 	}
 }

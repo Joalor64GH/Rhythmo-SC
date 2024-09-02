@@ -121,10 +121,11 @@ class MenuState extends ExtendableState {
 		curSelected = FlxMath.wrap(curSelected + change, 0, selections.length - 1);
 		FlxG.sound.play(Paths.sound('scroll'));
 		grpSelection.forEach((spr:FlxSprite) -> {
+			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 			if (spr.ID == curSelected) {
 				camFollow.y = spr.y;
 				if (doZoomThing) {
-					spr.scale.set(0.6, 0.6);
+					spr.scale.set(0.5, 0.5);
 					FlxTween.cancelTweensOf(spr.scale);
 					FlxTween.tween(spr.scale, {x: 0.4, y: 0.4}, 0.3, {ease: FlxEase.quadOut});
 				}
