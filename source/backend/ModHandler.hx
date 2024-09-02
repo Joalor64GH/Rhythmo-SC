@@ -90,7 +90,7 @@ class ModHandler {
 		final output:ParseRules = ParseRules.getDefault();
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
-		output.addType("json", new JsonTools());
+		output.addType("json", new backend.ModHandler.JsonTools());
 		return output;
 	}
 
