@@ -1,13 +1,15 @@
 package backend;
 
+#if FUTURE_POLYMOD
 import polymod.Polymod;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
-import polymod.util.VersionUtil;
+#end
 
 class ModHandler {
 	private static final MOD_DIR:String = 'mods';
 
+	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
 		'ogg' => AUDIO_GENERIC,
 		'png' => IMAGE,
@@ -20,38 +22,34 @@ class ModHandler {
 	];
 
 	public static var trackedMods:Array<ModMetadata> = [];
+	#end
 
 	public static function reload():Void {
-		Polymod.onError = function(error:PolymodError):Void {
-			switch (error.severity) {
-				case NOTICE:
-					trace(error.message);
-				case WARNING:
-					trace(error.message);
-				case ERROR:
-					trace(error.message);
-			}
-		}
-		
-		final loadedModlist:PolymodParams = {
+		#if FUTURE_POLYMOD
+		trace('Reloading Polymod...');
+		loadMods(getMods());
+		#else
+		trace("Polymod reloading is not supported on your Platform!");
+		#end
+	}
+
+	#if FUTURE_POLYMOD
+	public static function loadMods(folders:Array<String>):Void {
+		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
-			dirs: getMods(),
+			dirs: folders,
 			framework: OPENFL,
+			apiVersion: Lib.application.meta.get('version'),
+			errorCallback: onError,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
-			/*frameworkParams: {
+			frameworkParams: {
 				assetLibraryPaths: [
-					"default" => "./assets"
+					"default" => "./"
 				]
-			},*/
+			},
 			ignoredFiles: Polymod.getDefaultIgnoreList()
-		};
-
-		final appVersion:Null<String> = Lib.application.meta?.get('version');
-		if (appVersion != null)
-			polymodParams.apiVersionRule = VersionUtil.anyPatch(appVersion);
-
-		Polymod.init(polymodParams);
+		});
 
 		if (loadedModlist == null) return;
 
@@ -69,17 +67,11 @@ class ModHandler {
 			FlxG.save.flush();
 		}
 
-		final daList:Array<String> = [];
+		var daList:Array<String> = [];
 
 		trace('Searching for Mods...');
 
-		final scanParams:ScanParams = {modRoot: MOD_DIR};
-
-		final appVersion:Null<String> = Lib.application.meta?.get('version');
-		if (appVersion != null)
-			scanParams.apiVersionRule = VersionUtil.anyPatch(appVersion);
-
-		for (i in Polymod.scan(scanParams)) {
+		for (i in Polymod.scan(MOD_DIR, '*.*.*', onError)) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);
@@ -97,4 +89,16 @@ class ModHandler {
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
 	}
+
+	static function onError(error:PolymodError):Void {
+		switch (error.severity) {
+			case NOTICE:
+				trace(error.message);
+			case WARNING:
+				trace(error.message);
+			case ERROR:
+				trace(error.message);
+		}
+	}
+	#end
 }
