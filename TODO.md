@@ -18,3 +18,4 @@
 * RGB Notes + Note Coloring
 * Better controls system
 * Scripted States
+* Compatibility with latest polymod

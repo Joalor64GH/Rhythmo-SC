@@ -75,10 +75,10 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song. // Press Z for a random song.", 22);
+		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, 1000, "Press R to reset the score of the currently selected song. // Press R + ENTER for a random song.", 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
-		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tinyTxt.setFormat(Paths.font('vcr.ttf'), 14, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(tinyTxt);
 
 		titleTxt = new FlxText(0, 0, FlxG.width, "", 32);
@@ -130,16 +130,16 @@ class SongSelectState extends ExtendableState {
 				FlxG.sound.music.stop();
 		}
 
-		if (Input.is('z')) {
-			var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
-			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
-			ExtendableState.switchState(new PlayState());
-			if (FlxG.sound.music != null)
-				FlxG.sound.music.stop();
+		if (reset) {
+			if (accept) {
+				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
+				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
+				ExtendableState.switchState(new PlayState());
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+			} else
+				openSubState(new ResetSubState(songListData.songs[currentIndex].name));
 		}
-
-		if (reset)
-			openSubState(new ResetSubState(songListData.songs[currentIndex].name));
 	}
 
 	public static function boundTo(value:Float, min:Float, max:Float):Float

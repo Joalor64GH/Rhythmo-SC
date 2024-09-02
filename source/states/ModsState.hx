@@ -88,7 +88,7 @@ class ModsState extends ExtendableState {
 			iconArray[i].alpha = (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[i].id)) ? 1 : 0.6;
 
 		daMods.forEach(function(txt:FlxText) {
-			txt.alpha = (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) ? 1 : 0.6;
+			txt.alpha = (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[txt.ID].id)) ? 1 : 0.6;
 			if (txt.ID == curSelected)
 				camFollow.y = txt.y;
 		});
