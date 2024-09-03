@@ -1,7 +1,5 @@
 package states;
 
-import flixel.addons.transition.FlxTransitionableState;
-
 class ModsState extends ExtendableState {
 	var daMods:FlxTypedGroup<FlxText>;
 	var iconArray:Array<ModIcon> = [];
@@ -9,6 +7,8 @@ class ModsState extends ExtendableState {
 	var curSelected:Int = 0;
 
 	var camFollow:FlxObject;
+
+	var bg:FlxSprite;
 
 	override function create() {
 		super.create();
@@ -19,7 +19,7 @@ class ModsState extends ExtendableState {
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);
