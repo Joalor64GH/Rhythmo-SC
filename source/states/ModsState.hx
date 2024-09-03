@@ -52,6 +52,8 @@ class ModsState extends ExtendableState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+		
+		bg.loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -66,8 +68,6 @@ class ModsState extends ExtendableState {
 		if (exit) {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ModHandler.reload();
-			FlxTransitionableState.skipNextTransIn = true;
-           	FlxTransitionableState.skipNextTransOut = true;
 			ExtendableState.switchState(new MenuState());
 		} else if (accept) {
 			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
