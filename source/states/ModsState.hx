@@ -1,6 +1,6 @@
 package states;
 
-import haxe.io.Bytes;
+import flixel.addons.transition.FlxTransitionableState;
 
 class ModsState extends ExtendableState {
 	var daMods:FlxTypedGroup<FlxText>;
@@ -66,6 +66,8 @@ class ModsState extends ExtendableState {
 		if (exit) {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ModHandler.reload();
+			FlxTransitionableState.skipNextTransIn = true;
+           	FlxTransitionableState.skipNextTransOut = true;
 			ExtendableState.switchState(new MenuState());
 		} else if (accept) {
 			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
@@ -103,7 +105,7 @@ class ModsState extends ExtendableState {
 class ModIcon extends GameSprite {
 	public var sprTracker:FlxSprite;
 
-	public function new(bytes:Bytes) {
+	public function new(bytes:haxe.io.Bytes) {
 		super();
 
 		if (bytes != null && bytes.length > 0) {

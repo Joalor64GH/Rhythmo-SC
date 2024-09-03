@@ -45,14 +45,13 @@ class ModHandler {
 			parseRules: getParseRules(),
 			extensionMap: extensions,
 			frameworkParams: {
-				assetLibraryPaths: [
-					"default" => "./"
-				]
+				assetLibraryPaths: ["default" => "./"]
 			},
 			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
 
-		if (loadedModlist == null) return;
+		if (loadedModlist == null)
+			return;
 
 		trace('Loading Successful, ${loadedModlist.length} / ${folders.length} new mods.');
 

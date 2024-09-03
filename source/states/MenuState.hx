@@ -32,7 +32,8 @@ class MenuState extends ExtendableState {
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 160) + (108 - (Math.max(selections.length, 4) - 4) * 80)).loadGraphic(Paths.image('menu/mainmenu/' + selections[i]));
+			var menuItem:FlxSprite = new FlxSprite(0,
+				(i * 160) + (108 - (Math.max(selections.length, 4) - 4) * 80)).loadGraphic(Paths.image('menu/mainmenu/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);
 			menuItem.ID = i;
@@ -88,9 +89,7 @@ class MenuState extends ExtendableState {
 								ExtendableState.switchState(new SongSelectState());
 							#if FUTURE_POLYMOD
 							case 'mods':
-								if (ModHandler.trackedMods != [])
-									ExtendableState.switchState(new ModsState());
-								else {
+								if (ModHandler.trackedMods != []) ExtendableState.switchState(new ModsState()); else {
 									accepted = false;
 									allowInputs = true;
 									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
