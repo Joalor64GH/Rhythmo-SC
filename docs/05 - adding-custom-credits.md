@@ -29,4 +29,4 @@ Explanation:
 * `iconData` - This uses three parameters. The first one is the icon's filename, the second is the X offset, and the third is the Y offset (both are optional).
 * `textData` - This contains the user's contribution (required) and their description (optional).
 * `urlData` - You can use this to add social media links for a user if they have any.
-* `colors` - This used RGB values.
+* `colors` - This uses RGB values.

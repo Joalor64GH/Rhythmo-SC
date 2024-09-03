@@ -3,7 +3,6 @@ package states;
 import game.Conductor;
 import game.Note;
 import game.Song;
-import flixel.addons.ui.FlxUINumericStepper;
 
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState;
