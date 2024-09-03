@@ -19,10 +19,12 @@ class ModsState extends ExtendableState {
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
-		bg.scrollFactor.set();
-		bg.screenCenter();
-		add(bg);
+		if (bg == null) {
+			bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
+			bg.scrollFactor.set();
+			bg.screenCenter();
+			add(bg);
+		}
 
 		daMods = new FlxTypedGroup<FlxText>();
 		add(daMods);
@@ -52,8 +54,6 @@ class ModsState extends ExtendableState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		
-		bg.loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 

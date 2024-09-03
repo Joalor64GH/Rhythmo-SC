@@ -30,12 +30,16 @@ class SongSelectState extends ExtendableState {
 	var songListData:BasicData;
 
 	var panelTxt:FlxText;
+	var tinyTxt:FlxText;
 	var bottomPanel:FlxSprite;
 
 	var titleTxt:FlxText;
 
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
+
+	var isResetting:Bool = false;
+	var lockedInputs:Bool = false;
 
 	override function create() {
 		super.create();
@@ -78,7 +82,7 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		var tinyTxt:FlxText = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, "Press R to reset the score of the currently selected song. // Press R + SPACE for a random song.", 22);
+		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, "Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.", 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -105,8 +109,9 @@ class SongSelectState extends ExtendableState {
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
-			+ Std.string(songListData.songs[currentIndex].diff) + "/5";
+		if (!isResetting)
+			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -117,13 +122,24 @@ class SongSelectState extends ExtendableState {
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 		var reset = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
 
-		if (exit) {
-			ExtendableState.switchState(new MenuState());
-			FlxG.sound.play(Paths.sound('cancel'));
+		if (!lockedInputs) {
+			if (left || right)
+				changeSelection(left ? -1 : 1);
 		}
 
-		if (left || right)
-			changeSelection(left ? -1 : 1);
+		if (exit) {
+			if (!isResetting) {
+				ExtendableState.switchState(new MenuState());
+				FlxG.sound.play(Paths.sound('cancel'));
+			} else {
+				FlxG.sound.play(Paths.sound('cancel'));
+				titleTxt.color = FlxColor.WHITE;
+				titleTxt.text = songListData.songs[currentIndex].name;
+				panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+					+ Std.string(songListData.songs[currentIndex].diff) + "/5";
+				tinyTxt.text = 'Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.';
+			}
+		}
 
 		if (accept) {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
@@ -139,8 +155,32 @@ class SongSelectState extends ExtendableState {
 				ExtendableState.switchState(new PlayState());
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
-			} else
-				openSubState(new ResetSubState(songListData.songs[currentIndex].name));
+			} else {
+				if (!isResetting) {
+					isResetting = true;
+					lockedInputs = true;
+					titleTxt.text = 'Are you sure?';
+					titleTxt.color = FlxColor.RED;
+					panelTxt.text = 'R - Confirm // ESCAPE - Cancel';
+					tinyTxt.text = '';
+				} else {
+					FlxG.sound.play(Paths.sound('erase'));
+					titleTxt.text = 'DATA DESTROYED';
+					panelTxt.text = '';
+					tinyTxt.text = '';
+					HighScore.resetSong(songListData.songs[currentIndex].name);
+					isResetting = false;
+					new FlxTimer().start(1, function(tmr:FlxTimer) {
+						lockedInputs = false;
+						titleTxt.color = FlxColor.WHITE;
+						titleTxt.text = songListData.songs[currentIndex].name;
+						panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+							+ Std.string(songListData.songs[currentIndex].diff) + "/5";
+						tinyTxt.text = 'Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.';
+						changeSelection();
+					});
+				}
+			}
 		}
 	}
 
