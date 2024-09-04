@@ -39,7 +39,7 @@ class ModHandler {
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
 			dirs: folders,
-			framework: Framework.FLIXEL,
+			framework: OPENFL,
 			apiVersion: Lib.application.meta.get('version'),
 			errorCallback: onError,
 			parseRules: getParseRules(),
