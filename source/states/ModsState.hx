@@ -8,8 +8,6 @@ class ModsState extends ExtendableState {
 
 	var camFollow:FlxObject;
 
-	var bg:FlxSprite;
-
 	override function create() {
 		super.create();
 
@@ -21,7 +19,7 @@ class ModsState extends ExtendableState {
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);

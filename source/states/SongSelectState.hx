@@ -108,8 +108,9 @@ class SongSelectState extends ExtendableState {
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
-			+ Std.string(songListData.songs[currentIndex].diff) + "/5";
+		if (!isResetting)
+			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -164,7 +165,6 @@ class SongSelectState extends ExtendableState {
 				} else {
 					FlxG.sound.play(Paths.sound('erase'));
 					titleTxt.text = 'DATA DESTROYED';
-					panelTxt.text = '';
 					tinyTxt.text = '';
 					HighScore.resetSong(songListData.songs[currentIndex].name);
 					isResetting = false;
