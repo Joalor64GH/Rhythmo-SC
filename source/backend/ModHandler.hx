@@ -2,7 +2,6 @@ package backend;
 
 #if FUTURE_POLYMOD
 import polymod.Polymod;
-import polymod.Polymod.Framework;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
 #end
@@ -44,9 +43,6 @@ class ModHandler {
 			errorCallback: onError,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
-			/*frameworkParams: {
-				assetLibraryPaths: ["default" => "./"]
-			},*/
 			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
 
