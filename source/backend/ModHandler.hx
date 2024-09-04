@@ -50,9 +50,6 @@ class ModHandler {
 			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
 
-		if (loadedModlist == null)
-			return;
-
 		trace('Loading Successful, ${loadedModlist.length} / ${folders.length} new mods.');
 
 		for (mod in loadedModlist)
@@ -77,17 +74,16 @@ class ModHandler {
 				daList.push(i.id);
 		}
 
-		if (daList != null && daList.length > 0)
-			trace('Found ${daList.length} new mods.');
+		trace('Found ${daList.length} new mods.');
 
-		return daList != null && daList.length > 0 ? daList : [];
+		return daList;
 	}
 
 	public static function getParseRules():ParseRules {
 		final output:ParseRules = ParseRules.getDefault();
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
-		return output != null ? output : null;
+		return output;
 	}
 
 	static function onError(error:PolymodError):Void {
