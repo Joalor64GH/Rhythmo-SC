@@ -44,11 +44,14 @@ class ModHandler {
 			errorCallback: onError,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
-			frameworkParams: {
+			/*frameworkParams: {
 				assetLibraryPaths: ["default" => "./"]
-			},
+			},*/
 			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
+
+		if (loadedModlist == null)
+			return;
 
 		trace('Loading Successful, ${loadedModlist.length} / ${folders.length} new mods.');
 
@@ -74,16 +77,17 @@ class ModHandler {
 				daList.push(i.id);
 		}
 
-		trace('Found ${daList.length} new mods.');
+		if (daList != null && daList.length > 0)
+			trace('Found ${daList.length} new mods.');
 
-		return daList;
+		return daList != null && daList.length > 0 ? daList : [];
 	}
 
 	public static function getParseRules():ParseRules {
 		final output:ParseRules = ParseRules.getDefault();
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
-		return output;
+		return output != null ? output : null;
 	}
 
 	static function onError(error:PolymodError):Void {
