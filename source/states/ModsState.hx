@@ -16,15 +16,15 @@ class ModsState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		persistentUpdate = true;
+
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 
-		if (bg == null) {
-			bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
-			bg.scrollFactor.set();
-			bg.screenCenter();
-			add(bg);
-		}
+		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
+		bg.scrollFactor.set();
+		bg.screenCenter();
+		add(bg);
 
 		daMods = new FlxTypedGroup<FlxText>();
 		add(daMods);

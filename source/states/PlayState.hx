@@ -72,6 +72,8 @@ class PlayState extends ExtendableState {
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
+		persistentUpdate = persistentDraw = true;
+
 		if (songMultiplier < 0.1)
 			songMultiplier = 0.1;
 

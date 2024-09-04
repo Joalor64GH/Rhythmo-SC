@@ -124,9 +124,11 @@ class OptionsState extends ExtendableState {
 				ExtendableState.switchState(new ControlsState());
 			else if (curSelected == 11) {
 				openSubState(new PromptSubState("Are you sure?", () -> {
+					FlxG.sound.play(Paths.sound('erase'));
 					SaveData.eraseData();
 					ExtendableState.resetState();
 				}, () -> {
+					FlxG.sound.play(Paths.sound('cancel'));
 					closeSubState();
 				}));
 			}
@@ -140,7 +142,12 @@ class OptionsState extends ExtendableState {
 		}
 
 		if (exit) {
-			ExtendableState.switchState(new MenuState());
+			if (PauseSubState.fromPlayState) {
+				ExtendableState.switchState(new PlayState());
+				PauseSubState.fromPlayState = false;
+				FlxG.sound.music.stop();
+			} else
+				ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();
 		}

@@ -4,9 +4,8 @@ class MenuState extends ExtendableState {
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', #if FUTURE_POLYMOD 'mods', #end 'credits', 'options', 'exit'];
-
-	var accepted:Bool = false;
-	var allowInputs:Bool = false;
+	
+	var lockInputs:Bool = false;
 
 	var camFollow:FlxObject;
 
@@ -47,8 +46,6 @@ class MenuState extends ExtendableState {
 
 		changeSelection(0, false);
 
-		allowInputs = true;
-
 		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
@@ -62,12 +59,12 @@ class MenuState extends ExtendableState {
 		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 
-		if (allowInputs && !accepted) {
+		if (!lockInputs) {
 			if (up || down)
 				changeSelection(up ? -1 : 1);
 
 			if (accept) {
-				accepted = true;
+				lockInputs = true;
 				if (selections[curSelected] == 'exit') {
 					FlxG.sound.play(Paths.sound('cancel'));
 					if (FlxG.sound.music != null)
@@ -90,8 +87,7 @@ class MenuState extends ExtendableState {
 							#if FUTURE_POLYMOD
 							case 'mods':
 								if (ModHandler.trackedMods != []) ExtendableState.switchState(new ModsState()); else {
-									accepted = false;
-									allowInputs = true;
+									lockInputs = true;
 									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
 								}
 							#end

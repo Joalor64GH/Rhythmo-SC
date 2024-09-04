@@ -1,8 +1,7 @@
 package states;
 
 class TitleState extends ExtendableState {
-	var accepted:Bool = false;
-	var allowInputs:Bool = false;
+	var lockInputs:Bool = false;
 
 	override function create() {
 		super.create();
@@ -48,8 +47,6 @@ class TitleState extends ExtendableState {
 		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
-
-		allowInputs = true;
 	}
 
 	override function update(elapsed:Float) {
@@ -58,8 +55,8 @@ class TitleState extends ExtendableState {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
 
-		if (accept && allowInputs && !accepted) {
-			accepted = true;
+		if (accept && !lockInputs) {
+			lockInputs = true;
 			FlxG.sound.play(Paths.sound('start'));
 			if (SaveData.settings.flashing)
 				FlxG.camera.flash(FlxColor.WHITE, 1);

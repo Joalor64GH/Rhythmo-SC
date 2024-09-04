@@ -29,11 +29,10 @@ class SongSelectState extends ExtendableState {
 	var currentIndex:Int = 0;
 	var songListData:BasicData;
 
+	var titleTxt:FlxText;
 	var panelTxt:FlxText;
 	var tinyTxt:FlxText;
 	var bottomPanel:FlxSprite;
-
-	var titleTxt:FlxText;
 
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
@@ -109,9 +108,8 @@ class SongSelectState extends ExtendableState {
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		if (!isResetting)
-			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
-				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
+		panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+			+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
