@@ -25,6 +25,7 @@ class PlayState extends ExtendableState {
 	var combo:Int = 0;
 	var misses:Int = 0;
 	var scoreTxt:FlxText;
+	var timeTxt:FlxText;
 	var timeBar:Bar;
 
 	var camZooming:Bool = true;
@@ -34,6 +35,8 @@ class PlayState extends ExtendableState {
 
 	var startingSong:Bool = false;
 	var startedCountdown:Bool = false;
+
+	var songPercent:Float = 0;
 
 	var countdown3:FlxSprite;
 	var countdown2:FlxSprite;
@@ -119,9 +122,14 @@ class PlayState extends ExtendableState {
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
 		timeBar.screenCenter(X);
-		timeBar.y = (SaveData.settings.downScroll) ? scoreTxt.y : FlxG.height - 20;
+		timeBar.y = (SaveData.settings.downScroll) ? FlxG.height - 20 : scoreTxt.y;
 		add(timeBar);
 		add(scoreTxt);
+
+		timeTxt = new FlxText(0, timeBar.y, FlxG.width, "", 12);
+		timeTxt.setFormat(Paths.font("vcr.ttf"), 26, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.screenCenter(X);
+		add(timeTxt);
 
 		var ratingDisplayYPos:Float = 80;
 
@@ -244,6 +252,16 @@ class PlayState extends ExtendableState {
 			if (!paused && FlxG.sound.music != null && FlxG.sound.music.active && FlxG.sound.music.playing) {
 				Conductor.songPosition = FlxG.sound.music.time;
 				timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
+
+				var curTime:Float = FlxG.sound.music.time;
+				songPercent = (curTime / songLength);
+
+				var songCalc:Float = songLength - curTime;
+				var secondsTotal:Int = Math.floor(songCalc / 1000);
+				if (secondsTotal < 0)
+					secondsTotal = 0;
+
+				timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 			}
 		}
 
@@ -353,11 +371,11 @@ class PlayState extends ExtendableState {
 
 	function inputFunction() {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		
+
 		var justPressed:Array<Bool> = [
-			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
-			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
-			Input.is("up") || (gamepad != null ? Input.gamepadIs("gamepad_up") : false), 
+			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false),
+			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false),
+			Input.is("up") || (gamepad != null ? Input.gamepadIs("gamepad_up") : false),
 			Input.is("right") || (gamepad != null ? Input.gamepadIs("gamepad_right") : false)
 		];
 		var pressed:Array<Bool> = [
@@ -515,7 +533,7 @@ class PlayState extends ExtendableState {
 	function endSong() {
 		var ret:Dynamic = callOnScripts('endSong', []);
 		if (ret != Hscript.Function_Stop) {
-			timeBar.visible = false;
+			timeTxt.visible = timeBar.visible = false;
 			if (chartingMode) {
 				ExtendableState.switchState(new ChartingState());
 				ChartingState.instance.song = song;

@@ -4,6 +4,8 @@ class ModsState extends ExtendableState {
 	var daMods:FlxTypedGroup<FlxText>;
 	var iconArray:Array<ModIcon> = [];
 	var description:FlxText;
+	var author:FlxText;
+	
 	var curSelected:Int = 0;
 
 	var camFollow:FlxObject;
@@ -43,6 +45,12 @@ class ModsState extends ExtendableState {
 		description.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		description.screenCenter(X);
 		description.scrollFactor.set();
+		add(description);
+
+		author = new FlxText(0, description.y + 35, FlxG.width * 0.9, '', 28);
+		author.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		author.screenCenter(X);
+		author.scrollFactor.set();
 		add(description);
 
 		changeSelection();
@@ -96,6 +104,8 @@ class ModsState extends ExtendableState {
 		if (ModHandler.trackedMods[curSelected].description != null) {
 			description.text = ModHandler.trackedMods[curSelected].description;
 			description.screenCenter(X);
+			author.text = 'Author: ${ModHandler.trackedMods[curSelected].author}';
+			author.screenCenter(X);
 		}
 	}
 }
