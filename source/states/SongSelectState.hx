@@ -132,6 +132,8 @@ class SongSelectState extends ExtendableState {
 				FlxG.sound.play(Paths.sound('cancel'));
 			} else {
 				FlxG.sound.play(Paths.sound('cancel'));
+				isResetting = false;
+				lockedInputs = false;
 				titleTxt.color = FlxColor.WHITE;
 				titleTxt.text = songListData.songs[currentIndex].name;
 				panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
