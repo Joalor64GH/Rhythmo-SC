@@ -36,6 +36,7 @@ class PlayState extends ExtendableState {
 	var startingSong:Bool = false;
 	var startedCountdown:Bool = false;
 
+	var songLength:Float = 0;
 	var songPercent:Float = 0;
 
 	var countdown3:FlxSprite;
