@@ -50,7 +50,7 @@ class ModsState extends ExtendableState {
 		author.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		author.screenCenter(X);
 		author.scrollFactor.set();
-		add(description);
+		add(author);
 
 		changeSelection();
 

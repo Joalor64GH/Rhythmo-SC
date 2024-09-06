@@ -248,7 +248,9 @@ class Checker extends GameSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (sprTracker != null)
+		if (sprTracker != null) {
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y);
+			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
+		}
 	}
 }
