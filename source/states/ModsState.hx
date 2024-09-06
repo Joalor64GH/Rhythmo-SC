@@ -5,9 +5,8 @@ class ModsState extends ExtendableState {
 	var iconArray:Array<ModIcon> = [];
 	var description:FlxText;
 	var author:FlxText;
-	
-	var curSelected:Int = 0;
 
+	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
 	override function create() {
@@ -104,8 +103,11 @@ class ModsState extends ExtendableState {
 		if (ModHandler.trackedMods[curSelected].description != null) {
 			description.text = ModHandler.trackedMods[curSelected].description;
 			description.screenCenter(X);
-			author.text = 'Author: ${ModHandler.trackedMods[curSelected].author}';
-			author.screenCenter(X);
+
+			@:privateAccess {
+				author.text = 'Author: ${ModHandler.trackedMods[curSelected]._author}';
+				author.screenCenter(X);
+			}
 		}
 	}
 }

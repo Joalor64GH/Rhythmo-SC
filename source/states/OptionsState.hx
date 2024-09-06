@@ -21,12 +21,19 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
+	var camFollow:FlxObject;
+
 	var checkerArray:Array<Checker> = [];
 
 	override function create() {
 		super.create();
 
+		camFollow = new FlxObject(80, 0, 0, 0);
+		camFollow.screenCenter(X);
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg.scrollFactor.set();
+		bg.screenCenter();
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -52,9 +59,12 @@ class OptionsState extends ExtendableState {
 
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
 		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		daText.scrollFactor.set();
 		add(daText);
 
 		changeSelection();
+
+		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
 	override function update(elapsed:Float) {
@@ -162,6 +172,8 @@ class OptionsState extends ExtendableState {
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
+			if (txt.ID == curSelected)
+				camFollow.y = txt.y;
 		});
 	}
 
