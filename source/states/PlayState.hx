@@ -274,6 +274,7 @@ class PlayState extends ExtendableState {
 				note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
+				isPerfect = false;
 				combo = 0;
 				score -= 10;
 				misses++;
@@ -377,7 +378,10 @@ class PlayState extends ExtendableState {
 			if (justPressed[i]) {
 				strumline.members[i].press();
 				if (SaveData.settings.antiMash) {
-					// FlxG.sound.play(Paths.sound('miss${FlxG.random.int(1, 4)}'));
+					FlxG.sound.play(Paths.sound('miss${FlxG.random.int(1, 4)}'), FlxG.random.float(0.1, 0.2));
+					isPerfect = false;
+					score -= 10;
+					combo = 0;
 					misses++;
 				}
 			}

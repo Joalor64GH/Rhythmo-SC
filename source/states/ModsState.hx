@@ -3,8 +3,9 @@ package states;
 class ModsState extends ExtendableState {
 	var daMods:FlxTypedGroup<FlxText>;
 	var iconArray:Array<ModIcon> = [];
+
 	var description:FlxText;
-	var author:FlxText;
+	var descBg:FlxSprite;
 
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
@@ -40,17 +41,15 @@ class ModsState extends ExtendableState {
 			add(icon);
 		}
 
-		description = new FlxText(0, FlxG.height * 0.1, FlxG.width * 0.9, '', 28);
+		descBg = new FlxSprite(0, FlxG.height + 90).makeGraphic(FlxG.width, 116, FlxColor.BLACK);
+		descBg.alpha = 0.6;
+		add(descBg);
+
+		description = new FlxText(descBg.x, descBg.y + 4, FlxG.width * 0.9, '', 28);
 		description.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		description.screenCenter(X);
 		description.scrollFactor.set();
 		add(description);
-
-		author = new FlxText(0, description.y + 35, FlxG.width * 0.9, '', 28);
-		author.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		author.screenCenter(X);
-		author.scrollFactor.set();
-		add(author);
 
 		changeSelection();
 
@@ -101,13 +100,12 @@ class ModsState extends ExtendableState {
 		});
 
 		if (ModHandler.trackedMods[curSelected].description != null) {
-			description.text = ModHandler.trackedMods[curSelected].description;
 			description.screenCenter(X);
 
-			@:privateAccess {
-				author.text = 'Author: ${ModHandler.trackedMods[curSelected]._author}';
-				author.screenCenter(X);
-			}
+			@:privateAccess
+			description.text = ModHandler.trackedMods[curSelected].description + "\nAuthor: " + ModHandler.trackedMods[curSelected]._author 
+				+ "\nRhythmo Version: " + ModHandler.trackedMods[curSelected].apiVersion + "\nMod Version: " 
+				+ ModHandler.trackedMods[curSelected].modVersion;
 		}
 	}
 }

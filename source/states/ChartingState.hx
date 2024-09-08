@@ -80,7 +80,7 @@ class ChartingState extends ExtendableState {
 			try {
 				var chart:String = Json.stringify(song);
 				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-				trace("chart saved!");
+				trace("chart saved!\n saved path: " + Paths.formatToSongPath(song.song));
 			} catch (e:Dynamic) {
 				trace("Error while saving chart: " + e);
 			}
