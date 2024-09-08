@@ -5,7 +5,6 @@ class ModsState extends ExtendableState {
 	var iconArray:Array<ModIcon> = [];
 
 	var description:FlxText;
-	var descBg:FlxSprite;
 
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
@@ -41,12 +40,7 @@ class ModsState extends ExtendableState {
 			add(icon);
 		}
 
-		descBg = new FlxSprite(0, FlxG.height + 90).makeGraphic(FlxG.width, 116, FlxColor.BLACK);
-		descBg.scrollFactor.set();
-		descBg.alpha = 0.6;
-		add(descBg);
-
-		description = new FlxText(descBg.x, descBg.y + 4, FlxG.width * 0.9, '', 28);
+		description = new FlxText(0, FlxG.height * 0.1, FlxG.width * 0.9, '', 28);
 		description.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		description.screenCenter(X);
 		description.scrollFactor.set();
