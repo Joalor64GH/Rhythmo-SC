@@ -42,6 +42,7 @@ class ModsState extends ExtendableState {
 		}
 
 		descBg = new FlxSprite(0, FlxG.height + 90).makeGraphic(FlxG.width, 116, FlxColor.BLACK);
+		descBg.scrollFactor.set();
 		descBg.alpha = 0.6;
 		add(descBg);
 
@@ -100,12 +101,11 @@ class ModsState extends ExtendableState {
 		});
 
 		if (ModHandler.trackedMods[curSelected].description != null) {
-			description.screenCenter(X);
-
 			@:privateAccess
 			description.text = ModHandler.trackedMods[curSelected].description + "\nAuthor: " + ModHandler.trackedMods[curSelected]._author 
 				+ "\nRhythmo Version: " + ModHandler.trackedMods[curSelected].apiVersion + "\nMod Version: " 
 				+ ModHandler.trackedMods[curSelected].modVersion;
+			description.screenCenter(X);
 		}
 	}
 }
