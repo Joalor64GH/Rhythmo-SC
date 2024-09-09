@@ -10,6 +10,7 @@ class OptionsState extends ExtendableState {
 		Localization.get("opDwnScrl", SaveData.settings.lang),
 		Localization.get("opFlash", SaveData.settings.lang),
 		Localization.get("opBot", SaveData.settings.lang),
+		Localization.get("opMash", SaveData.settings.lang),
 		Localization.get("opFrm", SaveData.settings.lang),
 		Localization.get("opSpeed", SaveData.settings.lang),
 		Localization.get("opHitSnd", SaveData.settings.lang),
@@ -49,7 +50,7 @@ class OptionsState extends ExtendableState {
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
 
-			if (i < 6) {
+			if (i < 7) {
 				var checker:Checker = new Checker(0, 0, getOptionState(i));
 				checker.sprTracker = optionTxt;
 				checkerArray.push(checker);
@@ -84,7 +85,7 @@ class OptionsState extends ExtendableState {
 		if (up || down)
 			changeSelection(up ? -1 : 1);
 
-		if (curSelected == 6) {
+		if (curSelected == 7) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -94,7 +95,7 @@ class OptionsState extends ExtendableState {
 
 				Main.updateFramerate(SaveData.settings.framerate);
 			}
-		} else if (curSelected == 7) {
+		} else if (curSelected == 8) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -102,7 +103,7 @@ class OptionsState extends ExtendableState {
 				else
 					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
-		} else if (curSelected == 8) {
+		} else if (curSelected == 9) {
 			if (right || left) {
 				FlxG.sound.play(Paths.sound('scroll'));
 				if (!left)
@@ -128,11 +129,13 @@ class OptionsState extends ExtendableState {
 				SaveData.settings.flashing = !SaveData.settings.flashing;
 			else if (curSelected == 5)
 				SaveData.settings.botPlay = !SaveData.settings.botPlay;
-			else if (curSelected == 9)
-				openSubState(new LanguageSubState());
+			else if (curSelected == 6)
+				SaveData.settings.botPlay = !SaveData.settings.botPlay;
 			else if (curSelected == 10)
+				openSubState(new LanguageSubState());
+			else if (curSelected == 11)
 				ExtendableState.switchState(new ControlsState());
-			else if (curSelected == 11) {
+			else if (curSelected == 12) {
 				openSubState(new PromptSubState("Are you sure?", () -> {
 					FlxG.sound.play(Paths.sound('erase'));
 					SaveData.eraseData();
@@ -192,16 +195,18 @@ class OptionsState extends ExtendableState {
 			case 5:
 				daText.text = Localization.get("descBot", SaveData.settings.lang) + SaveData.settings.botPlay;
 			case 6:
-				daText.text = Localization.get("descFrm", SaveData.settings.lang) + SaveData.settings.framerate;
+				daText.text = Localization.get("descMash", SaveData.settings.lang) + SaveData.settings.antiMash;
 			case 7:
-				daText.text = Localization.get("descSpeed", SaveData.settings.lang) + SaveData.settings.songSpeed;
+				daText.text = Localization.get("descFrm", SaveData.settings.lang) + SaveData.settings.framerate;
 			case 8:
-				daText.text = Localization.get("descHitSnd", SaveData.settings.lang) + SaveData.settings.hitSoundVolume;
+				daText.text = Localization.get("descSpeed", SaveData.settings.lang) + SaveData.settings.songSpeed;
 			case 9:
-				daText.text = Localization.get("descLang", SaveData.settings.lang) + SaveData.settings.lang;
+				daText.text = Localization.get("descHitSnd", SaveData.settings.lang) + SaveData.settings.hitSoundVolume;
 			case 10:
-				daText.text = Localization.get("descCtrls", SaveData.settings.lang);
+				daText.text = Localization.get("descLang", SaveData.settings.lang) + SaveData.settings.lang;
 			case 11:
+				daText.text = Localization.get("descCtrls", SaveData.settings.lang);
+			case 12:
 				daText.text = Localization.get("descReset", SaveData.settings.lang);
 		}
 	}
@@ -220,6 +225,8 @@ class OptionsState extends ExtendableState {
 				return SaveData.settings.flashing;
 			case 5:
 				return SaveData.settings.botPlay;
+			case 5:
+				return SaveData.settings.antiMash;
 			default:
 				return false;
 		}
