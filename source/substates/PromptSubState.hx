@@ -16,11 +16,13 @@ class PromptSubState extends FlxSubState {
 		var height:Float = FlxG.height * 0.5;
 
 		var box:FlxSprite = new FlxSprite().makeGraphic(Std.int(width), Std.int(height), 0xFF000000);
+		box.scrollFactor.set();
 		box.screenCenter();
 		add(box);
 
 		var questionTxt:FlxText = new FlxText(box.x, box.y + 20, width, question);
 		questionTxt.setFormat(Paths.font('vcr.ttf'), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		questionTxt.scrollFactor.set();
 		add(questionTxt);
 
 		var btnYes:FlxButton = new FlxButton(0, box.height / 2 + 130, "Yes", callbackYes);
