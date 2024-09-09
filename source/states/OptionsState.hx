@@ -225,7 +225,7 @@ class OptionsState extends ExtendableState {
 				return SaveData.settings.flashing;
 			case 5:
 				return SaveData.settings.botPlay;
-			case 5:
+			case 6:
 				return SaveData.settings.antiMash;
 			default:
 				return false;
