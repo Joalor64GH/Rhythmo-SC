@@ -130,7 +130,7 @@ class OptionsState extends ExtendableState {
 			else if (curSelected == 5)
 				SaveData.settings.botPlay = !SaveData.settings.botPlay;
 			else if (curSelected == 6)
-				SaveData.settings.botPlay = !SaveData.settings.antiMash;
+				SaveData.settings.antiMash = !SaveData.settings.antiMash;
 			else if (curSelected == 10)
 				openSubState(new LanguageSubState());
 			else if (curSelected == 11)

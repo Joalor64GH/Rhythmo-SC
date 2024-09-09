@@ -15,6 +15,13 @@ class MenuState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		if (!FlxG.sound.music.playing #if FUTURE_POLYMOD || ModsState.mustResetMusic #end) {
+			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+			#if FUTURE_POLYMOD
+			ModsState.mustResetMusic = false;
+			#end
+		}
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.screenCenter(X);
 

@@ -1,12 +1,13 @@
 package states;
 
 class ModsState extends ExtendableState {
+	public static var mustResetMusic:Bool = false;
+
 	var daMods:FlxTypedGroup<FlxText>;
 	var iconArray:Array<ModIcon> = [];
-
 	var description:FlxText;
-
 	var curSelected:Int = 0;
+
 	var camFollow:FlxObject;
 
 	override function create() {
@@ -67,6 +68,7 @@ class ModsState extends ExtendableState {
 		if (exit) {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ModHandler.reload();
+			mustResetMusic = true;
 			ExtendableState.switchState(new MenuState());
 		} else if (accept) {
 			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
