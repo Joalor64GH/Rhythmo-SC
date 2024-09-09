@@ -12,6 +12,7 @@ class ModHandler {
 	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
 		'ogg' => AUDIO_GENERIC,
+		'wav' => AUDIO_GENERIC,
 		'png' => IMAGE,
 		'xml' => TEXT,
 		'json' => TEXT,
@@ -87,13 +88,22 @@ class ModHandler {
 	}
 
 	static function onError(error:PolymodError):Void {
-		switch (error.severity) {
-			case NOTICE:
+		switch (error.code) {
+			case MOD_LOAD_PREPARE:
 				trace(error.message);
-			case WARNING:
+			case MOD_LOAD_DONE:
 				trace(error.message);
-			case ERROR:
-				trace(error.message);
+			case MISSING_ICON:
+				trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
+			default:
+				switch (error.severity) {
+					case NOTICE:
+						trace(error.message);
+					case WARNING:
+						trace(error.message);
+					case ERROR:
+						trace(error.message);
+				}
 		}
 	}
 	#end

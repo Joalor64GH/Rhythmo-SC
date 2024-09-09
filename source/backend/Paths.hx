@@ -209,6 +209,13 @@ class Paths {
 
 			localTrackedAssets.push(path);
 			return currentTrackedSounds.get(path);
+		} else if (Assets.exists(file('$key.wav'), SOUND)) {
+			var path:String = file('$key.wav');
+			if (!currentTrackedSounds.exists(path))
+				currentTrackedSounds.set(path, Assets.getSound(path, cache));
+
+			localTrackedAssets.push(path);
+			return currentTrackedSounds.get(path);
 		}
 
 		trace('oops! $key returned null');
