@@ -81,7 +81,7 @@ class SongSelectState extends ExtendableState {
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, "Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.", 22);
+		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, Localization.get("tinyGuide", SaveData.settings.lang), 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -138,7 +138,7 @@ class SongSelectState extends ExtendableState {
 				titleTxt.text = songListData.songs[currentIndex].name;
 				panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
 					+ Std.string(songListData.songs[currentIndex].diff) + "/5";
-				tinyTxt.text = 'Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.';
+				tinyTxt.text = Localization.get("tinyGuide", SaveData.settings.lang);
 			}
 		}
 
@@ -160,13 +160,13 @@ class SongSelectState extends ExtendableState {
 				if (!isResetting) {
 					isResetting = true;
 					lockedInputs = true;
-					titleTxt.text = 'Are you sure?';
+					titleTxt.text = Localization.get("youDecide", SaveData.settings.lang);
 					titleTxt.color = FlxColor.RED;
-					panelTxt.text = 'R - Confirm // ESCAPE - Cancel';
+					panelTxt.text = Localization.get("confirmReset", SaveData.settings.lang);
 					tinyTxt.text = '';
 				} else {
 					FlxG.sound.play(Paths.sound('erase'));
-					titleTxt.text = 'DATA DESTROYED';
+					titleTxt.text = Localization.get("confirmedReset");
 					tinyTxt.text = '';
 					HighScore.resetSong(songListData.songs[currentIndex].name);
 					isResetting = false;
@@ -176,7 +176,7 @@ class SongSelectState extends ExtendableState {
 						titleTxt.text = songListData.songs[currentIndex].name;
 						panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
 							+ Std.string(songListData.songs[currentIndex].diff) + "/5";
-						tinyTxt.text = 'Press R to reset the score of the currently selected song. // Press SPACE + R for a random song.';
+						tinyTxt.text = Localization.get("tinyGuide", SaveData.settings.lang);
 						changeSelection();
 					});
 				}

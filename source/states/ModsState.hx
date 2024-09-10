@@ -99,7 +99,7 @@ class ModsState extends ExtendableState {
 		if (ModHandler.trackedMods[curSelected].description != null) {
 			@:privateAccess
 			description.text = ModHandler.trackedMods[curSelected].description + "\nAuthor: " + ModHandler.trackedMods[curSelected]._author 
-				+ "\nRhythmo Version: " + ModHandler.trackedMods[curSelected].apiVersion + "\nMod Version: " 
+				+ "\nAPI Version: " + ModHandler.trackedMods[curSelected].apiVersion + "\nMod Version: " 
 				+ ModHandler.trackedMods[curSelected].modVersion;
 			description.screenCenter(X);
 		}

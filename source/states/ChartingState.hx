@@ -118,7 +118,7 @@ class ChartingState extends ExtendableState {
 		add(clearSectionButton);
 
 		clearSongButton = new FlxButton(FlxG.width - 110, 130, "Clear Song", () -> {
-			openSubState(new PromptSubState("Are you sure?", () -> {
+			openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 				for (daSection in 0...song.notes.length)
 					song.notes[daSection].sectionNotes = [];
 				updateGrid();

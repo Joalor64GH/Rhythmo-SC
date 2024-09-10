@@ -42,6 +42,11 @@
     "acceptKey": "TECLA ACEPTAR: ",
     "exitKey": "TECLA DE SALIDA: ",
 
+    "tinyGuide": "R - Restablecer la puntuación de la canción // ESPACIO + R - Canción aleatoria",
+    "youDecide": "¿Estas seguro/a?",
+    "confirmReset": "R - Sí // ESCAPE - Cancelar",
+    "confirmedReset": "DATOS DESTRUIDOS",
+
     "diffTxt": "Dificultad: ",
     "scoreTxt": "Puntaje: ",
     "missTxt": "Pérdidas: ",

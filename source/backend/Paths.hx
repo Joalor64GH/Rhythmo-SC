@@ -124,11 +124,10 @@ class Paths {
 
 	static public function getTextFromFile(key:String):String {
 		#if sys
-		if (FileSystem.exists(file(key)))
-			return File.getContent(file(key));
-		#end
-
+		return (FileSystem.exists(file(key))) ? File.getContent(file(key)) : null;
+		#else
 		return (Assets.exists(file(key))) ? Assets.getText(file(key)) : null;
+		#end
 	}
 
 	inline static public function txt(key:String)
@@ -150,11 +149,10 @@ class Paths {
 		return returnSound('songs/$key/music', cache);
 
 	inline static public function formatToSongPath(path:String) {
-		var invalidChars = ~/[~&\\;:<>#]/;
-		var hideChars = ~/[.,'"%?!]/;
+		final invalidChars = ~/[~&;:<>#\s]/g;
+		final hideChars = ~/[.,'"%?!]/g;
 
-		var path = invalidChars.split(path.replace(' ', '-')).join("-");
-		return hideChars.split(path).join("").toLowerCase();
+		return hideChars.replace(invalidChars.replace(path, '-'), '').trim().toLowerCase();
 	}
 
 	inline static public function chart(key:String)

@@ -39,6 +39,8 @@ class ModHandler {
 	public static function loadMods(folders:Array<String>):Void {
 		if (!FileSystem.exists(MOD_DIR))
 			FileSystem.createDirectory(MOD_DIR);
+		if (!FileSystem.exists(MOD_DIR + '/mods-go-here.txt'))
+			File.saveContent(MOD_DIR + '/mods-go-here.txt');
 
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,

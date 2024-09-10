@@ -136,7 +136,7 @@ class OptionsState extends ExtendableState {
 			else if (curSelected == 11)
 				ExtendableState.switchState(new ControlsState());
 			else if (curSelected == 12) {
-				openSubState(new PromptSubState("Are you sure?", () -> {
+				openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 					FlxG.sound.play(Paths.sound('erase'));
 					SaveData.eraseData();
 					ExtendableState.resetState();

@@ -42,6 +42,11 @@
     "acceptKey": "ACCEPT KEY: ",
     "exitKey": "EXIT KEY: ",
 
+    "tinyGuide": "R - Reset Song Score // SPACE + R - Random Song",
+    "youDecide": "Are you sure?",
+    "confirmReset": "R - Confirm // ESCAPE - Cancel",
+    "confirmedReset": "DATA DESTROYED",
+
     "diffTxt": "Difficulty: ",
     "scoreTxt": "Score: ",
     "missTxt": "Misses: ",
