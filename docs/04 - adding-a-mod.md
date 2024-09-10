@@ -22,14 +22,14 @@ Example:
 	"title": "Template",
 	"description": "Mod Description.",
 	"author": "You!",
-	"api_version": "1.0.0",
+	"api_version": "0.1.0",
 	"mod_version": "1.0.0",
 	"license": "Apache 2.0"
 }
 ```
 
 ### `_polymod_icon.png`
-As for `_polymod_icon.png`, it's just a simple `.png` icon for the mod. Just keep in mind that **whatever image it is, it will always be squished into a `150 by 150` resolution**. So a `1:1` aspect ratio is recommended for your image.
+As for `_polymod_icon.png`, it's just a simple `.png` icon for the mod. Just keep in mind that **whatever image it is, it will always be squished into a `75 by 75` resolution**. So a `1:1` aspect ratio is recommended for your image.
 
 If you've done everything correctly, your mod should appear in the Mods Menu. <br>
 Then, you're basically good to go!

@@ -7,7 +7,8 @@ import polymod.format.ParseRules;
 #end
 
 class ModHandler {
-	private static final MOD_DIR:String = 'mods';
+	static final MOD_DIR:String = 'mods';
+	static final API_VERSION:String = '1.0.0';
 
 	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
@@ -36,12 +37,31 @@ class ModHandler {
 
 	#if FUTURE_POLYMOD
 	public static function loadMods(folders:Array<String>):Void {
+		Polymod.onError = function(error:PolymodError) {
+			switch (error.code) {
+				case MOD_LOAD_PREPARE:
+					trace(error.message);
+				case MOD_LOAD_DONE:
+					trace(error.message);
+				case MISSING_ICON:
+					trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
+				default:
+					switch (error.severity) {
+						case NOTICE:
+							trace(error.message);
+						case WARNING:
+							trace(error.message);
+						case ERROR:
+							trace(error.message);
+					}
+			}
+		}
+
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
 			dirs: folders,
 			framework: OPENFL,
-			apiVersion: Lib.application.meta.get('version'),
-			errorCallback: onError,
+			apiVersionRule: API_VERSION,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
 			ignoredFiles: Polymod.getDefaultIgnoreList()
@@ -68,7 +88,7 @@ class ModHandler {
 
 		trace('Searching for Mods...');
 
-		for (i in Polymod.scan(MOD_DIR, '*.*.*', onError)) {
+		for (i in Polymod.scan({modRoot: MOD_DIR})) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);
@@ -85,26 +105,6 @@ class ModHandler {
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
-	}
-
-	static function onError(error:PolymodError):Void {
-		switch (error.code) {
-			case MOD_LOAD_PREPARE:
-				trace(error.message);
-			case MOD_LOAD_DONE:
-				trace(error.message);
-			case MISSING_ICON:
-				trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
-			default:
-				switch (error.severity) {
-					case NOTICE:
-						trace(error.message);
-					case WARNING:
-						trace(error.message);
-					case ERROR:
-						trace(error.message);
-				}
-		}
 	}
 	#end
 }

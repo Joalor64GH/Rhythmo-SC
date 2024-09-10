@@ -48,8 +48,7 @@
     },
     {
       "name": "polymod",
-      "type": "haxelib",
-      "version": "1.6.0"
+      "type": "haxelib"
     }
   ]
 }
