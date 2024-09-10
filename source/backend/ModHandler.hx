@@ -40,7 +40,7 @@ class ModHandler {
 		if (!FileSystem.exists(MOD_DIR))
 			FileSystem.createDirectory(MOD_DIR);
 		if (!FileSystem.exists(MOD_DIR + '/mods-go-here.txt'))
-			File.saveContent(MOD_DIR + '/mods-go-here.txt');
+			File.saveContent(MOD_DIR + '/mods-go-here.txt', '');
 
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
