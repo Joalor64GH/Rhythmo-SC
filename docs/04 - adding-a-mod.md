@@ -22,7 +22,7 @@ Example:
 	"title": "Template",
 	"description": "Mod Description.",
 	"author": "You!",
-	"api_version": "0.1.0",
+	"api_version": "1.0.0",
 	"mod_version": "1.0.0",
 	"license": "Apache 2.0"
 }

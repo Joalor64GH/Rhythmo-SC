@@ -37,31 +37,15 @@ class ModHandler {
 
 	#if FUTURE_POLYMOD
 	public static function loadMods(folders:Array<String>):Void {
-		Polymod.onError = function(error:PolymodError) {
-			switch (error.code) {
-				case MOD_LOAD_PREPARE:
-					trace(error.message);
-				case MOD_LOAD_DONE:
-					trace(error.message);
-				case MISSING_ICON:
-					trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
-				default:
-					switch (error.severity) {
-						case NOTICE:
-							trace(error.message);
-						case WARNING:
-							trace(error.message);
-						case ERROR:
-							trace(error.message);
-					}
-			}
-		}
+		if (!FileSystem.exists(MOD_DIR))
+			FileSystem.createDirectory(MOD_DIR);
 
 		var loadedModlist:Array<ModMetadata> = Polymod.init({
 			modRoot: MOD_DIR,
 			dirs: folders,
 			framework: OPENFL,
 			apiVersionRule: API_VERSION,
+			errorCallback: onError,
 			parseRules: getParseRules(),
 			extensionMap: extensions,
 			ignoredFiles: Polymod.getDefaultIgnoreList()
@@ -88,7 +72,7 @@ class ModHandler {
 
 		trace('Searching for Mods...');
 
-		for (i in Polymod.scan({modRoot: MOD_DIR})) {
+		for (i in Polymod.scan({modRoot: MOD_DIR, apiVersionRule: API_VERSION, errorCallback: onError})) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);
@@ -105,6 +89,26 @@ class ModHandler {
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
+	}
+
+	static function onError(error:PolymodError):Void {
+		switch (error.code) {
+			case MOD_LOAD_PREPARE:
+				trace(error.message);
+			case MOD_LOAD_DONE:
+				trace(error.message);
+			case MISSING_ICON:
+				trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
+			default:
+				switch (error.severity) {
+					case NOTICE:
+						trace(error.message);
+					case WARNING:
+						trace(error.message);
+					case ERROR:
+						trace(error.message);
+				}
+		}
 	}
 	#end
 }
