@@ -100,7 +100,7 @@ class ModHandler {
 			case MOD_LOAD_DONE:
 				trace(error.message);
 			case MISSING_ICON:
-				trace('A mod is missing an icon, will just skip it but please add one: ${error.message}');
+				trace(error.message);
 			default:
 				switch (error.severity) {
 					case NOTICE:
