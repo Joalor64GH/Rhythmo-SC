@@ -3,7 +3,7 @@ package states;
 import game.Song.SongData;
 
 class PlayState extends ExtendableState {
-	public static var instance:PlayState;
+	public static var instance:PlayState = null;
 	public static var song:SongData;
 
 	public static var songMultiplier:Float = 1;
@@ -590,8 +590,6 @@ class PlayState extends ExtendableState {
 	override function destroy() {
 		scriptArray = [];
 		callOnScripts('destroy', []);
-
-		instance = null;
 
 		super.destroy();
 	}
