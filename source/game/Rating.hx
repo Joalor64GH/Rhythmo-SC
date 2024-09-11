@@ -5,13 +5,11 @@ class Rating extends GameSprite {
 		super(x, y);
 	}
 
-	public function showCurrentRating() {
-		var rating:String = PlayState.instance.curRating;
-
+	public function showCurrentRating(rating:String = '') {
 		scale.set(1.2, 1.2);
 		alpha = 1;
-		FlxTween.cancelTweensOf(this);
 
+		FlxTween.cancelTweensOf(this);
 		FlxTween.tween(this, {alpha: 0}, 0.6, {
 			ease: FlxEase.cubeInOut,
 			startDelay: 1
@@ -27,7 +25,6 @@ class Rating extends GameSprite {
 
 		var scaleX:Float = FlxMath.lerp(scale.x, 1, elapsed * 7);
 		var scaleY:Float = FlxMath.lerp(scale.x, 1, elapsed * 7);
-
 		scale.set(scaleX, scaleY);
 	}
 }

@@ -466,7 +466,7 @@ class PlayState extends ExtendableState {
 						noteSplashes.add(splash);
 					}
 
-					ratingDisplay.showCurrentRating();
+					ratingDisplay.showCurrentRating(curRating);
 					ratingDisplay.screenCenter(X);
 
 					combo++;
