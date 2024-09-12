@@ -3,7 +3,7 @@ package backend;
 class FPS extends openfl.text.TextField {
 	var times:Array<Float> = [];
 
-	public function new(x:Float, y:Float, color:Int, ?font:String) {
+	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String = '') {
 		super();
 
 		text = "";
