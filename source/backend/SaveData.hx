@@ -28,9 +28,7 @@ class SaveData {
 			if (Reflect.field(FlxG.save.data, key) != null)
 				Reflect.setField(settings, key, Reflect.field(FlxG.save.data, key));
 
-		if (Main.fpsDisplay != null)
-			Main.fpsDisplay.visible = settings.fpsCounter;
-
+		Main.fpsVisible = settings.fpsCounter;
 		Main.updateFramerate(settings.framerate);
 	}
 

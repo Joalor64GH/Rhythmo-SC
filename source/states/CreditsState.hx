@@ -19,14 +19,13 @@ typedef CreditsUserDef = {
 class CreditsState extends ExtendableState {
 	var credData:CreditsPrefDef;
 	var credsGrp:FlxTypedGroup<FlxText>;
+	var iconArray:Array<CreditsIcon> = [];
 
 	var curSelected:Int = -1;
 	var curSocial:Int = -1;
 
 	var menuBG:FlxSprite;
 	var menuColorTween:FlxTween;
-
-	var iconArray:Array<CreditsIcon> = [];
 
 	var topBar:FlxSprite;
 	var topMarker:FlxText;
@@ -166,10 +165,8 @@ class CreditsState extends ExtendableState {
 			}
 		}
 
-		if (left || right) {
-			FlxG.sound.play(Paths.sound('scroll'));
+		if (left || right)
 			updateSocial(left ? -1 : 1);
-		}
 
 		if (accept && credData.users[curSelected].urlData[curSocial][1] != null) {
 			#if linux
@@ -186,6 +183,7 @@ class CreditsState extends ExtendableState {
 	}
 
 	function changeSelection(change:Int = 0) {
+		FlxG.sound.play(Paths.sound('scroll'));
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 			if (txt.ID == curSelected)

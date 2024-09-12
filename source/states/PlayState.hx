@@ -566,7 +566,6 @@ class PlayState extends ExtendableState {
 				swagNote.lastNote = oldNote;
 				swagNote.strum = daStrumTime;
 				swagNote.animation.play('note');
-
 				spawnNotes.push(swagNote);
 			}
 		}

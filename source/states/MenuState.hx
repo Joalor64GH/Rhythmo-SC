@@ -46,7 +46,7 @@ class MenuState extends ExtendableState {
 			grpSelection.add(menuItem);
 		}
 
-		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Rhythmo v${Lib.application.meta.get('version')} [${MacrosUtil.get_commit_id()}]', 12);
+		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Rhythmo v${Lib.application.meta.get('version')} (${MacrosUtil.get_commit_id()})', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versii.scrollFactor.set();
 		add(versii);

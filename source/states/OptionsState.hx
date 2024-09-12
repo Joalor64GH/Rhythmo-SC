@@ -19,12 +19,11 @@ class OptionsState extends ExtendableState {
 		Localization.get("opReset", SaveData.settings.lang)
 	];
 	var grpOptions:FlxTypedGroup<FlxText>;
+	var checkerArray:Array<Checker> = [];
 	var curSelected:Int = 0;
 	var daText:FlxText;
 
 	var camFollow:FlxObject;
-
-	var checkerArray:Array<Checker> = [];
 
 	override function create() {
 		super.create();
@@ -119,8 +118,7 @@ class OptionsState extends ExtendableState {
 				FlxG.fullscreen = SaveData.settings.fullscreen;
 			} else if (curSelected == 1) {
 				SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
-				if (Main.fpsDisplay != null)
-					Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
+				Main.fpsVisible = SaveData.settings.fpsCounter;
 			} else if (curSelected == 2)
 				SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
 			else if (curSelected == 3)

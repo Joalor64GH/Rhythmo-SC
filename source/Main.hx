@@ -16,7 +16,9 @@ class Main extends openfl.display.Sprite {
 		startFullscreen: false
 	};
 
-	public static var fpsDisplay:FPS;
+	public static var fpsArr:Array<FPS> = [];
+	public static var fpsVisible(default, set):Bool = true;
+
 	public static var toast:ToastCore;
 
 	public function new() {
@@ -29,8 +31,13 @@ class Main extends openfl.display.Sprite {
 		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.defaultFPS, config.defaultFPS, config.skipSplash,
 			config.startFullscreen));
 
-		fpsDisplay = new FPS(10, 10, 0xFFFFFF);
-		addChild(fpsDisplay);
+		fpsArr.push(new FPS(11, 11, 0x000000));
+		fpsArr.push(new FPS(9, 11, 0x000000));
+		fpsArr.push(new FPS(11, 9, 0x000000));
+		fpsArr.push(new FPS(9, 9, 0x000000));
+		fpsArr.push(new FPS(10, 10, 0xffffff));
+		for (f in fpsArr)
+			addChild(f);
 
 		#if desktop
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e:UncaughtErrorEvent) -> {
@@ -108,6 +115,13 @@ class Main extends openfl.display.Sprite {
 
 		toast = new ToastCore();
 		addChild(toast);
+	}
+
+	public static function set_fpsVisible(val:Bool):Bool {
+		fpsVisible = val;
+		for (f in fpsArr)
+			f.visible = val;
+		return val;
 	}
 
 	var oldVol:Float = 1.0;
