@@ -9,11 +9,10 @@ class FPS extends openfl.text.TextField {
 		text = "";
 		this.x = x;
 		this.y = y;
-		width = 1280;
-		height = 720;
+		width = 200;
+		height = 70;
 		selectable = false;
-		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 12, color);
-		alpha = 0.8; // to see things from the back better
+		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 16, color);
 
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) -> {
 			final now:Float = haxe.Timer.stamp() * 1000;
