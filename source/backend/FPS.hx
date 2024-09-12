@@ -3,16 +3,17 @@ package backend;
 class FPS extends openfl.text.TextField {
 	var times:Array<Float> = [];
 
-	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String = '') {
+	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
 
 		text = "";
 		this.x = x;
 		this.y = y;
-		width = 200;
-		height = 70;
+		width = 1280;
+		height = 720;
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 16, color);
+		alpha = 0.8; // to see things from the back better
 
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) -> {
 			final now:Float = haxe.Timer.stamp() * 1000;
