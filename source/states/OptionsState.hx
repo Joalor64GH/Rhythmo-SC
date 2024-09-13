@@ -118,8 +118,8 @@ class OptionsState extends ExtendableState {
 				FlxG.fullscreen = SaveData.settings.fullscreen;
 			} else if (curSelected == 1) {
 				SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
-				if (Main.fpsCounter != null)
-					Main.fpsCounter.visible = SaveData.settings.fpsCounter;
+				if (Main.fpsDisplay != null)
+					Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
 			} else if (curSelected == 2)
 				SaveData.settings.antialiasing = !SaveData.settings.antialiasing;
 			else if (curSelected == 3)
