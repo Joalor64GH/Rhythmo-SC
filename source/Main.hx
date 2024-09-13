@@ -17,8 +17,6 @@ class Main extends openfl.display.Sprite {
 	};
 
 	public static var fpsDisplay:FPS;
-	public static var fpsVisible(default, set):Bool = true;
-
 	public static var toast:ToastCore;
 
 	public function new() {
@@ -110,12 +108,6 @@ class Main extends openfl.display.Sprite {
 
 		toast = new ToastCore();
 		addChild(toast);
-	}
-
-	public static function set_fpsVisible(val:Bool):Bool {
-		fpsVisible = val;
-		fpsDisplay.visible = val;
-		return val;
 	}
 
 	var oldVol:Float = 1.0;
