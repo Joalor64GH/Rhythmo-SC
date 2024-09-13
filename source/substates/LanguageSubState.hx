@@ -32,7 +32,7 @@ class LanguageSubState extends ExtendableSubState {
 
 		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text.scrollFactor.set();
+		title.scrollFactor.set();
 		title.screenCenter(X);
 		add(title);
 
