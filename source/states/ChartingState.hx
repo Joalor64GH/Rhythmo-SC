@@ -5,7 +5,7 @@ import game.Note;
 import game.Song;
 
 class ChartingState extends ExtendableState {
-	public static var instance:ChartingState;
+	public static var instance:ChartingState = null;
 
 	public var song:SongData;
 
