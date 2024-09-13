@@ -165,8 +165,8 @@ class ChartingState extends ExtendableState {
 			changeSection(curSection + 1);
 
 		if (accept1) {
-			ExtendableState.switchState(new PlayState());
 			PlayState.song = song;
+			ExtendableState.switchState(new PlayState());
 		}
 
 		if (accept2) {

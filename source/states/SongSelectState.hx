@@ -126,8 +126,13 @@ class SongSelectState extends ExtendableState {
 				changeSelection(left ? -1 : 1);
 
 			if (accept) {
-				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
-				ExtendableState.switchState(new PlayState());
+				if (Input.is('shift', PRESSED)) {
+					ChartingState.instance.song = Paths.formatToSongPath(songListData.songs[currentIndex].name);
+					ExtendableState.switchState(new ChartingState());
+				} else {
+					PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
+					ExtendableState.switchState(new PlayState());
+				}
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
 			}
