@@ -124,6 +124,13 @@ class SongSelectState extends ExtendableState {
 		if (!lockedInputs) {
 			if (left || right)
 				changeSelection(left ? -1 : 1);
+
+			if (accept) {
+				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
+				ExtendableState.switchState(new PlayState());
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+			}
 		}
 
 		if (exit) {
@@ -140,13 +147,6 @@ class SongSelectState extends ExtendableState {
 					+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 				tinyTxt.text = Localization.get("tinyGuide", SaveData.settings.lang);
 			}
-		}
-
-		if (accept) {
-			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
-			ExtendableState.switchState(new PlayState());
-			if (FlxG.sound.music != null)
-				FlxG.sound.music.stop();
 		}
 
 		if (reset) {
@@ -166,7 +166,7 @@ class SongSelectState extends ExtendableState {
 					tinyTxt.text = '';
 				} else {
 					FlxG.sound.play(Paths.sound('erase'));
-					titleTxt.text = Localization.get("confirmedReset");
+					titleTxt.text = Localization.get("confirmedReset", SaveData.settings.lang);
 					tinyTxt.text = '';
 					HighScore.resetSong(songListData.songs[currentIndex].name);
 					isResetting = false;

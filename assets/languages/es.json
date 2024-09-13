@@ -42,6 +42,9 @@
     "acceptKey": "TECLA ACEPTAR: ",
     "exitKey": "TECLA DE SALIDA: ",
 
+    "yes": "Sí",
+    "no": "No",
+
     "tinyGuide": "R - Restablecer la puntuación de la canción // ESPACIO + R - Canción aleatoria",
     "youDecide": "¿Estas seguro/a?",
     "confirmReset": "R - Sí // ESCAPE - Cancelar",
@@ -51,6 +54,7 @@
     "scoreTxt": "Puntaje: ",
     "missTxt": "Pérdidas: ",
     "botplayTxt": "JUGAR AUTOMÁTICO",
+
     "pauseTxt": "¿PAUSADO/A?",
     "pauseCtrls": "ENTER - Continuar\nR - Reanudar\nO - Opciones\nBACKSPACE - Menú de canciones\nESCAPE - Menú principal"
 }

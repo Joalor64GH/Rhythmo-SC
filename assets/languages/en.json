@@ -42,6 +42,9 @@
     "acceptKey": "ACCEPT KEY: ",
     "exitKey": "EXIT KEY: ",
 
+    "yes": "Yes",
+    "no": "No",
+
     "tinyGuide": "R - Reset Song Score // SPACE + R - Random Song",
     "youDecide": "Are you sure?",
     "confirmReset": "R - Confirm // ESCAPE - Cancel",
@@ -51,6 +54,7 @@
     "scoreTxt": "Score: ",
     "missTxt": "Misses: ",
     "botplayTxt": "BOTPLAY",
+    
     "pauseTxt": "PAUSED?",
     "pauseCtrls": "ENTER - Resume\nR - Restart\nO - Options\nBACKSPACE - Song Menu\nESCAPE - Main Menu"
 }
