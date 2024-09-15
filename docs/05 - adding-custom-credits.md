@@ -5,10 +5,10 @@ If you want to add your own credits to `CreditsState.hx`, this will show you how
 To add your custom credits, you first need to navigate to `assets/credits.json`. <br>
 Then you can edit the following:
 * `menuBG` - Your custom menu background.
-* `menuBGColor` - The color of your custom background.
+* `menuBGColor` - The color of your custom background (`[R, G, B]`).
 * `tweenColor` - If the colors should set to the user's colors or not.
 
-Now to actually add your credits, use this template:
+Example Credit Block:
 ```json
 {
     "sectionName": "Section",
@@ -17,16 +17,17 @@ Now to actually add your credits, use this template:
     "iconData": ["icon", 0, 0],
     "textData": ["Contribution", "Description"],
     "urlData": [
-        ["Social", "https://anywhere.com/"]
+        ["Website", "https://name.com/"],
+        ["Twitter", "https://twitter.com/placeholder"]
     ],
     "colors": [255, 255, 255]
  }
  ```
 
 Explanation:
-* `sectionName` - This is optional, but this is simply a header you can place in a specific user block.
-* `name` - Obviously the name of the person.
-* `iconData` - This uses three parameters. The first one is the icon's filename, the second is the X offset, and the third is the Y offset (both are optional).
-* `textData` - This contains the user's contribution (required) and their description (optional).
-* `urlData` - You can use this to add social media links for a user if they have any.
-* `colors` - This uses RGB values.
+* `sectionName` *(optional)* - A header you can place in a specific user block.
+* `name` - The user's name.
+* `iconData` - An array with the filename for their icon, and optional X and Y offsets for positioning the icon.
+* `textData` - Includes the user's contribution and an optional description.
+* `urlData` - A list of links related to the user. Each entry is an array: the first element is the platform name, and the second is the URL.
+* `colors` - An array using RGB values to set the background to a custom color (`[R, G, B]`).

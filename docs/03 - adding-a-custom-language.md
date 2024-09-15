@@ -11,7 +11,7 @@ To add your language into `languagesData.txt`, use this format:
 Name (Country):code
 ```
 
-So if you wanted to add German, it would look like:
+So, for example, if you wanted to add German, it would look like:
 ```
 Deutsch (Deutschland):de
 ```
