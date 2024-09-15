@@ -111,4 +111,4 @@ function yourFunction() {
 }
 ```
 
-As long as you've done everything correctly, you script should functioning. Otherwise, report an issue and a solution will be found.
+As long as you've done everything correctly, your script should functioning. Otherwise, report an issue.

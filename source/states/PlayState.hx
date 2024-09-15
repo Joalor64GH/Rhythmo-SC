@@ -72,9 +72,9 @@ class PlayState extends ExtendableState {
 				scriptArray.push(new Hscript(Path.join(['assets/scripts', file])));
 
 		// song-specific scripts
-		for (file in FileSystem.readDirectory('songs/' + Paths.formatToSongPath(song.song)))
+		for (file in FileSystem.readDirectory('assets/songs/' + Paths.formatToSongPath(song.song)))
 			if (file.endsWith('.hxs'))
-				scriptArray.push(new Hscript(Path.join(['songs/' + Paths.formatToSongPath(song.song), file])));
+				scriptArray.push(new Hscript(Path.join(['assets/songs/' + Paths.formatToSongPath(song.song), file])));
 	}
 
 	override function create() {
