@@ -62,6 +62,19 @@ class PlayState extends ExtendableState {
 			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
+		FlxG.mouse.visible = false;
+	}
+
+	function loadScripts() {
+		// global scripts
+		for (file in FileSystem.readDirectory('assets/scripts'))
+			if (file.endsWith('.hxs'))
+				scriptArray.push(new Hscript(Path.join(['assets/scripts', file])));
+
+		// song-specific scripts
+		for (file in FileSystem.readDirectory('songs/' + Paths.formatToSongPath(song.song)))
+			if (file.endsWith('.hxs'))
+				scriptArray.push(new Hscript(Path.join(['songs/' + Paths.formatToSongPath(song.song), file])));
 	}
 
 	override function create() {
@@ -103,10 +116,6 @@ class PlayState extends ExtendableState {
 			var note:Note = new Note(startX + i * noteWidth, noteY, noteDirs[i], "receptor");
 			strumline.add(note);
 		}
-
-		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/scripts')))
-			if (script.endsWith('.hxs'))
-				scriptArray.push(new Hscript(script));
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -160,9 +169,7 @@ class PlayState extends ExtendableState {
 		add(go);
 
 		generateSong();
-
-		if (Assets.exists(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')))
-			scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/script')));
+		loadScripts();
 
 		startingSong = true;
 		startCountdown();
@@ -531,6 +538,7 @@ class PlayState extends ExtendableState {
 				ChartingState.instance.song = song;
 				return false;
 			}
+			FlxG.mouse.visible = true;
 			ExtendableState.switchState(new SongSelectState());
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			if (!SaveData.settings.botPlay)
