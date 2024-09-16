@@ -101,7 +101,7 @@ class PlayState extends ExtendableState {
 
 		for (file in FileSystem.readDirectory('assets/scripts'))
 			if (file.endsWith('.hxs'))
-				scriptArray.push(new Hscript(Paths.script('scripts/' + file)));
+				scriptArray.push(new Hscript(Paths.file('scripts/' + file)));
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -158,7 +158,7 @@ class PlayState extends ExtendableState {
 
 		for (file in FileSystem.readDirectory('assets/songs/' + Paths.formatToSongPath(song.song)))
 			if (file.endsWith('.hxs'))
-				scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/' + file)));
+				scriptArray.push(new Hscript(Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/' + file)));
 
 		startingSong = true;
 		startCountdown();
