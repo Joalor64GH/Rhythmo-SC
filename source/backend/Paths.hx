@@ -23,6 +23,8 @@ class Paths {
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var localTrackedAssets:Array<String> = [];
 
+	static public var modDir:String = null;
+
 	@:noCompletion private inline static function _gc(major:Bool) {
 		#if (cpp || neko)
 		Gc.run(major);
@@ -218,6 +220,44 @@ class Paths {
 
 		trace('oops! $key returned null');
 		return null;
+	}
+
+	var ignoredFolders:Array<String> = [
+		'fonts',
+		'images',
+		'languages',
+		'music',
+		'scripts',
+		'songs',
+		'sounds'
+	];
+
+	static public function modFolder(key:String) {
+		#if polymod
+		var list:Array<String> = [];
+		var modsFolder:String = 'mods/';
+		if (FileSystem.exists(modsFolder)) {
+			for (folder in FileSystem.readDirectory(modsFolder)) {
+				var path = Path.join([modsFolder, folder]);
+				if (FileSystem.isDirectory(path) && !ignoredFolders.contains(folder) && !list.contains(folder)) {
+					list.push(folder);
+					for (i in 0...list.length) {
+						modDir = list[i];
+					}
+				}
+			}
+		}
+		if (modDir != null && modDir.length > 0) {
+			var fileToCheck:String = 'mods/' + modDir + '/' + key;
+			if (FileSystem.exists(fileToCheck)) {
+				return fileToCheck;
+			}
+		}
+
+		return 'mods/' + key;
+		#else
+		return key;
+		#end
 	}
 }
 
