@@ -99,6 +99,10 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
+		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/scripts')))
+			if (script.endsWith('.hxs'))
+				scriptArray.push(new Hscript(script));
+
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
@@ -152,21 +156,9 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
-		var foldersToCheck:Array<String> = [
-			Paths.file('scripts/'),
-			Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/'),
-			Paths.modFolder('scripts/'),
-			Paths.modFolder('songs/' + Paths.formatToSongPath(song.song) + '/'),
-		];
-		for (folder in foldersToCheck) {
-			if (FileSystem.exists(folder)) {
-				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.hxs')) {
-						scriptArray.push(new Hscript(file));
-					}
-				}
-			}
-		}
+		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/songs/' + Paths.formatToSongPath(song.song))))
+			if (script.endsWith('.hxs'))
+				scriptArray.push(new Hscript(script));
 
 		startingSong = true;
 		startCountdown();
@@ -358,7 +350,7 @@ class PlayState extends ExtendableState {
 
 	function inputFunction() {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
+		
 		var justPressed:Array<Bool> = [
 			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
 			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
