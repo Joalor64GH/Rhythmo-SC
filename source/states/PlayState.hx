@@ -153,9 +153,10 @@ class PlayState extends ExtendableState {
 		generateSong();
 
 		var foldersToCheck:Array<String> = [
-			Paths.file('script/'),
-			Paths.file('songs/' + Paths.formatToSongPath(song.song)),
-			Paths.modFolder('scripts/')
+			Paths.file('scripts/'),
+			Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/'),
+			Paths.modFolder('scripts/'),
+			Paths.modFolder('songs/' + Paths.formatToSongPath(song.song) + '/'),
 		];
 		for (folder in foldersToCheck) {
 			if (FileSystem.exists(folder)) {
