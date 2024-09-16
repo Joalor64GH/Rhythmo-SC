@@ -222,7 +222,7 @@ class Paths {
 		return null;
 	}
 
-	var ignoredFolders:Array<String> = [
+	public static var ignoredFolders:Array<String> = [
 		'fonts',
 		'images',
 		'languages',
