@@ -5,7 +5,6 @@ import game.Song.SongData;
 class PlayState extends ExtendableState {
 	public static var instance:PlayState = null;
 	public static var song:SongData;
-
 	public static var songMultiplier:Float = 1;
 	public static var chartingMode:Bool = false;
 
@@ -18,9 +17,7 @@ class PlayState extends ExtendableState {
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
 	var spawnNotes:Array<Note> = [];
-
 	var ratingDisplay:Rating;
-
 	var score:Int = 0;
 	var combo:Int = 0;
 	var misses:Int = 0;
@@ -28,10 +25,8 @@ class PlayState extends ExtendableState {
 	var timeBar:Bar;
 
 	var camZooming:Bool = true;
-
 	var paused:Bool = false;
 	var canPause:Bool = true;
-
 	var startingSong:Bool = false;
 	var startedCountdown:Bool = false;
 
@@ -41,7 +36,6 @@ class PlayState extends ExtendableState {
 	var go:FlxSprite;
 
 	var isPerfect:Bool = true;
-
 	var judgementCounter:FlxText;
 	var perfects:Int = 0;
 	var nices:Int = 0;
@@ -105,9 +99,9 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
-		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/scripts')))
-			if (script.endsWith('.hxs'))
-				scriptArray.push(new Hscript(script));
+		for (file in FileSystem.readDirectory('assets/scripts'))
+			if (file.endsWith('.hxs'))
+				scriptArray.push(new Hscript(Paths.script('scripts/' + file)));
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -162,9 +156,9 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
-		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/songs/' + Paths.formatToSongPath(song.song))))
-			if (script.endsWith('.hxs'))
-				scriptArray.push(new Hscript(script));
+		for (file in FileSystem.readDirectory('assets/songs/' + Paths.formatToSongPath(song.song)))
+			if (file.endsWith('.hxs'))
+				scriptArray.push(new Hscript(Paths.script('songs/' + Paths.formatToSongPath(song.song) + '/' + file)));
 
 		startingSong = true;
 		startCountdown();
@@ -249,7 +243,7 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}\nMisses: ${misses}';
+		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
 			+ score

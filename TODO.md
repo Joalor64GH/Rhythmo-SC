@@ -16,3 +16,4 @@
 * Results
 * RGB Notes + Note Coloring
 * Better controls system
+* Accuracy

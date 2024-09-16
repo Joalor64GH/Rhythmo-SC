@@ -3,6 +3,13 @@ This will teach you how to use Rhythmo's special scripting system. Basically, yo
 
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[your-song]/[name].hxs`.
 
+**NOTE: These Haxe syntaxes are not supported in hscript**:
+* `package`
+* `import` (there's another function that emulates the purpose of this function)
+* `class`
+* `typedef`
+* `metadata`
+
 ## Imports
 To import a class, use:
 ```hx
@@ -32,6 +39,8 @@ This is a list of the current Libraries/Classes that you can use:
 * Xml
 
 ### Game-Specific Classes
+(Note: Most of these classes are already imported anyways.)
+
 * Application
 * Assets
 * Bar
@@ -108,6 +117,22 @@ function create() {
 
 function yourFunction() {
     // code goes here...
+}
+```
+
+### Parsing a JSON
+```hx
+import('sys.FileSystem');
+import('sys.io.File');
+import('haxe.Json');
+
+var json:Dynamic;
+
+function create() {
+    if (FileSystem.exists('assets/data.json'))
+        json = Json.parse(File.getContent('assets/data.json'));
+
+    trace(json);
 }
 ```
 
