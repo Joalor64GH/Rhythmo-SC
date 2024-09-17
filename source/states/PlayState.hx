@@ -99,9 +99,9 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
-		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
+		var foldersToCheck:Array<String> = [Paths.file('scripts')];
 		for (mod in ModHandler.getMods())
-			foldersToCheck.push('mods/' + mod + '/scripts/');
+			foldersToCheck.push('mods/' + mod + '/scripts');
 		for (folder in foldersToCheck) {
 			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
 				if (script.endsWith('.hxs'))
@@ -161,9 +161,9 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
-		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
+		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song))];
 		for (mod in ModHandler.getMods())
-			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
+			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song));
 		for (folder in foldersToCheck) {
 			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
 				if (script.endsWith('.hxs'))
