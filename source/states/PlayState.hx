@@ -99,7 +99,10 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
-		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/scripts')))
+		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
+		for (mod in ModHandler.getMods())
+			foldersToCheck.push('mods/' + mod + '/scripts/');
+		for (script in Assets.list(TEXT).filter(text -> text.contains(foldersToCheck)))
 			if (script.endsWith('.hxs'))
 				scriptArray.push(new Hscript(script));
 
@@ -156,7 +159,10 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
-		for (script in Assets.list(TEXT).filter(text -> text.contains('assets/songs/' + Paths.formatToSongPath(song.song))))
+		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
+		for (mod in ModHandler.getMods())
+			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
+		for (script in Assets.list(TEXT).filter(text -> text.contains(foldersToCheck)))
 			if (script.endsWith('.hxs'))
 				scriptArray.push(new Hscript(script));
 
