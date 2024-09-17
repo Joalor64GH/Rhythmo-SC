@@ -102,9 +102,11 @@ class PlayState extends ExtendableState {
 		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
 		for (mod in ModHandler.getMods())
 			foldersToCheck.push('mods/' + mod + '/scripts/');
-		for (script in Assets.list(TEXT).filter(text -> text.contains(foldersToCheck)))
-			if (script.endsWith('.hxs'))
-				scriptArray.push(new Hscript(script));
+		for (folder in foldersToCheck) {
+			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
+				if (script.endsWith('.hxs'))
+					scriptArray.push(new Hscript(script));
+		}
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -162,9 +164,11 @@ class PlayState extends ExtendableState {
 		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
 		for (mod in ModHandler.getMods())
 			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
-		for (script in Assets.list(TEXT).filter(text -> text.contains(foldersToCheck)))
-			if (script.endsWith('.hxs'))
-				scriptArray.push(new Hscript(script));
+		for (folder in foldersToCheck) {
+			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
+				if (script.endsWith('.hxs'))
+					scriptArray.push(new Hscript(script));
+		}
 
 		startingSong = true;
 		startCountdown();
