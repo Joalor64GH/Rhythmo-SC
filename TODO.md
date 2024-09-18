@@ -17,4 +17,6 @@
 * RGB Notes + Note Coloring
 * Better controls system
 * Simple source code reorganization
+* Hit window options
+* Options organization
 * Accuracy
