@@ -99,6 +99,21 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
+		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
+		#if FUTURE_POLYMOD
+		for (mod in ModHandler.getMods())
+			foldersToCheck.push('mods/' + mod + '/scripts/');
+		#end
+		for (folder in foldersToCheck) {
+			if (FileSystem.exists(folder)) {
+				for (file in FileSystem.readDirectory(folder)) {
+					if (file.endsWith('.hxs')) {
+						scriptArray.push(new Hscript(folder + file));
+					}
+				}
+			}
+		}
+
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
@@ -152,34 +167,20 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
-		var foldersToCheck:Array<String> = [
-			Paths.file('scripts'), 
-			Paths.file('songs/' + Paths.formatToSongPath(song.song))
-		];
-		for (folder in foldersToCheck) {
-			for (script in Assets.list(TEXT).filter(text -> text.contains(folder))) {
-				if (script.endsWith('.hxs')) {
-					var scriptContent:String = Assets.getText(script);
-					scriptArray.push(new Hscript(scriptContent));
-				}
-			}
-		}
-
+		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
 		#if FUTURE_POLYMOD
-		var foldersToCheck:Array<String> = [];
-		for (mod in ModHandler.getMods()) {
-			foldersToCheck.push('mods/' + mod + '/scripts');
-			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song));
-		}
+		for (mod in ModHandler.getMods())
+			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
+		#end
 		for (folder in foldersToCheck) {
-			for (script in Assets.list(TEXT).filter(text -> text.contains(folder))) {
-				if (script.endsWith('.hxs')) {
-					var scriptContent:String = Assets.getText(script);
-					scriptArray.push(new Hscript(scriptContent));
+			if (FileSystem.exists(folder)) {
+				for (file in FileSystem.readDirectory(folder)) {
+					if (file.endsWith('.hxs')) {
+						scriptArray.push(new Hscript(folder + file));
+					}
 				}
 			}
 		}
-		#end
 
 		startingSong = true;
 		startCountdown();
