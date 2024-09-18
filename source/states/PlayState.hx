@@ -157,9 +157,12 @@ class PlayState extends ExtendableState {
 			Paths.file('songs/' + Paths.formatToSongPath(song.song))
 		];
 		for (folder in foldersToCheck) {
-			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
-				if (script.endsWith('.hxs'))
-					scriptArray.push(new Hscript(script));
+			for (script in Assets.list(TEXT).filter(text -> text.contains(folder))) {
+				if (script.endsWith('.hxs')) {
+					var scriptContent:String = Assets.getText(script);
+					scriptArray.push(new Hscript(scriptContent));
+				}
+			}
 		}
 
 		#if FUTURE_POLYMOD
@@ -169,9 +172,12 @@ class PlayState extends ExtendableState {
 			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song));
 		}
 		for (folder in foldersToCheck) {
-			for (script in Assets.list(TEXT).filter(text -> text.contains(folder)))
-				if (script.endsWith('.hxs'))
-					scriptArray.push(new Hscript(script));
+			for (script in Assets.list(TEXT).filter(text -> text.contains(folder))) {
+				if (script.endsWith('.hxs')) {
+					var scriptContent:String = Assets.getText(script);
+					scriptArray.push(new Hscript(scriptContent));
+				}
+			}
 		}
 		#end
 
