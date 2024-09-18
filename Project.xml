@@ -24,6 +24,8 @@
 	<assets path="assets" />
 	<assets path="mods" if="FUTURE_POLYMOD" />
 
+	<assets path="alsoft.ini" />
+
 	<!-- [ Libraries ] -->
 
 	<haxelib name="flixel" />

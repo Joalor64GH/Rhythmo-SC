@@ -33,6 +33,10 @@ class Note extends GameSprite {
 
 	public function press() {
 		animation.play("press");
+
+		scale.set(0.5, 0.5);
+		FlxTween.cancelTweensOf(this.scale);
+		FlxTween.tween(this.scale, {x: 0.6, y: 0.6}, 0.3, {ease: FlxEase.quadOut});
 	}
 
 	override function update(elapsed:Float) {

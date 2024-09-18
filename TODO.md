@@ -16,4 +16,5 @@
 * Results
 * RGB Notes + Note Coloring
 * Better controls system
+* Simple source code reorganization
 * Accuracy
