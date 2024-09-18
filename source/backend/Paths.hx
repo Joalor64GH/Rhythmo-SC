@@ -220,11 +220,11 @@ class Paths {
 		return null;
 	}
 
-	public static function absoluteDirectory(file:String):Array<String> {
-		if (!file.endsWith('/'))
-			file = '$file/';
+	public static function absoluteDirectory(key:String):Array<String> {
+		if (!key.endsWith('/'))
+			key = '$key/';
 
-		var path:String = file(file);
+		var path:String = file(key);
 
 		var absolutePath:String = FileSystem.absolutePath(path);
 		var directory:Array<String> = FileSystem.readDirectory(absolutePath);
