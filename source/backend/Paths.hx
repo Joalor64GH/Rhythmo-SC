@@ -219,31 +219,6 @@ class Paths {
 		trace('oops! $key returned null');
 		return null;
 	}
-
-	public static function absoluteDirectory(key:String):Array<String> {
-		if (!key.endsWith('/'))
-			key = '$key/';
-
-		var path:String = file(key);
-
-		var absolutePath:String = FileSystem.absolutePath(path);
-		var directory:Array<String> = FileSystem.readDirectory(absolutePath);
-
-		if (directory != null) {
-			var dirCopy:Array<String> = directory.copy();
-
-			for (i in dirCopy) {
-				var index:Int = dirCopy.indexOf(i);
-				var file:String = '$path$i';
-				dirCopy.remove(i);
-				dirCopy.insert(index, file);
-			}
-
-			directory = dirCopy;
-		}
-
-		return if (directory != null) directory else [];
-	}
 }
 
 typedef FileAssets = #if sys FileSystem; #else openfl.utils.Assets; #end
