@@ -130,10 +130,7 @@ class Hscript extends FlxBasic {
 
 	public function execute(file:String, ?executeCreate:Bool = true):Void {
 		try {
-			if (Assets.exists(file, TEXT))
-				interp.execute(parser.parseString(Assets.getText(file)));
-			else
-				throw 'script $file doesn\'t exist!';
+			interp.execute(parser.parseString(file));
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 

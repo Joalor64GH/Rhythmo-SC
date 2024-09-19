@@ -105,10 +105,10 @@ class PlayState extends ExtendableState {
 			foldersToCheck.push('mods/' + mod + '/scripts/');
 		#end
 		for (folder in foldersToCheck) {
-			if (FileSystem.exists(folder)) {
+			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
 					if (file.endsWith('.hxs')) {
-						scriptArray.push(new Hscript(folder + file));
+						scriptArray.push(new Hscript(File.getContent(folder + file)));
 					}
 				}
 			}
@@ -173,10 +173,10 @@ class PlayState extends ExtendableState {
 			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
 		#end
 		for (folder in foldersToCheck) {
-			if (FileSystem.exists(folder)) {
+			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
 					if (file.endsWith('.hxs')) {
-						scriptArray.push(new Hscript(folder + file));
+						scriptArray.push(new Hscript(File.getContent(folder + file)));
 					}
 				}
 			}
