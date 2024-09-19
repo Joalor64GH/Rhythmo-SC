@@ -84,46 +84,7 @@ This is a list of the current Libraries/Classes that you can use:
 * Song
 
 ## Templates
-Some useful templates.
-
-### Default Template
-```hx
-function create() {
-    trace("Script initialized!");
-}
-
-function startCountdown() {
-    // when the countdown starts
-}
-
-function update(elapsed:Float) {
-    // while the game is updating
-}
-
-function beatHit(curBeat:Int) {
-    // every beat hit
-}
-
-function stepHit(curStep:Int) {
-    // every step hit
-}
-
-function pause() {
-    // when the game pauses
-}
-
-function resume() {
-    // when the game resumes
-}
-
-function endSong() {
-    // when the song ends
-}
-
-function destroy() {
-    // when playstate ends
-}
-```
+Some useful templates. For the default template, use [this](/assets/scripts/template.hxs).
 
 ### FlxSprite
 ```hx

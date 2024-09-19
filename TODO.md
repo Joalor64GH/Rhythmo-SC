@@ -19,4 +19,5 @@
 * Simple source code reorganization
 * Hit window options
 * Options organization
+* Customizable Main Menu + Scripted States
 * Accuracy
