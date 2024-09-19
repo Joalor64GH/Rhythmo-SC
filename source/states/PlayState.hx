@@ -108,7 +108,7 @@ class PlayState extends ExtendableState {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
 					if (file.endsWith('.hxs')) {
-						scriptArray.push(new Hscript(File.getContent(folder + file)));
+						scriptArray.push(new Hscript(folder + file));
 					}
 				}
 			}
@@ -176,7 +176,7 @@ class PlayState extends ExtendableState {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
 					if (file.endsWith('.hxs')) {
-						scriptArray.push(new Hscript(File.getContent(folder + file)));
+						scriptArray.push(new Hscript(folder + file));
 					}
 				}
 			}

@@ -11,8 +11,8 @@ class TitleState extends ExtendableState {
 
 		#if FUTURE_POLYMOD
 		if (ModHandler.trackedMods != []) {
-			for (i in ModHandler.trackedMods)
-				Main.toast.create('Mods Installed:', 0xFFFFFF00, i.title);
+			var installedMods:Array<String> = ModHandler.getMods();
+			Main.toast.create('Mods Installed:', 0xFFFFFF00, installedMods.join('\n'));
 		}
 		#end
 
