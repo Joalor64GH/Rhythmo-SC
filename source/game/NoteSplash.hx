@@ -16,10 +16,8 @@ class NoteSplash extends GameSprite {
 		if (visible && alpha > 0) {
 			FlxTween.tween(this, {alpha: 0}, 0.33, {
 				onComplete: (twn:FlxTween) -> {
-					if (alpha <= 0) {
+					if (alpha <= 0)
 						visible = false;
-						kill();
-					}
 				}
 			});
 		}
