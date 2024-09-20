@@ -97,9 +97,7 @@ class Main extends openfl.display.Sprite {
 				var bytes = image.encode(position, new openfl.display.PNGEncoderOptions());
 
 				var curDate:String = Date.now().toString();
-
 				curDate = StringTools.replace(curDate, " ", "_");
-				curDate = StringTools.replace(curDate, ":", "'");
 
 				File.saveBytes("screenshots/Screenshot-" + curDate + ".png", bytes);
 			}
