@@ -18,6 +18,6 @@
 * Better controls system
 * Simple source code reorganization
 * Hit window options
-* Options organization
+* Options organization + better options system
 * Customizable Main Menu + Scripted States
 * Accuracy

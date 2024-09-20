@@ -5,18 +5,12 @@ class PromptSubState extends FlxSubState {
 	var callbackYes:Void->Void;
 	var callbackNo:Void->Void;
 
-	var yesText:String = Localization.get("yes", SaveData.settings.lang);
-	var noText:String = Localization.get("no", SaveData.settings.lang);
-
-	public function new(question:String, callbackYes:Void->Void, ?callbackNo:Void->Void, ?yesText:String, ?noText:String) {
+	public function new(question:String, callbackYes:Void->Void, ?callbackNo:Void->Void) {
 		super();
 
 		this.question = question;
 		this.callbackYes = callbackYes;
 		this.callbackNo = callbackNo;
-
-		if (yesText != null) this.yesText = yesText;
-		if (noText != null) this.noText = noText;
 
 		var width:Float = FlxG.width * 0.75;
 		var height:Float = FlxG.height * 0.5;
@@ -31,7 +25,7 @@ class PromptSubState extends FlxSubState {
 		questionTxt.scrollFactor.set();
 		add(questionTxt);
 
-		var btnYes:FlxButton = new FlxButton(0, box.height / 2 + 130, yesText, () -> {
+		var btnYes:FlxButton = new FlxButton(0, box.height / 2 + 130, Localization.get("yes", SaveData.settings.lang), () -> {
 			if (callbackYes != null)
 				callbackYes();
 			close();
@@ -42,7 +36,7 @@ class PromptSubState extends FlxSubState {
 		btnYes.label.screenCenter(XY);
 		add(btnYes);
 
-		var btnNo:FlxButton = new FlxButton(0, btnYes.y + 50, noText, () -> {
+		var btnNo:FlxButton = new FlxButton(0, btnYes.y + 50, Localization.get("no", SaveData.settings.lang), () -> {
 			if (callbackNo != null)
 				callbackNo();
 			close();
