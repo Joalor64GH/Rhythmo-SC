@@ -140,7 +140,6 @@ class OptionsState extends ExtendableState {
 					ExtendableState.resetState();
 				}, () -> {
 					FlxG.sound.play(Paths.sound('cancel'));
-					closeSubState();
 				}));
 			}
 
@@ -162,10 +161,6 @@ class OptionsState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('cancel'));
 			SaveData.saveSettings();
 		}
-	}
-
-	override function closeSubState() {
-		super.closeSubState();
 	}
 
 	private function changeSelection(change:Int = 0) {

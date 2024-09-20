@@ -122,9 +122,6 @@ class ChartingState extends ExtendableState {
 				for (daSection in 0...song.notes.length)
 					song.notes[daSection].sectionNotes = [];
 				updateGrid();
-				closeSubState();
-			}, () -> {
-				closeSubState();
 			}));
 		});
 		add(clearSongButton);
@@ -240,10 +237,6 @@ class ChartingState extends ExtendableState {
 			+ beatSnap
 			+ (FlxG.keys.pressed.SHIFT ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
 			+ "\n");
-	}
-
-	override function closeSubState() {
-		super.closeSubState();
 	}
 
 	function loadSong(daSong:String):Void {
