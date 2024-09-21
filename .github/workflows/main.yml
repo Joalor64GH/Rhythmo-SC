@@ -27,7 +27,7 @@ jobs:
             .haxelib
             export/debug/windows/haxe
             export/debug/windows/obj
-          key: cache-windows-build
+          key: cache-windows-debug
 
       - name: Set Cache Status
         id: cache-status
@@ -45,7 +45,7 @@ jobs:
       - name: Clear Previous Cache
         uses: actions/github-script@main
         with:
-          script: await require('./actions/cache/clear-cache.js')({github, context}, 'cache-windows-build');
+          script: await require('./actions/cache/clear-cache.js')({github, context}, 'cache-windows-debug');
 
       - name: Save Current Cache
         id: cache-build-save
@@ -55,7 +55,7 @@ jobs:
             .haxelib
             export/debug/windows/haxe
             export/debug/windows/obj
-          key: cache-windows-build
+          key: cache-windows-debug
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
