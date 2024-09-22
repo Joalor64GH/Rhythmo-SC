@@ -183,7 +183,7 @@ class CreditsState extends ExtendableState {
 	}
 
 	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
+		FlxG.sound.play(Paths.sound('scroll'), 0.4);
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 			if (txt.ID == curSelected)
