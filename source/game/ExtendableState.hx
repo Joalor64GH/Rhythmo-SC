@@ -104,4 +104,9 @@ class ExtendableState extends FlxState {
 	}
 
 	public function beatHit():Void {}
+
+	public function multiAdd(basic:Array<FlxBasic>) {
+		for (b in basic)
+			add(b);
+	}
 }

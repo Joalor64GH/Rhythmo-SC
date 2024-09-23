@@ -4,12 +4,11 @@ class HighScore {
 	public static var songScores:Map<String, Int> = new Map();
 
 	public static function saveScore(song:String, score:Int = 0):Void {
-		var daSong:String = formatSong(song);
 		if (songScores.exists(song)) {
-			if (songScores.get(daSong) < score)
-				setScore(daSong, score);
+			if (songScores.get(formatSong(song)) < score)
+				setScore(formatSong(song), score);
 		} else
-			setScore(daSong, score);
+			setScore(formatSong(song), score);
 	}
 
 	static function setScore(song:String, score:Int):Void {
@@ -30,8 +29,7 @@ class HighScore {
 	}
 
 	public static function resetSong(song:String):Void {
-		var daSong:String = formatSong(song);
-		setScore(daSong, 0);
+		setScore(formatSong(song), 0);
 	}
 
 	public static function load():Void {
