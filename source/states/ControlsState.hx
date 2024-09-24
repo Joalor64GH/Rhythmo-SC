@@ -50,10 +50,11 @@ class ControlsState extends ExtendableState {
 		if (Input.is('x')) {
 			keyboardMode = !keyboardMode;
 			if (gamepad != null)
-				FlxG.sound.play(Paths.sound('confirm'));
+				FlxG.sound.play(Paths.sound('select'));
 			else if (gamepad == null) {
 				keyboardMode = true;
 				FlxG.sound.play(Paths.sound('cancel'));
+				Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
 			}
 		}
 

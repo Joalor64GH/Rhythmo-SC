@@ -54,7 +54,7 @@ class LanguageSubState extends ExtendableSubState {
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);
 
-		changeSelection();
+		changeSelection(0, false);
 	}
 
 	override function update(elapsed:Float) {
@@ -83,8 +83,9 @@ class LanguageSubState extends ExtendableSubState {
 		}
 	}
 
-	private function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
 		group.forEach(function(txt:FlxText) {
 			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;

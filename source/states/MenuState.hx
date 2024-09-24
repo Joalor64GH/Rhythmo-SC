@@ -51,7 +51,7 @@ class MenuState extends ExtendableState {
 		versii.scrollFactor.set();
 		add(versii);
 
-		changeSelection(0, false);
+		changeSelection(0, false, false);
 
 		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
@@ -121,9 +121,10 @@ class MenuState extends ExtendableState {
 		}
 	}
 
-	function changeSelection(change:Int = 0, ?doZoomThing:Bool = true) {
+	function changeSelection(change:Int = 0, ?doZoomThing:Bool = true, ?playSound:Bool = true) {
+		if (playSound) 
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, selections.length - 1);
-		FlxG.sound.play(Paths.sound('scroll'));
 		grpSelection.forEach((spr:FlxSprite) -> {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 			if (spr.ID == curSelected) {

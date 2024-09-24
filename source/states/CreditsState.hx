@@ -117,7 +117,7 @@ class CreditsState extends ExtendableState {
 		FlxTween.tween(centerMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 		FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
-		changeSelection();
+		changeSelection(0, false);
 		updateSocial();
 
 		FlxG.camera.follow(camFollow, LOCKON, 0.25);
@@ -154,7 +154,6 @@ class CreditsState extends ExtendableState {
 							curSelected--;
 						else if (i == 3 || i == 5)
 							curSelected++;
-						FlxG.sound.play(Paths.sound('scroll'));
 					}
 					if (curSelected < 0)
 						curSelected = credData.users.length - 1;
@@ -182,8 +181,9 @@ class CreditsState extends ExtendableState {
 		}
 	}
 
-	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'), 0.4);
+	function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'), 0.4);
 		credsGrp.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 			if (txt.ID == curSelected)

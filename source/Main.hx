@@ -34,47 +34,59 @@ class Main extends openfl.display.Sprite {
 
 		#if desktop
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e:UncaughtErrorEvent) -> {
-			var errMsg:String = "";
-			var path:String;
-			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-			var dateNow:String = Date.now().toString();
+			var stack:Array<String> = [];
+			stack.push(e.error);
 
-			dateNow = dateNow.replace(" ", "_");
-			dateNow = dateNow.replace(":", "'");
-
-			path = "./crash/" + "Rhythmo_" + dateNow + ".txt";
-
-			for (stackItem in callStack) {
+			for (stackItem in CallStack.exceptionStack(true)) {
 				switch (stackItem) {
+					case CFunction:
+						stack.push('C Function');
+					case Module(m):
+						stack.push('Module ($m)');
 					case FilePos(s, file, line, column):
-						errMsg += file + " (line " + line + ")\n";
-					default:
-						Sys.println(stackItem);
+						stack.push('$file (line $line)');
+					case Method(classname, method):
+						stack.push('$classname (method $method)');
+					case LocalFunction(name):
+						stack.push('Local Function ($name)');
 				}
 			}
 
-			errMsg += "\nUncaught Error: "
-				+ e.error
-				+ "\nPlease report this error to the GitHub page: https://github.com/Joalor64GH/Rhythmo-SC\n\n> Crash Handler written by: sqirra-rng";
+			e.preventDefault();
+			e.stopPropagation();
+			e.stopImmediatePropagation();
 
+			final msg:String = stack.join('\n');
+
+			#if sys
 			try {
-				if (!FileSystem.exists("./crash/"))
-					FileSystem.createDirectory("./crash/");
+				if (!FileSystem.exists('./crash/'))
+					FileSystem.createDirectory(./crash/');
 
-				File.saveContent(path, errMsg + "\n");
-
-				Sys.println(errMsg);
-				Sys.println("Crash dump saved in " + Path.normalize(path));
+				File.saveContent('./crash/'
+					+ Lib.application.meta.get('file')
+					+ '-'
+					+ Date.now().toString().replace(' ', '-')
+					+ '.txt',
+					msg
+					+ '\n');
 			} catch (e:Dynamic) {
 				Sys.println("Error!\nCouldn't save the crash dump because:\n" + e);
 			}
+			#end
+
+			FlxG.bitmap.dumpCache();
+			FlxG.bitmap.clearCache();
 
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 
 			FlxG.sound.play(Paths.sound('error'));
 
-			Application.current.window.alert(errMsg, "Error!");
+			Lib.application.window.alert('Uncaught Error: \n'
+				+ msg +
+				'\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
+				'Error!');
 			Sys.exit(1);
 		});
 		#end

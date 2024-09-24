@@ -62,7 +62,7 @@ class OptionsState extends ExtendableState {
 		daText.scrollFactor.set();
 		add(daText);
 
-		changeSelection();
+		changeSelection(0, false);
 
 		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
@@ -155,7 +155,8 @@ class OptionsState extends ExtendableState {
 			if (PauseSubState.fromPlayState) {
 				ExtendableState.switchState(new PlayState());
 				PauseSubState.fromPlayState = false;
-				FlxG.sound.music.stop();
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
 			} else
 				ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
@@ -163,8 +164,9 @@ class OptionsState extends ExtendableState {
 		}
 	}
 
-	private function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;

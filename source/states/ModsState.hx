@@ -16,7 +16,7 @@ class ModsState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		if (!FlxG.sound.music.playing)
+		if (!FlxG.sound.music.playing || FlxG.sound.music != null)
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		persistentUpdate = true;
@@ -50,7 +50,7 @@ class ModsState extends ExtendableState {
 		description.scrollFactor.set();
 		add(description);
 
-		changeSelection();
+		changeSelection(0, false);
 
 		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
@@ -86,8 +86,9 @@ class ModsState extends ExtendableState {
 		}
 	}
 
-	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
+	function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, ModHandler.trackedMods.length - 1);
 
 		for (i in 0...iconArray.length)

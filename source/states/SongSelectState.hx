@@ -97,7 +97,7 @@ class SongSelectState extends ExtendableState {
 		arrows.screenCenter(XY);
 		add(arrows);
 
-		changeSelection();
+		changeSelection(0, false);
 	}
 
 	override function update(elapsed:Float) {
@@ -189,9 +189,10 @@ class SongSelectState extends ExtendableState {
 		}
 	}
 
-	private function changeSelection(i:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
-		currentIndex = FlxMath.wrap(currentIndex + i, 0, songListData.songs.length - 1);
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
+		currentIndex = FlxMath.wrap(currentIndex + change, 0, songListData.songs.length - 1);
 		for (num => item in coverGrp) {
 			item.posX = num++ - currentIndex;
 			item.alpha = (item.ID == currentIndex) ? 1 : 0.6;
