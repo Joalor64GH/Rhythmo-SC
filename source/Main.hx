@@ -61,7 +61,7 @@ class Main extends openfl.display.Sprite {
 			#if sys
 			try {
 				if (!FileSystem.exists('./crash/'))
-					FileSystem.createDirectory(./crash/');
+					FileSystem.createDirectory('./crash/');
 
 				File.saveContent('./crash/'
 					+ Lib.application.meta.get('file')
