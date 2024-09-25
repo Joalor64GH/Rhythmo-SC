@@ -1,13 +1,12 @@
 package states;
 
 class MenuState extends ExtendableState {
+	var camFollow:FlxObject;
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = ['play', #if FUTURE_POLYMOD 'mods', #end 'credits', 'options', 'exit'];
 	
 	var lockInputs:Bool = false;
-
-	var camFollow:FlxObject;
 
 	override function create() {
 		super.create();
@@ -22,13 +21,14 @@ class MenuState extends ExtendableState {
 			#end
 		}
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollow.screenCenter(X);
-
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
+		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		add(camFollow);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 40);
@@ -46,14 +46,14 @@ class MenuState extends ExtendableState {
 			grpSelection.add(menuItem);
 		}
 
+		FlxG.camera.follow(camFollow, null, 0.60);
+
 		var versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Rhythmo v${Lib.application.meta.get('version')} (${MacrosUtil.get_commit_id()})', 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versii.scrollFactor.set();
 		add(versii);
 
 		changeSelection(0, false, false);
-
-		FlxG.camera.follow(camFollow, LOCKON, 0.25);
 	}
 
 	override function update(elapsed:Float) {
@@ -128,7 +128,7 @@ class MenuState extends ExtendableState {
 		grpSelection.forEach((spr:FlxSprite) -> {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 			if (spr.ID == curSelected) {
-				camFollow.y = spr.y;
+				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
 				if (doZoomThing) {
 					spr.scale.set(0.5, 0.5);
 					FlxTween.cancelTweensOf(spr.scale);
