@@ -1,14 +1,13 @@
 package backend;
 
-import openfl.text.TextField;
-import openfl.text.TextFormat;
+import openfl.text.*;
 import openfl.events.Event;
 
 class FPS extends TextField {
-	var times:Array<Float> = [];
-
 	public var borderSize:Int = 1;
 	private final borders:Array<TextField> = new Array<TextField>();
+
+	var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
@@ -31,7 +30,6 @@ class FPS extends TextField {
 		height = 720;
 		selectable = false;
 		defaultTextFormat = new TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 16, color);
-		alpha = 0.8; // to see things from the back better
 
 		addEventListener(Event.ENTER_FRAME, (_) -> {
 			final now:Float = haxe.Timer.stamp() * 1000;

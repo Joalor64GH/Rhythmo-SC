@@ -20,4 +20,5 @@
 * Hit window options
 * Options organization + better options system
 * Customizable Main Menu + Scripted States
-* Accuracy
+* Accuracy + Ranking
+* Note Sustains

@@ -60,6 +60,10 @@ class ChartingState extends ExtendableState {
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		bg.color = 0xFF444444;
+		add(bg);
+
 		gridBG = FlxGridOverlay.create(gridSize, gridSize, gridSize * columns, gridSize * rows, true, 0xFF404040, 0xFF525252);
 		gridBG.screenCenter();
 		add(gridBG);
