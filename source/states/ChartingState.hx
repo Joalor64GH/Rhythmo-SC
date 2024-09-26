@@ -57,6 +57,8 @@ class ChartingState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		FlxG.mouse.visible = true;
+
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 

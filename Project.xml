@@ -25,10 +25,9 @@
 	<assets path="mods" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">
-		<assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows" />
-		<assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows" />
+		<assets path="alsoft.ini" rename="plugins/alsoft.ini" type="text" if="windows" />
+		<assets path="alsoft.ini" rename="plugins/alsoft.conf" type="text" unless="windows" />
 	</section>
-
 
 	<!-- [ Libraries ] -->
 
@@ -70,7 +69,7 @@
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
 
-	<!-- [ Icons ] -->
+	<!-- [ Icon ] -->
 
 	<icon path="icon.png" />
 

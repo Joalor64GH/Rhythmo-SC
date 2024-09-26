@@ -1,5 +1,6 @@
 package backend;
 
+@:keep
 class ALConfig {
 	#if desktop
 	static function __init__():Void {
