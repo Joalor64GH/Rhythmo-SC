@@ -17,12 +17,16 @@ class PlayState extends ExtendableState {
 	var strumline:FlxTypedGroup<Note>;
 	var notes:FlxTypedGroup<Note>;
 	var spawnNotes:Array<Note> = [];
+
 	var ratingDisplay:Rating;
 	var score:Int = 0;
 	var combo:Int = 0;
 	var misses:Int = 0;
 	var scoreTxt:FlxText;
+
 	var timeBar:Bar;
+	var timeTxt:FlxText;
+	var updateTime:Bool = true;
 
 	var camZooming:Bool = true;
 	var paused:Bool = false;
@@ -128,6 +132,10 @@ class PlayState extends ExtendableState {
 		timeBar.y = (SaveData.settings.downScroll) ? scoreTxt.y : FlxG.height - 20;
 		add(timeBar);
 		add(scoreTxt);
+
+		timeTxt = new FlxText(20, timeBar.y, 0, "[-:--/-:--]", 20);
+		timeTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(timeTxt);
 
 		var ratingDisplayYPos:Float = 80;
 
@@ -249,6 +257,9 @@ class PlayState extends ExtendableState {
 			return;
 
 		callOnScripts('update', [elapsed]);
+
+		if (!startingSong && updateTime) 
+			timeTxt.text = "[" + msToTimestamp(FlxG.sound.music.time) + "/" + msToTimestamp(FlxG.sound.music.length) + "]";
 
 		if (startedCountdown)
 			Conductor.songPosition += elapsed * 1000;
@@ -543,7 +554,7 @@ class PlayState extends ExtendableState {
 	function endSong() {
 		var ret:Dynamic = callOnScripts('endSong', []);
 		if (ret != Hscript.Function_Stop) {
-			timeBar.visible = false;
+			timeTxt.visible = timeBar.visible = false;
 			if (chartingMode) {
 				ExtendableState.switchState(new ChartingState());
 				ChartingState.instance.song = song;
@@ -603,6 +614,13 @@ class PlayState extends ExtendableState {
 			case "right": 3;
 			default: -1;
 		}
+	}
+
+	function msToTimestamp(ms:Float) {
+		var seconds = Math.round(ms) / 1000;
+		var minutesLeft = Std.string(seconds / 60).split(".")[0];
+		var secondsLeft = Std.string(seconds % 60).split(".")[0];
+        return '${minutesLeft}:${(secondsLeft.length == 1 ? "0" : "") + secondsLeft}';
 	}
 
 	override function destroy() {
