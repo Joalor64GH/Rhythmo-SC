@@ -5,10 +5,10 @@ class HighScore {
 
 	public static function saveScore(song:String, score:Int = 0):Void {
 		if (songScores.exists(song)) {
-			if (songScores.get(formatSong(song)) < score)
-				setScore(formatSong(song), score);
+			if (songScores.get(song) < score)
+				setScore(song, score);
 		} else
-			setScore(formatSong(song), score);
+			setScore(song, score);
 	}
 
 	static function setScore(song:String, score:Int):Void {
@@ -17,19 +17,15 @@ class HighScore {
 		FlxG.save.flush();
 	}
 
-	public static function formatSong(song:String):String {
-		return song;
-	}
-
 	public static function getScore(song:String):Int {
-		if (!songScores.exists(formatSong(song)))
-			setScore(formatSong(song), 0);
+		if (!songScores.exists(song))
+			setScore(song, 0);
 
-		return songScores.get(formatSong(song));
+		return songScores.get(song);
 	}
 
 	public static function resetSong(song:String):Void {
-		setScore(formatSong(song), 0);
+		setScore(song, 0);
 	}
 
 	public static function load():Void {
