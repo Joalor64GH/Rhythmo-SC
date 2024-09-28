@@ -620,7 +620,7 @@ class PlayState extends ExtendableState {
 		var seconds = Math.round(ms) / 1000;
 		var minutesLeft = Std.string(seconds / 60).split(".")[0];
 		var secondsLeft = Std.string(seconds % 60).split(".")[0];
-        return '${minutesLeft}:${(secondsLeft.length == 1 ? "0" : "") + secondsLeft}';
+		return '${minutesLeft}:${(secondsLeft.length == 1 ? "0" : "") + secondsLeft}';
 	}
 
 	override function destroy() {

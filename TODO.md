@@ -22,3 +22,4 @@
 * Customizable Main Menu + Scripted States
 * Accuracy + Ranking
 * Note Sustains
+* Better Charting UI
