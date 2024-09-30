@@ -435,7 +435,7 @@ class ChartingState extends ExtendableState {
 	}
 
 	function loadJson(song:String):Void { // will be used in later update
-		PlayState.song = Song.loadFromJson(Paths.formatToSongPath(song));
+		PlayState.song = Song.loadSongFromJson(Paths.formatToSongPath(song));
 		ExtendableState.resetState();
 	}
 
