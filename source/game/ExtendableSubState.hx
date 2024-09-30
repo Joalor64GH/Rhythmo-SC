@@ -3,6 +3,8 @@ package game;
 import game.Conductor.BPMChangeEvent;
 
 class ExtendableSubState extends FlxSubState {
+	public var parent:ExtendableState;
+
 	var curStep:Int = 0;
 	var curBeat:Int = 0;
 
@@ -52,4 +54,5 @@ class ExtendableSubState extends FlxSubState {
 	}
 
 	public function beatHit():Void {}
+	public function onSubstateOpen() {}
 }

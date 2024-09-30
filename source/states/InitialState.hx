@@ -6,6 +6,8 @@ class InitialState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		FlxG.mouse.visible = false;
+
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.lang);
 		

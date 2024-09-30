@@ -25,8 +25,8 @@
 	<assets path="mods" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">
-		<assets path="alsoft.ini" rename="plugins/alsoft.ini" type="text" if="windows" />
-		<assets path="alsoft.ini" rename="plugins/alsoft.conf" type="text" unless="windows" />
+		<assets path="alsoft.ini" if="windows" />
+		<assets path="alsoft.ini" rename="alsoft.conf" unless="windows" />
 	</section>
 
 	<!-- [ Libraries ] -->

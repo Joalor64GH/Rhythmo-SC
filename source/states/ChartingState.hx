@@ -47,6 +47,8 @@ class ChartingState extends ExtendableState {
 	var copySectionButton:FlxButton;
 	var pasteSectionButton:FlxButton;
 
+	var loadAutosaveButton:FlxButton;
+
 	var strumLine:FlxSprite;
 
 	var undos = [];
@@ -86,7 +88,7 @@ class ChartingState extends ExtendableState {
 			try {
 				var chart:String = Json.stringify(song);
 				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-				trace("chart saved!\n saved path: " + Paths.formatToSongPath(song.song));
+				trace("chart saved!\nsaved path: " + Paths.formatToSongPath(song.song));
 			} catch (e:Dynamic) {
 				trace("Error while saving chart: " + e);
 			}
@@ -132,11 +134,19 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
+		loadAutosaveButton = new FlxButton(FlxG.width - 110, 160, "Load Autosave", loadAutosave);
+		add(loadAutosaveButton);
+
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
+
+		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.1.0 // Functionality is subject to change.', 12);
+		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		prototypeNotice.scrollFactor.set();
+		add(prototypeNotice);
 
 		// FlxG.camera.follow(strumLine);
 	}
@@ -163,11 +173,13 @@ class ChartingState extends ExtendableState {
 
 		if (left)
 			changeSection(curSection - 1);
-
 		if (right)
 			changeSection(curSection + 1);
 
 		if (accept1) {
+			if (FlxG.sound.music.playing)
+				FlxG.sound.music.stop();
+			FlxG.mouse.visible = false;
 			PlayState.song = song;
 			ExtendableState.switchState(new PlayState());
 		}
@@ -255,6 +267,8 @@ class ChartingState extends ExtendableState {
 			FlxG.sound.music.pause();
 			FlxG.sound.music.time = 0;
 			changeSection();
+			curSection = 0;
+			updateGrid();
 		};
 	}
 
@@ -271,6 +285,7 @@ class ChartingState extends ExtendableState {
 		});
 
 		updateGrid();
+		autosaveSong();
 	}
 
 	function deleteNote(note:Note):Void {
@@ -417,6 +432,21 @@ class ChartingState extends ExtendableState {
 		}
 
 		return daPos;
+	}
+
+	function loadJson(song:String):Void { // will be used in later update
+		PlayState.song = Song.loadFromJson(Paths.formatToSongPath(song));
+		ExtendableState.resetState();
+	}
+
+	function loadAutosave():Void {
+		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(FlxG.save.data.autosave));
+		FlxG.resetState();
+	}
+
+	function autosaveSong():Void {
+		FlxG.save.data.autosave = Json.stringify(song);
+		FlxG.save.flush();
 	}
 
 	function getDirection(index:Int):String {

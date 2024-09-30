@@ -560,7 +560,6 @@ class PlayState extends ExtendableState {
 				ChartingState.instance.song = song;
 				return false;
 			}
-			FlxG.mouse.visible = true;
 			ExtendableState.switchState(new SongSelectState());
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			if (!SaveData.settings.botPlay)
