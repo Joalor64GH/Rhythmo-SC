@@ -21,5 +21,5 @@
 * Options organization + better options system
 * Customizable Main Menu + Scripted States
 * Accuracy + Ranking
-* Note Sustains
+* "Note Sustains"
 * Better Charting UI

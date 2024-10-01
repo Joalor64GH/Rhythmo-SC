@@ -52,6 +52,7 @@ class ChartingState extends ExtendableState {
 	var strumLine:FlxSprite;
 
 	var undos = [];
+	var redos = []
 
 	override function create() {
 		super.create();
@@ -134,7 +135,10 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
-		loadAutosaveButton = new FlxButton(FlxG.width - 110, 160, "Load Autosave", loadAutosave);
+		loadAutosaveButton = new FlxButton(FlxG.width - 110, 160, "Load Autosave", () -> {
+			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(FlxG.save.data.autosave));
+			ExtendableState.resetState();
+		});
 		add(loadAutosaveButton);
 
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
@@ -143,8 +147,8 @@ class ChartingState extends ExtendableState {
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
 
-		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.1.0 // Functionality is subject to change.', 12);
-		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.1.1 // Functionality is subject to change.', 12);
+		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
 
@@ -177,9 +181,10 @@ class ChartingState extends ExtendableState {
 			changeSection(curSection + 1);
 
 		if (accept1) {
+			autosaveSong();
+			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
-			FlxG.mouse.visible = false;
 			PlayState.song = song;
 			ExtendableState.switchState(new PlayState());
 		}
@@ -285,7 +290,6 @@ class ChartingState extends ExtendableState {
 		});
 
 		updateGrid();
-		autosaveSong();
 	}
 
 	function deleteNote(note:Note):Void {
@@ -439,13 +443,10 @@ class ChartingState extends ExtendableState {
 		ExtendableState.resetState();
 	}
 
-	function loadAutosave():Void {
-		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(FlxG.save.data.autosave));
-		FlxG.resetState();
-	}
-
 	function autosaveSong():Void {
-		FlxG.save.data.autosave = Json.stringify(song);
+		FlxG.save.data.autosave = Json.stringify({
+			"song": song
+		});
 		FlxG.save.flush();
 	}
 
@@ -472,4 +473,6 @@ class ChartingState extends ExtendableState {
 	function undo() {
 		undos.pop();
 	}
+
+	function redo() {}
 }
