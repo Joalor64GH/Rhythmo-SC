@@ -52,7 +52,7 @@ class ChartingState extends ExtendableState {
 	var strumLine:FlxSprite;
 
 	var undos = [];
-	var redos = []
+	var redos = [];
 
 	override function create() {
 		super.create();
