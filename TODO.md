@@ -15,7 +15,7 @@
 * Achievements
 * Results
 * RGB Notes + Note Coloring
-* Better controls system
+* Improve controls system
 * Simple source code reorganization
 * Hit window options
 * Options organization + better options system
