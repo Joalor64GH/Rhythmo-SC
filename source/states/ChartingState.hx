@@ -47,8 +47,6 @@ class ChartingState extends ExtendableState {
 	var copySectionButton:FlxButton;
 	var pasteSectionButton:FlxButton;
 
-	var loadAutosaveButton:FlxButton;
-
 	var strumLine:FlxSprite;
 
 	var undos = [];
@@ -135,12 +133,6 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
-		loadAutosaveButton = new FlxButton(FlxG.width - 110, 160, "Load Autosave", () -> {
-			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(FlxG.save.data.autosave));
-			ExtendableState.switchState(new ChartingState());
-		});
-		add(loadAutosaveButton);
-
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
@@ -181,7 +173,6 @@ class ChartingState extends ExtendableState {
 			changeSection(curSection + 1);
 
 		if (accept1) {
-			autosaveSong();
 			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
@@ -441,13 +432,6 @@ class ChartingState extends ExtendableState {
 	function loadJson(song:String):Void { // will be used in later update
 		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
 		ExtendableState.resetState();
-	}
-
-	function autosaveSong():Void {
-		FlxG.save.data.autosave = Json.stringify({
-			"song": song
-		});
-		FlxG.save.flush();
 	}
 
 	function getDirection(index:Int):String {
