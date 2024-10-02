@@ -7,7 +7,6 @@ class ControlsState extends ExtendableState {
 	var controllerSpr:FlxSprite;
 
 	var switchTxt:FlxText;
-
 	var text1:FlxText;
 	var text2:FlxText;
 

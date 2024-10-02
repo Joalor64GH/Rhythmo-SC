@@ -137,7 +137,7 @@ class ChartingState extends ExtendableState {
 
 		loadAutosaveButton = new FlxButton(FlxG.width - 110, 160, "Load Autosave", () -> {
 			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(FlxG.save.data.autosave));
-			ExtendableState.resetState();
+			ExtendableState.switchState(new ChartingState());
 		});
 		add(loadAutosaveButton);
 
@@ -185,8 +185,8 @@ class ChartingState extends ExtendableState {
 			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
-			PlayState.song = song;
 			ExtendableState.switchState(new PlayState());
+			PlayState.song = song;
 		}
 
 		if (accept2) {

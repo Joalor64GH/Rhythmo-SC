@@ -319,11 +319,8 @@ class PlayState extends ExtendableState {
 		if (exit && canPause && startedCountdown)
 			pause();
 
-		if (Input.is("seven")) {
-			ExtendableState.switchState(new ChartingState());
-			ChartingState.instance.song = song;
-			chartingMode = true;
-		}
+		if (Input.is("seven"))
+			openChartEditor();
 
 		inputFunction();
 	}
@@ -377,6 +374,13 @@ class PlayState extends ExtendableState {
 			persistentUpdate = false;
 			persistentDraw = true;
 		}
+	}
+
+	function openChartEditor() {
+		persistentUpdate = false;
+		ExtendableState.switchState(new ChartingState());
+		ChartingState.instance.song = song;
+		chartingMode = true;
 	}
 
 	public var curRating:String = "perfect";
@@ -556,9 +560,8 @@ class PlayState extends ExtendableState {
 		if (ret != Hscript.Function_Stop) {
 			timeTxt.visible = timeBar.visible = false;
 			if (chartingMode) {
-				ExtendableState.switchState(new ChartingState());
-				ChartingState.instance.song = song;
-				return false;
+				openChartEditor();
+				return;
 			}
 			ExtendableState.switchState(new SongSelectState());
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
@@ -566,7 +569,6 @@ class PlayState extends ExtendableState {
 				HighScore.saveScore(song.song, score);
 			canPause = false;
 		}
-		return true;
 	}
 
 	function generateSong() {

@@ -23,3 +23,4 @@
 * Accuracy + Ranking
 * "Note Sustains"
 * Better Charting UI
+* Song Selector Editor
