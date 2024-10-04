@@ -9,8 +9,6 @@ class Hscript extends FlxBasic {
 	public var parser:Parser;
 	public var interp:Interp;
 
-	public var emulatedHscript:Array<String> = []; // this var is not doing anything
-
 	public function new(file:String, ?execute:Bool = true) {
 		super();
 
@@ -124,8 +122,6 @@ class Hscript extends FlxBasic {
 
 		if (execute)
 			this.execute(file);
-
-		emulatedHscript.push(file);
 	}
 
 	public function execute(file:String, ?executeCreate:Bool = true):Void {
