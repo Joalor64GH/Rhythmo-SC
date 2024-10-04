@@ -1,17 +1,17 @@
 package backend;
 
-@:keep
-class ALConfig {
+@:keep class ALConfig {
 	#if desktop
 	static function __init__():Void {
-		var configPath:String = Path.directory(Path.withoutExtension(Sys.programPath()));
+		var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #end;
 
+		var configPath:String = Path.directory(Path.withoutExtension(origin));
 		#if windows
-		configPath += "/plugins/alsoft.ini";
+		configPath += "/alsoft.ini";
 		#elseif mac
-		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
-		#elseif linux
-		configPath += "/plugins/alsoft.conf";
+		configPath = Path.directory(configPath) + "/Resources/alsoft.conf";
+		#else
+		configPath += "/alsoft.conf";
 		#end
 
 		Sys.putEnv("ALSOFT_CONF", configPath);
