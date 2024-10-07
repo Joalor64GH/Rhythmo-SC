@@ -15,7 +15,7 @@ typedef TimeScaleChangeEvent = {
 }
 
 class Conductor {
-	public static var bpm:Float = 100;
+	public static var bpm(default, set):Float = 100;
 	public static var crochet:Float = ((60 / bpm) * 1000); // beats in milliseconds
 	public static var stepCrochet:Float = crochet / 4; // steps in milliseconds
 	public static var songPosition:Float;
@@ -30,6 +30,11 @@ class Conductor {
 	public static var stepsPerSection:Int = 16;
 
 	public function new() {}
+
+	public static function set_bpm(newBpm:Float) {
+		recalculateStuff();
+		return bpm = newBpm;
+	}
 
 	public static function recalculateStuff(?multi:Float = 1) {
 		safeZoneOffset = Math.floor((safeFrames / 60) * 1000) * multi;
@@ -83,11 +88,5 @@ class Conductor {
 		}
 
 		recalculateStuff(songMultiplier);
-	}
-
-	public static function changeBPM(newBpm:Float, ?multi:Float = 1) {
-		bpm = newBpm;
-
-		recalculateStuff(multi);
 	}
 }

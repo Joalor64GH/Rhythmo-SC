@@ -572,7 +572,7 @@ class PlayState extends ExtendableState {
 	}
 
 	function generateSong() {
-		Conductor.changeBPM(song.bpm, songMultiplier);
+		Conductor.bpm = song.bpm;
 		Conductor.recalculateStuff(songMultiplier);
 		Conductor.safeZoneOffset *= songMultiplier;
 		Conductor.songPosition = 0;
