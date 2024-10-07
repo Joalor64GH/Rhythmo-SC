@@ -38,7 +38,7 @@ class SongSelectState extends ExtendableState {
 	var intendedScore:Int = 0;
 
 	var isResetting:Bool = false;
-	var lockedInputs:Bool = false;
+	var lockInputs:Bool = false;
 
 	override function create() {
 		super.create();
@@ -121,7 +121,7 @@ class SongSelectState extends ExtendableState {
 		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 		var reset = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
 
-		if (!lockedInputs) {
+		if (!lockInputs) {
 			if (left || right)
 				changeSelection(left ? -1 : 1);
 
@@ -145,7 +145,7 @@ class SongSelectState extends ExtendableState {
 			} else {
 				FlxG.sound.play(Paths.sound('cancel'));
 				isResetting = false;
-				lockedInputs = false;
+				lockInputs = false;
 				titleTxt.color = FlxColor.WHITE;
 				titleTxt.text = songListData.songs[currentIndex].name;
 				panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
@@ -164,7 +164,7 @@ class SongSelectState extends ExtendableState {
 			} else {
 				if (!isResetting) {
 					isResetting = true;
-					lockedInputs = true;
+					lockInputs = true;
 					titleTxt.text = Localization.get("youDecide", SaveData.settings.lang);
 					titleTxt.color = FlxColor.RED;
 					panelTxt.text = Localization.get("confirmReset", SaveData.settings.lang);
@@ -176,7 +176,7 @@ class SongSelectState extends ExtendableState {
 					HighScore.resetSong(songListData.songs[currentIndex].name);
 					isResetting = false;
 					new FlxTimer().start(1, function(tmr:FlxTimer) {
-						lockedInputs = false;
+						lockInputs = false;
 						titleTxt.color = FlxColor.WHITE;
 						titleTxt.text = songListData.songs[currentIndex].name;
 						panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)

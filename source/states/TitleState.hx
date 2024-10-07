@@ -10,7 +10,7 @@ class TitleState extends ExtendableState {
 		Paths.clearUnusedMemory();
 
 		#if FUTURE_POLYMOD
-		if (ModHandler.trackedMods != []) {
+		if (ModHandler.trackedMods.length > 0) {
 			var installedMods:Array<String> = ModHandler.getMods();
 			Main.toast.create('Mods Installed:', 0xFFFFFF00, installedMods.join('\n'));
 		}
