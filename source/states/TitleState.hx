@@ -2,7 +2,6 @@ package states;
 
 class TitleState extends ExtendableState {
 	var lockInputs:Bool = false;
-	var initialized:Bool = false;
 
 	override function create() {
 		super.create();
@@ -17,10 +16,8 @@ class TitleState extends ExtendableState {
 		}
 		#end
 
-		if (!initialized) {
+		if (!FlxG.sound.music.playing)
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-			initialized = true;
-		}
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
 		add(bg);
