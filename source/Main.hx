@@ -5,8 +5,12 @@ import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
 import sys.io.Process;
-
 import backend.ALConfig;
+#end
+
+#if linux
+@:cppInclude('./external/gamemode_client.h')
+@:cppFileCode('#define GAMEMODE_AUTO')
 #end
 
 class Main extends openfl.display.Sprite {

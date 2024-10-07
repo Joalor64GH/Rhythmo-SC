@@ -93,7 +93,7 @@ class MenuState extends ExtendableState {
 								ExtendableState.switchState(new SongSelectState());
 							#if FUTURE_POLYMOD
 							case 'mods':
-								if (ModHandler.trackedMods != []) 
+								if (ModHandler.trackedMods.length > 0) 
 									ExtendableState.switchState(new ModsState()); 
 								else {
 									lockInputs = false;

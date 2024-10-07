@@ -21,8 +21,11 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<source path="source" />
+
 	<assets path="assets" />
-	<assets path="mods" if="FUTURE_POLYMOD" />
+	<assets path="assets/songs" library="songs" />
+
+	<assets path="mods" embed="false" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">
 		<assets path="alsoft.ini" if="windows" />

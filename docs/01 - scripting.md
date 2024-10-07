@@ -115,7 +115,7 @@ function create() {
     yourFunction();
 }
 
-function yourFunction() {
+function yourFunction(/* arguments, if any */) {
     // code goes here...
 }
 ```

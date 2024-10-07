@@ -120,7 +120,7 @@ class ModIcon extends GameSprite {
 			try {
 				loadGraphic(BitmapData.fromBytes(bytes));
 			} catch (e:Dynamic) {
-				FlxG.log.error(e);
+				FlxG.log.warn(e);
 				loadGraphic(Paths.image('menu/unknownMod'));
 			}
 		} else
