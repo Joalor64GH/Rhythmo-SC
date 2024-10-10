@@ -16,7 +16,7 @@ class TitleState extends ExtendableState {
 		}
 		#end
 
-		if (FlxG.sound.music != null && !FlxG.sound.music.playing)
+		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
