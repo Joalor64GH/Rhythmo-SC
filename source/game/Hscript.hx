@@ -6,16 +6,13 @@ class Hscript extends FlxBasic {
 	public static var Function_Stop:Dynamic = 1;
 	public static var Function_Continue:Dynamic = 0;
 
-	public var parser:Parser;
-	public var interp:Interp;
+	public var parser:Parser = new Parser();
+	public var interp:Interp = new Interp();
 
 	public function new(file:String, ?execute:Bool = true) {
 		super();
 
-		parser = new Parser();
 		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
-
-		interp = new Interp();
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
