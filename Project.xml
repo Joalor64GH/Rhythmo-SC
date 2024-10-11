@@ -9,6 +9,7 @@
 
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true" />
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
 	<!-- [ Custom Defines ] -->
@@ -23,9 +24,7 @@
 	<source path="source" />
 
 	<assets path="assets" />
-	<assets path="assets/songs" library="songs" />
-
-	<assets path="mods" embed="false" if="FUTURE_POLYMOD" />
+	<assets path="mods" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">
 		<assets path="alsoft.ini" if="windows" />
