@@ -3,7 +3,15 @@
 ![](https://img.shields.io/github/issues/Joalor64GH/Rhythmo-SC)
 ![](https://img.shields.io/badge/balls-in_your_jaws-green)
 
-A random rhythm game made from scratch.
+A random rhythm game made from scratch. <br>
+Mostly based off of [FNF](https://github.com/FunkinCrew/Funkin/), go check that out!
+
+## Features
+* Modding System (using [Polymod](https://github.com/larsiusprime/polymod/))
+* Softcoded Song / Credits Menu
+* Scripting System
+* Language Translations
+* Simple Crash Handler
 
 ## Credits
 * Joalor64 - Creator / Main Programmer / Composer / Artist
