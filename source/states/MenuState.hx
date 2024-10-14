@@ -24,6 +24,7 @@ class MenuState extends ExtendableState {
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.screenCenter(X);
+		add(camFollow);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
 		bg.scrollFactor.set();
@@ -53,7 +54,7 @@ class MenuState extends ExtendableState {
 
 		changeSelection(0, false, false);
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.25);
+		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
 	override function update(elapsed:Float) {
@@ -128,7 +129,7 @@ class MenuState extends ExtendableState {
 		grpSelection.forEach((spr:FlxSprite) -> {
 			spr.alpha = (spr.ID == curSelected) ? 1 : 0.6;
 			if (spr.ID == curSelected) {
-				camFollow.y = spr.y;
+				camFollow.y = spr.getGraphicMidpoint().y;
 				if (doZoomThing) {
 					spr.scale.set(0.5, 0.5);
 					FlxTween.cancelTweensOf(spr.scale);
