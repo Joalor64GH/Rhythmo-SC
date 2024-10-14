@@ -6,6 +6,10 @@ package backend;
 	public var songSpeed:Int = 2;
 	public var hitSoundVolume:Float = 0;
 	public var laneUnderlay:Float = 0;
+	public var perfectWindow:Float = 22.5;
+	public var niceWindow:Float = 45;
+	public var okayWindow:Float = 90;
+	public var noWindow:Float = 135;
 	public var antialiasing:Bool = true;
 	public var fpsCounter:Bool = true;
 	#if desktop

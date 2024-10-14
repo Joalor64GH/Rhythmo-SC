@@ -1,0 +1,5 @@
+play
+mods
+credits
+options
+exit

@@ -15,6 +15,7 @@
 	<!-- [ Custom Defines ] -->
 
 	<define name="FUTURE_POLYMOD" if="desktop" />
+	<define name="UPDATE_CHECK" unless="debug" />
 
 	<!-- [ Path Settings ] -->
 
