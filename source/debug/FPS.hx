@@ -37,7 +37,7 @@ class FPS extends TextField {
 			while (times[0] < now - 1000)
 				times.shift();
 
-			var mem:Float = System.totalMemory;
+			var mem:Float = openfl.system.System.totalMemory;
 			var memPeak:Float = 0;
 			if (mem > memPeak)
 				memPeak = mem;

@@ -1,5 +1,7 @@
 package substates;
 
+import flixel.ui.FlxButton;
+
 class PromptSubState extends FlxSubState {
 	var question:String;
 	var callbackYes:Void->Void;

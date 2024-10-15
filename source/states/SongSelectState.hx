@@ -13,12 +13,9 @@ class Cover extends FlxSprite {
 	public var lerpSpeed:Float = 6;
 	public var posX:Float = 0;
 
-	function boundTo(value:Float, min:Float, max:Float):Float
-		return Math.max(min, Math.min(max, value));
-
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, boundTo(elapsed * lerpSpeed, 0, 1));
+		x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, Utilities.boundTo(elapsed * lerpSpeed, 0, 1));
 	}
 }
 

@@ -12,14 +12,12 @@ import flixel.group.FlxSpriteGroup;
 import flixel.input.gamepad.*;
 import flixel.input.keyboard.*;
 import flixel.sound.FlxSound;
-import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
 import openfl.Lib;
 import openfl.Assets;
-import openfl.system.System;
 import openfl.display.BitmapData;
 
 import lime.app.Application;
@@ -38,11 +36,13 @@ import openfl.utils.Assets;
 import states.*;
 import substates.*;
 import backend.*;
+import backend.ui.*;
 import modding.*;
 import objects.*;
 
 using Globals;
 using StringTools;
+using backend.Utilities;
 
 #if !debug
 @:noDebug

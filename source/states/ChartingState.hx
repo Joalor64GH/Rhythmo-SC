@@ -4,6 +4,8 @@ import backend.Conductor;
 import backend.Song;
 import objects.Note;
 
+import flixel.ui.FlxButton; // temporary
+
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState = null;
 

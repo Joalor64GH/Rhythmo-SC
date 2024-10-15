@@ -9,6 +9,7 @@ import neko.vm.Gc;
 #end
 import openfl.media.Sound;
 import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxFramesCollection;
 
 using haxe.io.Path;
 
@@ -17,6 +18,7 @@ using haxe.io.Path;
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
+	public static var tempFramesCache:Map<String, FlxFramesCollection> = [];
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -183,6 +185,60 @@ class Paths {
 
 		trace('oops! couldnt find $key!');
 		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+	}
+
+	inline static public function getSparrowAtlasAlt(key:String, ?cache:Bool = true) {
+		if (FileSystem.exists(file('$key.png')) && FileSystem.exists(xml(key)))
+			return FlxAtlasFrames.fromSparrow(returnGraphic(key, cache), xml(key));
+		
+		trace('oops! couldnt find $key!');
+		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+	}
+
+	inline static public function getPackerAtlas(key:String, ?cache:Bool = true)
+		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt('images/$key'));
+
+	inline static public function getPackerAtlasAlt(key:String, ?cache:Bool = true)
+		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key), txt(key));
+
+	public static function getFrames(key:String, assetsPath:Bool = false) {
+		if (tempFramesCache.exists(key)) {
+			var frames = tempFramesCache[key];
+			if (frames.parent != null && frames.parent.bitmap != null && frames.parent.bitmap.readable)
+				return frames;
+			else
+				tempFramesCache.remove(key);
+		}
+		return tempFramesCache[key] = loadFrames(assetsPath ? key : Paths.image(key));
+	}
+
+	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
+		var noExt = Path.withoutExtension(path);
+
+		if (Assets.exists('$noExt/1.png')) {
+			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$noExt/mult');
+			var frames = MultiFramesCollection.findFrame(graphic);
+			if (frames != null)
+				return frames;
+
+			trace("no frames yet for multiple atlases!!");
+			var cur = 1;
+			var finalFrames = new MultiFramesCollection(graphic);
+			while (Assets.exists('$noExt/$cur.png')) {
+				var spr = loadFrames('$noExt/$cur.png');
+				finalFrames.addFrames(spr);
+				cur++;
+			}
+			return finalFrames;
+		} else if (Assets.exists('$noExt.xml')) {
+			return Paths.getSparrowAtlasAlt(noExt);
+		} else if (Assets.exists('$noExt.txt'))
+			return Paths.getPackerAtlasAlt(noExt);
+
+		var graph:FlxGraphic = FlxG.bitmap.add(path, Unique, Key);
+		if (graph == null)
+			return null;
+		return graph.imageFrame;
 	}
 
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {

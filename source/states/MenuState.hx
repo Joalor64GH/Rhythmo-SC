@@ -118,7 +118,7 @@ class MenuState extends ExtendableState {
 						#if sys
 						Sys.exit(0);
 						#else
-						System.exit(0);
+						openfl.system.System.exit(0);
 						#end
 					});
 				} else {
@@ -159,6 +159,11 @@ class MenuState extends ExtendableState {
 			#if desktop
 			if (Input.is("seven"))
 				ExtendableState.switchState(new EditorState());
+			#end
+
+			#if debug
+			if (Input.is("u"))
+				ExtendableState.switchState(new UITestState());
 			#end
 		}
 	}
