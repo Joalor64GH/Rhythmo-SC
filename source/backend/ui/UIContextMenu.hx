@@ -2,7 +2,7 @@ package backend.ui;
 
 import flixel.util.typeLimit.OneOfTwo;
 
-class UIContextMenu extends ExtendableState {
+class UIContextMenu extends ExtendableSubState {
 	public var options:Array<UIContextMenuOption>;
 	var x:Float;
 	var y:Float;
