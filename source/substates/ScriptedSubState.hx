@@ -2,9 +2,12 @@ package substates;
 
 class ScriptedSubState extends ExtendableSubState {
 	public var script:Hscript;
+	public static var instance:ScriptedSubState = null;
 
 	public function new(path:String, ?args:Array<Dynamic>) {
 		super();
+
+		instance = this;
 
 		try {
 			script = new Hscript(Paths.script('classes/$path'));
@@ -15,8 +18,8 @@ class ScriptedSubState extends ExtendableSubState {
 
 		scriptExecute('new', (args != null) ? args : []);
 
-		scriptSet('state', this);
-		
+		scriptSet('state', instance);
+
 		scriptSet('add', function(obj:FlxBasic) {
 			add(obj);
 		});

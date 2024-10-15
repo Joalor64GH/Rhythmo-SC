@@ -68,6 +68,7 @@ class Hscript extends FlxBasic {
 		setVariable('Type', Type);
 		setVariable('Xml', Xml);
 
+		setVariable('Achievements', Achievements);
 		setVariable('Application', Application);
 		setVariable('Assets', Assets);
 		setVariable('Bar', Bar);
@@ -105,12 +106,16 @@ class Hscript extends FlxBasic {
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
 		setVariable('Main', Main);
+		setVariable('ModHandler', ModHandler);
 		setVariable('Note', Note);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
 		setVariable('Rating', Rating);
 		setVariable('SaveData', SaveData);
+		setVariable('ScriptedState', ScriptedState);
+		setVariable('ScriptedSubState', ScriptedSubState);
 		setVariable('Song', Song);
+		setVariable('Utilities', Utilities);
 
 		setVariable('cpp', #if cpp true #else false #end);
 		setVariable('debug', #if debug true #else false #end);

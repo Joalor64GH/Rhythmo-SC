@@ -2,9 +2,12 @@ package states;
 
 class ScriptedState extends ExtendableState {
 	public var script:Hscript;
+	public static var instance:ScriptedState = null;
 
 	public function new(path:String, ?args:Array<Dynamic>) {
 		super();
+
+		instance = this;
 
 		try {
 			script = new Hscript(Paths.script('classes/$path'));
@@ -15,7 +18,7 @@ class ScriptedState extends ExtendableState {
 
 		scriptExecute('new', (args != null) ? args : []);
 
-		scriptSet('state', this);
+		scriptSet('state', instance);
 
 		scriptSet('add', function(obj:FlxBasic) {
 			add(obj);
