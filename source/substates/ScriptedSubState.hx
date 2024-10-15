@@ -1,56 +1,56 @@
 package substates;
 
 class ScriptedSubState extends ExtendableSubState {
-    public var script:Hscript;
+	public var script:Hscript;
 
-    public function new(path:String, ?args:Array<Dynamic>) {
-        super();
+	public function new(path:String, ?args:Array<Dynamic>) {
+		super();
 
-        script = new Hscript(Paths.script('classes/$path'));
+		script = new Hscript(Paths.script('classes/$path'));
 
-        script.setVariable('this', this);
-        script.setVariable('add', function(obj:FlxBasic) {
-            add(obj);
-        });
-        script.setVariable('remove', function(obj:FlxBasic) {
-            remove(obj);
-        });
-        script.setVariable('insert', function(pos:Int, obj:FlxBasic) {
-            insert(pos, obj);
-        });
+		script.setVariable('this', this);
+		script.setVariable('add', function(obj:FlxBasic) {
+			add(obj);
+		});
+		script.setVariable('remove', function(obj:FlxBasic) {
+			remove(obj);
+		});
+		script.setVariable('insert', function(pos:Int, obj:FlxBasic) {
+			insert(pos, obj);
+		});
 
-        script.executeFunc('new', (args != null) ? args : []);
-    }
+		script.executeFunc('new', (args != null) ? args : []);
+	}
 
-    override function draw() {
-        super.draw();
-        script.executeFunc('draw', []);
-    }
+	override function draw() {
+		super.draw();
+		script.executeFunc('draw', []);
+	}
 
-    override function create() {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
-        super.create();
-    }
+	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
-    override function update(elapsed:Float) {
-        super.update(elapsed);
-        script.executeFunc('update', [elapsed]);
-    }
+		super.create();
+	}
 
-    override function beatHit() {
-        super.beatHit();
-        script.executeFunc('beatHit', [curBeat]);
-    }
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+		script.executeFunc('update', [elapsed]);
+	}
 
-    override function stepHit() {
-        super.stepHit();
-        script.executeFunc('stepHit', [curStep]);
-    }
+	override function beatHit() {
+		super.beatHit();
+		script.executeFunc('beatHit', [curBeat]);
+	}
 
-    override function destroy() {
-        super.destroy();
-        script.executeFunc('destroy', []);
-    }
+	override function stepHit() {
+		super.stepHit();
+		script.executeFunc('stepHit', [curStep]);
+	}
+
+	override function destroy() {
+		super.destroy();
+		script.executeFunc('destroy', []);
+	}
 }

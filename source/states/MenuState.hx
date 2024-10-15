@@ -21,7 +21,7 @@ class MenuState extends ExtendableState {
 					selections = menuArray;
 				}
 				
-				if !FUTURE_POLYMOD
+				#if !FUTURE_POLYMOD
 				if (selections.contains('mods'))
 					selections.remove('mods');
 				#end
