@@ -8,7 +8,7 @@ class ScriptedState extends ExtendableState {
 
 		script = new Hscript(Paths.script('classes/$path'));
 
-		script.setVariable('this', this);
+		script.setVariable('state', this);
 		script.setVariable('add', function(obj:FlxBasic) {
 			add(obj);
 		});
@@ -18,8 +18,6 @@ class ScriptedState extends ExtendableState {
 		script.setVariable('insert', function(pos:Int, obj:FlxBasic) {
 			insert(pos, obj);
 		});
-
-		script.execute(Paths.script('classes/$path'), true);
 
 		script.executeFunc('new', (args != null) ? args : []);
 	}

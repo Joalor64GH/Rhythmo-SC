@@ -8,7 +8,7 @@ class ScriptedSubState extends ExtendableSubState {
 
 		script = new Hscript(Paths.script('classes/$path'));
 
-		script.setVariable('this', this);
+		script.setVariable('substate', this);
 		script.setVariable('add', function(obj:FlxBasic) {
 			add(obj);
 		});

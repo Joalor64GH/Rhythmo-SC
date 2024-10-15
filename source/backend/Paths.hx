@@ -179,6 +179,9 @@ class Paths {
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic
 		return returnGraphic('images/$key', cache);
 
+	inline static public function imageAlt(key:String)
+		return file('images/$key.png');
+
 	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
 		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
 			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
@@ -209,7 +212,7 @@ class Paths {
 			else
 				tempFramesCache.remove(key);
 		}
-		return tempFramesCache[key] = loadFrames(assetsPath ? key : file('images/$key.png'));
+		return tempFramesCache[key] = loadFrames(assetsPath ? key : imageAlt(key));
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
