@@ -109,8 +109,8 @@ class UIContextMenu extends SubStateExt {
 		if (FlxG.mouse.wheel != 0.0)
 			scroll = FlxMath.bound(scroll + (FlxG.mouse.wheel * -20.0), !flipped ? 0.0 : -Math.max(bg.bHeight - FlxG.height*0.5, 0.0), flipped ? 0.0 : Math.max(bg.bHeight - FlxG.height*0.5, 0.0));
 
-		contextCam.scroll.y = CoolUtil.fpsLerp(contextCam.scroll.y, scroll, 0.5);
-		contextCam.alpha = CoolUtil.fpsLerp(contextCam.alpha, 1, 0.25);
+		contextCam.scroll.y = Utilities.fpsLerp(contextCam.scroll.y, scroll, 0.5);
+		contextCam.alpha = Utilities.fpsLerp(contextCam.alpha, 1, 0.25);
 	}
 
 	public override function destroy() {

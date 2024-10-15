@@ -24,7 +24,7 @@ class UIWarningSubstate extends ExtendableSubState {
 		warnCam.zoom = 0.1;
 		FlxG.cameras.add(warnCam, false);
 
-		var spr = new UISliceSprite(0, 0, CoolUtil.maxInt(560, 30 + (170 * buttons.length)), 232, 'editor/ui/${isError ? "normal" : "grayscale"}-popup');
+		var spr = new UISliceSprite(0, 0, Utilities.maxInt(560, 30 + (170 * buttons.length)), 232, 'editor/ui/${isError ? "normal" : "grayscale"}-popup');
 		spr.x = (FlxG.width - spr.bWidth) / 2;
 		spr.y = (FlxG.height - spr.bHeight) / 2;
 		spr.color = isError ? 0xFFFF0000 : 0xFFFFFF00;

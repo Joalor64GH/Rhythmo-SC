@@ -31,8 +31,8 @@ class UICheckbox extends UISprite {
 
 		// CHECKMARK HANDLING
 		check.alpha = checked ? 1 : 0;
-		check.scale.x = CoolUtil.fpsLerp(check.scale.x, 1, 0.25);
-		check.scale.y = CoolUtil.fpsLerp(check.scale.y, 1, 0.25);
+		check.scale.x = Utilities.fpsLerp(check.scale.x, 1, 0.25);
+		check.scale.y = Utilities.fpsLerp(check.scale.y, 1, 0.25);
 
 		// POSITION HANDLING
 		updatePositions();

@@ -30,7 +30,7 @@ class UITestState extends UIState {
 					null,
 					{
 						label: "Exit",
-						onSelect: (t) -> {ExtendableState.switchState(new MenuState();)}
+						onSelect: (t) -> {ExtendableState.switchState(new MenuState());}
 					}
 				]
 			},
