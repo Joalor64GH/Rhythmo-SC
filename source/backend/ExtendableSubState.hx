@@ -1,6 +1,6 @@
 package backend;
 
-import game.Conductor.BPMChangeEvent;
+import backend.Conductor.BPMChangeEvent;
 
 class ExtendableSubState extends FlxSubState {
 	public var parent:ExtendableState;

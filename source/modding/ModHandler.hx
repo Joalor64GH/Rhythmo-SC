@@ -6,7 +6,7 @@ import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
 #end
 
-class PolymodHandler {
+class ModHandler {
 	static final MOD_DIR:String = 'mods';
 	static final API_VERSION:String = '1.0.0';
 

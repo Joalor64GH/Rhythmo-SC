@@ -1,7 +1,7 @@
 package backend;
 
-import game.Conductor.BPMChangeEvent;
-import game.Conductor.TimeScaleChangeEvent;
+import backend.Conductor.BPMChangeEvent;
+import backend.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionableState;
 
 class ExtendableState extends FlxState {
