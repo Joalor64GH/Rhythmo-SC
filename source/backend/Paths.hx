@@ -190,13 +190,8 @@ class Paths {
 		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 	}
 
-	inline static public function getSparrowAtlasAlt(key:String, ?cache:Bool = true) {
-		if (FileSystem.exists(file('$key.png')) && FileSystem.exists(xml(key)))
-			return FlxAtlasFrames.fromSparrow(returnGraphic(key, cache), xml(key));
-		
-		trace('oops! couldnt find $key!');
-		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
-	}
+	inline static public function getSparrowAtlasAlt(key:String)
+		return FlxAtlasFrames.fromSparrow('$key.png', '$key.xml');
 
 	inline static public function getPackerAtlas(key:String, ?cache:Bool = true)
 		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt('images/$key'));

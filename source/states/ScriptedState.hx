@@ -13,8 +13,10 @@ class ScriptedState extends ExtendableState {
 			ExtendableState.switchState(new TitleState());
 		}
 
+		scriptExecute('new', (args != null) ? args : []);
+
 		scriptSet('state', this);
-		
+
 		scriptSet('add', function(obj:FlxBasic) {
 			add(obj);
 		});
@@ -24,8 +26,6 @@ class ScriptedState extends ExtendableState {
 		scriptSet('insert', function(pos:Int, obj:FlxBasic) {
 			insert(pos, obj);
 		});
-
-		scriptExecute('new', (args != null) ? args : []);
 	}
 
 	override function draw() {
