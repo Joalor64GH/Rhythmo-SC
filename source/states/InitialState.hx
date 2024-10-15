@@ -13,6 +13,7 @@ class InitialState extends ExtendableState {
 		
 		ModHandler.reload();
 		SaveData.init();
+		Achievements.load();
 		HighScore.load();
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');

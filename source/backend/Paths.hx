@@ -133,6 +133,9 @@ class Paths {
 	inline static public function txt(key:String)
 		return file('$key.txt');
 
+	inline static public function json(key:String)
+		return file('$key.json');
+
 	inline static public function xml(key:String)
 		return file('$key.xml');
 

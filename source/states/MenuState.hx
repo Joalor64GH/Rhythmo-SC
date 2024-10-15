@@ -3,7 +3,7 @@ package states;
 class MenuState extends ExtendableState {
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
-	var selections:Array<String> = ['play', #if FUTURE_POLYMOD 'mods', #end 'credits', 'options', 'exit'];
+	var selections:Array<String> = [];
 	
 	var lockInputs:Bool = false;
 
@@ -11,6 +11,43 @@ class MenuState extends ExtendableState {
 
 	override function create() {
 		super.create();
+
+		var path:String = Paths.txt('menuList');
+		if (FileSystem.exists(path)) {
+			try {
+				var menuArray:Array<String> = Paths.getText(path);
+				for (i in 0...menuArray.length) {
+					trace('menu options are: ${menuArray[i].split('\n')}');
+					selections = menuArray;
+				}
+				
+				if !FUTURE_POLYMOD
+				if (selections.contains('mods'))
+					selections.remove('mods');
+				#end
+			} catch (e:Dynamic) {
+				trace('Error!\n" + e);
+				selections = [
+					'play',
+					#if FUTURE_POLYMOD
+					'mods',
+					#end
+					'credits',
+					'options',
+					'exit'
+				];
+			}
+		} else {
+			selections = [
+				'play',
+				#if FUTURE_POLYMOD
+				'mods',
+				#end
+				'credits',
+				'options',
+				'exit'
+			];
+		}
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -105,6 +142,10 @@ class MenuState extends ExtendableState {
 								ExtendableState.switchState(new CreditsState());
 							case 'options':
 								ExtendableState.switchState(new OptionsState());
+							#if FUTURE_POLYMOD
+							default:
+								ExtendableState.switchState(new ScriptedState(selections[curSelected]));
+							#end
 						}
 					});
 				}
