@@ -212,7 +212,7 @@ class Paths {
 			else
 				tempFramesCache.remove(key);
 		}
-		return tempFramesCache[key] = loadFrames(assetsPath ? key : imageAlt(key));
+		return tempFramesCache[key] = loadFrames(assetsPath ? key : Paths.imageAlt(key));
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {

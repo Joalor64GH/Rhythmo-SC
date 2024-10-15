@@ -6,27 +6,31 @@ class ScriptedSubState extends ExtendableSubState {
 	public function new(path:String, ?args:Array<Dynamic>) {
 		super();
 
-		script = new Hscript(Paths.script('classes/$path'));
+		try {
+			script = new Hscript(Paths.script('classes/$path'));
+		} catch (e:Dynamic) {
+			trace('Error while getting script!\n$e');
+			ExtendableState.switchState(new TitleState());
+		}
 
-		script.setVariable('substate', this);
-		script.setVariable('add', function(obj:FlxBasic) {
+		scriptSet('state', this);
+		
+		scriptSet('add', function(obj:FlxBasic) {
 			add(obj);
 		});
-		script.setVariable('remove', function(obj:FlxBasic) {
+		scriptSet('remove', function(obj:FlxBasic) {
 			remove(obj);
 		});
-		script.setVariable('insert', function(pos:Int, obj:FlxBasic) {
+		scriptSet('insert', function(pos:Int, obj:FlxBasic) {
 			insert(pos, obj);
 		});
 
-		script.execute(Paths.script('classes/$path'), true);
-
-		script.executeFunc('new', (args != null) ? args : []);
+		scriptExecute('new', (args != null) ? args : []);
 	}
 
 	override function draw() {
 		super.draw();
-		script.executeFunc('draw', []);
+		scriptExecute('draw', []);
 	}
 
 	override function create() {
@@ -38,21 +42,31 @@ class ScriptedSubState extends ExtendableSubState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		script.executeFunc('update', [elapsed]);
+		scriptExecute('update', [elapsed]);
 	}
 
 	override function beatHit() {
 		super.beatHit();
-		script.executeFunc('beatHit', [curBeat]);
+		scriptExecute('beatHit', [curBeat]);
 	}
 
 	override function stepHit() {
 		super.stepHit();
-		script.executeFunc('stepHit', [curStep]);
+		scriptExecute('stepHit', [curStep]);
 	}
 
 	override function destroy() {
 		super.destroy();
-		script.executeFunc('destroy', []);
+		scriptExecute('destroy', []);
+	}
+
+	function scriptExecute(func:String, args:Array<Dynamic>) {
+		if (script != null)
+			script.executeFunc(func, args);
+	}
+
+	function scriptSet(key:String, value:Dynamic) {
+		if (script != null)
+			script.setVariable(key, value);
 	}
 }
