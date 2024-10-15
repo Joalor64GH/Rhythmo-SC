@@ -1,4 +1,4 @@
-package game;
+package modding;
 
 import hscript.*;
 

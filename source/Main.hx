@@ -8,6 +8,8 @@ import sys.io.Process;
 import backend.ALConfig;
 #end
 
+import debug.FPS;
+
 #if linux
 @:cppInclude('./external/gamemode_client.h')
 @:cppFileCode('#define GAMEMODE_AUTO')

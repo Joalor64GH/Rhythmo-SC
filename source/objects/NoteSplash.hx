@@ -1,4 +1,4 @@
-package game;
+package objects;
 
 class NoteSplash extends GameSprite {
 	public function setupSplash(x:Float = 0, y:Float = 0, noteData:Int = 0) {

@@ -1,4 +1,4 @@
-package game;
+package backend;
 
 class HighScore {
 	public static var songScores:Map<String, Int> = new Map();

@@ -1,8 +1,8 @@
 package states;
 
-import game.Conductor;
-import game.Note;
-import game.Song;
+import backend.Conductor;
+import backend.Song;
+import objects.Note;
 
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState = null;

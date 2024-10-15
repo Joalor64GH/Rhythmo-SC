@@ -1,4 +1,4 @@
-package game;
+package objects;
 
 import funkin.vis.dsp.SpectralAnalyzer;
 

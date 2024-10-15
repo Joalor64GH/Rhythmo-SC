@@ -9,9 +9,8 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
-import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.input.gamepad.FlxGamepad;
-import flixel.input.keyboard.FlxKey;
+import flixel.input.gamepad.*;
+import flixel.input.keyboard.*;
 import flixel.sound.FlxSound;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
@@ -36,10 +35,11 @@ import openfl.utils.Assets;
 #end
 
 // Game Imports
-import game.*;
 import states.*;
 import substates.*;
 import backend.*;
+import modding.*;
+import objects.*;
 
 using Globals;
 using StringTools;

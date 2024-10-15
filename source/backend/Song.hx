@@ -1,4 +1,4 @@
-package game;
+package backend;
 
 typedef SongData = {
 	var song:String;

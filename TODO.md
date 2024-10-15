@@ -6,7 +6,7 @@
 * [ ] Results
 * [ ] RGB Notes + Note Coloring
 * [ ] Improve controls system
-* [ ] Simple source code reorganization
+* [X] Simple source code reorganization
 * [ ] Hit window options
 * [ ] Options organization + better options system
 * [ ] Customizable Main Menu + Scripted States

@@ -1,4 +1,4 @@
-package backend;
+package debug;
 
 import openfl.text.*;
 import openfl.events.Event;

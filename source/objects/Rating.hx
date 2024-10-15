@@ -1,4 +1,4 @@
-package game;
+package objects;
 
 class Rating extends GameSprite {
 	public function new(x:Float, y:Float) {

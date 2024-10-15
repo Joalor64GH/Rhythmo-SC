@@ -1,4 +1,4 @@
-package game;
+package objects;
 
 class Note extends GameSprite {
 	public var dir:String = ''; // note direction

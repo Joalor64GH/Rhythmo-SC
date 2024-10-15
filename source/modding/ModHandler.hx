@@ -1,4 +1,4 @@
-package backend;
+package modding;
 
 #if FUTURE_POLYMOD
 import polymod.Polymod;
@@ -6,7 +6,7 @@ import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules;
 #end
 
-class ModHandler {
+class PolymodHandler {
 	static final MOD_DIR:String = 'mods';
 	static final API_VERSION:String = '1.0.0';
 
