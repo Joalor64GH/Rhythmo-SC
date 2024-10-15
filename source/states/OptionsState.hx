@@ -44,7 +44,7 @@ class OptionsState extends ExtendableState {
 
 		for (i in 0...options.length) {
 			var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i], 32);
-			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.Input.justPressed('left'), FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
 
@@ -57,7 +57,7 @@ class OptionsState extends ExtendableState {
 		}
 
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
-		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, Input.justPressed('left'), FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		daText.scrollFactor.set();
 		add(daText);
 

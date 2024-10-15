@@ -134,7 +134,7 @@ class CreditsState extends ExtendableState {
 
 		var controlArray:Array<Bool> = [
 			FlxG.keys.justPressed.UP, 
-			FlxG.kays.justPressed.DOWN, 
+			FlxG.keys.justPressed.DOWN, 
 			Input.justPressed('up'), 
 			Input.justPressed('down'), 
 			FlxG.mouse.wheel == 1, 
