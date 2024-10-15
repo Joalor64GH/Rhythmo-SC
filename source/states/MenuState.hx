@@ -26,7 +26,7 @@ class MenuState extends ExtendableState {
 					selections.remove('mods');
 				#end
 			} catch (e:Dynamic) {
-				trace('Error!\n" + e);
+				trace("Error!\n" + e);
 				selections = [
 					'play',
 					#if FUTURE_POLYMOD
