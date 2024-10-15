@@ -199,7 +199,7 @@ class Paths {
 		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt('images/$key'));
 
 	inline static public function getPackerAtlasAlt(key:String, ?cache:Bool = true)
-		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key), txt(key));
+		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt(key));
 
 	public static function getFrames(key:String, assetsPath:Bool = false) {
 		if (tempFramesCache.exists(key)) {
@@ -209,7 +209,7 @@ class Paths {
 			else
 				tempFramesCache.remove(key);
 		}
-		return tempFramesCache[key] = loadFrames(assetsPath ? key : Paths.image(key));
+		return tempFramesCache[key] = loadFrames(assetsPath ? key : image(key));
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {

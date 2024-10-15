@@ -1,9 +1,8 @@
 package backend.ui;
 
 import flixel.util.typeLimit.OneOfTwo;
-import flixel.input.keyboard.FlxKey;
 
-class UIContextMenu extends SubStateExt {
+class UIContextMenu extends ExtendableState {
 	public var options:Array<UIContextMenuOption>;
 	var x:Float;
 	var y:Float;

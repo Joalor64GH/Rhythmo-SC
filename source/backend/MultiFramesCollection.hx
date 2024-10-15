@@ -1,4 +1,4 @@
-package;
+package backend;
 
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFramesCollection;
