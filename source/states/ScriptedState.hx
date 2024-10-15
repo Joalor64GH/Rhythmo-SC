@@ -19,6 +19,8 @@ class ScriptedState extends ExtendableState {
 			insert(pos, obj);
 		});
 
+		script.execute(Paths.script('classes/$path'), true);
+
 		script.executeFunc('new', (args != null) ? args : []);
 	}
 

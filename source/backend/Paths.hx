@@ -209,7 +209,7 @@ class Paths {
 			else
 				tempFramesCache.remove(key);
 		}
-		return tempFramesCache[key] = loadFrames(assetsPath ? key : Paths.image('$key'));
+		return tempFramesCache[key] = loadFrames(assetsPath ? key : file('images/$key.png'));
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
