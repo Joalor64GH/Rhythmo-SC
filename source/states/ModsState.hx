@@ -58,22 +58,15 @@ class ModsState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		if (up || down)
-			changeSelection(up ? -1 : 1);
-
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ModHandler.reload();
 			mustResetMusic = true;
 			ExtendableState.switchState(new MenuState());
-		} else if (accept) {
+		} else if (Input.justPressed('accept')) {
 			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
 				FlxG.save.data.disabledMods.push(ModHandler.trackedMods[curSelected].id);
 				FlxG.save.flush();

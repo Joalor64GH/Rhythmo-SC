@@ -48,27 +48,19 @@ class PauseSubState extends ExtendableSubState {
 				changeText();
 		}
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var op = Input.is('o') || (gamepad != null ? Input.gamepadIs('start') : false);
-		var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit1 = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-		var exit2 = Input.is('backspace') || (gamepad != null ? Input.gamepadIs('back') : false);
-
-		if (exit1 || exit2) {
-			ExtendableState.switchState((exit2) ? new SongSelectState() : new MenuState());
+		if (Input.justPressed('exit') || Input.justPressed('shift')) {
+			ExtendableState.switchState((Input.justPressed('shift')) ? new SongSelectState() : new MenuState());
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			PlayState.chartingMode = false;
 			FlxG.mouse.visible = true;
-		} else if (op) {
+		} else if (Input.justPressed('o')) {
 			ExtendableState.switchState(new OptionsState());
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			fromPlayState = true;
 			FlxG.mouse.visible = true;
-		} else if (restart)
+		} else if (Input.justPressed('reset'))
 			ExtendableState.resetState();
-		else if (accept)
+		else if (Input.justPressed('accept'))
 			close();
 	}
 

@@ -109,21 +109,12 @@ class SongSelectState extends ExtendableState {
 			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
 				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
-		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var accept2 = Input.is('space', PRESSED) || (gamepad != null ? Input.gamepadIs('start', PRESSED) : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-		var reset = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
-
 		if (!lockInputs) {
-			if (left || right)
-				changeSelection(left ? -1 : 1);
+			if (Input.justPressed('left') || Input.justPressed('right'))
+				changeSelection(Input.justPressed('left') ? -1 : 1);
 
-			if (accept) {
-				if (Input.is('shift', PRESSED)) {
+			if (Input.justPressed('accept')) {
+				if (Input.pressed('shift')) {
 					ChartingState.instance.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
 					ExtendableState.switchState(new ChartingState());
 				} else {
@@ -135,7 +126,7 @@ class SongSelectState extends ExtendableState {
 			}
 		}
 
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			if (!isResetting) {
 				ExtendableState.switchState(new MenuState());
 				FlxG.sound.play(Paths.sound('cancel'));
@@ -151,8 +142,8 @@ class SongSelectState extends ExtendableState {
 			}
 		}
 
-		if (reset) {
-			if (accept2) {
+		if (Input.justPressed('reset')) {
+			if (Input.justPressed('backspace')) {
 				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
 				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
 				ExtendableState.switchState(new PlayState());

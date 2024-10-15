@@ -53,10 +53,7 @@ class TitleState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-
-		if (accept && !lockInputs) {
+		if (Input.justPressed('accept') && !lockInputs) {
 			lockInputs = true;
 			FlxG.sound.play(Paths.sound('start'));
 			if (SaveData.settings.flashing)

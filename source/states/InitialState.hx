@@ -34,10 +34,7 @@ class InitialState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-
-		if (accept)
+		if (Input.justPressed('accept'))
 			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {

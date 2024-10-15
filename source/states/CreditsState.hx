@@ -132,20 +132,14 @@ class CreditsState extends ExtendableState {
 		centerMarker.y = topBar.y + 5;
 		rightMarker.y = topBar.y + 5;
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var up1 = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
-		var up2 = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var up3 = FlxG.mouse.wheel == 1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_UP : false);
-		var down1 = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
-		var down2 = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var down3 = FlxG.mouse.wheel == -1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN : false);
-		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
-		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		var controlArray:Array<Bool> = [up1, down1, up2, down2, up3, down3];
+		var controlArray:Array<Bool> = [
+			FlxG.keys.justPressed.UP, 
+			FlxG.kays.justPressed.DOWN, 
+			Input.justPressed('up'), 
+			Input.justPressed('down'), 
+			FlxG.mouse.wheel == 1, 
+			FlxG.mouse.wheel == -1
+		];
 		if (controlArray.contains(true)) {
 			for (i in 0...controlArray.length) {
 				if (controlArray[i] == true) {
@@ -164,10 +158,10 @@ class CreditsState extends ExtendableState {
 			}
 		}
 
-		if (left || right)
-			updateSocial(left ? -1 : 1);
+		if (Input.justPressed('left') || Input.justPressed('right'))
+			updateSocial(Input.justPressed('left') ? -1 : 1);
 
-		if (accept && credData.users[curSelected].urlData[curSocial][1] != null) {
+		if (Input.justPressed('accept') && credData.users[curSelected].urlData[curSocial][1] != null) {
 			#if linux
 			Sys.command('/usr/bin/xdg-open', [credData.users[curSelected].urlData[curSocial][1]]);
 			#else
@@ -175,7 +169,7 @@ class CreditsState extends ExtendableState {
 			#end
 		}
 
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ExtendableState.switchState(new MenuState());
 		}

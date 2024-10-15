@@ -65,10 +65,10 @@ class AchievementsState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.is('up') || Input.is('down'))
-			changeSelection(Input.is('up') ? -1 : 1);
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		if (Input.is('exit'))
+		if (Input.justPressed('exit'))
 			ExtendableState.switchState(new MenuState());
 	}
 

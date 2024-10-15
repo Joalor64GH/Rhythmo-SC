@@ -1,65 +1,167 @@
 package backend;
 
-import flixel.input.FlxInput.FlxInputState;
+typedef Bind = {
+	key:Array<FlxKey>,
+	gamepad:Array<FlxGamepadInputID>
+}
 
 class Input {
-	public static var actionMap:Map<String, FlxKey> = [
-		"left" => SaveData.settings.keyboardBinds[0],
-		"down" => SaveData.settings.keyboardBinds[1],
-		"up" => SaveData.settings.keyboardBinds[2],
-		"right" => SaveData.settings.keyboardBinds[3],
-		"accept" => SaveData.settings.keyboardBinds[4],
-		"exit" => SaveData.settings.keyboardBinds[5],
-		"space" => SaveData.settings.keyboardBinds[6]
+	public static var binds:Map<String, Bind> = [
+		'left' => {key: [LEFT, D], gamepad: [DPAD_LEFT, LEFT_TRIGGER]},
+		'down' => {key: [DOWN, S], gamepad: [DPAD_DOWN, LEFT_SHOULDER]},
+		'up' => {key: [UP, W], gamepad: [DPAD_UP, RIGHT_SHOULDER]},
+		'right' => {key: [RIGHT, D], gamepad: [DPAD_RIGHT, RIGHT_TRIGGER]},
+		'accept' => {key: [ENTER, SPACE], gamepad: [A, START]},
+		'exit' => {key: [ESCAPE, BACKSPACE], gamepad: [B, BACK]},
+		'reset' => {key: [R], gamepad: [RIGHT_STICK_CLICK]}
 	];
 
-	public static function is(action:String, ?state:FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool {
-		if (!exact) {
-			if (state == PRESSED && is(action, JUST_PRESSED))
-				return true;
-			if (state == RELEASED && is(action, JUST_RELEASED))
-				return true;
-		}
-
-		return (actionMap.exists(action)) ? FlxG.keys.checkStatus(actionMap.get(action), state) : FlxG.keys.checkStatus(FlxKey.fromString(action), state);
-	}
-
-	public static function get(action:String):FlxInputState {
+	public static function justPressed(tag:String):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (gamepad != null) {
-			if (gamepadIs(action, JUST_PRESSED))
-				return JUST_PRESSED;
-			if (gamepadIs(action, PRESSED))
-				return PRESSED;
-			if (gamepadIs(action, JUST_RELEASED))
-				return JUST_RELEASED;
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].gamepad.length)
+					if (gamepad.checkStatus(binds[tag].gamepad[i], JUST_PRESSED))
+						return true;
+			} else {
+				return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), JUST_PRESSED);
+			}
 		} else {
-			if (is(action, JUST_PRESSED))
-				return JUST_PRESSED;
-			if (is(action, PRESSED))
-				return PRESSED;
-			if (is(action, JUST_RELEASED))
-				return JUST_RELEASED;
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].key.length)
+					if (FlxG.keys.checkStatus(binds[tag].key[i], JUST_PRESSED))
+						return true;
+			} else {
+				return FlxG.keys.checkStatus(FlxKey.fromString(tag), JUST_PRESSED);
+			}
 		}
 
-		return RELEASED;
+		return false;
 	}
 
-	public static var controllerMap:Map<String, FlxGamepadInputID> = [
-		"gamepad_left" => SaveData.settings.gamepadBinds[0],
-		"gamepad_down" => SaveData.settings.gamepadBinds[1],
-		"gamepad_up" => SaveData.settings.gamepadBinds[2],
-		"gamepad_right" => SaveData.settings.gamepadBinds[3],
-		"gamepad_accept" => SaveData.settings.gamepadBinds[4],
-		"gamepad_exit" => SaveData.settings.gamepadBinds[5]
-	];
-
-	public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool {
+	public static function pressed(tag:String):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		if (gamepad != null)
-			return (controllerMap.exists(key)) ? gamepad.checkStatus(controllerMap.get(key),
-				state) : gamepad.checkStatus(FlxGamepadInputID.fromString(key), state);
+
+		if (gamepad != null) {
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].gamepad.length)
+					if (gamepad.checkStatus(binds[tag].gamepad[i], PRESSED))
+						return true;
+			} else {
+				return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), PRESSED);
+			}
+		} else {
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].key.length)
+					if (FlxG.keys.checkStatus(binds[tag].key[i], PRESSED))
+						return true;
+			} else {
+				return FlxG.keys.checkStatus(FlxKey.fromString(tag), PRESSED);
+			}
+		}
+
+		return false;
+	}
+
+	public static function justReleased(tag:String):Bool {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (gamepad != null) {
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].gamepad.length)
+					if (gamepad.checkStatus(binds[tag].gamepad[i], JUST_RELEASED))
+						return true;
+			} else {
+				return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), JUST_RELEASED);
+			}
+		} else {
+			if (binds.exists(tag)) {
+				for (i in 0...binds[tag].key.length)
+					if (FlxG.keys.checkStatus(binds[tag].key[i], JUST_RELEASED))
+						return true;
+			} else {
+				return FlxG.keys.checkStatus(FlxKey.fromString(tag), JUST_RELEASED);
+			}
+		}
+
+		return false;
+	}
+
+	public static function anyJustPressed(tags:Array<String>):Bool {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		
+		for (tag in tags) {
+			if (gamepad != null) {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].gamepad.length)
+						if (gamepad.checkStatus(binds[tag].gamepad[i], JUST_PRESSED))
+							return true;
+				} else {
+					return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), JUST_PRESSED);
+				}
+			} else {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].key.length)
+						if (FlxG.keys.checkStatus(binds[tag].key[i], JUST_PRESSED))
+							return true;
+				} else {
+					return FlxG.keys.checkStatus(FlxKey.fromString(tag), JUST_PRESSED);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public static function anyPressed(tags:Array<String>):Bool {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		
+		for (tag in tags) {
+			if (gamepad != null) {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].gamepad.length)
+						if (gamepad.checkStatus(binds[tag].gamepad[i], PRESSED))
+							return true;
+				} else {
+					return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), PRESSED);
+				}
+			} else {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].key.length)
+						if (FlxG.keys.checkStatus(binds[tag].key[i], PRESSED))
+							return true;
+				} else {
+					return FlxG.keys.checkStatus(FlxKey.fromString(tag), PRESSED);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public static function anyJustReleased(tags:Array<String>):Bool {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		
+		for (tag in tags) {
+			if (gamepad != null) {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].gamepad.length)
+						if (gamepad.checkStatus(binds[tag].gamepad[i], JUST_RELEASED))
+							return true;
+				} else {
+					return gamepad.checkStatus(FlxGamepadInputID.fromString(tag), JUST_RELEASED);
+				}
+			} else {
+				if (binds.exists(tag)) {
+					for (i in 0...binds[tag].key.length)
+						if (FlxG.keys.checkStatus(binds[tag].key[i], JUST_RELEASED))
+							return true;
+				} else {
+					return FlxG.keys.checkStatus(FlxKey.fromString(tag), JUST_RELEASED);
+				}
+			}
+		}
 
 		return false;
 	}

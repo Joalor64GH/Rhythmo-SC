@@ -17,18 +17,6 @@ class ScriptedSubState extends ExtendableSubState {
 		}
 
 		scriptExecute('new', (args != null) ? args : []);
-
-		scriptSet('state', instance);
-
-		scriptSet('add', function(obj:FlxBasic) {
-			add(obj);
-		});
-		scriptSet('remove', function(obj:FlxBasic) {
-			remove(obj);
-		});
-		scriptSet('insert', function(pos:Int, obj:FlxBasic) {
-			insert(pos, obj);
-		});
 	}
 
 	override function draw() {
@@ -66,10 +54,5 @@ class ScriptedSubState extends ExtendableSubState {
 	function scriptExecute(func:String, args:Array<Dynamic>) {
 		if (script != null)
 			script.executeFunc(func, args);
-	}
-
-	function scriptSet(key:String, value:Dynamic) {
-		if (script != null)
-			script.setVariable(key, value);
 	}
 }

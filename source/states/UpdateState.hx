@@ -39,19 +39,14 @@ class UpdateState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		if (accept) {
+		if (Input.justPressed('accept')) {
 			FlxG.sound.play(Paths.sound('select'));
 			#if linux
 			Sys.command('/usr/bin/xdg-open', ["https://github.com/Joalor64GH/Rhythmo-SC/releases/latest"]);
 			#else
 			FlxG.openURL("https://github.com/Joalor64GH/Rhythmo-SC/releases/latest");
 			#end
-		} else if (exit) {
+		} else if (Input.justPressed('exit')) {
 			ExtendableState.switchState(new TitleState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}

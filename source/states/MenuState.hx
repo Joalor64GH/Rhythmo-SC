@@ -97,18 +97,11 @@ class MenuState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
 		if (!lockInputs) {
-			if (up || down)
-				changeSelection(up ? -1 : 1);
+			if (Input.justPressed('up') || Input.justPressed('down'))
+				changeSelection(Input.justPressed('up') ? -1 : 1);
 
-			if (accept) {
+			if (Input.justPressed('accept')) {
 				lockInputs = true;
 				if (selections[curSelected] == 'exit') {
 					FlxG.sound.play(Paths.sound('cancel'));
@@ -151,18 +144,18 @@ class MenuState extends ExtendableState {
 				}
 			}
 
-			if (exit) {
+			if (Input.justPressed('exit')) {
 				ExtendableState.switchState(new TitleState());
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 
 			#if desktop
-			if (Input.is("seven"))
+			if (Input.justPressed('seven'))
 				ExtendableState.switchState(new EditorState());
 			#end
 
 			#if debug
-			if (Input.is("u"))
+			if (Input.justPressed('u'))
 				ExtendableState.switchState(new UITestState());
 			#end
 		}

@@ -15,7 +15,6 @@ class OptionsState extends ExtendableState {
 		Localization.get("opSpeed", SaveData.settings.lang),
 		Localization.get("opHitSnd", SaveData.settings.lang),
 		Localization.get("opLang", SaveData.settings.lang),
-		Localization.get("opCtrls", SaveData.settings.lang),
 		Localization.get("opReset", SaveData.settings.lang)
 	];
 	var grpOptions:FlxTypedGroup<FlxText>;
@@ -45,7 +44,7 @@ class OptionsState extends ExtendableState {
 
 		for (i in 0...options.length) {
 			var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i], 32);
-			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.Input.justPressed('left'), FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
 
@@ -58,7 +57,7 @@ class OptionsState extends ExtendableState {
 		}
 
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
-		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, Input.justPressed('left'), FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		daText.scrollFactor.set();
 		add(daText);
 
@@ -72,22 +71,13 @@ class OptionsState extends ExtendableState {
 
 		updateText();
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
-		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		if (up || down)
-			changeSelection(up ? -1 : 1);
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
 		if (curSelected == 7) {
-			if (right || left) {
+			if (Input.justPressed('right') || Input.justPressed('left')) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!left)
+				if (!Input.justPressed('left'))
 					SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
 				else
 					SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
@@ -95,24 +85,24 @@ class OptionsState extends ExtendableState {
 				Main.updateFramerate(SaveData.settings.framerate);
 			}
 		} else if (curSelected == 8) {
-			if (right || left) {
+			if (Input.justPressed('right') || Input.justPressed('left')) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!left)
+				if (!Input.justPressed('left'))
 					SaveData.settings.songSpeed += (SaveData.settings.songSpeed == 10) ? 0 : 1;
 				else
 					SaveData.settings.songSpeed -= (SaveData.settings.songSpeed == 1) ? 0 : 1;
 			}
 		} else if (curSelected == 9) {
-			if (right || left) {
+			if (Input.justPressed('right') || Input.justPressed('left')) {
 				FlxG.sound.play(Paths.sound('scroll'));
-				if (!left)
+				if (!Input.justPressed('left'))
 					SaveData.settings.hitSoundVolume = Math.min(1, SaveData.settings.hitSoundVolume + 0.1);
 				else
 					SaveData.settings.hitSoundVolume = Math.max(0, SaveData.settings.hitSoundVolume - 0.1);
 			}
 		}
 
-		if (accept) {
+		if (Input.justPressed('accept')) {
 			if (curSelected == 0) {
 				SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
 				FlxG.fullscreen = SaveData.settings.fullscreen;
@@ -132,9 +122,7 @@ class OptionsState extends ExtendableState {
 				SaveData.settings.antiMash = !SaveData.settings.antiMash;
 			else if (curSelected == 10)
 				openSubState(new LanguageSubState());
-			else if (curSelected == 11)
-				ExtendableState.switchState(new ControlsState());
-			else if (curSelected == 12) {
+			else if (curSelected == 11) {
 				openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 					SaveData.eraseData();
 					ExtendableState.resetState();
@@ -151,7 +139,7 @@ class OptionsState extends ExtendableState {
 			updateText();
 		}
 
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			if (PauseSubState.fromPlayState) {
 				ExtendableState.switchState(new PlayState());
 				PauseSubState.fromPlayState = false;
@@ -200,8 +188,6 @@ class OptionsState extends ExtendableState {
 			case 10:
 				daText.text = Localization.get("descLang", SaveData.settings.lang) + SaveData.settings.lang;
 			case 11:
-				daText.text = Localization.get("descCtrls", SaveData.settings.lang);
-			case 12:
 				daText.text = Localization.get("descReset", SaveData.settings.lang);
 		}
 	}

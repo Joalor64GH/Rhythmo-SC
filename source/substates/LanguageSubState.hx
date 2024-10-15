@@ -60,22 +60,15 @@ class LanguageSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		if (up || down)
-			changeSelection(up ? -1 : 1);
-
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound("cancel"));
 			close();
 		}
 
-		if (accept) {
+		if (Input.justPressed('accept')) {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();

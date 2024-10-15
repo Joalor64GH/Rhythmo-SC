@@ -313,13 +313,10 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-		if (exit && canPause && startedCountdown)
+		if (Input.justPressed('exit') && canPause && startedCountdown)
 			pause();
 
-		if (Input.is("seven"))
+		if (Input.justPressed('seven'))
 			openChartEditor();
 
 		inputFunction();
@@ -386,25 +383,23 @@ class PlayState extends ExtendableState {
 	public var curRating:String = "perfect";
 
 	function inputFunction() {
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		
 		var justPressed:Array<Bool> = [
-			Input.is("left") || (gamepad != null ? Input.gamepadIs("gamepad_left") : false), 
-			Input.is("down") || (gamepad != null ? Input.gamepadIs("gamepad_down") : false), 
-			Input.is("up") || (gamepad != null ? Input.gamepadIs("gamepad_up") : false), 
-			Input.is("right") || (gamepad != null ? Input.gamepadIs("gamepad_right") : false)
+			Input.justPressed('left'), 
+			Input.justPressed('down'), 
+			Input.justPressed('up'), 
+			Input.justPressed('right')
 		];
 		var pressed:Array<Bool> = [
-			Input.is("left", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_left", PRESSED) : false),
-			Input.is("down", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_down", PRESSED) : false),
-			Input.is("up", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_up", PRESSED) : false),
-			Input.is("right", PRESSED) || (gamepad != null ? Input.gamepadIs("gamepad_right", PRESSED) : false)
+			Input.pressed('left'), 
+			Input.pressed('down'), 
+			Input.pressed('up'), 
+			Input.pressed('right')
 		];
 		var released:Array<Bool> = [
-			Input.is("left", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_left", RELEASED) : false),
-			Input.is("down", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_down", RELEASED) : false),
-			Input.is("up", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_up", RELEASED) : false),
-			Input.is("right", RELEASED) || (gamepad != null ? Input.gamepadIs("gamepad_right", RELEASED) : false)
+			Input.justReleased('left'), 
+			Input.justReleased('down'), 
+			Input.justReleased('up'), 
+			Input.justReleased('right')
 		];
 
 		for (i in 0...justPressed.length) {

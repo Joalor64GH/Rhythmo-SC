@@ -162,19 +162,12 @@ class ChartingState extends ExtendableState {
 			changeSection(curSection + 1, false);
 		}
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
-		var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
-		var accept1 = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-		var accept2 = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
-
-		if (left)
+		if (Input.justPressed('left'))
 			changeSection(curSection - 1);
-		if (right)
+		if (Input.justPressed('right'))
 			changeSection(curSection + 1);
 
-		if (accept1) {
+		if (Input.justPressed('accept')) {
 			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
@@ -182,14 +175,14 @@ class ChartingState extends ExtendableState {
 			PlayState.song = song;
 		}
 
-		if (accept2) {
+		if (Input.justPressed('p')) {
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.pause();
 			else
 				FlxG.sound.music.play();
 		}
 
-		if (Input.is('z') && Input.is('control', PRESSED))
+		if (Input.justPressed('z') && Input.pressed('control'))
 			undo();
 
 		if (FlxG.mouse.x > gridBG.x

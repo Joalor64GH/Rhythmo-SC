@@ -37,16 +37,10 @@ class EditorState extends ExtendableState {
 
 		updateText();
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
-		var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
-		var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
-		if (up || down)
-			changeSelection(up ? -1 : 1);
-
-		if (exit) {
+		if (Input.justPressed('exit')) {
 			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
