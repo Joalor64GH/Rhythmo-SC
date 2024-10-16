@@ -5,7 +5,7 @@
 * [ ] Achievements
 * [ ] Results
 * [ ] RGB Notes + Note Coloring
-* [ ] Improve controls system
+* [X] Improve controls system
 * [X] Simple source code reorganization
 * [ ] Hit window options
 * [ ] Options organization + better options system

@@ -1,36 +1,41 @@
 package states;
 
 class ScriptedState extends ExtendableState {
-	public var script:Hscript;
+	public var path:String = "";
+	public var script:Hscript = null;
 	public static var instance:ScriptedState = null;
 
-	public function new(path:String) {
+	public function new(_path:String = null) {
+		if (_path != null)
+			path = _path;
 		super();
+	}
 
+	override function create() {
 		instance = this;
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		try {
-			script = new Hscript(Paths.script('classes/$path'));
+			if (FileSystem.exists(Paths.script('classes/$path')))
+				path = Paths.script('classes/$path');
+			script = new Hscript(path, false);
+			script.execute(path, false);
+
+			scriptSet('this', this);
+			scriptSet('add', add);
+			scriptSet('remove', remove);
+			scriptSet('insert', insert);
+			scriptSet('openSubState', openSubState);
 		} catch (e:Dynamic) {
+			script = null;
 			trace('Error while getting script!\n$e');
 			ExtendableState.switchState(new TitleState());
 		}
 
-		scriptSet('state', instance);
-		scriptSet('add', add);
-		scriptSet('remove', remove);
-		scriptSet('kill', kill);
-		scriptSet('openSubState', openSubState);
-	}
+		scriptExecute('create', []);
 
-	override function draw() {
-		scriptExecute('draw', []);
-		super.draw();
-	}
-
-	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 		super.create();
 	}
 
