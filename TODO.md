@@ -2,14 +2,14 @@
 * [ ] Chart the songs
 * [ ] Maybe a few more songs
 * [ ] Replay System
-* [ ] Achievements
+* [X] Achievements
 * [ ] Results
 * [ ] RGB Notes + Note Coloring
 * [X] Improve controls system
 * [X] Simple source code reorganization
 * [ ] Hit window options
-* [ ] Options organization + better options system
-* [ ] Customizable Main Menu + Scripted States
+* [X] Options organization + better options system
+* [X] Customizable Main Menu + Scripted States
 * [ ] Accuracy + Ranking
 * [ ] "Note Sustains"
 * [ ] Better Charting UI

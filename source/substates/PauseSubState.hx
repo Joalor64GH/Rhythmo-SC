@@ -20,13 +20,14 @@ class PauseSubState extends ExtendableSubState {
 
 		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt", SaveData.settings.lang), 12);
 		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.screenCenter(X);
 		add(text);
 
 		pauseGrp = new FlxTypedGroup<FlxText>();
 		add(pauseGrp);
 
 		for (i in 0...pauseOptions.length) {
-			var text:FlxText = new FlxText(0, 300 + (i * 55), 0, pauseOptions[i], 32);
+			var text:FlxText = new FlxText(0, 250 + (i * 60), 0, pauseOptions[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
@@ -69,7 +70,7 @@ class PauseSubState extends ExtendableSubState {
 				case 1:
 					ExtendableState.resetState();
 				case 2:
-					ExtendableState.switchState(new OptionsState());
+					ExtendableState.switchState(new options.OptionsState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 					fromPlayState = true;
 				case 3:
