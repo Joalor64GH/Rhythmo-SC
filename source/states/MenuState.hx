@@ -135,10 +135,8 @@ class MenuState extends ExtendableState {
 								ExtendableState.switchState(new CreditsState());
 							case 'options':
 								ExtendableState.switchState(new OptionsState());
-							#if FUTURE_POLYMOD
 							default:
 								ExtendableState.switchState(new ScriptedState(selections[curSelected]));
-							#end
 						}
 					});
 				}
