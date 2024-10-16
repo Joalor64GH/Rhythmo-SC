@@ -26,7 +26,7 @@ class PauseSubState extends ExtendableSubState {
 		pauseGrp = new FlxTypedGroup<FlxText>();
 		add(pauseGrp);
 
-		for (i in 0...langStrings.length) {
+		for (i in 0...pauseOptions.length) {
 			var text:FlxText = new FlxText(0, 300 + (i * 70), 0, pauseOptions[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
@@ -88,8 +88,8 @@ class PauseSubState extends ExtendableSubState {
 	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
 		if (playSound)
 			FlxG.sound.play(Paths.sound('scroll'));
-		curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
-		group.forEach(function(txt:FlxText) {
+		curSelected = FlxMath.wrap(curSelected + change, 0, pauseOptions.length - 1);
+		pauseGrp.forEach(function(txt:FlxText) {
 			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
 		});
 	}
