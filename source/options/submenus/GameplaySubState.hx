@@ -15,7 +15,7 @@ class GameplaySubState extends OptionsSubState {
 
         var option:Option = new Option("Downscroll", 
             "Makes the arrows go down instead of up.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.downScroll
         );
         addOption(option);
