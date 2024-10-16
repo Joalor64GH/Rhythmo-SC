@@ -20,15 +20,14 @@ class PauseSubState extends ExtendableSubState {
 
 		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt", SaveData.settings.lang), 12);
 		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text.screenCenter();
 		add(text);
 
 		pauseGrp = new FlxTypedGroup<FlxText>();
 		add(pauseGrp);
 
 		for (i in 0...pauseOptions.length) {
-			var text:FlxText = new FlxText(0, 300 + (i * 70), 0, pauseOptions[i], 32);
-			text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			var text:FlxText = new FlxText(0, 300 + (i * 55), 0, pauseOptions[i], 32);
+			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
 			pauseGrp.add(text);
@@ -71,15 +70,14 @@ class PauseSubState extends ExtendableSubState {
 					ExtendableState.resetState();
 				case 2:
 					ExtendableState.switchState(new OptionsState());
+					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 				case 3:
 					ExtendableState.switchState(new SongSelectState());
+					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+					PlayState.chartingMode = false;
 				case 4:
 					ExtendableState.switchState(new MenuState());
-			}
-
-			if (curSelected != 0 || curSelected != 1) {
-				FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-				if (curSelected != 2)
+					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 					PlayState.chartingMode = false;
 			}
 		}
