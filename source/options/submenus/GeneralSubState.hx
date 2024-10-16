@@ -8,22 +8,22 @@ class GeneralSubState extends OptionsSubState {
 
         var option:Option = new Option("Framerate", 
             "Use LEFT/RIGHT to change the framerate (Max 240).", 
-            Option.Integer(60, 240, 10), 
+            OptionType.Integer(60, 240, 10), 
             SaveData.settings.framerate
         );
-        option.onChange = () -> {
-            Main.updateFramerate(SaveData.settings.framerate);
+        option.onChange = (value:Dynamic) -> {
+            Main.updateFramerate(value);
         };
         options.push(option);
 
         var option:Option = new Option("FPS Counter", 
             "Toggles the FPS Display.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.fpsCounter
         );
-        option.onChange = () -> {
+        option.onChange = (value:Dynamic) -> {
             if (Main.fpsDisplay != null)
-				Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
+				Main.fpsDisplay.visible = value;
         };
         options.push(option);
     }

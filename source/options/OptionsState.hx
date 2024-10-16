@@ -1,6 +1,6 @@
 package options;
 
-class PauseSubState extends ExtendableState {
+class OptionsState extends ExtendableState {
 	var options:Array<String> = ['General', 'Gameplay', 'Appearance', 'Language', 'Controls'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -26,14 +26,6 @@ class PauseSubState extends ExtendableState {
 			text.ID = i;
 			opGrp.add(text);
 		}
-
-		var bottomPanel:FlxSprite = new FlxSprite(0, FlxG.height - 100).makeGraphic(FlxG.width, 100, 0xFF000000);
-		bottomPanel.alpha = 0.65;
-		add(bottomPanel);
-
-		tipTxt = new FlxText(20, FlxG.height - 80, 1000, "", 22);
-		tipTxt.setFormat(Paths.font('vcr.ttf'), 26, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(tipTxt);
 
 		changeSelection(0, false);
 	}
@@ -74,7 +66,7 @@ class PauseSubState extends ExtendableState {
 	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
 		if (playSound)
 			FlxG.sound.play(Paths.sound('scroll'));
-		curSelected = FlxMath.wrap(curSelected + change, 0, pauseOptions.length - 1);
+		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		opGrp.forEach(function(txt:FlxText) {
 			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
 		});

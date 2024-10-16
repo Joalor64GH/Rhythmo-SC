@@ -8,7 +8,7 @@ class GameplaySubState extends OptionsSubState {
 
         var option:Option = new Option("Song Speed", 
             "Adjust the scroll speed of the notes.", 
-            Option.Integer(1, 10, 1), 
+            OptionType.Integer(1, 10, 1), 
             SaveData.settings.songSpeed
         );
         options.push(option);
@@ -22,7 +22,7 @@ class GameplaySubState extends OptionsSubState {
 
         var option:Option = new Option("Hitsound Volume", 
             "Changes the volume of the hitsound", 
-            Option.Decimal(0.1, 1, 0.1), 
+            OptionType.Decimal(0.1, 1, 0.1), 
             SaveData.settings.hitSoundVolume
         );
         option.showPercentage = true;
@@ -30,14 +30,14 @@ class GameplaySubState extends OptionsSubState {
 
         var option:Option = new Option("Botplay", 
             "If enabled, the game plays for you.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.botPlay
         );
         options.push(option);
 
         var option:Option = new Option("Anti-mash", 
             "If enabled, you will get a miss for pressing keys when no notes are present.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.antiMash
         );
         options.push(option);

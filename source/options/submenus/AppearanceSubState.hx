@@ -8,28 +8,28 @@ class AppearanceSubState extends OptionsSubState {
 
         var option:Option = new Option("Antialising", 
             "If disabled, improves the game's performance at the cost of sharper visuals.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.antialiasing
         );
-        options.push(option);
+        addOption(option);
 
         #if desktop
         var option:Option = new Option("Fullscreen", 
             "Toggles fullscreen", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.fullscreen
         );
-        option.onChange = () -> {
-            FlxG.fullscreen = SaveData.settings.fullscreen;
+        option.onChange = (value:Dynamic) -> {
+            FlxG.fullscreen = value;
         };
-        options.push(option);
+        addOption(option);
         #end
 
         var option:Option = new Option("Flashing Lights", 
             "Turn this off if you're photosensitive.", 
-            Option.Toggle, 
+            OptionType.Toggle, 
             SaveData.settings.flashing
         );
-        options.push(option);
+        addOption(option);
     }
 }
