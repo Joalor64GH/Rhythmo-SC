@@ -7,6 +7,10 @@ class PauseSubState extends ExtendableSubState {
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
+	var pauseOptions:Array<String> = ['Resume', 'Restart', 'Options', 'Song Menu', 'Main Menu'];
+	var pauseGrp:FlxTypedGroup<FlxText>;
+	var curSelected:Int = 0;
+
 	public function new() {
 		super();
 
@@ -19,10 +23,16 @@ class PauseSubState extends ExtendableSubState {
 		text.screenCenter();
 		add(text);
 
-		var text2:FlxText = new FlxText(0, text.y + 100, 0, Localization.get("pauseCtrls", SaveData.settings.lang), 12);
-		text2.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text2.screenCenter(X);
-		add(text2);
+		pauseGrp = new FlxTypedGroup<FlxText>();
+		add(pauseGrp);
+
+		for (i in 0...langStrings.length) {
+			var text:FlxText = new FlxText(0, 300 + (i * 70), 0, pauseOptions[i], 32);
+			text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.screenCenter(X);
+			text.ID = i;
+			pauseGrp.add(text);
+		}
 
 		var bottomPanel:FlxSprite = new FlxSprite(0, FlxG.height - 100).makeGraphic(FlxG.width, 100, 0xFF000000);
 		bottomPanel.alpha = 0.65;
@@ -31,6 +41,8 @@ class PauseSubState extends ExtendableSubState {
 		tipTxt = new FlxText(20, FlxG.height - 80, 1000, "", 22);
 		tipTxt.setFormat(Paths.font('vcr.ttf'), 26, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(tipTxt);
+
+		changeSelection(0, false);
 	}
 
 	var timer:Float = 0;
@@ -48,20 +60,38 @@ class PauseSubState extends ExtendableSubState {
 				changeText();
 		}
 
-		if (Input.justPressed('exit') || Input.justPressed('shift')) {
-			ExtendableState.switchState((Input.justPressed('shift')) ? new SongSelectState() : new MenuState());
-			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-			PlayState.chartingMode = false;
-			FlxG.mouse.visible = true;
-		} else if (Input.justPressed('o')) {
-			ExtendableState.switchState(new OptionsState());
-			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-			fromPlayState = true;
-			FlxG.mouse.visible = true;
-		} else if (Input.justPressed('reset'))
-			ExtendableState.resetState();
-		else if (Input.justPressed('accept'))
-			close();
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
+
+		if (Input.justPressed('accept')) {
+			switch (curSelected) {
+				case 0:
+					close();
+				case 1:
+					ExtendableState.resetState();
+				case 2:
+					ExtendableState.switchState(new OptionsState());
+				case 3:
+					ExtendableState.switchState(new SongSelectState());
+				case 4:
+					ExtendableState.switchState(new MenuState());
+			}
+
+			if (curSelected != 0 || curSelected != 1) {
+				FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
+				if (curSelected != 2)
+					PlayState.chartingMode = false;
+			}
+		}
+	}
+
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
+		curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
+		group.forEach(function(txt:FlxText) {
+			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
+		});
 	}
 
 	function changeText() {

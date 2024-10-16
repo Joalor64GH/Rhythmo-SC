@@ -143,7 +143,7 @@ class SongSelectState extends ExtendableState {
 		}
 
 		if (Input.justPressed('reset')) {
-			if (Input.justPressed('backspace')) {
+			if (Input.pressed('space')) {
 				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
 				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
 				ExtendableState.switchState(new PlayState());

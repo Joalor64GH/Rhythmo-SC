@@ -11,8 +11,8 @@ class Input {
 		'down' => {key: [DOWN, S], gamepad: [DPAD_DOWN, LEFT_SHOULDER]},
 		'up' => {key: [UP, W], gamepad: [DPAD_UP, RIGHT_SHOULDER]},
 		'right' => {key: [RIGHT, D], gamepad: [DPAD_RIGHT, RIGHT_TRIGGER]},
-		'accept' => {key: [ENTER, SPACE], gamepad: [A, START]},
-		'exit' => {key: [ESCAPE, BACKSPACE], gamepad: [B, BACK]},
+		'accept' => {key: [ENTER], gamepad: [A, START]},
+		'exit' => {key: [ESCAPE], gamepad: [B, BACK]},
 		'reset' => {key: [R], gamepad: [RIGHT_STICK_CLICK]}
 	];
 

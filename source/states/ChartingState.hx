@@ -175,7 +175,7 @@ class ChartingState extends ExtendableState {
 			PlayState.song = song;
 		}
 
-		if (Input.justPressed('p')) {
+		if (Input.justPressed('space')) {
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.pause();
 			else
@@ -193,7 +193,7 @@ class ChartingState extends ExtendableState {
 
 			dummyArrow.x = Math.floor(FlxG.mouse.x / gridSize) * gridSize;
 
-			if (FlxG.keys.pressed.SHIFT)
+			if (Input.pressed('shift'))
 				dummyArrow.y = FlxG.mouse.y;
 			else
 				dummyArrow.y = Math.floor(FlxG.mouse.y / snappedGridSize) * snappedGridSize;
