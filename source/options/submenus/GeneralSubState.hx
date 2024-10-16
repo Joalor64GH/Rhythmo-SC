@@ -14,7 +14,7 @@ class GeneralSubState extends OptionsSubState {
         option.onChange = (value:Dynamic) -> {
             Main.updateFramerate(value);
         };
-        options.push(option);
+        addOption(option);
 
         var option:Option = new Option("FPS Counter", 
             "Toggles the FPS Display.", 
@@ -25,6 +25,6 @@ class GeneralSubState extends OptionsSubState {
             if (Main.fpsDisplay != null)
 				Main.fpsDisplay.visible = value;
         };
-        options.push(option);
+        addOption(option);
     }
 }

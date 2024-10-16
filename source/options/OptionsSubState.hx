@@ -3,7 +3,7 @@ package options;
 import options.Option;
 
 class OptionsSubState extends ExtendableSubState {
-	public static var options:Array<Option> = [];
+	var options:Array<Option> = [];
 	var grpOptions:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var description:FlxText;
