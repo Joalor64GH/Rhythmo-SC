@@ -135,7 +135,7 @@ class OptionsSubState extends ExtendableSubState {
 	}
 
 	public function addOption(option:Option) {
-		if (options == null || options.length < 1) options = [];
+		// if (options == null || options.length < 1) options = [];
 		options.push(option);
 		return option;
 	}
