@@ -74,7 +74,7 @@ class Main extends openfl.display.Sprite {
 				File.saveContent('./crash/'
 					+ Lib.application.meta.get('file')
 					+ '-'
-					+ Date.now().toString().replace(' ', '-')
+					+ Date.now().toString().replace(' ', '-').replace(':', "'")
 					+ '.txt',
 					msg
 					+ '\n');
