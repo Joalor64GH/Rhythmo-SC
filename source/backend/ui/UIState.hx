@@ -2,10 +2,9 @@ package backend.ui;
 
 import lime.ui.KeyModifier;
 import lime.ui.KeyCode;
+
 import openfl.ui.Mouse;
-import flixel.math.FlxPoint;
 import openfl.ui.MouseCursor;
-import flixel.math.FlxRect;
 
 import backend.ui.UIContextMenu.UIContextMenuOption;
 import backend.ui.UIContextMenu.UIContextMenuCallback;
@@ -53,6 +52,7 @@ class UIState extends ExtendableState {
 		if (currentFocus != null)
 			currentFocus.onTextInput(str);
 	}
+
 	private function onTextEdit(str:String, start:Int, end:Int) {
 		if (currentFocus != null)
 			currentFocus.onTextEdit(str, start, end);
@@ -74,7 +74,7 @@ class UIState extends ExtendableState {
 	}
 
 	public function isOverlapping(spr:UISprite, rect:FlxRect) {
-		for(camera in spr.__lastDrawCameras) {
+		for (camera in spr.__lastDrawCameras) {
 			var pos = FlxG.mouse.getScreenPosition(camera, FlxPoint.get());
 			__rect.x = rect.x;
 			__rect.y = rect.y;
@@ -94,7 +94,7 @@ class UIState extends ExtendableState {
 	}
 
 	public function updateRectButtonHandler(spr:UISprite, rect:FlxRect, buttonHandler:Void->Void) {
-		if(isOverlapping(spr, rect)) {
+		if (isOverlapping(spr, rect)) {
 			spr.hoveredByChild = true;
 			this.hoveredSprite = spr;
 			this.buttonHandler = buttonHandler;
@@ -133,7 +133,7 @@ class UIState extends ExtendableState {
 	}
 
 	public function closeCurrentContextMenu() {
-		if(curContextMenu != null) {
+		if (curContextMenu != null) {
 			curContextMenu.close();
 			curContextMenu = null;
 		}
@@ -141,7 +141,7 @@ class UIState extends ExtendableState {
 
 	public function openContextMenu(options:Array<UIContextMenuOption>, ?callback:UIContextMenuCallback, ?x:Float, ?y:Float) {
 		var state = FlxG.state;
-		while(state.subState != null && !(state._requestSubStateReset && state._requestedSubState == null))
+		while (state.subState != null && !(state._requestSubStateReset && state._requestedSubState == null))
 			state = state.subState;
 
 		state.persistentDraw = true;

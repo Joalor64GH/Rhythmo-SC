@@ -17,6 +17,7 @@ class AchievementsState extends ExtendableState {
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
+		add(camFollow);
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.GRAY);
 		bg.scrollFactor.set();
@@ -59,7 +60,7 @@ class AchievementsState extends ExtendableState {
 
 		changeSelection();
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.25);
+		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
 	override function update(elapsed:Float) {

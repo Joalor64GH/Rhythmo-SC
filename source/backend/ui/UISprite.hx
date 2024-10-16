@@ -1,6 +1,5 @@
 package backend.ui;
 
-import flixel.math.FlxRect;
 import openfl.ui.MouseCursor;
 
 @:allow(backend.ui.UIState)
@@ -54,12 +53,11 @@ class UISprite extends FlxSprite {
 			__oldDefCams = FlxCamera._defaultCameras;
 			FlxCamera._defaultCameras = cameras;
 
-			for(m in members)
+			for (m in members)
 				m.update(elapsed);
 
 			FlxCamera._defaultCameras = __oldDefCams;
 		}
-
 	}
 
 	public override function draw() {
@@ -69,7 +67,7 @@ class UISprite extends FlxSprite {
 
 	public function drawSuper() {
 		super.draw();
-		__lastDrawCameras = [for(c in cameras) c];
+		__lastDrawCameras = [for (c in cameras) c];
 	}
 
 	public function drawMembers() {
@@ -77,8 +75,8 @@ class UISprite extends FlxSprite {
 			__oldDefCams = FlxCamera._defaultCameras;
 			FlxCamera._defaultCameras = cameras;
 
-			for(m in members)
-				if(m.exists && m.visible)
+			for (m in members)
+				if (m.exists && m.visible)
 					m.draw();
 
 			FlxCamera._defaultCameras = __oldDefCams;
@@ -91,10 +89,10 @@ class UISprite extends FlxSprite {
 	}
 
 	public function updateButton() {
-		if(canBeHovered)
+		if (canBeHovered)
 			updateButtonHandler();
 		else {
-			if(FlxG.mouse.pressed) {
+			if (FlxG.mouse.pressed) {
 				updateButtonHandler();
 			}
 		}
@@ -104,9 +102,6 @@ class UISprite extends FlxSprite {
 		UIState.state.updateButtonHandler(this, onHovered);
 	}
 
-	/**
-	 * Called whenever the sprite is being hovered by the mouse.
-	 */
 	public function onHovered() {
 		hovered = true;
 		if (FlxG.mouse.pressed)

@@ -1,8 +1,8 @@
 package backend.ui;
 
-import flixel.math.FlxPoint;
 import lime.ui.KeyModifier;
 import lime.ui.KeyCode;
+
 import openfl.desktop.Clipboard;
 import openfl.geom.Rectangle;
 
@@ -38,7 +38,6 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 
 	public override function update(elapsed:Float) {
 		if (selectable && hovered && FlxG.mouse.justReleased && __lastDrawCameras.length > 0) {
-			// get caret pos
 			var pos = FlxG.mouse.getScreenPosition(__lastDrawCameras[0], FlxPoint.get());
 			pos.x -= label.x;
 			pos.y -= label.y;
@@ -59,28 +58,23 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 		super.update(elapsed);
 
 		var selected = selectable && focused;
-		if (autoAlpha) {
-			if(selectable) {
-				alpha = label.alpha = 1;
-			} else {
-				alpha = label.alpha = 0.4;
-			}
-		}
+		if (autoAlpha)
+			alpha = label.alpha = (selectable) ? 1 : 0.4;
 
 		var off = multiline ? 4 : ((bHeight - label.height) / 2);
-		label.follow(this, label.autoSize ? (bWidth-label.textField.width)/2 : 4, off);
+		label.follow(this, label.autoSize ? (bWidth - label.textField.width) / 2 : 4, off);
 		framesOffset = (selected ? 18 : (hovered ? 9 : 0));
 		@:privateAccess {
 			if (selected) {
 				__wasFocused = true;
 				caretSpr.alpha = (FlxG.game.ticks % 666) >= 333 ? 1 : 0;
 
-				var curPos = switch(position) {
+				var curPos = switch (position) {
 					case 0:
 						FlxPoint.get(0, 0);
 					default:
 						if (position >= label.text.length) {
-							label.textField.__getCharBoundaries(label.text.length-1, cacheRect);
+							label.textField.__getCharBoundaries(label.text.length - 1, cacheRect);
 							FlxPoint.get(cacheRect.x + cacheRect.width, cacheRect.y);
 						} else {
 							label.textField.__getCharBoundaries(position, cacheRect);
@@ -101,17 +95,18 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 	}
 
 	public function onKeyDown(e:KeyCode, modifier:KeyModifier) {
-		switch(e) {
+		switch (e) {
 			case RETURN:
 				focused = false;
-				if (onChange != null) onChange(label.text);
+				if (onChange != null)
+					onChange(label.text);
 			case LEFT:
 				changeSelection(-1);
 			case RIGHT:
 				changeSelection(1);
 			case BACKSPACE:
 				if (position > 0) {
-					label.text = label.text.substr(0, position-1) + label.text.substr(position);
+					label.text = label.text.substr(0, position - 1) + label.text.substr(position);
 					changeSelection(-1);
 				}
 			case HOME:
@@ -120,7 +115,6 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 				position = label.text.length;
 			case V:
 				if (modifier == KeyModifier.LEFT_CTRL || modifier == KeyModifier.RIGHT_CTRL) {
-					// paste
 					var data:String = Clipboard.generalClipboard.getData(TEXT_FORMAT);
 					if (data != null)
 						onTextInput(data);
@@ -133,13 +127,14 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 	public function changeSelection(change:Int) {
 		position = FlxMath.wrap(position + change, 0, label.text.length);
 	}
+
 	public function onKeyUp(e:KeyCode, modifier:KeyModifier) {}
 
 	public function onTextInput(text:String):Void {
 		label.text = label.text.substr(0, position) + text + label.text.substr(position);
 		position += text.length;
 	}
-	// untested, but this should be a fix for if the text wont type
+
 	public function onTextEdit(text:String, start:Int, end:Int):Void {
 		label.text = label.text.substr(0, position) + text + label.text.substr(position);
 		position += text.length;

@@ -7,8 +7,6 @@ class ScriptedSubState extends ExtendableSubState {
 	public function new(path:String, ?args:Array<Dynamic>) {
 		super();
 
-		instance = this;
-
 		try {
 			script = new Hscript(Paths.script('classes/$path'));
 		} catch (e:Dynamic) {
@@ -17,6 +15,8 @@ class ScriptedSubState extends ExtendableSubState {
 		}
 
 		scriptExecute('new', (args != null) ? args : []);
+
+		instance = this;
 	}
 
 	override function draw() {

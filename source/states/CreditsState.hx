@@ -120,7 +120,7 @@ class CreditsState extends ExtendableState {
 		changeSelection(0, false);
 		updateSocial();
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.25);
+		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
 	override function update(elapsed:Float) {

@@ -4,6 +4,7 @@ import flixel.util.typeLimit.OneOfTwo;
 
 class UIContextMenu extends ExtendableSubState {
 	public var options:Array<UIContextMenuOption>;
+
 	var x:Float;
 	var y:Float;
 	var contextCam:FlxCamera;
@@ -44,7 +45,7 @@ class UIContextMenu extends ExtendableSubState {
 		add(bg);
 
 		var lastY:Float = bg.y + 4;
-		for(o in options) {
+		for (o in options) {
 			if (o == null) {
 				var spr = new FlxSprite(bg.x + 8, lastY + 2).makeGraphic(1, 1, -1);
 				spr.alpha = 0.3;
@@ -60,29 +61,30 @@ class UIContextMenu extends ExtendableSubState {
 			add(spr);
 
 			o.button = spr;
-			if (o.onCreate != null) o.onCreate(spr);
+			if (o.onCreate != null)
+				o.onCreate(spr);
 		}
 
 		var maxW = bg.bWidth - 8;
-		for(o in contextMenuOptions)
+		for (o in contextMenuOptions)
 			if (o.bWidth > maxW)
 				maxW = o.bWidth;
 
-		for(o in contextMenuOptions)
+		for (o in contextMenuOptions)
 			o.bWidth = maxW;
-		for(o in separators) {
+		for (o in separators) {
 			o.scale.set(maxW - 8, 1);
 			o.updateHitbox();
 		}
 		bg.bWidth = maxW + 8;
 		bg.bHeight = Std.int(lastY - bg.y + 4);
 
-		if (bg.y + bg.bHeight > FlxG.height && bg.y > FlxG.height*0.5) {
+		if (bg.y + bg.bHeight > FlxG.height && bg.y > FlxG.height * 0.5) {
 			flipped = true;
 			bg.y -= bg.bHeight;
-			for(o in contextMenuOptions)
+			for (o in contextMenuOptions)
 				o.y -= bg.bHeight;
-			for(o in separators)
+			for (o in separators)
 				o.y -= bg.bHeight;
 		}
 	}
@@ -106,7 +108,8 @@ class UIContextMenu extends ExtendableSubState {
 		super.update(elapsed);
 
 		if (FlxG.mouse.wheel != 0.0)
-			scroll = FlxMath.bound(scroll + (FlxG.mouse.wheel * -20.0), !flipped ? 0.0 : -Math.max(bg.bHeight - FlxG.height*0.5, 0.0), flipped ? 0.0 : Math.max(bg.bHeight - FlxG.height*0.5, 0.0));
+			scroll = FlxMath.bound(scroll + (FlxG.mouse.wheel * -20.0), !flipped ? 0.0 : -Math.max(bg.bHeight - FlxG.height * 0.5, 0.0),
+				flipped ? 0.0 : Math.max(bg.bHeight - FlxG.height * 0.5, 0.0));
 
 		contextCam.scroll.y = Utilities.fpsLerp(contextCam.scroll.y, scroll, 0.5);
 		contextCam.alpha = Utilities.fpsLerp(contextCam.alpha, 1, 0.25);
@@ -121,6 +124,7 @@ class UIContextMenu extends ExtendableSubState {
 }
 
 typedef UIContextMenuCallback = UIContextMenu->Int->UIContextMenuOption->Void;
+
 typedef UIContextMenuOption = {
 	var label:String;
 	var ?keybind:Array<FlxKey>;
@@ -152,7 +156,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 
 		if (option.icon != null && option.icon > 0) {
 			icon = new FlxSprite(0, 0).loadGraphic(Paths.image('editor/ui/context-icons'), true, 20, 20);
-			icon.animation.add('icon', [option.icon-1], 0, true);
+			icon.animation.add('icon', [option.icon - 1], 0, true);
 			icon.animation.play('icon');
 		}
 
@@ -163,7 +167,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 		}
 
 		if (option.keybinds != null || option.keybindText != null) {
-			var text = if(option.keybindText == null) {
+			var text = if (option.keybindText == null) {
 				var textKeys:Array<String> = [];
 				for (o in option.keybinds[0]) {
 					if (Std.int(o) > 0) {
@@ -178,19 +182,21 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 			labelKeybind.alpha = 0.75;
 		}
 
-		super(x, y, labelKeybind != null ? Std.int(labelKeybind.x + labelKeybind.frameWidth + 10) : (label.frameWidth + 22), label.frameHeight, 'editor/ui/menu-item');
+		super(x, y, labelKeybind != null ? Std.int(labelKeybind.x + labelKeybind.frameWidth + 10) : (label.frameWidth + 22), label.frameHeight,
+			'editor/ui/menu-item');
 
 		members.push(label);
-		
+
 		if (icon != null)
 			members.push(icon);
 		if (labelKeybind != null)
 			members.push(labelKeybind);
 	}
-	
+
 	public override function draw() {
 		alpha = option.color == null ? (hovered ? 1 : 0) : 1;
-		if (option.color != null) color = hovered ? option.color.getLightened(.4) : option.color;
+		if (option.color != null)
+			color = hovered ? option.color.getLightened(.4) : option.color;
 		label.follow(this, 20, 2);
 		if (icon != null)
 			icon.follow(this, 0, 0);

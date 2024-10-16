@@ -4,13 +4,14 @@ import backend.ui.UIContextMenu.UIContextMenuOption;
 
 class UITopMenu extends UISliceSprite {
 	var options:Array<UIContextMenuOption>;
+
 	public function new(options:Array<UIContextMenuOption>) {
 		this.options = options;
 		super(0, 0, FlxG.width, 25, 'editor/ui/topmenu');
 		scrollFactor.set(0, 0);
 
 		var x:Int = 0;
-		for(o in options) {
+		for (o in options) {
 			var b = new UITopMenuButton(x, 0, this, o.label, o.childs);
 			x += b.bWidth;
 			members.push(b);
@@ -21,10 +22,11 @@ class UITopMenu extends UISliceSprite {
 
 	public override function update(elapsed:Float) {
 		anyMenuOpened = false;
-		for(c in members) if (cast(c, UITopMenuButton).curMenu.contextMenuOpened()) {
-			anyMenuOpened = true;
-			break;
-		}
+		for (c in members)
+			if (cast(c, UITopMenuButton).curMenu.contextMenuOpened()) {
+				anyMenuOpened = true;
+				break;
+			}
 
 		super.update(elapsed);
 
@@ -58,26 +60,27 @@ class UITopMenuButton extends UISliceSprite {
 		label.follow(this, 0, Std.int((bHeight - label.height) / 2));
 		super.update(elapsed);
 
-		if(FlxG.mouse.released) {
-			if(justClosed > 0)
+		if (FlxG.mouse.released) {
+			if (justClosed > 0)
 				justClosed -= 1;
 		}
 
 		var opened = curMenu != null ? curMenu.contextMenuOpened() : false;
 
-		if(opened && FlxG.mouse.justPressed) {
+		if (opened && FlxG.mouse.justPressed) {
 			__rect.x = x;
 			__rect.y = y;
 			__rect.width = bWidth;
 			__rect.height = bHeight;
-			if(UIState.state.isOverlapping(this, __rect)) {
+			if (UIState.state.isOverlapping(this, __rect)) {
 				curMenu.close();
 				justClosed = 2;
 				opened = false;
 			}
 		}
 
-		if (!autoAnim) return;
+		if (!autoAnim)
+			return;
 		alpha = (hovered || opened) ? 1 : 0;
 		framesOffset = opened ? 9 : 0;
 	}
@@ -87,16 +90,13 @@ class UITopMenuButton extends UISliceSprite {
 		if (curMenu != null && curMenu.contextMenuOpened()) {
 			UIState.state.curContextMenu.preventOutOfBoxClickDeletion();
 		} else {
-			if (/*(parent != null && !parent.anyMenuOpened) || */FlxG.mouse.justReleased && justClosed == 0) {
+			if (FlxG.mouse.justReleased && justClosed == 0) {
 				openContextMenu();
 			}
 		}
 	}
 
 	public function openContextMenu() {
-		//if(UIState.state.curContextMenu != null) {
-		//	UIState.state.curContextMenu.close();
-		//}
 		var screenPos = getScreenPosition(null, __lastDrawCameras[0] == null ? FlxG.camera : __lastDrawCameras[0]);
 		curMenu = UIState.state.openContextMenu(contextMenu, null, screenPos.x, screenPos.y + bHeight);
 	}
@@ -109,10 +109,12 @@ class UITopButton extends UITopMenuButton {
 		super(x, y, null, name, null);
 
 	public override function update(elapsed:Float) {
-		justClosed = 0; autoAnim = false;
+		justClosed = 0;
+		autoAnim = false;
 		super.update(elapsed);
 	}
 
 	public override function openContextMenu()
-		if (onClick != null) onClick();
+		if (onClick != null)
+			onClick();
 }

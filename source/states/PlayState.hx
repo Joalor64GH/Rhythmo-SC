@@ -258,7 +258,7 @@ class PlayState extends ExtendableState {
 
 		callOnScripts('update', [elapsed]);
 
-		if (!startingSong && updateTime) 
+		if (!startingSong && updateTime)
 			timeTxt.text = "[" + msToTimestamp(FlxG.sound.music.time) + "/" + msToTimestamp(FlxG.sound.music.length) + "]";
 
 		if (startedCountdown)
@@ -384,21 +384,21 @@ class PlayState extends ExtendableState {
 
 	function inputFunction() {
 		var justPressed:Array<Bool> = [
-			Input.justPressed('left'), 
-			Input.justPressed('down'), 
-			Input.justPressed('up'), 
+			Input.justPressed('left'),
+			Input.justPressed('down'),
+			Input.justPressed('up'),
 			Input.justPressed('right')
 		];
 		var pressed:Array<Bool> = [
-			Input.pressed('left'), 
-			Input.pressed('down'), 
-			Input.pressed('up'), 
+			Input.pressed('left'),
+			Input.pressed('down'),
+			Input.pressed('up'),
 			Input.pressed('right')
 		];
 		var released:Array<Bool> = [
-			Input.justReleased('left'), 
-			Input.justReleased('down'), 
-			Input.justReleased('up'), 
+			Input.justReleased('left'),
+			Input.justReleased('down'),
+			Input.justReleased('up'),
 			Input.justReleased('right')
 		];
 

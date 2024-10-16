@@ -10,7 +10,7 @@ class UICheckbox extends UISprite {
 	public function new(x:Float, y:Float, text:String, checked:Bool = false, w:Int = 0) {
 		super(x, y);
 		loadGraphic(Paths.image('editor/ui/checkbox'), true, 20, 20);
-		for(frame=>name in ["normal", "hover", "pressed", "checkmark"])
+		for (frame => name in ["normal", "hover", "pressed", "checkmark"])
 			animation.add(name, [frame], 0, false);
 
 		this.checked = checked;
@@ -26,15 +26,12 @@ class UICheckbox extends UISprite {
 	}
 
 	public override function update(elapsed:Float) {
-		// ANIMATION HANDLING
 		animation.play(hovered ? (pressed ? "pressed" : "hover") : "normal");
 
-		// CHECKMARK HANDLING
 		check.alpha = checked ? 1 : 0;
 		check.scale.x = Utilities.fpsLerp(check.scale.x, 1, 0.25);
 		check.scale.y = Utilities.fpsLerp(check.scale.y, 1, 0.25);
 
-		// POSITION HANDLING
 		updatePositions();
 
 		super.update(elapsed);
@@ -53,7 +50,6 @@ class UICheckbox extends UISprite {
 	public override function onHovered() {
 		super.onHovered();
 		if (FlxG.mouse.justReleased) {
-			// clicked
 			checked = !checked;
 			check.scale.set(1.25, 1.25);
 

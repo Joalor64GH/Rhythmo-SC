@@ -4,6 +4,7 @@ import backend.FlxTextExt;
 
 class UIText extends FlxTextExt {
 	public var optimized:Bool = false;
+
 	public function new(x, y, w, text, size:Int = 15, color:FlxColor = 0xFFFFFFFF, ?outline:Bool = true) {
 		super(x, y, w, text, size, false);
 		this.color = color;
@@ -21,20 +22,17 @@ class UIText extends FlxTextExt {
 		if (borderStyle == OUTLINE_FAST && optimized) {
 			var iterations:Int = Std.int(borderSize * borderQuality);
 			if (iterations <= 0)
-			{
 				iterations = 1;
-			}
 			var delta:Float = borderSize / iterations;
 
 			applyFormats(_formatAdjusted, true);
 
 			var curDelta:Float = delta;
-			for (i in 0...iterations)
-			{
-				copyTextWithOffset(-curDelta, -curDelta); // upper-left
-				copyTextWithOffset(curDelta * 2, curDelta * 2); // lower-right
+			for (i in 0...iterations) {
+				copyTextWithOffset(-curDelta, -curDelta);
+				copyTextWithOffset(curDelta * 2, curDelta * 2);
 
-				_matrix.translate(-curDelta, -curDelta); // return to center
+				_matrix.translate(-curDelta, -curDelta);
 				curDelta += delta;
 			}
 			return;

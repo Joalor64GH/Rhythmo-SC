@@ -23,6 +23,7 @@ class ModsState extends ExtendableState {
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
+		add(camFollow);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/mods_bg'));
 		bg.scrollFactor.set();
@@ -52,7 +53,7 @@ class ModsState extends ExtendableState {
 
 		changeSelection(0, false);
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.25);
+		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
 	override function update(elapsed:Float) {
