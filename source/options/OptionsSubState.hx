@@ -9,9 +9,6 @@ class OptionsSubState extends ExtendableSubState {
 	var description:FlxText;
 	var camFollow:FlxObject;
 
-	var holdTimer:FlxTimer;
-	var holdDirection:Int = 0;
-
 	public function new() {
 		super();
 
@@ -50,7 +47,7 @@ class OptionsSubState extends ExtendableSubState {
 		var option:Option = new Option("Downscroll", "Makes the arrows go down instead of up.", OptionType.Toggle, SaveData.settings.downScroll);
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 1),
+		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Decimal(0.1, 1, 0.1),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> {
@@ -96,8 +93,6 @@ class OptionsSubState extends ExtendableSubState {
 
 		changeSelection(0, false);
 
-		holdTimer = new FlxTimer();
-
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
@@ -107,8 +102,10 @@ class OptionsSubState extends ExtendableSubState {
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		if (Input.justPressed('right') || Input.justPressed('left'))
-			startHold(Input.justPressed('right') ? 1 : -1);
+		if (Input.justPressed('right') || Input.justPressed('left')) {
+			if (options[curSelected].type != OptionType.Function)
+				changeValue(Input.justPressed('right') ? 1 : -1);
+		}
 
 		if (Input.justPressed('accept')) {
 			final option:Option = options[curSelected];
@@ -151,30 +148,6 @@ class OptionsSubState extends ExtendableSubState {
 				if (txt.ID == curSelected)
 					txt.text = option.toString();
 			});
-		}
-	}
-
-	private function startHold(direction:Int = 0):Void {
-		holdDirection = direction;
-
-		final option:Option = options[curSelected];
-
-		if (option != null) {
-			if (option.type != OptionType.Function)
-				changeValue(holdDirection);
-
-			switch (option.type) {
-				case OptionType.Integer(_, _, _) | OptionType.Decimal(_, _, _):
-					if (!holdTimer.active) {
-						holdTimer.start(0.5, function(timer:FlxTimer):Void {
-							timer.start(0.05, function(timer:FlxTimer):Void {
-								changeValue(holdDirection);
-							}, 0);
-						});
-					}
-				default:
-					// nothing
-			}
 		}
 	}
 }
