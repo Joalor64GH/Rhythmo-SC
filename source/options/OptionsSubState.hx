@@ -15,88 +15,52 @@ class OptionsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		var option:Option = new Option("Antialising", 
-            "If disabled, improves the game's performance at the cost of sharper visuals.", 
-            OptionType.Toggle, 
-            SaveData.settings.antialiasing
-        );
-        options.push(option);
+		var option:Option = new Option("Antialising", "If disabled, improves the game's performance at the cost of sharper visuals.", OptionType.Toggle,
+			SaveData.settings.antialiasing);
+		options.push(option);
 
-        #if desktop
-        var option:Option = new Option("Fullscreen", 
-            "Toggles fullscreen", 
-            OptionType.Toggle, 
-            SaveData.settings.fullscreen
-        );
-        option.onChange = (value:Dynamic) -> {
-            FlxG.fullscreen = value;
-        };
-        options.push(option);
-        #end
+		#if desktop
+		var option:Option = new Option("Fullscreen", "Toggles fullscreen", OptionType.Toggle, SaveData.settings.fullscreen);
+		option.onChange = (value:Dynamic) -> {
+			FlxG.fullscreen = value;
+		};
+		options.push(option);
+		#end
 
-        var option:Option = new Option("Flashing Lights", 
-            "Turn this off if you're photosensitive.", 
-            OptionType.Toggle, 
-            SaveData.settings.flashing
-        );
-        options.push(option);
+		var option:Option = new Option("Flashing Lights", "Turn this off if you're photosensitive.", OptionType.Toggle, SaveData.settings.flashing);
+		options.push(option);
 
-		var option:Option = new Option("Framerate", 
-            "Use LEFT/RIGHT to change the framerate (Max 240).", 
-            OptionType.Integer(60, 240, 10), 
-            SaveData.settings.framerate
-        );
-        option.onChange = (value:Dynamic) -> {
-            Main.updateFramerate(value);
-        };
-        options.push(option);
+		var option:Option = new Option("Framerate", "Use LEFT/RIGHT to change the framerate (Max 240).", OptionType.Integer(60, 240, 10),
+			SaveData.settings.framerate);
+		option.onChange = (value:Dynamic) -> {
+			Main.updateFramerate(value);
+		};
+		options.push(option);
 
-        var option:Option = new Option("FPS Counter", 
-            "Toggles the FPS Display.", 
-            OptionType.Toggle, 
-            SaveData.settings.fpsCounter
-        );
-        option.onChange = (value:Dynamic) -> {
-            if (Main.fpsDisplay != null)
+		var option:Option = new Option("FPS Counter", "Toggles the FPS Display.", OptionType.Toggle, SaveData.settings.fpsCounter);
+		option.onChange = (value:Dynamic) -> {
+			if (Main.fpsDisplay != null)
 				Main.fpsDisplay.visible = value;
-        };
-        options.push(option);
+		};
+		options.push(option);
 
-		var option:Option = new Option("Song Speed", 
-            "Adjust the scroll speed of the notes.", 
-            OptionType.Integer(1, 10, 1), 
-            SaveData.settings.songSpeed
-        );
-        options.push(option);
+		var option:Option = new Option("Song Speed", "Adjust the scroll speed of the notes.", OptionType.Integer(1, 10, 1), SaveData.settings.songSpeed);
+		options.push(option);
 
-        var option:Option = new Option("Downscroll", 
-            "Makes the arrows go down instead of up.", 
-            OptionType.Toggle, 
-            SaveData.settings.downScroll
-        );
-        options.push(option);
+		var option:Option = new Option("Downscroll", "Makes the arrows go down instead of up.", OptionType.Toggle, SaveData.settings.downScroll);
+		options.push(option);
 
-        var option:Option = new Option("Hitsound Volume", 
-            "Changes the volume of the hitsound", 
-            OptionType.Decimal(0.1, 1, 0.1), 
-            SaveData.settings.hitSoundVolume
-        );
-        option.showPercentage = true;
-        options.push(option);
+		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound", OptionType.Decimal(0.1, 1, 0.1),
+			SaveData.settings.hitSoundVolume);
+		option.showPercentage = true;
+		options.push(option);
 
-        var option:Option = new Option("Botplay", 
-            "If enabled, the game plays for you.", 
-            OptionType.Toggle, 
-            SaveData.settings.botPlay
-        );
-        options.push(option);
+		var option:Option = new Option("Botplay", "If enabled, the game plays for you.", OptionType.Toggle, SaveData.settings.botPlay);
+		options.push(option);
 
-        var option:Option = new Option("Anti-mash", 
-            "If enabled, you will get a miss for pressing keys when no notes are present.", 
-            OptionType.Toggle, 
-            SaveData.settings.antiMash
-        );
-        options.push(option);
+		var option:Option = new Option("Anti-mash", "If enabled, you will get a miss for pressing keys when no notes are present.", OptionType.Toggle,
+			SaveData.settings.antiMash);
+		options.push(option);
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);

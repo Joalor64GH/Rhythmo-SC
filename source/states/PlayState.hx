@@ -551,8 +551,8 @@ class PlayState extends ExtendableState {
 		}
 	}
 
-	function checkForAchievement(ach:String):Bool {
-		// nothing
+	function checkForAchievement():Bool {
+		return false; // placeholder for now
 	}
 
 	function endSong() {
