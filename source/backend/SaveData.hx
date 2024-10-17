@@ -2,9 +2,10 @@ package backend;
 
 @:structInit class SaveSettings {
 	public var lang:String = 'en';
+	public var hitSoundType:String = 'Default';
 	public var framerate:Int = 60;
 	public var songSpeed:Int = 2;
-	public var hitSoundVolume:Float = 0;
+	public var hitSoundVolume:Int = 0;
 	public var laneUnderlay:Float = 0;
 	public var perfectWindow:Float = 22.5;
 	public var niceWindow:Float = 45;
@@ -20,6 +21,7 @@ package backend;
 	public var flashing:Bool = true;
 	public var antiMash:Bool = false;
 	public var displayMS:Bool = false;
+	public var smoothScore:Bool = false;
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE, SPACE];
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];
 }

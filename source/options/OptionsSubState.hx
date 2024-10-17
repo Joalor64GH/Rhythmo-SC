@@ -9,10 +9,13 @@ class OptionsSubState extends ExtendableSubState {
 	var description:FlxText;
 	var camFollow:FlxObject;
 
+	var holdTimer:FlxTimer;
+	var holdDirection:Int = 0;
+
 	public function new() {
 		super();
 
-		var option:Option = new Option("Antialising", "If disabled, improves the game's performance at the cost of sharper visuals.", OptionType.Toggle,
+		var option:Option = new Option("Antialiasing", "If disabled, improves the game's performance at the cost of sharper visuals.", OptionType.Toggle,
 			SaveData.settings.antialiasing);
 		options.push(option);
 
@@ -47,9 +50,12 @@ class OptionsSubState extends ExtendableSubState {
 		var option:Option = new Option("Downscroll", "Makes the arrows go down instead of up.", OptionType.Toggle, SaveData.settings.downScroll);
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Decimal(0.1, 1, 0.1),
+		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 1),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
+		option.onChange = (value:Dynamic) -> {
+			FlxG.sound.play(Paths.sound('hitsound'), value / 100);
+		};
 		options.push(option);
 
 		var option:Option = new Option("Botplay", "If enabled, the game plays for you.", OptionType.Toggle, SaveData.settings.botPlay);
@@ -88,7 +94,9 @@ class OptionsSubState extends ExtendableSubState {
 		description.scrollFactor.set();
 		add(description);
 
-		changeSelection();
+		changeSelection(0, false);
+
+		holdTimer = new FlxTimer();
 
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
@@ -99,10 +107,8 @@ class OptionsSubState extends ExtendableSubState {
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		if (Input.justPressed('right') || Input.justPressed('left')) {
-			if (options[curSelected].type != OptionType.Function)
-				changeValue(Input.justPressed('right') ? 1 : -1);
-		}
+		if (Input.justPressed('right') || Input.justPressed('left'))
+			startHold(Input.justPressed('right') ? 1 : -1);
 
 		if (Input.justPressed('accept')) {
 			final option:Option = options[curSelected];
@@ -116,7 +122,9 @@ class OptionsSubState extends ExtendableSubState {
 		}
 	}
 
-	private function changeSelection(change:Int = 0) {
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
@@ -133,6 +141,7 @@ class OptionsSubState extends ExtendableSubState {
 	}
 
 	private function changeValue(direction:Int = 0):Void {
+		FlxG.sound.play(Paths.sound('scroll'));
 		final option:Option = options[curSelected];
 
 		if (option != null) {
@@ -142,6 +151,30 @@ class OptionsSubState extends ExtendableSubState {
 				if (txt.ID == curSelected)
 					txt.text = option.toString();
 			});
+		}
+	}
+
+	private function startHold(direction:Int = 0):Void {
+		holdDirection = direction;
+
+		final option:Option = options[curSelected];
+
+		if (option != null) {
+			if (option.type != OptionType.Function)
+				changeValue(holdDirection);
+
+			switch (option.type) {
+				case OptionType.Integer(_, _, _) | OptionType.Decimal(_, _, _):
+					if (!holdTimer.active) {
+						holdTimer.start(0.5, function(timer:FlxTimer):Void {
+							timer.start(0.05, function(timer:FlxTimer):Void {
+								changeValue(holdDirection);
+							}, 0);
+						});
+					}
+				default:
+					// nothing
+			}
 		}
 	}
 }

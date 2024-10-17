@@ -445,7 +445,7 @@ class PlayState extends ExtendableState {
 				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
 					|| SaveData.settings.botPlay) {
 					if (SaveData.settings.hitSoundVolume > 0)
-						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume);
+						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume / 100);
 
 					var ratingScores:Array<Int> = [350, 200, 100, 50];
 
