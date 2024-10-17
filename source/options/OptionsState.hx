@@ -1,7 +1,7 @@
 package options;
 
 class OptionsState extends ExtendableState {
-	var options:Array<String> = ['General', 'Gameplay', 'Appearance', 'Language', 'Controls'];
+	var options:Array<String> = ['Preferences', 'Controls', 'Language'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
@@ -20,7 +20,7 @@ class OptionsState extends ExtendableState {
 		add(opGrp);
 
 		for (i in 0...options.length) {
-			var text:FlxText = new FlxText(0, 300 + (i * 70), 0, options[i], 32);
+			var text:FlxText = new FlxText(0, 0 + (i * 70), 0, options[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
@@ -39,15 +39,11 @@ class OptionsState extends ExtendableState {
 		if (Input.justPressed('accept')) {
 			switch (curSelected) {
 				case 0:
-					openSubState(new options.submenus.GeneralSubState());
+					openSubState(new options.OptionsSubState());
 				case 1:
-					openSubState(new options.submenus.GameplaySubState());
-				case 2:
-					openSubState(new options.submenus.AppearanceSubState());
-                case 3:
-                    openSubState(new LanguageSubState());
-                case 4:
                     Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be redone!');
+                case 2:
+                    openSubState(new LanguageSubState());
 			}
 		}
 

@@ -7,6 +7,7 @@ class PlayState extends ExtendableState {
 	public static var song:SongData;
 	public static var songMultiplier:Float = 1;
 	public static var chartingMode:Bool = false;
+	public static var gotAchievement:Bool = false;
 
 	public var speed:Float = 1;
 
@@ -548,6 +549,10 @@ class PlayState extends ExtendableState {
 				}
 			}
 		}
+	}
+
+	function checkForAchievement(ach:String):Bool {
+		// nothing
 	}
 
 	function endSong() {

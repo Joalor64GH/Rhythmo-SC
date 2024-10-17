@@ -1,12 +1,14 @@
 package states;
 
+import backend.ui.*;
+
 import backend.Conductor;
 import backend.Song;
 import objects.Note;
 
 import flixel.ui.FlxButton; // temporary
 
-class ChartingState extends ExtendableState {
+class ChartingState extends UIState {
 	public static var instance:ChartingState = null;
 
 	public var song:SongData;
@@ -82,10 +84,10 @@ class ChartingState extends ExtendableState {
 		addSection();
 		updateGrid();
 
-		songInfoText = new FlxText(10, 10, 0, 18);
+		songInfoText = new FlxText(10, 30, 0, 18);
 		add(songInfoText);
 
-		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", () -> {
+		saveButton = new FlxButton(FlxG.width - 110, 30, "Save Chart", () -> {
 			try {
 				var chart:String = Json.stringify(song);
 				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
@@ -96,7 +98,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(saveButton);
 
-		copySectionButton = new FlxButton(FlxG.width - 110, 40, "Copy Section", () -> {
+		copySectionButton = new FlxButton(FlxG.width - 110, 60, "Copy Section", () -> {
 			notesCopied = [];
 			sectionToCopy = curSection;
 			for (i in 0...song.notes[curSection].sectionNotes.length)
@@ -104,7 +106,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(copySectionButton);
 
-		pasteSectionButton = new FlxButton(FlxG.width - 110, 70, "Paste Section", () -> {
+		pasteSectionButton = new FlxButton(FlxG.width - 110, 90, "Paste Section", () -> {
 			if (notesCopied == null || notesCopied.length < 1)
 				return;
 
@@ -120,13 +122,13 @@ class ChartingState extends ExtendableState {
 		});
 		add(pasteSectionButton);
 
-		clearSectionButton = new FlxButton(FlxG.width - 110, 100, "Clear Section", () -> {
+		clearSectionButton = new FlxButton(FlxG.width - 110, 120, "Clear Section", () -> {
 			song.notes[curSection].sectionNotes = [];
 			updateGrid();
 		});
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(FlxG.width - 110, 130, "Clear Song", () -> {
+		clearSongButton = new FlxButton(FlxG.width - 110, 150, "Clear Song", () -> {
 			openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 				for (daSection in 0...song.notes.length)
 					song.notes[daSection].sectionNotes = [];
@@ -141,10 +143,43 @@ class ChartingState extends ExtendableState {
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
 
-		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.1.1 // Functionality is subject to change.', 12);
+		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-BETA // Functionality is subject to change.', 12);
 		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
+
+		add(new UITopMenu([
+			{
+				label: "File",
+				childs: [
+					{
+						label: "New"
+					},
+					{
+						label: "Open"
+					},
+					{
+						label: "Save"
+					},
+					{
+						label: "Save As..."
+					},
+					null,
+					{
+						label: "Exit"
+					}
+				]
+			},
+			{
+				label: "Edit"
+			},
+			{
+				label: "View"
+			},
+			{
+				label: "Help"
+			}
+		]));
 
 		// FlxG.camera.follow(strumLine);
 	}
