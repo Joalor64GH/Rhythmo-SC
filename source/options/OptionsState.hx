@@ -1,7 +1,7 @@
 package options;
 
 class OptionsState extends ExtendableState {
-	var options:Array<String> = ['Preferences', 'Controls', 'Language'];
+	final options:Array<String> = ['Preferences', 'Controls', 'Language', 'Note Colors'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
@@ -9,6 +9,7 @@ class OptionsState extends ExtendableState {
 		super.create();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);
 
@@ -22,6 +23,7 @@ class OptionsState extends ExtendableState {
 		for (i in 0...options.length) {
 			var text:FlxText = new FlxText(0, 270 + (i * 70), 0, options[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.scrollFactor.set();
 			text.screenCenter(X);
 			text.ID = i;
 			opGrp.add(text);
@@ -41,8 +43,8 @@ class OptionsState extends ExtendableState {
 				case 0:
 					openSubState(new options.OptionsSubState());
 					persistentUpdate = persistentDraw = false;
-				case 1:
-                    Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be redone!');
+				case 1 | 3:
+                    Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
                 case 2:
                     openSubState(new LanguageSubState());
 			}
