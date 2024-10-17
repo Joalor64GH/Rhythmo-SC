@@ -47,7 +47,7 @@ class OptionsSubState extends ExtendableSubState {
 		var option:Option = new Option("Downscroll", "Makes the arrows go down instead of up.", OptionType.Toggle, SaveData.settings.downScroll);
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Decimal(0.1, 1, 0.1),
+		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 1),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> {
@@ -114,8 +114,9 @@ class OptionsSubState extends ExtendableSubState {
 		}
 
 		if (Input.justPressed('exit')) {
-			SaveData.saveSettings();
 			close();
+			SaveData.saveSettings();
+			persistentUpdate = persistentDraw = true;
 		}
 	}
 

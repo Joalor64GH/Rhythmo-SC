@@ -40,6 +40,7 @@ class OptionsState extends ExtendableState {
 			switch (curSelected) {
 				case 0:
 					openSubState(new options.OptionsSubState());
+					persistentUpdate = persistentDraw = false;
 				case 1:
                     Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be redone!');
                 case 2:
