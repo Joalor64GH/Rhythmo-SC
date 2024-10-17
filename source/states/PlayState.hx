@@ -4,48 +4,50 @@ import backend.Song.SongData;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState = null;
-	public static var song:SongData;
+	public static var song:SongData = null;
 	public static var songMultiplier:Float = 1;
 	public static var chartingMode:Bool = false;
 	public static var gotAchievement:Bool = false;
 
 	public var speed:Float = 1;
 
-	private var scriptArray:Array<Hscript> = [];
+	public var ratingDisplay:Rating;
+	public var score:Int = 0;
+	public var combo:Int = 0;
+	public var misses:Int = 0;
+	public var scoreTxt:FlxText;
+
+	public var timeBar:Bar;
+	private var timeTxt:FlxText;
+	private var updateTime:Bool = true;
+
+	public var judgementCounter:FlxText;
+	public var perfects:Int = 0;
+	public var nices:Int = 0;
+	public var okays:Int = 0;
+	public var nos:Int = 0;
+
+	public var scriptArray:Array<Hscript> = [];
+
+	public var noteSplashes:FlxTypedGroup<NoteSplash>;
+	public var strumline:FlxTypedGroup<Note>;
+	public var notes:FlxTypedGroup<Note>;
+	public var spawnNotes:Array<Note> = [];
+
+	public var camZooming:Bool = true;
+	public var paused:Bool = false;
+	public var startingSong:Bool = false;
+
+	public var countdown3:FlxSprite;
+	public var countdown2:FlxSprite;
+	public var countdown1:FlxSprite;
+	public var go:FlxSprite;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
-	var noteSplashes:FlxTypedGroup<NoteSplash>;
-	var strumline:FlxTypedGroup<Note>;
-	var notes:FlxTypedGroup<Note>;
-	var spawnNotes:Array<Note> = [];
 
-	var ratingDisplay:Rating;
-	var score:Int = 0;
-	var combo:Int = 0;
-	var misses:Int = 0;
-	var scoreTxt:FlxText;
-
-	var timeBar:Bar;
-	var timeTxt:FlxText;
-	var updateTime:Bool = true;
-
-	var camZooming:Bool = true;
-	var paused:Bool = false;
 	var canPause:Bool = true;
-	var startingSong:Bool = false;
 	var startedCountdown:Bool = false;
-
-	var countdown3:FlxSprite;
-	var countdown2:FlxSprite;
-	var countdown1:FlxSprite;
-	var go:FlxSprite;
-
 	var isPerfect:Bool = true;
-	var judgementCounter:FlxText;
-	var perfects:Int = 0;
-	var nices:Int = 0;
-	var okays:Int = 0;
-	var nos:Int = 0;
 
 	override public function new() {
 		super();
