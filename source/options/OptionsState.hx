@@ -20,7 +20,7 @@ class OptionsState extends ExtendableState {
 		add(opGrp);
 
 		for (i in 0...options.length) {
-			var text:FlxText = new FlxText(0, 0 + (i * 70), 0, options[i], 32);
+			var text:FlxText = new FlxText(0, 270 + (i * 70), 0, options[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
