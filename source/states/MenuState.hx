@@ -16,13 +16,10 @@ class MenuState extends ExtendableState {
 		if (FileSystem.exists(path)) {
 			try {
 				var menuArray:Array<String> = Paths.getText(path);
-				for (i in 0...menuArray.length) {
-					trace('menu options are: ${menuArray[i].split('\n')}');
+				for (i in 0...menuArray.length)
 					selections = menuArray;
-				}
-
-				for (e in 0...selections.length)
-					trace('list of options: ${selections[e].split('\n')}');
+				
+				trace('menu options are: ${menuArray.join(',')}');
 				
 				#if !FUTURE_POLYMOD
 				if (selections.contains('mods'))
@@ -35,6 +32,7 @@ class MenuState extends ExtendableState {
 					#if FUTURE_POLYMOD
 					'mods',
 					#end
+					'awards',
 					'credits',
 					'options',
 					'exit'
@@ -46,6 +44,7 @@ class MenuState extends ExtendableState {
 				#if FUTURE_POLYMOD
 				'mods',
 				#end
+				'awards',
 				'credits',
 				'options',
 				'exit'
@@ -134,6 +133,8 @@ class MenuState extends ExtendableState {
 									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
 								}
 							#end
+							case 'awards':
+								ExtendableState.switchState(new AchievementsState());
 							case 'credits':
 								ExtendableState.switchState(new CreditsState());
 							case 'options':
@@ -159,9 +160,6 @@ class MenuState extends ExtendableState {
 			if (Input.justPressed('u'))
 				ExtendableState.switchState(new UITestState());
 			#end
-
-			if (Input.justPressed('a')) // placeholder for now
-				ExtendableState.switchState(new AchievementsState());
 		}
 	}
 

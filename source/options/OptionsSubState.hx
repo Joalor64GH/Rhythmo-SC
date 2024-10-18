@@ -70,6 +70,10 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.botPlay = value;
 		options.push(option);
 
+		var option:Option = new Option("Millisecond Display", "If enabled, displays your hit time in milliseconds.", OptionType.Toggle, SaveData.settings.displayMS);
+		option.onChange = (value:Dynamic) -> SaveData.settings.displayMS = value;
+		options.push(option);
+
 		var option:Option = new Option("Anti-mash", "If enabled, you will get a miss for pressing keys when no notes are present.", OptionType.Toggle,
 			SaveData.settings.antiMash);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antiMash = value;

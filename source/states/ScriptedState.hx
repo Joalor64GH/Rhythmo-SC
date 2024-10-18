@@ -77,7 +77,12 @@ class ScriptedState extends ExtendableState {
 	}
 
 	function scriptExecute(func:String, args:Array<Dynamic>) {
-		if (script != null)
-			script.executeFunc(func, args);
+		if (script != null) {
+			try {
+				script.executeFunc(func, args);
+			} catch (e:Dynamic) {
+				trace('Error executing $func!\n$e');
+			}
+		}
 	}
 }

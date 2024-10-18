@@ -12,10 +12,13 @@ class PlayState extends ExtendableState {
 	public var speed:Float = 1;
 
 	public var ratingDisplay:Rating;
+	public var smoothScore:Float = 0;
 	public var score:Int = 0;
 	public var combo:Int = 0;
 	public var misses:Int = 0;
 	public var scoreTxt:FlxText;
+
+	public var precisions:Array<FlxText> = [];
 
 	public var timeBar:Bar;
 	private var timeTxt:FlxText;
@@ -213,17 +216,20 @@ class PlayState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('wis_short'));
 			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
 				onComplete: (twn:FlxTween) -> {
-					countdown3.visible = false;
+					remove(countdown3);
+					countdown3.destroy();
 					countdown2.visible = true;
 					FlxG.sound.play(Paths.sound('wis_short'));
 					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet / 1000, {
 						onComplete: (twn:FlxTween) -> {
-							countdown2.visible = false;
+							remove(countdown2);
+							countdown2.destroy();
 							countdown1.visible = true;
 							FlxG.sound.play(Paths.sound('wis_short'));
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
-									countdown1.visible = false;
+									remove(countdown1);
+									countdown1.destroy();
 									go.visible = true;
 									FlxG.sound.play(Paths.sound('wis_long'));
 									strumline.forEachAlive((strum:FlxSprite) -> {
@@ -231,7 +237,8 @@ class PlayState extends ExtendableState {
 									});
 									FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
 										onComplete: (twn:FlxTween) -> {
-											go.visible = false;
+											remove(go);
+											go.destroy();
 										}
 									});
 								}
@@ -279,6 +286,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 
+		var scoreThing = (SaveData.settings.smoothScore) ? Utilities.truncateFloat(smoothScore, 0) : score;
+
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
@@ -286,6 +295,9 @@ class PlayState extends ExtendableState {
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
 			+ misses;
+
+		var scoreMult:Float = FlxMath.lerp(smoothScore, score, 0.108);
+		smoothScore = scoreMult;
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -509,6 +521,13 @@ class PlayState extends ExtendableState {
 
 					var daLoop:Int = 0;
 
+					for (i in precisions) remove(i);
+					var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width, Math.round(Conductor.songPosition - note.strum) + ' ms');
+					precision.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					precision.screenCenter(X);
+					FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
+					precisions.push(precision);
+
 					for (i in seperatedScore) {
 						var numScore:FlxSprite = new FlxSprite(0, 0);
 						numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
@@ -520,6 +539,7 @@ class PlayState extends ExtendableState {
 						numScore.velocity.y -= FlxG.random.int(140, 160);
 						numScore.velocity.x = FlxG.random.float(-5, 5);
 						insert(members.indexOf(strumline), numScore);
+						if (SaveData.settings.displayMS) add(precision);
 
 						FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 							onComplete: (twn:FlxTween) -> {
@@ -535,6 +555,12 @@ class PlayState extends ExtendableState {
 					notes.remove(note);
 					note.kill();
 					note.destroy();
+				}
+
+				if (SaveData.settings.displayMS) {
+					FlxTween.tween(precision, {alpha: 0}, 0.2, {
+						startDelay: Conductor.crochet * 0.001
+					});
 				}
 			}
 
@@ -553,8 +579,36 @@ class PlayState extends ExtendableState {
 		}
 	}
 
-	function checkForAchievement():Bool {
-		return false; // placeholder for now
+	function checkForAchievement(achs:Array<String> = null):String {
+		if (chartingMode || SaveData.settings.botPlay)
+			return null;
+		
+		for (i in 0...achs.length) {
+			var achievementName:String = achs[i];
+			if (Achievements.isUnlocked(achievementName) && !SaveData.settings.botPlay) {
+				var unlock:Bool = false;
+
+				switch (achievementName) {
+					case 'full_combo':
+						if (misses <= 1)
+							unlock = true;
+				}
+
+				if (unlock) {
+					gotAchievement = true;
+					Achievements.unlock(achievementName, {
+						date: Date.now();
+						song: song.song
+					}, () -> {
+						gotAchievement = false;
+						endSong();
+					});
+					return achievementName;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	function endSong() {
