@@ -156,6 +156,9 @@ class MenuState extends ExtendableState {
 			if (Input.justPressed('u'))
 				ExtendableState.switchState(new UITestState());
 			#end
+
+			if (Input.justPressed('a')) // placeholder for now
+				ExtendableState.switchState(new AchievementsState());
 		}
 	}
 

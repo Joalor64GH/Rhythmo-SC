@@ -7,7 +7,7 @@ typedef Bind = {
 
 class Input {
 	public static var binds:Map<String, Bind> = [
-		'left' => {key: [LEFT, D], gamepad: [DPAD_LEFT, LEFT_TRIGGER]},
+		'left' => {key: [LEFT, A], gamepad: [DPAD_LEFT, LEFT_TRIGGER]},
 		'down' => {key: [DOWN, S], gamepad: [DPAD_DOWN, LEFT_SHOULDER]},
 		'up' => {key: [UP, W], gamepad: [DPAD_UP, RIGHT_SHOULDER]},
 		'right' => {key: [RIGHT, D], gamepad: [DPAD_RIGHT, RIGHT_TRIGGER]},
