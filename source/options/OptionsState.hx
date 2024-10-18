@@ -21,7 +21,7 @@ class OptionsState extends ExtendableState {
 		add(opGrp);
 
 		for (i in 0...options.length) {
-			var text:FlxText = new FlxText(0, 270 + (i * 70), 0, options[i], 32);
+			var text:FlxText = new FlxText(0, 260 + (i * 70), 0, options[i], 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.screenCenter(X);
@@ -47,6 +47,7 @@ class OptionsState extends ExtendableState {
                     Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
                 case 2:
                     openSubState(new LanguageSubState());
+					persistentUpdate = persistentDraw = false;
 			}
 		}
 

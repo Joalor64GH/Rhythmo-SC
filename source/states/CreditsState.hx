@@ -59,7 +59,7 @@ class CreditsState extends ExtendableState {
 		add(credsGrp);
 
 		for (i in 0...credData.users.length) {
-			var name:FlxText = new FlxText(20, 60 + (i * 60), 0, credData.users[i].name, 32);
+			var name:FlxText = new FlxText(20, 60 + (i * 80), 0, credData.users[i].name, 32);
 			name.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			name.ID = i;
 			credsGrp.add(name);

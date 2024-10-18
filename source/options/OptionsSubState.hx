@@ -92,7 +92,7 @@ class OptionsSubState extends ExtendableSubState {
 		add(grpOptions);
 
 		for (i in 0...options.length) {
-			var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i].toString(), 32);
+			var optionTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, options[i].toString(), 32);
 			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);

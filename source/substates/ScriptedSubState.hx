@@ -11,9 +11,6 @@ class ScriptedSubState extends ExtendableSubState {
 		
 		instance = this;
 
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		try {
 			if (FileSystem.exists(Paths.script('classes/$path')))
 				path = Paths.script('classes/$path');
@@ -33,6 +30,11 @@ class ScriptedSubState extends ExtendableSubState {
 		scriptExecute('new', []);
 
 		super();
+	}
+
+	override function create() {
+		scriptExecute('create', []);
+		super.create();
 	}
 
 	override function update(elapsed:Float) {

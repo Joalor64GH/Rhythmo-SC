@@ -34,7 +34,7 @@ class ModsState extends ExtendableState {
 		add(daMods);
 
 		for (i in 0...ModHandler.trackedMods.length) {
-			var text:FlxText = new FlxText(20, 60 + (i * 60), ModHandler.trackedMods[i].title, 32);
+			var text:FlxText = new FlxText(20, 60 + (i * 80), ModHandler.trackedMods[i].title, 32);
 			text.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.ID = i;
 			daMods.add(text);

@@ -59,6 +59,8 @@ class MenuState extends ExtendableState {
 			#end
 		}
 
+		persistentUpdate = persistentDraw = true;
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.screenCenter(X);
 		add(camFollow);
