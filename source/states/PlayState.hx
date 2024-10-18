@@ -551,16 +551,16 @@ class PlayState extends ExtendableState {
 						daLoop++;
 					}
 
+					if (SaveData.settings.displayMS) {
+						FlxTween.tween(precision, {alpha: 0}, 0.2, {
+							startDelay: Conductor.crochet * 0.001
+						});
+					}
+
 					note.active = false;
 					notes.remove(note);
 					note.kill();
 					note.destroy();
-				}
-
-				if (SaveData.settings.displayMS) {
-					FlxTween.tween(precision, {alpha: 0}, 0.2, {
-						startDelay: Conductor.crochet * 0.001
-					});
 				}
 			}
 
