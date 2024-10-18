@@ -8,10 +8,7 @@ class ScriptedSubState extends ExtendableSubState {
 	public function new(_path:String = null) {
 		if (_path != null)
 			path = _path;
-		super();
-	}
-
-	override function create() {
+		
 		instance = this;
 
 		Paths.clearStoredMemory();
@@ -33,9 +30,9 @@ class ScriptedSubState extends ExtendableSubState {
 			ExtendableState.switchState(new TitleState());
 		}
 
-		scriptExecute('create', []);
+		scriptExecute('new', []);
 
-		super.create();
+		super();
 	}
 
 	override function update(elapsed:Float) {
