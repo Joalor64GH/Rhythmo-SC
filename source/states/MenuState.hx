@@ -20,6 +20,9 @@ class MenuState extends ExtendableState {
 					trace('menu options are: ${menuArray[i].split('\n')}');
 					selections = menuArray;
 				}
+
+				for (e in 0...selections.length)
+					trace('list of options: ${selections[e].split('\n')}');
 				
 				#if !FUTURE_POLYMOD
 				if (selections.contains('mods'))
@@ -58,8 +61,6 @@ class MenuState extends ExtendableState {
 			ModsState.mustResetMusic = false;
 			#end
 		}
-
-		persistentUpdate = persistentDraw = true;
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.screenCenter(X);

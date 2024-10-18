@@ -5,7 +5,7 @@ class ScriptedSubState extends ExtendableSubState {
 	public var script:Hscript = null;
 	public static var instance:ScriptedSubState = null;
 
-	public function new(_path:String = null) {
+	public function new(_path:String = null, ?args:Array<Dynamic>) {
 		if (_path != null)
 			path = _path;
 		
@@ -27,7 +27,7 @@ class ScriptedSubState extends ExtendableSubState {
 			ExtendableState.switchState(new TitleState());
 		}
 
-		scriptExecute('new', []);
+		scriptExecute('new', (args != null) ? args : []);
 
 		super();
 	}

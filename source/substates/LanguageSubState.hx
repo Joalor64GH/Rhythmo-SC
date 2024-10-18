@@ -7,6 +7,10 @@ class LanguageSubState extends ExtendableSubState {
 	var group:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
+	var bg:FlxSprite;
+	var title:FlxText;
+	var noticeTxt:FlxText;
+
 	public function new() {
 		super();
 
@@ -24,7 +28,7 @@ class LanguageSubState extends ExtendableSubState {
 			langStrings.push(new Locale(data[0], data[1]));
 		}
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.screenCenter();
 		add(bg);
 
@@ -32,7 +36,7 @@ class LanguageSubState extends ExtendableSubState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
+		title = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		title.screenCenter(X);
 		add(title);
@@ -48,7 +52,7 @@ class LanguageSubState extends ExtendableSubState {
 			group.add(text);
 		}
 
-		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
+		noticeTxt = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
 		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);
@@ -58,6 +62,10 @@ class LanguageSubState extends ExtendableSubState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		bg.screenCenter();
+		title.screenCenter(X);
+		noticeTxt.screenCenter(X);
 
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
