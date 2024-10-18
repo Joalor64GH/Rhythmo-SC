@@ -9,7 +9,6 @@ class AchievementsState extends ExtendableState {
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
 	var curSelected:Int = 0;
-
 	var camFollow:FlxObject;
 
 	override function create() {
@@ -45,7 +44,7 @@ class AchievementsState extends ExtendableState {
 
 			isUnlocked.push(unlocked);
 
-			var text:FlxText = new FlxText(20, 60 + (i * 60), stringToUse, 32);
+			var text:FlxText = new FlxText(20, 60 + (i * 80), stringToUse, 32);
 			text.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.ID = i;
 			achievementGrp.add(text);
@@ -62,7 +61,7 @@ class AchievementsState extends ExtendableState {
 		description.scrollFactor.set();
 		add(description);
 
-		changeSelection();
+		changeSelection(0, false);
 
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
@@ -73,11 +72,15 @@ class AchievementsState extends ExtendableState {
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-		if (Input.justPressed('exit'))
+		if (Input.justPressed('exit')) {
+			FlxG.sound.play(Paths.sound('cancel'));
 			ExtendableState.switchState(new MenuState());
+		}
 	}
 
-	function changeSelection(change:Int = 0) {
+	function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, achievementArray.length - 1);
 
 		achievementGrp.forEach(function(txt:FlxText) {
