@@ -597,7 +597,7 @@ class PlayState extends ExtendableState {
 				if (unlock) {
 					gotAchievement = true;
 					Achievements.unlock(achievementName, {
-						date: Date.now();
+						date: Date.now(),
 						song: song.song
 					}, () -> {
 						gotAchievement = false;
