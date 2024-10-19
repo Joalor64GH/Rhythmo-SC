@@ -62,12 +62,20 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
 		options.push(option);
 
+		var option:Option = new Option("Hitsound Type", "Only works if the hitsound volume isn't at 0.", OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']),
+			SaveData.settings.hitSoundType);
+		option.onChange = (value:Dynamic) -> {
+			SaveData.settings.hitSoundType = value;
+			FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType));
+		};
+		options.push(option);
+
 		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 1),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.hitSoundVolume = value;
-			FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume / 100);
+			FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType), SaveData.settings.hitSoundVolume / 100);
 		};
 		options.push(option);
 

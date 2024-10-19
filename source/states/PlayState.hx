@@ -269,6 +269,9 @@ class PlayState extends ExtendableState {
 	}
 
 	override function update(elapsed:Float) {
+		var scoreMult:Float = FlxMath.lerp(smoothScore, score, 0.108);
+		smoothScore = scoreMult;
+
 		super.update(elapsed);
 
 		if (paused)
@@ -303,9 +306,6 @@ class PlayState extends ExtendableState {
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
 			+ misses;
-
-		var scoreMult:Float = FlxMath.lerp(smoothScore, score, 0.108);
-		smoothScore = scoreMult;
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -467,7 +467,7 @@ class PlayState extends ExtendableState {
 				if ((justPressed[Utilities.getNoteIndex(note.dir)] && !doNotHit[Utilities.getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
 					|| SaveData.settings.botPlay) {
 					if (SaveData.settings.hitSoundVolume > 0)
-						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume / 100);
+						FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType), SaveData.settings.hitSoundVolume / 100);
 
 					var ratingScores:Array<Int> = [350, 200, 100, 50];
 
