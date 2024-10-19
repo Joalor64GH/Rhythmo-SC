@@ -619,7 +619,7 @@ class PlayState extends ExtendableState {
 		for (i in 0...rankConditions.length) {
 			var b = rankConditions[i];
 			if (b) {
-				switch(i) {
+				switch (i) {
 					case 0:
 						rank = "P";
 					case 1:
@@ -638,7 +638,8 @@ class PlayState extends ExtendableState {
 				break;
 			}
 		}
-		else if (accuracy == 0 || SaveData.settings.botPlay)
+
+		if (accuracy == 0 || SaveData.settings.botPlay)
 			rank = "?";
 	}
 
