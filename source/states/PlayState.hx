@@ -605,7 +605,7 @@ class PlayState extends ExtendableState {
 			accuracy = 100;
 	}
 
-	function generateRank() {
+	function generateRank():String {
 		var rankConditions:Array<Bool> = [
 			accuracy >= 100, // P
 			accuracy >= 95, // S
@@ -641,6 +641,8 @@ class PlayState extends ExtendableState {
 
 		if (accuracy == 0 || SaveData.settings.botPlay)
 			rank = "?";
+
+		return rank;
 	}
 
 	function checkForAchievement(achs:Array<String> = null):String {
