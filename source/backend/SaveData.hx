@@ -6,7 +6,7 @@ package backend;
 	public var framerate:Int = 60;
 	public var songSpeed:Int = 2;
 	public var hitSoundVolume:Int = 0;
-	public var laneUnderlay:Float = 0;
+	public var laneUnderlay:Int = 0;
 	public var perfectWindow:Float = 22.5;
 	public var niceWindow:Float = 45;
 	public var okayWindow:Float = 90;

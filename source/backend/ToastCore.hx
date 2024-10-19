@@ -5,9 +5,6 @@ import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-/**
-	@author Firubii
-**/
 class ToastCore extends Sprite {
 	public static final ENTER_TIME:Float = 0.5;
 	public static final DISPLAY_TIME:Float = 3.0;

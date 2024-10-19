@@ -11,6 +11,5 @@
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
 * [ ] Accuracy + Ranking
-* [ ] "Note Sustains"
 * [ ] Better Charting UI
 * [ ] Song Selector Editor

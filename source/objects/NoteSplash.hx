@@ -1,6 +1,9 @@
 package objects;
 
 class NoteSplash extends GameSprite {
+	public var colorSwap:ColorSwap;
+	public var noteColor:Array<Int> = [255, 0, 0];
+
 	public function setupSplash(x:Float = 0, y:Float = 0, noteData:Int = 0) {
 		setPosition(x, y);
 
@@ -10,6 +13,17 @@ class NoteSplash extends GameSprite {
 
 		animation.add("splash", [0], 1);
 		animation.play("splash");
+
+		colorSwap = new ColorSwap();
+		shader = colorSwap.shader;
+
+		noteColor = NoteColors.getNoteColor(Utilities.getNoteIndex(Utilities.getDirection(noteData)));
+
+		if (colorSwap != null && noteColor != null) {
+			colorSwap.r = noteColor[0];
+			colorSwap.g = noteColor[1];
+			colorSwap.b = noteColor[2];
+		}
 	}
 
 	override function update(elapsed:Float) {

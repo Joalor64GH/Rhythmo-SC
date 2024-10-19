@@ -46,6 +46,9 @@ class PlayState extends ExtendableState {
 	public var countdown1:FlxSprite;
 	public var go:FlxSprite;
 
+	public var coolBG:FlxSprite;
+	public var bg:FlxSprite;
+
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
 	var canPause:Bool = true;
@@ -87,8 +90,13 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		bg = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
 		add(bg);
+
+		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
+		coolBG.alpha = SaveData.settings.laneUnderlay / 100;
+		coolBG.screenCenter(X);
+		if (coolBG.alpha > 0) add(coolBG);
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -213,25 +221,25 @@ class PlayState extends ExtendableState {
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
 			countdown3.visible = true;
-			FlxG.sound.play(Paths.sound('wis_short'));
+			FlxG.sound.play(Paths.sound('cDown3'));
 			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
 				onComplete: (twn:FlxTween) -> {
 					remove(countdown3);
 					countdown3.destroy();
 					countdown2.visible = true;
-					FlxG.sound.play(Paths.sound('wis_short'));
+					FlxG.sound.play(Paths.sound('cDown2'));
 					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet / 1000, {
 						onComplete: (twn:FlxTween) -> {
 							remove(countdown2);
 							countdown2.destroy();
 							countdown1.visible = true;
-							FlxG.sound.play(Paths.sound('wis_short'));
+							FlxG.sound.play(Paths.sound('cDown1'));
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
 									remove(countdown1);
 									countdown1.destroy();
 									go.visible = true;
-									FlxG.sound.play(Paths.sound('wis_long'));
+									FlxG.sound.play(Paths.sound('cDownGo'));
 									strumline.forEachAlive((strum:FlxSprite) -> {
 										FlxTween.tween(strum, {angle: 360}, Conductor.crochet / 1000 * 2, {ease: FlxEase.cubeInOut});
 									});
