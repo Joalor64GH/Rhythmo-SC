@@ -433,6 +433,7 @@ class PlayState extends ExtendableState {
 					score -= 10;
 					combo = 0;
 					misses++;
+					totalPlayed++;
 					updateAccuracy();
 				}
 			}
@@ -511,7 +512,6 @@ class PlayState extends ExtendableState {
 						case "no":
 							score += ratingScores[3];
 							isPerfect = false;
-							totalNotesHit++;
 							nos++;
 					}
 
@@ -569,11 +569,13 @@ class PlayState extends ExtendableState {
 						});
 					}
 
+					totalPlayed++;
+					updateAccuracy();
+
 					note.active = false;
 					notes.remove(note);
 					note.kill();
 					note.destroy();
-					updateAccuracy();
 				}
 			}
 
@@ -586,7 +588,6 @@ class PlayState extends ExtendableState {
 						notes.remove(note);
 						note.kill();
 						note.destroy();
-						updateAccuracy();
 					}
 				}
 			}
@@ -594,8 +595,8 @@ class PlayState extends ExtendableState {
 	}
 
 	function updateAccuracy() {
-		totalPlayed++;
-		accuracy = Math.max(0, totalNotesHit / totalPlayed * 100);
+		// prevent divide by 0
+		accuracy = (totalPlayed > 0) ? (totalNotesHit / totalPlayed) * 100 : 0;
 	}
 
 	function generateRank():String {
