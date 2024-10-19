@@ -13,6 +13,7 @@ class PlayState extends ExtendableState {
 
 	public var ratingDisplay:Rating;
 	public var smoothScore:Float = 0;
+	public var accuracy:Float = 0;
 	public var score:Int = 0;
 	public var combo:Int = 0;
 	public var misses:Int = 0;
@@ -49,8 +50,12 @@ class PlayState extends ExtendableState {
 	public var coolBG:FlxSprite;
 	public var bg:FlxSprite;
 
+	private var totalNotesHit:Int = 0;
+	private var totalNotes:Int = 0;
+
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
+	var rank:String = "";
 	var canPause:Bool = true;
 	var startedCountdown:Bool = false;
 	var isPerfect:Bool = true;
@@ -302,10 +307,10 @@ class PlayState extends ExtendableState {
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
-			+ score
+			+ scoreThing
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
-			+ misses;
+			+ misses + ' // Accuracy: ${Utilities.truncateFloat(accuracy, 2)}%' + ' (${generateRank()})';
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -496,18 +501,22 @@ class PlayState extends ExtendableState {
 					switch (curRating) {
 						case "perfect" | "perfect-golden":
 							score += ratingScores[0];
+							totalNotesHit++;
 							perfects++;
 						case "nice":
 							score += ratingScores[1];
 							isPerfect = false;
+							totalNotesHit++;
 							nices++;
 						case "okay":
 							score += ratingScores[2];
 							isPerfect = false;
+							totalNotesHit++;
 							okays++;
 						case "no":
 							score += ratingScores[3];
 							isPerfect = false;
+							totalNotesHit++;
 							nos++;
 					}
 
@@ -584,7 +593,53 @@ class PlayState extends ExtendableState {
 					}
 				}
 			}
+
+			updateAccuracy();
 		}
+	}
+
+	function updateAccuracy() {
+		totalNotes++;
+		accuracy = totalNotesHit / totalNotes * 100;
+		if (accuracy >= 100.00)
+			accuracy = 100;
+	}
+
+	function generateRank() {
+		var rankConditions:Array<Bool> = [
+			accuracy >= 100, // P
+			accuracy >= 95, // S
+			accuracy >= 90, // A
+			accuracy >= 80, // B
+			accuracy >= 70, // C
+			accuracy >= 60, // D
+			accuracy >= 50 // F
+		];
+
+		for (i in 0...rankConditions.length) {
+			var b = rankConditions[i];
+			if (b) {
+				switch(i) {
+					case 0:
+						rank = "P";
+					case 1:
+						rank = "S";
+					case 2:
+						rank = "A";
+					case 3:
+						rank = "B";
+					case 4:
+						rank = "C";
+					case 5:
+						rank = "D";
+					case 6:
+						rank = "F";
+				}
+				break;
+			}
+		}
+		else if (accuracy == 0 || SaveData.settings.botPlay)
+			rank = "?";
 	}
 
 	function checkForAchievement(achs:Array<String> = null):String {
