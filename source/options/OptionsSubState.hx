@@ -87,10 +87,6 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.displayMS = value;
 		options.push(option);
 
-		var option:Option = new Option("Smooth Score", "If enabled, uses the scoring system in FNF 0.3.X.", OptionType.Toggle, SaveData.settings.smoothScore);
-		option.onChange = (value:Dynamic) -> SaveData.settings.smoothScore = value;
-		options.push(option);
-
 		var option:Option = new Option("Anti-mash", "If enabled, you will get a miss for pressing keys when no notes are present.", OptionType.Toggle,
 			SaveData.settings.antiMash);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antiMash = value;

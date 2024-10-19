@@ -12,7 +12,6 @@ class PlayState extends ExtendableState {
 	public var speed:Float = 1;
 
 	public var ratingDisplay:Rating;
-	public var smoothScore:Float = 0;
 	public var accuracy:Float = 0;
 	public var score:Int = 0;
 	public var combo:Int = 0;
@@ -50,12 +49,12 @@ class PlayState extends ExtendableState {
 	public var coolBG:FlxSprite;
 	public var bg:FlxSprite;
 
+	public var rank:String = "";
 	private var totalNotesHit:Int = 0;
-	private var totalNotes:Int = 0;
+	private var totalPlayed:Int = 0;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
-	var rank:String = "";
 	var canPause:Bool = true;
 	var startedCountdown:Bool = false;
 	var isPerfect:Bool = true;
@@ -138,7 +137,7 @@ class PlayState extends ExtendableState {
 		}
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font('vcr.ttf'), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
 
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
@@ -274,9 +273,6 @@ class PlayState extends ExtendableState {
 	}
 
 	override function update(elapsed:Float) {
-		var scoreMult:Float = FlxMath.lerp(smoothScore, score, 0.108);
-		smoothScore = scoreMult;
-
 		super.update(elapsed);
 
 		if (paused)
@@ -302,12 +298,10 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		var scoreThing = (SaveData.settings.smoothScore) ? Utilities.truncateFloat(smoothScore, 0) : score;
-
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
-			+ scoreThing
+			+ score
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
 			+ misses + ' // Accuracy: ${Utilities.truncateFloat(accuracy, 2)}%' + ' (${generateRank()})';
@@ -439,6 +433,7 @@ class PlayState extends ExtendableState {
 					score -= 10;
 					combo = 0;
 					misses++;
+					updateAccuracy();
 				}
 			}
 		}
@@ -578,6 +573,7 @@ class PlayState extends ExtendableState {
 					notes.remove(note);
 					note.kill();
 					note.destroy();
+					updateAccuracy();
 				}
 			}
 
@@ -590,19 +586,16 @@ class PlayState extends ExtendableState {
 						notes.remove(note);
 						note.kill();
 						note.destroy();
+						updateAccuracy();
 					}
 				}
 			}
-
-			updateAccuracy();
 		}
 	}
 
 	function updateAccuracy() {
-		totalNotes++;
-		accuracy = totalNotesHit / totalNotes * 100;
-		if (accuracy >= 100.00)
-			accuracy = 100;
+		totalPlayed++;
+		accuracy = Math.max(0, totalNotesHit / totalPlayed * 100);
 	}
 
 	function generateRank():String {

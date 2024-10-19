@@ -1,18 +1,14 @@
-package substates;
+package options;
 
 import backend.Localization.Locale;
 
-class LanguageSubState extends ExtendableSubState {
+class LanguageState extends ExtendableState {
 	var langStrings:Array<Locale> = [];
 	var group:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
-	var bg:FlxSprite;
-	var title:FlxText;
-	var noticeTxt:FlxText;
-
-	public function new() {
-		super();
+	override function create() {
+		super.create();
 
 		var initLangString = Paths.getText(Paths.txt('languages/languagesData'));
 
@@ -28,7 +24,7 @@ class LanguageSubState extends ExtendableSubState {
 			langStrings.push(new Locale(data[0], data[1]));
 		}
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.screenCenter();
 		add(bg);
 
@@ -36,7 +32,7 @@ class LanguageSubState extends ExtendableSubState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		title = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
+		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		title.screenCenter(X);
 		add(title);
@@ -52,7 +48,7 @@ class LanguageSubState extends ExtendableSubState {
 			group.add(text);
 		}
 
-		noticeTxt = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
+		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
 		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);
@@ -63,23 +59,19 @@ class LanguageSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		bg.screenCenter();
-		title.screenCenter(X);
-		noticeTxt.screenCenter(X);
-
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
 		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound("cancel"));
-			close();
+			ExtendableState.switchState(new OptionsState());
 		}
 
 		if (Input.justPressed('accept')) {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();
-			ExtendableState.resetState();
+			ExtendableState.switchState(new OptionsState());
 		}
 	}
 
