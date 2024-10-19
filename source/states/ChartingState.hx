@@ -243,7 +243,7 @@ class ChartingState extends UIState {
 						&& (Math.floor((gridBG.x + FlxG.mouse.x / gridSize) - 2)) == note.rawNoteData && coolNess) {
 						coolNess = false;
 
-						if (FlxG.keys.pressed.CONTROL)
+						if (Input.pressed('control'))
 							selectNote(note);
 						else {
 							trace("trying to delete note");
@@ -315,7 +315,7 @@ class ChartingState extends UIState {
 
 	function deleteNote(note:Note):Void {
 		for (sectionNote in song.notes[curSection].sectionNotes)
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(note.dir))
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == Utilities.getNoteIndex(note.dir))
 				song.notes[curSection].sectionNotes.remove(sectionNote);
 
 		updateGrid();
@@ -325,7 +325,7 @@ class ChartingState extends UIState {
 		var swagNum:Int = 0;
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == getNoteIndex(note.dir)) {
+			if (sectionNote.noteStrum == note.strum && sectionNote.noteData % 4 == Utilities.getNoteIndex(note.dir)) {
 				curSelectedNote = sectionNote;
 			}
 
@@ -344,7 +344,7 @@ class ChartingState extends UIState {
 		renderedNotes.clear();
 
 		for (sectionNote in song.notes[curSection].sectionNotes) {
-			var direction:String = getDirection(sectionNote.noteData % 4);
+			var direction:String = Utilities.getDirection(sectionNote.noteData % 4);
 			var note:Note = new Note(0, 0, direction, "note");
 
 			note.setGraphicSize(gridSize, gridSize);
@@ -459,29 +459,9 @@ class ChartingState extends UIState {
 		return daPos;
 	}
 
-	function loadJson(song:String):Void { // will be used in later update
+	function loadJson(song:String):Void {
 		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
 		ExtendableState.resetState();
-	}
-
-	function getDirection(index:Int):String {
-		return switch (index) {
-			case 0: "left";
-			case 1: "down";
-			case 2: "up";
-			case 3: "right";
-			default: "unknown";
-		}
-	}
-
-	function getNoteIndex(direction:String):Int {
-		return switch (direction) {
-			case "left": 0;
-			case "down": 1;
-			case "up": 2;
-			case "right": 3;
-			default: -1;
-		}
 	}
 
 	function undo() {

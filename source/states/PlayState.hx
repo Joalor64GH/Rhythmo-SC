@@ -310,7 +310,7 @@ class PlayState extends ExtendableState {
 		}
 
 		for (note in notes) {
-			var strum = strumline.members[getNoteIndex(note.dir)];
+			var strum = strumline.members[Utilities.getNoteIndex(note.dir)];
 
 			if (SaveData.settings.downScroll)
 				note.y = strum.y + (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
@@ -456,7 +456,7 @@ class PlayState extends ExtendableState {
 			for (i in 0...possibleNotes.length) {
 				var note = possibleNotes[i];
 
-				if ((justPressed[getNoteIndex(note.dir)] && !doNotHit[getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
+				if ((justPressed[Utilities.getNoteIndex(note.dir)] && !doNotHit[Utilities.getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
 					|| SaveData.settings.botPlay) {
 					if (SaveData.settings.hitSoundVolume > 0)
 						FlxG.sound.play(Paths.sound('hitsound'), SaveData.settings.hitSoundVolume / 100);
@@ -480,10 +480,10 @@ class PlayState extends ExtendableState {
 					if (Math.abs(noteMs) > 135)
 						curRating = 'no';
 
-					noteDataTimes[getNoteIndex(note.dir)] = note.strum;
-					doNotHit[getNoteIndex(note.dir)] = true;
+					noteDataTimes[Utilities.getNoteIndex(note.dir)] = note.strum;
+					doNotHit[Utilities.getNoteIndex(note.dir)] = true;
 
-					strumline.members[getNoteIndex(note.dir)].press();
+					strumline.members[Utilities.getNoteIndex(note.dir)].press();
 
 					switch (curRating) {
 						case "perfect" | "perfect-golden":
@@ -505,7 +505,7 @@ class PlayState extends ExtendableState {
 
 					if (curRating == 'perfect' || curRating == 'perfect-golden') {
 						var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
-						splash.setupSplash(note.x, note.y, getNoteIndex(note.dir));
+						splash.setupSplash(note.x, note.y, Utilities.getNoteIndex(note.dir));
 						noteSplashes.add(splash);
 					}
 
@@ -568,7 +568,7 @@ class PlayState extends ExtendableState {
 				for (i in 0...possibleNotes.length) {
 					var note = possibleNotes[i];
 
-					if (note.strum == noteDataTimes[getNoteIndex(note.dir)] && doNotHit[getNoteIndex(note.dir)]) {
+					if (note.strum == noteDataTimes[Utilities.getNoteIndex(note.dir)] && doNotHit[Utilities.getNoteIndex(note.dir)]) {
 						note.active = false;
 						notes.remove(note);
 						note.kill();
@@ -662,16 +662,6 @@ class PlayState extends ExtendableState {
 
 	function sortStuff(Obj1:Note, Obj2:Note):Int
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strum, Obj2.strum);
-
-	function getNoteIndex(direction:String):Int {
-		return switch (direction) {
-			case "left": 0;
-			case "down": 1;
-			case "up": 2;
-			case "right": 3;
-			default: -1;
-		}
-	}
 
 	function msToTimestamp(ms:Float) {
 		var seconds = Math.round(ms) / 1000;

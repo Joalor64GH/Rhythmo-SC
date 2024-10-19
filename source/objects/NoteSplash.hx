@@ -4,7 +4,7 @@ class NoteSplash extends GameSprite {
 	public function setupSplash(x:Float = 0, y:Float = 0, noteData:Int = 0) {
 		setPosition(x, y);
 
-		loadGraphic(Paths.image('gameplay/splash_${getDirection(noteData)}'), true, 200, 200);
+		loadGraphic(Paths.image('gameplay/splash_${Utilities.getDirection(noteData)}'), true, 200, 200);
 		scale.set(0.6, 0.6);
 		alpha = 0.6;
 
@@ -23,15 +23,5 @@ class NoteSplash extends GameSprite {
 		}
 
 		super.update(elapsed);
-	}
-
-	function getDirection(index:Int):String {
-		return switch (index) {
-			case 0: "left";
-			case 1: "down";
-			case 2: "up";
-			case 3: "right";
-			default: "unknown";
-		}
 	}
 }

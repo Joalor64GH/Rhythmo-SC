@@ -15,6 +15,8 @@ class Note extends GameSprite {
 
 	public var strum:Float = 0.0;
 
+	public var colorSwap:ColorSwap;
+
 	public function new(x:Float, y:Float, dir:String, type:String) {
 		super(x, y);
 
@@ -29,6 +31,17 @@ class Note extends GameSprite {
 		animation.add("receptor", [2], 1);
 
 		animation.play((type == 'receptor') ? "receptor" : "note");
+
+		colorSwap = new ColorSwap();
+		shader = colorSwap.shader;
+
+		var noteColor = NoteColors.getNoteColor(Utilities.getNoteIndex(dir));
+
+		if (colorSwap != null && noteColor != null) {
+			colorSwap.r = noteColor[0];
+			colorSwap.g = noteColor[1];
+			colorSwap.b = noteColor[2];
+		}
 	}
 
 	public function press() {
