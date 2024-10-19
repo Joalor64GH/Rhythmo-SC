@@ -16,6 +16,7 @@ class PlayState extends ExtendableState {
 	public var score:Int = 0;
 	public var combo:Int = 0;
 	public var misses:Int = 0;
+	public var hits:Int = 0;
 	public var scoreTxt:FlxText;
 
 	public var precisions:Array<FlxText> = [];
@@ -50,8 +51,6 @@ class PlayState extends ExtendableState {
 	public var bg:FlxSprite;
 
 	public var rank:String = "";
-	private var totalNotesHit:Int = 0;
-	private var totalPlayed:Int = 0;
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
@@ -298,13 +297,14 @@ class PlayState extends ExtendableState {
 			}
 		}
 
+		accuracy = Utilities.boundTo(Math.floor((score * 100) / ((hits + misses) * 3.5)) * 0.01, 0, 100);
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
 			+ score
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
-			+ misses + ' // Accuracy: ${Utilities.truncateFloat(accuracy, 2)}%' + ' (${generateRank()})';
+			+ misses + ' // Accuracy: $accuracy%' + ' (${generateRank()})';
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -433,8 +433,6 @@ class PlayState extends ExtendableState {
 					score -= 10;
 					combo = 0;
 					misses++;
-					totalPlayed++;
-					updateAccuracy();
 				}
 			}
 		}
@@ -497,17 +495,14 @@ class PlayState extends ExtendableState {
 					switch (curRating) {
 						case "perfect" | "perfect-golden":
 							score += ratingScores[0];
-							totalNotesHit++;
 							perfects++;
 						case "nice":
 							score += ratingScores[1];
 							isPerfect = false;
-							totalNotesHit++;
 							nices++;
 						case "okay":
 							score += ratingScores[2];
 							isPerfect = false;
-							totalNotesHit++;
 							okays++;
 						case "no":
 							score += ratingScores[3];
@@ -525,6 +520,7 @@ class PlayState extends ExtendableState {
 					ratingDisplay.screenCenter(X);
 
 					combo++;
+					hits++;
 
 					var comboSplit:Array<String> = Std.string(combo).split('');
 					var seperatedScore:Array<Int> = [];
@@ -569,9 +565,6 @@ class PlayState extends ExtendableState {
 						});
 					}
 
-					totalPlayed++;
-					updateAccuracy();
-
 					note.active = false;
 					notes.remove(note);
 					note.kill();
@@ -592,11 +585,6 @@ class PlayState extends ExtendableState {
 				}
 			}
 		}
-	}
-
-	function updateAccuracy() {
-		// prevent divide by 0
-		accuracy = (totalPlayed > 0) ? (totalNotesHit / totalPlayed) * 100 : 0;
 	}
 
 	function generateRank():String {
