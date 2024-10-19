@@ -11,7 +11,7 @@ class NoteColors {
 	];
 
 	public static function setNoteColor(note:Int, color:Array<Int>):Void {
-		noteColors[note] = color;;
+		noteColors[note] = color;
 		SaveData.settings.notesRGB[note] = color;
         SaveData.saveSettings();
 	}
