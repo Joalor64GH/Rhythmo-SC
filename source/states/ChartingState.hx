@@ -162,7 +162,7 @@ class ChartingState extends UIState {
 					},
 					{
 						label: "Save",
-						onSelect: () -> {
+						onSelect: (t) -> {
 							try {
 								var chart:String = Json.stringify(song);
 								File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
