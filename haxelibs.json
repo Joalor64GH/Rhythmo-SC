@@ -32,8 +32,8 @@
       "name": "funkin.vis",
       "type": "git",
       "dir": null,
-      "ref": "main",
-      "url": "https://github.com/beihu235/funkVis-FrequencyFixed"
+      "ref": "38261833590773cb1de34ac5d11e0825696fc340",
+      "url": "https://github.com/FunkinCrew/funkVis"
     },
     {
       "name": "grig.audio",
@@ -46,25 +46,25 @@
       "name": "polymod",
       "type": "haxelib"
     },
-		{
-			"name": "thx.core",
-			"type": "git",
-			"ref": "master",
-			"url": "https://github.com/fponticelli/thx.core.git"
-		},
-		{
-			"name": "thx.semver",
-			"type": "haxelib"
-		},
-		{
-			"name": "jsonpath",
-			"type": "git",
-			"ref": "main",
-			"url": "https://github.com/EliteMasterEric/jsonpath.git"
-		},
-		{
-			"name": "jsonpatch",
-			"type": "haxelib"
-		}
+    {
+      "name": "thx.core",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/fponticelli/thx.core.git"
+    },
+    {
+      "name": "thx.semver",
+      "type": "haxelib"
+    },
+    {
+      "name": "jsonpath",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/EliteMasterEric/jsonpath.git"
+    },
+    {
+      "name": "jsonpatch",
+      "type": "haxelib"
+    }
   ]
 }
