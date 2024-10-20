@@ -24,7 +24,7 @@ class AudioDisplay extends FlxSpriteGroup {
 		_height = Height;
 		@:privateAccess
 		if (snd != null) {
-			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1 + Math.abs(0.05 * (4 - ClientPrefs.data.audioDisplayQuality))), 1, 5);
+			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1 + Math.abs(0.05 * 4)), 1, 5);
 			analyzer.fftN = 256;
 		}
 	}
@@ -54,8 +54,8 @@ class AudioDisplay extends FlxSpriteGroup {
 	function addAnalyzer(snd:FlxSound) {
 		@:privateAccess
 		if (snd != null && analyzer == null) {
-			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1 + Math.abs(0.05 * (4 - ClientPrefs.data.audioDisplayQuality))), 1, 5);
-			analyzer.fftN = 256 * ClientPrefs.data.audioDisplayQuality;
+			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1 + Math.abs(0.05 * 4)), 1, 5);
+			analyzer.fftN = 256;
 		}
 	}
 
