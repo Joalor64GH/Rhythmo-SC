@@ -595,7 +595,7 @@ class PlayState extends ExtendableState {
 			accuracy >= 80, // B
 			accuracy >= 70, // C
 			accuracy >= 60, // D
-			accuracy >= 50 // F
+			accuracy <= 60 // F
 		];
 
 		for (i in 0...rankConditions.length) {

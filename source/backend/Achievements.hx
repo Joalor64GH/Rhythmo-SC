@@ -8,7 +8,7 @@ typedef AchievementData = {
 
 typedef AchievementStats = {
 	public var date:Date;
-    public var song:String;
+	public var song:String;
 }
 
 class Achievements {

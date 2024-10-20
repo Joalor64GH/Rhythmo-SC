@@ -171,7 +171,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 				var textKeys:Array<String> = [];
 				for (o in option.keybinds[0]) {
 					if (Std.int(o) > 0) {
-						textKeys.push(o.toString());
+						textKeys.push(o.toUIString());
 					}
 				}
 				textKeys.join("+");

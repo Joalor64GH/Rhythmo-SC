@@ -1,12 +1,14 @@
 package states;
 
 import backend.ui.*;
-
 import backend.Conductor;
 import backend.Song;
 import objects.Note;
-
 import flixel.ui.FlxButton; // temporary
+
+import openfl.events.Event;
+import openfl.events.IOErrorEvent;
+import openfl.net.FileReference;
 
 class ChartingState extends UIState {
 	public static var instance:ChartingState = null;
@@ -160,6 +162,15 @@ class ChartingState extends UIState {
 					},
 					{
 						label: "Save"
+						onSelect: () -> {
+							try {
+								var chart:String = Json.stringify(song);
+								File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
+								trace("chart saved!\nsaved path: " + Paths.formatToSongPath(song.song));
+							} catch (e:Dynamic) {
+								trace("Error while saving chart: " + e);
+							}
+						}
 					},
 					{
 						label: "Save As..."
@@ -172,6 +183,23 @@ class ChartingState extends UIState {
 			},
 			{
 				label: "Edit"
+				childs: [
+					{
+						label: "Copy Section"
+						keybind: [CONTROL, C]
+					},
+					{
+						label: "Paste Section"
+						keybind: [CONTROL, V]
+					},
+					{
+						label: "Clear Section"
+					},
+					null,
+					{
+						label: "Clear Song"
+					}
+				]
 			},
 			{
 				label: "View"
