@@ -161,7 +161,7 @@ class ChartingState extends UIState {
 						label: "Open"
 					},
 					{
-						label: "Save"
+						label: "Save",
 						onSelect: () -> {
 							try {
 								var chart:String = Json.stringify(song);
