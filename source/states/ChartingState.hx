@@ -182,7 +182,7 @@ class ChartingState extends UIState {
 				]
 			},
 			{
-				label: "Edit"
+				label: "Edit",
 				childs: [
 					{
 						label: "Copy Section"
