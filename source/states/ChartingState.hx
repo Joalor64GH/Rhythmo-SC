@@ -185,11 +185,11 @@ class ChartingState extends UIState {
 				label: "Edit",
 				childs: [
 					{
-						label: "Copy Section"
+						label: "Copy Section",
 						keybind: [CONTROL, C]
 					},
 					{
-						label: "Paste Section"
+						label: "Paste Section",
 						keybind: [CONTROL, V]
 					},
 					{
