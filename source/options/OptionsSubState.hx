@@ -150,6 +150,7 @@ class OptionsSubState extends ExtendableSubState {
 
 		if (Input.justPressed('exit')) {
 			SaveData.saveSettings();
+			persistentDraw = persistentUpdate = true;
 			close();
 		}
 	}

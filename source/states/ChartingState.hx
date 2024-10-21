@@ -546,9 +546,9 @@ class ChartingState extends UIState {
 		trace("Problem saving song");
 	}
 
-	function undo() {
+	function undo(_) {
 		undos.pop();
 	}
 
-	function redo() {}
+	function redo(_) {}
 }
