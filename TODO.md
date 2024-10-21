@@ -3,13 +3,14 @@
 * [ ] Maybe a few more songs
 * [ ] Replay System
 * [X] Achievements **[WIP]**
-* [ ] Results **[WIP]**
-* [ ] RGB Notes + Note Coloring **[WIP]**
+* [X] Results
+* [ ] Note Coloring Menu **[WIP]**
 * [X] Improve controls system
 * [X] Simple source code reorganization
 * [ ] Hit window options
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
-* [ ] Accuracy + Ranking **[WIP]**
+* [X] Accuracy + Ranking
 * [ ] Better Charting UI **[WIP]**
 * [ ] Song Selector Editor
+* [ ] New Controls Menu

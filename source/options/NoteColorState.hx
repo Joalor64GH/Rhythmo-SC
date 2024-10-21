@@ -1,6 +1,8 @@
 package options;
 
 class NoteColorState extends ExtendableState {
+	var daText:FlxText;
+
     var strumline:FlxTypedGroup<Note>;
     var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
@@ -34,17 +36,47 @@ class NoteColorState extends ExtendableState {
 
 		for (i in 0...noteDirs.length) {
 			var note:Note = new Note(startX + i * noteWidth, 50, noteDirs[i], "note");
+			note.ID = i;
 			strumline.add(note);
 		}
+
+		daText = new FlxText(0, 280, FlxG.width, "Use LEFT/RIGHT to change the selected arrow or the selected color.\nUse ENTER to select a note.\nUse RESET to reset a note's color.", 12);
+		daText.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		daText.screenCenter(X);
+		add(daText);
     }
 
     override function update(elapsed:Float) {
 		super.update(elapsed);
 
         if (Input.justPressed('exit')) {
-            SaveData.saveSettings();
-			ExtendableState.switchState(new OptionsState());
-			FlxG.sound.play(Paths.sound('cancel'));
+			if (isSelectingSomething)
+				isSelectingSomething = false;
+			else {
+            	SaveData.saveSettings();
+				ExtendableState.switchState(new OptionsState());
+				FlxG.sound.play(Paths.sound('cancel'));
+			}
+		}
+
+		if (!isSelectingSomething && (Input.justPressed('left') || Input.justPressed('right'))) {
+			if (Input.justPressed('left'))
+				curSelectedControl--:
+			if (Input.justPressed('right'))
+				curSelectedControl++;
+
+			if (curSelectedControl < 0)
+				curSelectedControl = 3;
+			if (curSelectedControl > 3)
+				curSelectedControl = 0;
+		}
+
+		for (note in strumline) {
+			if (note.ID == curSelectedControl && Input.justPressed('accept') && !isSelectingSomething) {
+				curSelectedControl = note.ID;
+				isSelectingSomething = true;
+			}
+			note.alpha = (note.ID == curSelectedControl) ? 1 : 0.6;
 		}
 	}
 }

@@ -169,7 +169,7 @@ class ChartingState extends UIState {
 							try {
 								var chart:String = Json.stringify(song);
 								File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-								trace("chart saved!\nsaved path: " + Paths.formatToSongPath(song.song));
+								trace("chart saved!\nsaved path: " + Paths.chart(Paths.formatToSongPath(song.song)));
 							} catch (e:Dynamic) {
 								trace("Error while saving chart: " + e);
 							}
@@ -190,7 +190,7 @@ class ChartingState extends UIState {
 								_file.addEventListener(Event.COMPLETE, onSaveComplete);
 								_file.addEventListener(Event.CANCEL, onSaveCancel);
 								_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-								_file.save(data.trim(), _song.song.toLowerCase() + ".json");
+								_file.save(data.trim(), Paths.formatToSongPath(song.song) + ".json");
 							}
 						}
 					},
@@ -206,10 +206,12 @@ class ChartingState extends UIState {
 					{
 						label: "Undo",
 						keybind: [CONTROL, Z]
+						onSelect: undo
 					},
 					{
 						label: "Redo",
 						keybind: [CONTROL, Y]
+						onSelect: redo
 					},
 					null,
 					{

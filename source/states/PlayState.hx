@@ -297,7 +297,7 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		accuracy = Utilities.boundTo(Math.floor((score * 100) / ((hits + misses) * 3.5)) * 0.01, 0, 100);
+		accuracy = (!SaveData.settings.botPlay) ? Utilities.boundTo(Math.floor((score * 100) / ((hits + misses) * 3.5)) * 0.01, 0, 100) : 0;
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
 		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
 			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
@@ -667,10 +667,14 @@ class PlayState extends ExtendableState {
 				openChartEditor();
 				return;
 			}
-			ExtendableState.switchState(new SongSelectState());
-			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			if (!SaveData.settings.botPlay)
 				HighScore.saveScore(song.song, score);
+			new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
+				persistentUpdate = true;
+				openSubState(new ResultsSubState(rank, score, accuracy));
+			});
+			// ExtendableState.switchState(new SongSelectState());
+			// FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			canPause = false;
 		}
 	}
