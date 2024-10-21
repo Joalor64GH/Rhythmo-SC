@@ -17,13 +17,15 @@ class PlayState extends ExtendableState {
 	public var combo:Int = 0;
 	public var misses:Int = 0;
 	public var hits:Int = 0;
+	public var rank:String = "";
 	public var scoreTxt:FlxText;
 
 	public var precisions:Array<FlxText> = [];
 
 	public var timeBar:Bar;
+	public var updateTime:Bool = true;
+
 	private var timeTxt:FlxText;
-	private var updateTime:Bool = true;
 
 	public var judgementCounter:FlxText;
 	public var perfects:Int = 0;
@@ -49,8 +51,6 @@ class PlayState extends ExtendableState {
 
 	public var coolBG:FlxSprite;
 	public var bg:FlxSprite;
-
-	public var rank:String = "";
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
@@ -99,7 +99,8 @@ class PlayState extends ExtendableState {
 		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
 		coolBG.alpha = SaveData.settings.laneUnderlay / 100;
 		coolBG.screenCenter(X);
-		if (coolBG.alpha > 0) add(coolBG);
+		if (coolBG.alpha > 0)
+			add(coolBG);
 
 		strumline = new FlxTypedGroup<Note>();
 		add(strumline);
@@ -304,7 +305,9 @@ class PlayState extends ExtendableState {
 			+ score
 			+ ' // '
 			+ Localization.get("missTxt", SaveData.settings.lang)
-			+ misses + ' // Accuracy: $accuracy%' + ' (${generateRank()})';
+			+ misses
+			+ ' // Accuracy: $accuracy%'
+			+ ' (${generateRank()})';
 
 		if (spawnNotes.length > 0) {
 			while (spawnNotes.length > 0 && spawnNotes[0].strum - Conductor.songPosition < (1500 * songMultiplier)) {
@@ -463,7 +466,9 @@ class PlayState extends ExtendableState {
 			for (i in 0...possibleNotes.length) {
 				var note = possibleNotes[i];
 
-				if ((justPressed[Utilities.getNoteIndex(note.dir)] && !doNotHit[Utilities.getNoteIndex(note.dir)] && !SaveData.settings.botPlay)
+				if ((justPressed[Utilities.getNoteIndex(note.dir)]
+					&& !doNotHit[Utilities.getNoteIndex(note.dir)]
+					&& !SaveData.settings.botPlay)
 					|| SaveData.settings.botPlay) {
 					if (SaveData.settings.hitSoundVolume > 0)
 						FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType), SaveData.settings.hitSoundVolume / 100);
@@ -529,8 +534,10 @@ class PlayState extends ExtendableState {
 
 					var daLoop:Int = 0;
 
-					for (i in precisions) remove(i);
-					var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width, Math.round(Conductor.songPosition - note.strum) + ' ms');
+					for (i in precisions)
+						remove(i);
+					var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
+						Math.round(Conductor.songPosition - note.strum) + ' ms');
 					precision.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					precision.screenCenter(X);
 					FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
@@ -547,7 +554,8 @@ class PlayState extends ExtendableState {
 						numScore.velocity.y -= FlxG.random.int(140, 160);
 						numScore.velocity.x = FlxG.random.float(-5, 5);
 						insert(members.indexOf(strumline), numScore);
-						if (SaveData.settings.displayMS) add(precision);
+						if (SaveData.settings.displayMS)
+							add(precision);
 
 						FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 							onComplete: (twn:FlxTween) -> {
@@ -630,7 +638,7 @@ class PlayState extends ExtendableState {
 	function checkForAchievement(achs:Array<String> = null):String {
 		if (chartingMode || SaveData.settings.botPlay)
 			return null;
-		
+
 		for (i in 0...achs.length) {
 			var achievementName:String = achs[i];
 			if (Achievements.isUnlocked(achievementName) && !SaveData.settings.botPlay) {

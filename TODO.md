@@ -4,7 +4,7 @@
 * [ ] Replay System
 * [X] Achievements **[WIP]**
 * [X] Results
-* [ ] Note Coloring Menu **[WIP]**
+* [X] Note Coloring Menu
 * [X] Improve controls system
 * [X] Simple source code reorganization
 * [ ] Hit window options
