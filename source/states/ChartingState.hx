@@ -58,6 +58,8 @@ class ChartingState extends UIState {
 	var undos = [];
 	var redos = [];
 
+	var _file:FileReference;
+
 	override function create() {
 		super.create();
 
@@ -93,7 +95,7 @@ class ChartingState extends UIState {
 			try {
 				var chart:String = Json.stringify(song);
 				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-				trace("chart saved!\nsaved path: " + Paths.formatToSongPath(song.song));
+				trace("chart saved!\nsaved path: " + Paths.chart(Paths.formatToSongPath(song.song)));
 			} catch (e:Dynamic) {
 				trace("Error while saving chart: " + e);
 			}
@@ -162,6 +164,7 @@ class ChartingState extends UIState {
 					},
 					{
 						label: "Save",
+						keybind: [CONTROL, S],
 						onSelect: (t) -> {
 							try {
 								var chart:String = Json.stringify(song);
@@ -173,7 +176,23 @@ class ChartingState extends UIState {
 						}
 					},
 					{
-						label: "Save As..."
+						label: "Save As...",
+						keybind: [CONTROL, SHIFT, S],
+						onSelect: (_) -> {
+							var json = {
+								"song": song
+							};
+
+							var data:String = Json.stringify(json);
+
+							if ((data != null) && (data.length > 0)) {
+								_file = new FileReference();
+								_file.addEventListener(Event.COMPLETE, onSaveComplete);
+								_file.addEventListener(Event.CANCEL, onSaveCancel);
+								_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+								_file.save(data.trim(), _song.song.toLowerCase() + ".json");
+							}
+						}
 					},
 					null,
 					{
@@ -184,6 +203,15 @@ class ChartingState extends UIState {
 			{
 				label: "Edit",
 				childs: [
+					{
+						label: "Undo",
+						keybind: [CONTROL, Z]
+					},
+					{
+						label: "Redo",
+						keybind: [CONTROL, Y]
+					},
+					null,
 					{
 						label: "Copy Section",
 						keybind: [CONTROL, C]
@@ -490,6 +518,30 @@ class ChartingState extends UIState {
 	function loadJson(song:String):Void {
 		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
 		ExtendableState.resetState();
+	}
+
+	function onSaveComplete(_):Void {
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+		trace("Successfully saved song.");
+	}
+
+	function onSaveCancel(_):Void {
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+	}
+
+	function onSaveError(_):Void
+	{
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+		trace("Problem saving song");
 	}
 
 	function undo() {
