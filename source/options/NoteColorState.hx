@@ -73,10 +73,10 @@ class NoteColorState extends ExtendableState {
 			}
 		}
 
-		if (!isSelectingSomething && (Input.justPressed('left') || Input.justPressed('right'))) {
-			if (Input.justPressed('left'))
+		if (!isSelectingSomething && (Input.pressed('left') || Input.pressed('right'))) {
+			if (Input.pressed('left'))
 				curSelectedControl--;
-			if (Input.justPressed('right'))
+			if (Input.pressed('right'))
 				curSelectedControl++;
 
 			if (curSelectedControl < 0)
@@ -87,10 +87,10 @@ class NoteColorState extends ExtendableState {
 			updateColorVals();
 		}
 
-		if (isSelectingSomething && (Input.justPressed('up') || Input.justPressed('down'))) {
-			if (Input.justPressed('up'))
+		if (isSelectingSomething && (Input.pressed('up') || Input.pressed('down'))) {
+			if (Input.pressed('up'))
 				curColorVals[curSelectedValue]++;
-			if (Input.justPressed('down'))
+			if (Input.pressed('down'))
 				curColorVals[curSelectedValue]--;
 
 			if (curColorVals[curSelectedValue] < colorMins[curSelectedValue])
@@ -110,10 +110,10 @@ class NoteColorState extends ExtendableState {
 			NoteColors.setNoteColor(curSelectedControl, curColorVals);
 		}
 
-		if (isSelectingSomething && (Input.justPressed('left') || Input.justPressed('right'))) {
-			if (Input.justPressed('left'))
+		if (isSelectingSomething && (Input.pressed('left') || Input.pressed('right'))) {
+			if (Input.pressed('left'))
 				curSelectedValue--;
-			if (Input.justPressed('right'))
+			if (Input.pressed('right'))
 				curSelectedValue++;
 
 			if (curSelectedValue < 0)

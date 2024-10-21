@@ -22,12 +22,21 @@ class ResultsSubState extends ExtendableSubState {
 		rankSpr.alpha = 0;
 		if (rank != "?") add(rankSpr);
 
-		rankTxt = new FlxText(0, 0, FlxG.width, "RESULTS\nScore: " + score + "\nAccuracy: " + accuracy, 12);
+		rankSpr.angle = -4;
+
+		new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
+			if (rankSpr.angle == -4)
+				tweens.push(FlxTween.angle(rankSpr, rankSpr.angle, 4, 4, {ease: FlxEase.quartInOut}));
+			if (rankSpr.angle == 4)
+				tweens.push(FlxTween.angle(rankSpr, rankSpr.angle, -4, 4, {ease: FlxEase.quartInOut}));
+		}, 0);
+
+		rankTxt = new FlxText(10, 300, FlxG.width, "RESULTS\nScore: " + score + "\nAccuracy: " + accuracy + "%", 12);
 		rankTxt.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		rankTxt.alpha = 0;
 		add(rankTxt);
 
-		anyKeyTxt = new FlxText(5, FlxG.height - 24, 0, "PRESS ANY KEY TO CONTINUE.", 12);
+		anyKeyTxt = new FlxText(10, 380, 0, "PRESS ANY KEY TO CONTINUE.", 12);
 		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		anyKeyTxt.alpha = 0;
 		add(anyKeyTxt);

@@ -22,8 +22,16 @@ package backend;
 	public var antiMash:Bool = false;
 	public var displayMS:Bool = false;
 	public var notesRGB:Array<Array<Int>> = [[221, 0, 255], [0, 128, 255], [0, 215, 54], [255, 0, 106]];
-	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE, SPACE];
-	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];
+	public var keyboardBinds:Array<Array<FlxKey>> = [[LEFT, A], [DOWN, S], [UP, W], [RIGHT, D], [ENTER], [ESCAPE], [R]];
+	public var gamepadBinds:ArrayArray<<FlxGamepadInputID>> = [
+		[DPAD_LEFT, LEFT_TRIGGER],
+		[DPAD_DOWN, LEFT_SHOULDER],
+		[DPAD_UP, RIGHT_SHOULDER],
+		[DPAD_RIGHT, RIGHT_TRIGGER],
+		[A, START],
+		[B, BACK],
+		[RIGHT_STICK_CLICK]
+	];
 }
 
 class SaveData {
@@ -36,7 +44,7 @@ class SaveData {
 
 		if (Main.fpsDisplay != null)
 			Main.fpsDisplay.visible = settings.fpsCounter;
-		
+
 		Main.updateFramerate(settings.framerate);
 	}
 
