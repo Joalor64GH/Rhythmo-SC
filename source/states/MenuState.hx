@@ -155,11 +155,6 @@ class MenuState extends ExtendableState {
 			if (Input.justPressed('seven'))
 				ExtendableState.switchState(new EditorState());
 			#end
-
-			#if debug
-			if (Input.justPressed('u'))
-				ExtendableState.switchState(new UITestState());
-			#end
 		}
 	}
 

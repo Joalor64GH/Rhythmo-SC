@@ -43,6 +43,8 @@ class ChartingState extends ExtendableState {
 	var songInfoText:FlxText;
 
 	var saveButton:FlxButton;
+	var saveAsButton:FlxButton;
+	
 	var clearSectionButton:FlxButton;
 	var clearSongButton:FlxButton;
 
