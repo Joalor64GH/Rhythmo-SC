@@ -205,12 +205,12 @@ class ChartingState extends UIState {
 				childs: [
 					{
 						label: "Undo",
-						keybind: [CONTROL, Z]
+						keybind: [CONTROL, Z],
 						onSelect: undo
 					},
 					{
 						label: "Redo",
-						keybind: [CONTROL, Y]
+						keybind: [CONTROL, Y],
 						onSelect: redo
 					},
 					null,
