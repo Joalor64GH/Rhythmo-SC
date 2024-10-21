@@ -13,14 +13,6 @@ import flixel.graphics.frames.FlxFramesCollection;
 
 using haxe.io.Path;
 
-enum SpriteSheetType {
-	ASEPRITE;
-	PACKER;
-	SPARROW;
-	TEXTURE_PATCHER_JSON;
-	TEXTURE_PATCHER_XML;
-}
-
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
@@ -190,18 +182,12 @@ class Paths {
 	inline static public function imageAlt(key:String)
 		return file('images/$key.png');
 
-	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
-		if (type == null)
-			type = SPARROW;
+	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
+		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
+			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
 
-		return switch (type) {
-			case ASEPRITE: FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
-			case PACKER: FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
-			case SPARROW: FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
-			case TEXTURE_PATCHER_JSON: FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
-			case TEXTURE_PATCHER_XML: FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
-			default: FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
-		}
+		trace('oops! couldnt find $key!');
+		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 	}
 
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {
