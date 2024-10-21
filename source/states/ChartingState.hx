@@ -276,7 +276,7 @@ class ChartingState extends UIState {
 		}
 
 		if (Input.justPressed('z') && Input.pressed('control'))
-			undo();
+			undo(_);
 
 		if (FlxG.mouse.x > gridBG.x
 			&& FlxG.mouse.x < gridBG.x + gridBG.width
