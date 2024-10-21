@@ -13,6 +13,14 @@ import flixel.graphics.frames.FlxFramesCollection;
 
 using haxe.io.Path;
 
+enum SpriteSheetType {
+	ASEPRITE;
+	PACKER;
+	SPARROW;
+	TEXTURE_PATCHER_JSON;
+	TEXTURE_PATCHER_XML;
+}
+
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
@@ -182,61 +190,18 @@ class Paths {
 	inline static public function imageAlt(key:String)
 		return file('images/$key.png');
 
-	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
-		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
-			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
+	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
+		if (type == null)
+			type = SPARROW;
 
-		trace('oops! couldnt find $key!');
-		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
-	}
-
-	inline static public function getSparrowAtlasAlt(key:String)
-		return FlxAtlasFrames.fromSparrow('$key.png', '$key.xml');
-
-	inline static public function getPackerAtlas(key:String, ?cache:Bool = true)
-		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt('images/$key'));
-
-	inline static public function getPackerAtlasAlt(key:String, ?cache:Bool = true)
-		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic(key, cache), txt(key));
-
-	public static function getFrames(key:String, assetsPath:Bool = false) {
-		if (tempFramesCache.exists(key)) {
-			var frames = tempFramesCache[key];
-			if (frames.parent != null && frames.parent.bitmap != null && frames.parent.bitmap.readable)
-				return frames;
-			else
-				tempFramesCache.remove(key);
+		return switch (type) {
+			case ASEPRITE: FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
+			case PACKER: FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
+			case SPARROW: FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
+			case TEXTURE_PATCHER_JSON: FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
+			case TEXTURE_PATCHER_XML: FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
+			default: FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 		}
-		return tempFramesCache[key] = loadFrames(assetsPath ? key : Paths.imageAlt(key));
-	}
-
-	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
-		var noExt = Path.withoutExtension(path);
-
-		if (Assets.exists('$noExt/1.png')) {
-			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$noExt/mult');
-			var frames = MultiFramesCollection.findFrame(graphic);
-			if (frames != null)
-				return frames;
-
-			trace("no frames yet for multiple atlases!!");
-			var cur = 1;
-			var finalFrames = new MultiFramesCollection(graphic);
-			while (Assets.exists('$noExt/$cur.png')) {
-				var spr = loadFrames('$noExt/$cur.png');
-				finalFrames.addFrames(spr);
-				cur++;
-			}
-			return finalFrames;
-		} else if (Assets.exists('$noExt.xml')) {
-			return Paths.getSparrowAtlasAlt(noExt);
-		} else if (Assets.exists('$noExt.txt'))
-			return Paths.getPackerAtlasAlt(noExt);
-
-		var graph:FlxGraphic = FlxG.bitmap.add(path, Unique, Key);
-		if (graph == null)
-			return null;
-		return graph.imageFrame;
 	}
 
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {

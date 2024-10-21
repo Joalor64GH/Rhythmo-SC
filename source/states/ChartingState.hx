@@ -1,16 +1,14 @@
 package states;
 
-import backend.ui.*;
 import backend.Conductor;
 import backend.Song;
 import objects.Note;
-import flixel.ui.FlxButton; // temporary
 
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
 
-class ChartingState extends UIState {
+class ChartingState extends ExtendableState {
 	public static var instance:ChartingState = null;
 
 	public var song:SongData;
@@ -88,10 +86,10 @@ class ChartingState extends UIState {
 		addSection();
 		updateGrid();
 
-		songInfoText = new FlxText(10, 30, 0, 18);
+		songInfoText = new FlxText(10, 10, 0, 18);
 		add(songInfoText);
 
-		saveButton = new FlxButton(FlxG.width - 110, 30, "Save Chart", () -> {
+		saveButton = new FlxButton(FlxG.width - 110, 10, "Save Chart", () -> {
 			try {
 				var chart:String = Json.stringify(song);
 				File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
@@ -102,7 +100,24 @@ class ChartingState extends UIState {
 		});
 		add(saveButton);
 
-		copySectionButton = new FlxButton(FlxG.width - 110, 60, "Copy Section", () -> {
+		saveAsButton = new FlxButton(FlxG.width - 110, 30, "Save Chart As", () -> {
+			var json = {
+				"song": song
+			};
+
+			var data:String = Json.stringify(json);
+
+			if ((data != null) && (data.length > 0)) {
+				_file = new FileReference();
+				_file.addEventListener(Event.COMPLETE, onSaveComplete);
+				_file.addEventListener(Event.CANCEL, onSaveCancel);
+				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+				_file.save(data.trim(), Paths.formatToSongPath(song.song) + ".json");
+			}
+		});
+		add(saveAsButton);
+
+		copySectionButton = new FlxButton(FlxG.width - 110, 70, "Copy Section", () -> {
 			notesCopied = [];
 			sectionToCopy = curSection;
 			for (i in 0...song.notes[curSection].sectionNotes.length)
@@ -110,7 +125,7 @@ class ChartingState extends UIState {
 		});
 		add(copySectionButton);
 
-		pasteSectionButton = new FlxButton(FlxG.width - 110, 90, "Paste Section", () -> {
+		pasteSectionButton = new FlxButton(FlxG.width - 110, 100, "Paste Section", () -> {
 			if (notesCopied == null || notesCopied.length < 1)
 				return;
 
@@ -126,13 +141,13 @@ class ChartingState extends UIState {
 		});
 		add(pasteSectionButton);
 
-		clearSectionButton = new FlxButton(FlxG.width - 110, 120, "Clear Section", () -> {
+		clearSectionButton = new FlxButton(FlxG.width - 110, 130, "Clear Section", () -> {
 			song.notes[curSection].sectionNotes = [];
 			updateGrid();
 		});
 		add(clearSectionButton);
 
-		clearSongButton = new FlxButton(FlxG.width - 110, 150, "Clear Song", () -> {
+		clearSongButton = new FlxButton(FlxG.width - 110, 160, "Clear Song", () -> {
 			openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 				for (daSection in 0...song.notes.length)
 					song.notes[daSection].sectionNotes = [];
@@ -151,91 +166,6 @@ class ChartingState extends UIState {
 		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
-
-		add(new UITopMenu([
-			{
-				label: "File",
-				childs: [
-					{
-						label: "New"
-					},
-					{
-						label: "Open"
-					},
-					{
-						label: "Save",
-						keybind: [CONTROL, S],
-						onSelect: (t) -> {
-							try {
-								var chart:String = Json.stringify(song);
-								File.saveContent(Paths.chart(Paths.formatToSongPath(song.song)), chart);
-								trace("chart saved!\nsaved path: " + Paths.chart(Paths.formatToSongPath(song.song)));
-							} catch (e:Dynamic) {
-								trace("Error while saving chart: " + e);
-							}
-						}
-					},
-					{
-						label: "Save As...",
-						keybind: [CONTROL, SHIFT, S],
-						onSelect: (_) -> {
-							var json = {
-								"song": song
-							};
-
-							var data:String = Json.stringify(json);
-
-							if ((data != null) && (data.length > 0)) {
-								_file = new FileReference();
-								_file.addEventListener(Event.COMPLETE, onSaveComplete);
-								_file.addEventListener(Event.CANCEL, onSaveCancel);
-								_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-								_file.save(data.trim(), Paths.formatToSongPath(song.song) + ".json");
-							}
-						}
-					},
-					null,
-					{
-						label: "Exit"
-					}
-				]
-			},
-			{
-				label: "Edit",
-				childs: [
-					{
-						label: "Undo",
-						keybind: [CONTROL, Z]
-					},
-					{
-						label: "Redo",
-						keybind: [CONTROL, Y]
-					},
-					null,
-					{
-						label: "Copy Section",
-						keybind: [CONTROL, C]
-					},
-					{
-						label: "Paste Section",
-						keybind: [CONTROL, V]
-					},
-					{
-						label: "Clear Section"
-					},
-					null,
-					{
-						label: "Clear Song"
-					}
-				]
-			},
-			{
-				label: "View"
-			},
-			{
-				label: "Help"
-			}
-		]));
 
 		// FlxG.camera.follow(strumLine);
 	}

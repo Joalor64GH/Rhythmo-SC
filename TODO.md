@@ -10,6 +10,5 @@
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
-* [ ] Better Charting UI **[WIP]**
 * [ ] Song Selector Editor
 * [ ] New Controls Menu **WIP**
