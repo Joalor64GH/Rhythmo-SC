@@ -8,6 +8,7 @@ import sys.io.Process;
 import backend.ALConfig;
 #end
 
+import openfl.system.System;
 import debug.FPS;
 
 #if linux
@@ -33,6 +34,26 @@ class Main extends openfl.display.Sprite {
 		#if windows
 		WindowsAPI.darkMode(true);
 		#end
+
+		FlxG.signals.preStateSwitch.add(() ->{
+			#if cpp
+			cpp.NativeGc.run(true);
+			cpp.NativeGc.enable(true);
+			#end
+			FlxG.bitmap.dumpCache();
+			FlxG.bitmap.clearUnused();
+			Paths.clearStoredMemory();
+			System.gc();
+		});
+
+		FlxG.signals.postStateSwitch.add(() ->{
+			#if cpp
+			cpp.NativeGc.run(false);
+			cpp.NativeGc.enable(false);
+			#end
+			Paths.clearUnusedMemory();
+			System.gc();
+		});
 
 		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.defaultFPS, config.defaultFPS, config.skipSplash,
 			config.startFullscreen));
