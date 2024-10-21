@@ -205,13 +205,11 @@ class ChartingState extends UIState {
 				childs: [
 					{
 						label: "Undo",
-						keybind: [CONTROL, Z],
-						onSelect: undo
+						keybind: [CONTROL, Z]
 					},
 					{
 						label: "Redo",
-						keybind: [CONTROL, Y],
-						onSelect: redo
+						keybind: [CONTROL, Y]
 					},
 					null,
 					{
@@ -276,7 +274,7 @@ class ChartingState extends UIState {
 		}
 
 		if (Input.justPressed('z') && Input.pressed('control'))
-			undo(_);
+			undo();
 
 		if (FlxG.mouse.x > gridBG.x
 			&& FlxG.mouse.x < gridBG.x + gridBG.width
@@ -546,9 +544,9 @@ class ChartingState extends UIState {
 		trace("Problem saving song");
 	}
 
-	function undo(_) {
+	function undo() {
 		undos.pop();
 	}
 
-	function redo(_) {}
+	function redo() {}
 }
