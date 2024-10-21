@@ -5,7 +5,7 @@ import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
 import sys.io.Process;
-import backend.ALSoftConfig;
+import backend.ALConfig;
 #end
 
 import debug.FPS;
