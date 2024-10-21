@@ -61,7 +61,7 @@ class NoteColorState extends ExtendableState {
 
 		if (!isSelectingSomething && (Input.justPressed('left') || Input.justPressed('right'))) {
 			if (Input.justPressed('left'))
-				curSelectedControl--:
+				curSelectedControl--;
 			if (Input.justPressed('right'))
 				curSelectedControl++;
 
