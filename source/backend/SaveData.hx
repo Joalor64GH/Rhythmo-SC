@@ -23,7 +23,7 @@ package backend;
 	public var displayMS:Bool = false;
 	public var notesRGB:Array<Array<Int>> = [[221, 0, 255], [0, 128, 255], [0, 215, 54], [255, 0, 106]];
 	public var keyboardBinds:Array<Array<FlxKey>> = [[LEFT, A], [DOWN, S], [UP, W], [RIGHT, D], [ENTER], [ESCAPE], [R]];
-	public var gamepadBinds:ArrayArray<<FlxGamepadInputID>> = [
+	public var gamepadBinds:Array<Array<FlxGamepadInputID>> = [
 		[DPAD_LEFT, LEFT_TRIGGER],
 		[DPAD_DOWN, LEFT_SHOULDER],
 		[DPAD_UP, RIGHT_SHOULDER],
