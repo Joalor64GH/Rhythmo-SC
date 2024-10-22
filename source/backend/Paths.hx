@@ -18,7 +18,6 @@ using haxe.io.Path;
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
-	public static var tempFramesCache:Map<String, FlxFramesCollection> = [];
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -178,9 +177,6 @@ class Paths {
 
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic
 		return returnGraphic('images/$key', cache);
-
-	inline static public function imageAlt(key:String)
-		return file('images/$key.png');
 
 	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
 		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
