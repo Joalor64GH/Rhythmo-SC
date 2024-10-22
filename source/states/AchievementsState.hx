@@ -82,8 +82,8 @@ class AchievementsState extends ExtendableState {
 				openSubState(new PromptSubState('This action will reset ALL of the achievements.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
 					for (i in 0...achievementArray.length) {
-						achievementArray[i].forget();
-						achievementGrp.members[i].text = '???';
+						Achievements.forget(i);
+						ExtendableState.resetState();
 					}
 				}, function() {
 					FlxG.sound.play(Paths.sound('cancel'));
@@ -91,8 +91,8 @@ class AchievementsState extends ExtendableState {
 			} else {
 				openSubState(new PromptSubState('This action will reset the selected achievement.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
-					achievementArray[curSelected].forget();
-					achievementGrp.members[curSelected].text = '???';
+					Achievements.forget(achievementArray[curSelected]);
+					ExtendableState.resetState();
 				}, function() {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));

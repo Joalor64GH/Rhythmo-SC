@@ -707,7 +707,7 @@ class PlayState extends ExtendableState {
 		}
 	}
 
-	function checkForAchievement(ach:Array<String> = null):String {
+	function checkForAchievement(achs:Array<String> = null):String {
 		if (chartingMode || SaveData.settings.botPlay)
 			return null;
 
@@ -765,8 +765,9 @@ class PlayState extends ExtendableState {
 					return achievementName;
 				}
 			}
-			return null;
 		}
+
+		return null;
 	}
 
 	function generateSong() {
