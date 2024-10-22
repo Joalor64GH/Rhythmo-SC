@@ -13,11 +13,20 @@ import flixel.graphics.frames.FlxFramesCollection;
 
 using haxe.io.Path;
 
+enum SpriteSheetType {
+	ASEPRITE;
+	PACKER;
+	SPARROW;
+	TEXTURE_PATCHER_JSON;
+	TEXTURE_PATCHER_XML;
+}
+
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
+	public static var tempFramesCache:Map<String, FlxFramesCollection> = [];
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -178,11 +187,28 @@ class Paths {
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic
 		return returnGraphic('images/$key', cache);
 
-	inline static public function getSparrowAtlas(key:String, ?cache:Bool = true):FlxAtlasFrames {
-		if (FileSystem.exists(file('images/$key.png')) && FileSystem.exists(xml('images/$key')))
-			return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
+	inline static public function imageAlt(key:String)
+		return file('images/$key.png');
 
-		trace('oops! couldnt find $key!');
+	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
+		switch (type) {
+			case ASEPRITE: 
+				return FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
+			case PACKER: 
+				return FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
+			case SPARROW: 
+				return FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
+			case TEXTURE_PATCHER_JSON: 
+				return FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
+			case TEXTURE_PATCHER_XML: 
+				return FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
+		}
+
+		if (type == null) {
+			type = SPARROW;
+			return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+		}
+
 		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 	}
 
