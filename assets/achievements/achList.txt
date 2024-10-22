@@ -1,2 +1,12 @@
-example
 full_combo
+single_digit_miss
+multi_miss
+perfect
+super
+amazing
+be_better
+can_improve
+dont_give_up
+failed
+freaky_friday
+konami

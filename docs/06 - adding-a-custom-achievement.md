@@ -24,7 +24,21 @@ Example:
 import('states.PlayState');
 import('backend.Achievements');
 
-function update() {
-    // i'll add something here when i change the logic and stuff
+var condition:Bool = false;
+
+function update(elapsed:Float) {
+    if (PlayState.instance.score < 9000)
+        condition = true;
+}
+
+function endSong() {
+    if (condition) {
+        Achievements.unlock('over_nine_thousand', {
+            date: Date.now(),
+            song: PlayState.song.song
+        }, {
+            trace('achievement unlocked successfully!');
+        });
+    }
 }
 ```

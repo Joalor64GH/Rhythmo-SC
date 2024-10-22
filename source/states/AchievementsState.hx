@@ -76,6 +76,28 @@ class AchievementsState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ExtendableState.switchState(new MenuState());
 		}
+
+		if (Input.justPressed('reset')) {
+			if (Input.pressed('alt')) {
+				openSubState(new PromptSubState('This action will reset ALL of the achievements.\nProceed anyways?', () -> {
+					FlxG.sound.play(Paths.sound('select'));
+					for (i in 0...achievementArray.length) {
+						achievementArray[i].forget();
+						achievementGrp.members[i].text = '???';
+					}
+				}, function() {
+					FlxG.sound.play(Paths.sound('cancel'));
+				}));
+			} else {
+				openSubState(new PromptSubState('This action will reset the selected achievement.\nProceed anyways?', () -> {
+					FlxG.sound.play(Paths.sound('select'));
+					achievementArray[curSelected].forget();
+					achievementGrp.members[curSelected].text = '???';
+				}, function() {
+					FlxG.sound.play(Paths.sound('cancel'));
+				}));
+			}
+		}
 	}
 
 	function changeSelection(change:Int = 0, ?playSound:Bool = true) {

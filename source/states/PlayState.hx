@@ -9,6 +9,9 @@ class PlayState extends ExtendableState {
 	public static var chartingMode:Bool = false;
 	public static var gotAchievement:Bool = false;
 
+	public static var konami:Int = 0;
+	public static var didKonami:Bool = false;
+
 	public var speed:Float = 1;
 
 	public var ratingDisplay:Rating;
@@ -43,6 +46,7 @@ class PlayState extends ExtendableState {
 	public var camZooming:Bool = true;
 	public var paused:Bool = false;
 	public var startingSong:Bool = false;
+	public var endingSong:Bool = false;
 
 	public var countdown3:FlxSprite;
 	public var countdown2:FlxSprite;
@@ -427,6 +431,46 @@ class PlayState extends ExtendableState {
 			Input.justReleased('right')
 		];
 
+		if (Input.justPressed('left')) {
+			if (konami == 4 || konami == 6) {
+				konami += 1;
+			} else {
+				konami = 0;
+			}
+		}
+		if (Input.justPressed('down')) {
+			if (konami == 2 || konami == 3) {
+				konami += 1;
+			} else {
+				konami = 0;
+			}
+		}
+		if (Input.justPressed('up')) {
+			if (konami == 0 || konami == 1) {
+				konami += 1;
+			} else {
+				konami = 0;
+			}
+		}
+		if (Input.justPressed('right')) {
+			if (konami == 5 || konami == 7) {
+				konami += 1;
+			} else {
+				konami = 0;
+			}
+		}
+		if (konami == 8) {
+			didKonami = true;
+			FlxG.sound.play(Paths.sound('start'));
+		}
+
+		// prevent player input when botplay is on
+		if (SaveData.settings.botPlay) {
+			justPressed = [false, false, false, false];
+			pressed = [false, false, false, false];
+			released = [false, false, false, false];
+		}
+
 		for (i in 0...justPressed.length) {
 			if (justPressed[i]) {
 				strumline.members[i].press();
@@ -635,29 +679,93 @@ class PlayState extends ExtendableState {
 		return rank;
 	}
 
-	function checkForAchievement() {
-		if (!gotAchievement)
-			endSong(); // placeholder for now
-		else {
-			// nothing yet
-		}
-	}
-
 	function endSong() {
 		var ret:Dynamic = callOnScripts('endSong', []);
 		if (ret != Hscript.Function_Stop) {
 			timeTxt.visible = timeBar.visible = false;
+			endingSong = true;
+			canPause = false;
+
 			if (chartingMode) {
 				openChartEditor();
 				return;
 			}
+
+			if (!gotAchievement) {
+				checkForAchievement([
+					'full_combo', 'single_digit_miss', 'multi_miss', 'perfect', 'super', 'amazing', 'be_better', 'can_improve', 'dont_give_up', 'failed', 'konami'
+				]);
+				return;
+			}
+
 			if (!SaveData.settings.botPlay)
 				HighScore.saveScore(song.song, score);
 			new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
 				persistentUpdate = true;
 				openSubState(new ResultsSubState(rank, score, accuracy));
 			});
-			canPause = false;
+		}
+	}
+
+	function checkForAchievement(ach:Array<String> = null):String {
+		if (chartingMode || SaveData.settings.botPlay)
+			return null;
+
+		for (i in 0...achs.length) {
+			var achievementName:String = achs[i];
+			if (!Achievements.isUnlocked(achievementName) && !SaveData.settings.botPlay) {
+				var unlock:Bool = false;
+
+				switch (achievementName) {
+					case 'full_combo':
+						if (misses == 0)
+							unlock = true;
+					case 'single_digit_miss':
+						if (misses > 0 && misses < 10)
+							unlock = true;
+					case 'multi_miss':
+						if (misses > 10)
+							unlock = true;
+					case 'perfect':
+						if (rank == "P")
+							unlock = true;
+					case 'super':
+						if (rank == "S")
+							unlock = true;
+					case 'amazing':
+						if (rank == "A")
+							unlock = true;
+					case 'be_better':
+						if (rank == "B")
+							unlock = true;
+					case 'can_improve':
+						if (rank == "C")
+							unlock = true;
+					case 'dont_give_up':
+						if (rank == "D")
+							unlock = true;
+					case 'failed':
+						if (rank == "F")
+							unlock = true;
+					case 'konami':
+						if (didKonami)
+							unlock = true;
+				}
+
+				if (unlock) {
+					gotAchievement = true;
+					Achievements.unlock(achievementName, {
+						date: Date.now(),
+						song: song.song
+					}, () -> {
+						trace('finished showing achievement');
+						gotAchievement = false;
+						endSong();
+					});
+					return achievementName;
+				}
+			}
+			return null;
 		}
 	}
 

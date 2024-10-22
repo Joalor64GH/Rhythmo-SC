@@ -19,6 +19,7 @@ import('package.Class');
 
 This is a list of the current Libraries/Classes that you can use:
 
+**NOTE: These classes are already imported anyways.**
 ### Standard Haxe Classes
 * Array
 * Bool
@@ -40,8 +41,6 @@ This is a list of the current Libraries/Classes that you can use:
 * Xml
 
 ### Game-Specific Classes
-(Note: Most of these classes are already imported anyways.)
-
 * Achievements
 * Application
 * Assets
@@ -151,7 +150,7 @@ import('flixel.FlxG');
 
 var state = FlxG.state;
 
-function update() {
+function update(elapsed:Float) {
     if (Input.justPressed('accept'))
         ExtendableState.switchState(new ScriptedState('name')); // load custom state
     
