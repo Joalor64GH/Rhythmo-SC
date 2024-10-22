@@ -8,6 +8,8 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
 
+import flixel.addons.ui.FlxUIInputText;
+
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState = null;
 
@@ -102,7 +104,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(saveButton);
 
-		saveAsButton = new FlxButton(FlxG.width - 110, 30, "Save Chart As", () -> {
+		saveAsButton = new FlxButton(FlxG.width - 110, 40, "Save Chart As", () -> {
 			var json = {
 				"song": song
 			};

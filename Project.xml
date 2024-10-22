@@ -25,7 +25,6 @@
 	<source path="source" />
 
 	<assets path="assets" />
-	<assets path="assets/songs" library="songs" />
 	<assets path="mods" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">

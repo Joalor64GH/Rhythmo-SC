@@ -37,7 +37,7 @@ class ResultsSubState extends ExtendableSubState {
 		add(rankTxt);
 
 		anyKeyTxt = new FlxText(10, 480, 0, "PRESS ANY KEY TO CONTINUE.", 12);
-		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		anyKeyTxt.alpha = 0;
 		add(anyKeyTxt);
 

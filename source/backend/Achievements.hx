@@ -66,6 +66,27 @@ class Achievements {
 		return achievementsMap.exists(ach) && achievementsMap.get(ach);
 	}
 
+	public static function getStats(ach:String):AchievementStats {
+		return if (achievementStatsMap.exists(ach)) achievementStatsMap.get(ach); else createStat();
+	}
+
+	public static function createStat(?date:Date, ?song:String) {
+		var stat:AchievementStats = {
+			date: date,
+			song: song
+		};
+		return fixStat(stat);
+	}
+
+	public static function fixStat(stat:AchievementStats):AchievementStats {
+		if (stat.date == null)
+			stat.date = Date.now();
+		if (stat.song == null)
+			stat.song = 'None';
+
+		return stat;
+	}
+
 	public static function forget(ach:String) {
 		if (isUnlocked(ach)) {
 			achievementsMap.remove(ach);

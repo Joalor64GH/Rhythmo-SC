@@ -635,36 +635,12 @@ class PlayState extends ExtendableState {
 		return rank;
 	}
 
-	function checkForAchievement(achs:Array<String> = null):String {
-		if (chartingMode || SaveData.settings.botPlay)
-			return null;
-
-		for (i in 0...achs.length) {
-			var achievementName:String = achs[i];
-			if (Achievements.isUnlocked(achievementName) && !SaveData.settings.botPlay) {
-				var unlock:Bool = false;
-
-				switch (achievementName) {
-					case 'full_combo':
-						if (misses <= 1)
-							unlock = true;
-				}
-
-				if (unlock) {
-					gotAchievement = true;
-					Achievements.unlock(achievementName, {
-						date: Date.now(),
-						song: song.song
-					}, () -> {
-						gotAchievement = false;
-						endSong();
-					});
-					return achievementName;
-				}
-			}
+	function checkForAchievement() {
+		if (!gotAchievement)
+			endSong(); // placeholder for now
+		else {
+			// nothing yet
 		}
-
-		return null;
 	}
 
 	function endSong() {
@@ -681,8 +657,6 @@ class PlayState extends ExtendableState {
 				persistentUpdate = true;
 				openSubState(new ResultsSubState(rank, score, accuracy));
 			});
-			// ExtendableState.switchState(new SongSelectState());
-			// FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 			canPause = false;
 		}
 	}

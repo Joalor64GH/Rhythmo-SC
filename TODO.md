@@ -8,5 +8,4 @@
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
-* [ ] Song Selector Editor
 * [ ] New Controls Menu **WIP**
