@@ -8,6 +8,7 @@ class AchievementsState extends ExtendableState {
 	var iconArray:Array<AchievementIcon> = [];
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
+	
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
@@ -82,20 +83,20 @@ class AchievementsState extends ExtendableState {
 				openSubState(new PromptSubState('This action will reset ALL of the achievements.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
 					for (i in 0...achievementArray.length) {
-						var formattedName:String = StringTools.replace(achievementArray[i].name.toLowerCase, " ", "_");
+						var formattedName:String = StringTools.replace(achievementArray[i].name.toLowerCase(), " ", "_");
 						Achievements.forget(formattedName);
 						ExtendableState.resetState();
 					}
-				}, function() {
+				}, () -> {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
 			} else {
 				openSubState(new PromptSubState('This action will reset the selected achievement.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
-					var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase, " ", "_");
+					var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
 					Achievements.forget(formattedName);
 					ExtendableState.resetState();
-				}, function() {
+				}, () -> {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
 			}
@@ -114,7 +115,8 @@ class AchievementsState extends ExtendableState {
 		});
 
 		if (achievementArray[curSelected].desc != null || achievementArray[curSelected].hint != null) {
-			description.text = Achievements.isUnlocked(achievementArray[curSelected].name.toLowerCase()) ? achievementArray[curSelected].desc
+			var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
+			description.text = Achievements.isUnlocked(formattedName) ? achievementArray[curSelected].desc
 				+ '\nHint: '
 				+ achievementArray[curSelected].hint : 'This achievement has not been unlocked yet!'
 				+ '\nHint: '
