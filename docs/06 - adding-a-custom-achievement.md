@@ -27,7 +27,7 @@ import('backend.Achievements');
 var condition:Bool = false;
 
 function update(elapsed:Float) {
-    if (PlayState.instance.score < 9000)
+    if (PlayState.instance.score > 9000)
         condition = true;
 }
 

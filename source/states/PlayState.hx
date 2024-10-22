@@ -692,10 +692,12 @@ class PlayState extends ExtendableState {
 			}
 
 			if (!gotAchievement) {
-				checkForAchievement([
+				var achievementName = checkForAchievement([
 					'full_combo', 'single_digit_miss', 'multi_miss', 'perfect', 'super', 'amazing', 'be_better', 'can_improve', 'dont_give_up', 'failed', 'konami'
 				]);
-				return;
+
+				if (achievementName != null)
+					return;
 			}
 
 			if (!SaveData.settings.botPlay)

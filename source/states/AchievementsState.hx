@@ -77,13 +77,13 @@ class AchievementsState extends ExtendableState {
 			ExtendableState.switchState(new MenuState());
 		}
 
-		/* // WILL FIX LATER
 		if (Input.justPressed('reset')) {
 			if (Input.pressed('alt')) {
 				openSubState(new PromptSubState('This action will reset ALL of the achievements.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
 					for (i in 0...achievementArray.length) {
-						Achievements.forget(i.name);
+						var formattedName:String = StringTools.replace(achievementArray[i].name.toLowerCase, " ", "_");
+						Achievements.forget(formattedName);
 						ExtendableState.resetState();
 					}
 				}, function() {
@@ -92,14 +92,14 @@ class AchievementsState extends ExtendableState {
 			} else {
 				openSubState(new PromptSubState('This action will reset the selected achievement.\nProceed anyways?', () -> {
 					FlxG.sound.play(Paths.sound('select'));
-					Achievements.forget(achievementArray[curSelected]);
+					var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase, " ", "_");
+					Achievements.forget(formattedName);
 					ExtendableState.resetState();
 				}, function() {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
 			}
 		}
-		*/
 	}
 
 	function changeSelection(change:Int = 0, ?playSound:Bool = true) {

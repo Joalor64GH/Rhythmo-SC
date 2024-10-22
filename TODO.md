@@ -1,6 +1,6 @@
 # Current To-Dos
 * [ ] Chart the songs **[WIP]**
-* [X] Achievements **[WIP]**
+* [X] Achievements
 * [X] Results
 * [X] Note Coloring Menu
 * [X] Improve controls system
