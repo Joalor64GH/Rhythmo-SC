@@ -93,6 +93,15 @@ class MenuState extends ExtendableState {
 
 		changeSelection(0, false, false);
 
+		var curDate = Date.now();
+		if (curDate.getDay() == 5 && curDate.getHours() >= 18)
+			Achievements.unlock('freaky_friday', {
+				date: Date.now(),
+				song: 'None'
+			}, () -> {
+				trace('getting freaky on a friday night yeah');
+			});
+
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 

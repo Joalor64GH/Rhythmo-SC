@@ -9,8 +9,8 @@ class PlayState extends ExtendableState {
 	public static var chartingMode:Bool = false;
 	public static var gotAchievement:Bool = false;
 
-	public static var konami:Int = 0;
-	public static var didKonami:Bool = false;
+	public var konami:Int = 0;
+	public var didKonami:Bool = false;
 
 	public var speed:Float = 1;
 
@@ -459,9 +459,12 @@ class PlayState extends ExtendableState {
 				konami = 0;
 			}
 		}
+		
 		if (konami == 8) {
 			didKonami = true;
-			FlxG.sound.play(Paths.sound('start'));
+			new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
+				FlxG.sound.play(Paths.sound('start'));
+			});
 		}
 
 		// prevent player input when botplay is on

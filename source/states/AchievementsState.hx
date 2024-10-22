@@ -15,6 +15,8 @@ class AchievementsState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		FlxG.mouse.visible = true;
+
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 		add(camFollow);
@@ -74,6 +76,7 @@ class AchievementsState extends ExtendableState {
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
 		if (Input.justPressed('exit')) {
+			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancel'));
 			ExtendableState.switchState(new MenuState());
 		}
