@@ -34,7 +34,7 @@ class OptionsSubState extends ExtendableSubState {
 		options.push(option);
 
 		var option:Option = new Option("Framerate", "Use LEFT/RIGHT to change the framerate (Max 240).", OptionType.Integer(60, 240, 10),
-			SaveData.settings.framerate);
+			Std.int(FlxMath.bound(FlxG.stage.application.window.displayMode.refreshRate, 60, 240)));
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.framerate = value;
 			Main.updateFramerate(SaveData.settings.framerate);

@@ -45,6 +45,11 @@ class SaveData {
 		if (Main.fpsDisplay != null)
 			Main.fpsDisplay.visible = settings.fpsCounter;
 
+		if (FlxG.save.data.framerate == null) {
+			final refreshRate:Int = FlxG.stage.application.window.displayMode.refreshRate;
+			settings.framerate = Std.int(FlxMath.bound(refreshRate, 60, 240));
+		}
+
 		Main.updateFramerate(settings.framerate);
 	}
 

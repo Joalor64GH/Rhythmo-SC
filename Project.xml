@@ -25,6 +25,7 @@
 	<source path="source" />
 
 	<assets path="assets" />
+	<assets path="assets/songs" library="songs" />
 	<assets path="mods" if="FUTURE_POLYMOD" />
 	
 	<section if="desktop">
@@ -50,9 +51,9 @@
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	<haxedef name="HXCPP_CHECK_POINTER" unless="debug" />
-	<haxedef name="HXCPP_STACK_LINE" unless="debug" />
-	<haxedef name="HXCPP_STACK_TRACE" unless="debug" />
+	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
+	<haxedef name="HXCPP_STACK_LINE" if="release" />
+	<haxedef name="HXCPP_STACK_TRACE" if="release" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
 	<section if="polymod">
@@ -67,7 +68,7 @@
 
 	<!-- [ Flags ] -->
 
-	<haxeflag name="-dce no" />
+	<haxeflag name="-dce" value="no" />
 
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
