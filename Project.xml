@@ -7,7 +7,7 @@
 
 	<!-- [ Window Settings ] -->
 
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" />
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true" />
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
@@ -36,6 +36,7 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
+	<haxelib name="flixel-ui" />
 
 	<haxelib name="funkin.vis" />
 	<haxelib name="grig.audio" />

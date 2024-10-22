@@ -1,7 +1,5 @@
 # Current To-Dos
 * [ ] Chart the songs **[WIP]**
-* [ ] Maybe a few more songs
-* [ ] Replay System
 * [X] Achievements **[WIP]**
 * [X] Results
 * [X] Note Coloring Menu

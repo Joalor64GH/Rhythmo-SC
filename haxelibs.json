@@ -17,6 +17,10 @@
       "type": "haxelib"
     },
     {
+      "name": "flixel-ui",
+      "type": "haxelib"
+    },
+    {
       "name": "hxcpp",
       "type": "haxelib"
     },
