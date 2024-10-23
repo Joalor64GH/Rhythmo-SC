@@ -75,6 +75,7 @@ class Achievements {
 			date: date,
 			song: song
 		};
+		
 		return fixStat(stat);
 	}
 
@@ -100,7 +101,7 @@ class Achievements {
 
 	public static function showAchievement(ach:String, onFinish:Void->Void) {
 		var sprGroup:FlxSpriteGroup = new FlxSpriteGroup();
-		var coolAchieve:AchievementData = cast Json.parse(File.getContent(Paths.json('achievements/' + ach)));
+		var coolAchieve:AchievementData = cast Json.parse(File.getContent(Paths.json('achievements/$ach')));
 
 		var achBG:FlxSprite = new FlxSprite(60, 50).makeGraphic(420, 120, FlxColor.BLACK);
 		achBG.scrollFactor.set();
@@ -109,6 +110,7 @@ class Achievements {
 		var achIcon:FlxSprite = new FlxSprite(achBG.x + 10, achBG.y + 10).loadGraphic(Paths.image('achievements/$ach'));
 		achIcon.setGraphicSize(Std.int(achIcon.width * (2 / 3)));
 		achIcon.scrollFactor.set();
+		achIcon.updateHitbox();
 		sprGroup.add(achIcon);
 
 		var achName:FlxText = new FlxText(achIcon.x + achIcon.width + 20, achIcon.y + 16, 280, coolAchieve.name, 16);
@@ -136,9 +138,9 @@ class Achievements {
 			}
 		});
 
-		new FlxTimer().start(2.5, function(tmr:FlxTimer) {
+		new FlxTimer().start(2.5, (tmr:FlxTimer) -> {
 			FlxTween.tween(sprGroup, {alpha: 0}, 1, {
-				onComplete: function(twn:FlxTween) {
+				onComplete: (twn:FlxTween) -> {
 					sprGroup.kill();
 					sprGroup.destroy();
 					if (onFinish != null)

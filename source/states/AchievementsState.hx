@@ -3,12 +3,13 @@ package states;
 import backend.Achievements;
 
 class AchievementsState extends ExtendableState {
+	var stat:AchievementStats;
 	var achievementArray:Array<AchievementData> = [];
 	var achievementGrp:FlxTypedGroup<FlxText>;
 	var iconArray:Array<AchievementIcon> = [];
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
-	
+
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
@@ -117,11 +118,17 @@ class AchievementsState extends ExtendableState {
 				camFollow.y = txt.y;
 		});
 
+		var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
+
+		stat = Achievements.getStats(formattedName);
 		if (achievementArray[curSelected].desc != null || achievementArray[curSelected].hint != null) {
-			var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
 			description.text = Achievements.isUnlocked(formattedName) ? achievementArray[curSelected].desc
 				+ '\nHint: '
-				+ achievementArray[curSelected].hint : 'This achievement has not been unlocked yet!'
+				+ achievementArray[curSelected].hint
+					+ '\nDate Unlocked: '
+					+ stat.date
+					+ 'Song Unlocked: '
+					+ stat.song : 'This achievement has not been unlocked yet!'
 				+ '\nHint: '
 				+ achievementArray[curSelected].hint;
 			description.screenCenter(X);
