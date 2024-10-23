@@ -460,12 +460,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 		
-		if (konami == 8) {
+		if (konami == 8)
 			didKonami = true;
-			new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
-				FlxG.sound.play(Paths.sound('start'));
-			});
-		}
 
 		// prevent player input when botplay is on
 		if (SaveData.settings.botPlay) {
