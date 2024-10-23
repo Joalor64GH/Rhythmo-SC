@@ -46,7 +46,6 @@ class PlayState extends ExtendableState {
 	public var camZooming:Bool = true;
 	public var paused:Bool = false;
 	public var startingSong:Bool = false;
-	public var endingSong:Bool = false;
 
 	public var countdown3:FlxSprite;
 	public var countdown2:FlxSprite;
@@ -682,7 +681,6 @@ class PlayState extends ExtendableState {
 		var ret:Dynamic = callOnScripts('endSong', []);
 		if (ret != Hscript.Function_Stop) {
 			timeTxt.visible = timeBar.visible = false;
-			endingSong = true;
 			canPause = false;
 
 			if (chartingMode) {
