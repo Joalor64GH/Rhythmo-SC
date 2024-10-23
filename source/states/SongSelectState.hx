@@ -75,13 +75,13 @@ class SongSelectState extends ExtendableState {
 		bottomPanel.alpha = 0.6;
 		add(bottomPanel);
 
-		panelTxt = new FlxText(bottomPanel.x, bottomPanel.y + 4, FlxG.width, "", 32);
+		panelTxt = new FlxText(bottomPanel.x, bottomPanel.y + 8, FlxG.width, "", 32);
 		panelTxt.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		panelTxt.scrollFactor.set();
 		panelTxt.screenCenter(X);
 		add(panelTxt);
 
-		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 60, FlxG.width, Localization.get("tinyGuide", SaveData.settings.lang), 22);
+		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, Localization.get("tinyGuide", SaveData.settings.lang), 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
 		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
