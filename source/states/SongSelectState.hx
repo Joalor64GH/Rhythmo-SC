@@ -201,6 +201,6 @@ class SongSelectState extends ExtendableState {
 
 		titleTxt.text = songListData.songs[currentIndex].name;
 		intendedScore = HighScore.getScore(songListData.songs[currentIndex].name);
-		intendedRating = Highscore.getRating(songListData.songs[currentIndex].name);
+		intendedRating = HighScore.getRating(songListData.songs[currentIndex].name);
 	}
 }
