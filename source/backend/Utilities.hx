@@ -1,5 +1,6 @@
 package backend;
 
+@:keep
 class Utilities {
 	public static function boundTo(value:Float, min:Float, max:Float):Float
 		return Math.max(min, Math.min(max, value));
@@ -30,4 +31,8 @@ class Utilities {
 			default: -1;
 		}
 	}
+}
+
+class MapUtil {
+	public static function hasKey<K, V>(map:Map<K,V>, key:K):Bool return map[key] != null;
 }

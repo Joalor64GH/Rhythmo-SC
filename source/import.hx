@@ -19,6 +19,7 @@ import flixel.ui.FlxButton;
 
 import openfl.Lib;
 import openfl.Assets;
+import openfl.system.System;
 import openfl.display.BitmapData;
 
 import lime.app.Application;
@@ -26,11 +27,9 @@ import lime.app.Application;
 import haxe.*;
 import haxe.io.Path;
 
-#if (sys || desktop)
-import sys.io.File;
-import sys.FileSystem;
-#else
-import openfl.utils.Assets;
+#if sys
+import sys.*;
+import sys.io.*;
 #end
 
 // Game Imports
