@@ -8,4 +8,4 @@
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
-* [ ] New Controls Menu **WIP**
+* [ ] New Controls Menu **[WIP]**

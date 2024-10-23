@@ -56,6 +56,7 @@ class Achievements {
 			achievementsMap.set(ach, true);
 			achievementStatsMap.set(ach, stats);
 			FlxG.save.data.achievementsMap = achievementsMap;
+			FlxG.save.data.achievementStatsMap = achievementStatsMap;
 			FlxG.save.flush();
 
 			trace('achievement earned: $ach!\nmore info:\n $stats');
@@ -75,7 +76,7 @@ class Achievements {
 			date: date,
 			song: song
 		};
-		
+
 		return fixStat(stat);
 	}
 
@@ -93,6 +94,7 @@ class Achievements {
 			achievementsMap.remove(ach);
 			achievementStatsMap.remove(ach);
 			FlxG.save.data.achievementsMap = achievementsMap;
+			FlxG.save.data.achievementStatsMap = achievementStatsMap;
 			FlxG.save.flush();
 
 			trace('achievement $ach removed!');

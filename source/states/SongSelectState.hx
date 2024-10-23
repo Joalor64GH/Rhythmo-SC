@@ -34,9 +34,6 @@ class SongSelectState extends ExtendableState {
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
-	var lerpRating:Float = 0;
-	var intendedRating:Float = 0;
-
 	var isResetting:Bool = false;
 	var lockInputs:Bool = false;
 
@@ -104,15 +101,12 @@ class SongSelectState extends ExtendableState {
 		super.update(elapsed);
 
 		lerpScore = Math.floor(FlxMath.lerp(intendedScore, lerpScore, Math.exp(-elapsed * 24)));
-		lerpRating = FlxMath.lerp(intendedRating, lerpRating, Math.exp(-elapsed * 12));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
-		if (Math.abs(lerpRating - intendedRating) <= 0.01)
-			lerpRating = intendedRating;
 
 		if (!isResetting)
-			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " (" + Utilities.truncateFloat(lerpRating * 100, 2) + ")%" + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " // " + Localization.get("diffTxt", SaveData.settings.lang)
 				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		if (!lockInputs) {
@@ -193,8 +187,6 @@ class SongSelectState extends ExtendableState {
 		}
 
 		titleTxt.text = songListData.songs[currentIndex].name;
-
 		intendedScore = HighScore.getScore(songListData.songs[currentIndex].name);
-		intendedRating = HighScore.getRating(songListData.songs[currentIndex].name);
 	}
 }

@@ -699,7 +699,7 @@ class PlayState extends ExtendableState {
 			}
 
 			if (!SaveData.settings.botPlay)
-				HighScore.saveScore(song.song, score, Utilities.truncateFloat(accuracy, 2));
+				HighScore.saveScore(song.song, score);
 			new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
 				persistentUpdate = true;
 				openSubState(new ResultsSubState(rank, score, accuracy));
