@@ -112,7 +112,7 @@ class SongSelectState extends ExtendableState {
 			lerpRating = intendedRating;
 
 		if (!isResetting)
-			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + "(" + lerpRating + ")%" + " // " + Localization.get("diffTxt", SaveData.settings.lang)
+			panelTxt.text = Localization.get("scoreTxt", SaveData.settings.lang) + lerpScore + " (" + Utilities.truncateFloat(lerpRating * 100, 2) + ")%" + " // " + Localization.get("diffTxt", SaveData.settings.lang)
 				+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 
 		if (!lockInputs) {

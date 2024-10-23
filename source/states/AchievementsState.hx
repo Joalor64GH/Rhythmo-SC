@@ -127,7 +127,7 @@ class AchievementsState extends ExtendableState {
 				+ achievementArray[curSelected].hint
 					+ '\nDate Unlocked: '
 					+ stat.date
-					+ 'Song Unlocked: '
+					+ '\nSong Unlocked: '
 					+ stat.song : 'This achievement has not been unlocked yet!'
 				+ '\nHint: '
 				+ achievementArray[curSelected].hint;

@@ -6,6 +6,9 @@ class Utilities {
 		return Math.max(min, Math.min(max, value));
 	
 	public static function truncateFloat(number:Float, precision:Int):Float {
+		if (precision < 1)
+			return Math.ffloor(number);
+		
 		var num = number;
 		num = num * Math.pow(10, precision);
 		num = Math.round(num) / Math.pow(10, precision);

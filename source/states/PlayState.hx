@@ -471,7 +471,8 @@ class PlayState extends ExtendableState {
 
 		for (i in 0...justPressed.length) {
 			if (justPressed[i]) {
-				strumline.members[i].press();
+				if (!SaveData.settings.botPlay)
+					strumline.members[i].press();
 				if (SaveData.settings.antiMash) {
 					FlxG.sound.play(Paths.sound('miss${FlxG.random.int(1, 4)}'), 0.65);
 					isPerfect = false;
@@ -698,7 +699,7 @@ class PlayState extends ExtendableState {
 			}
 
 			if (!SaveData.settings.botPlay)
-				HighScore.saveScore(song.song, score, accuracy);
+				HighScore.saveScore(song.song, score, Utilities.truncateFloat(accuracy, 2));
 			new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
 				persistentUpdate = true;
 				openSubState(new ResultsSubState(rank, score, accuracy));
