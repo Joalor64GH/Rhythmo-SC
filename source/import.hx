@@ -42,6 +42,7 @@ import objects.*;
 using Globals;
 using StringTools;
 using backend.Utilities;
+using backend.Utilities.MapUtil;
 
 #if !debug
 @:noDebug

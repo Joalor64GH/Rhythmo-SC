@@ -25,7 +25,7 @@ class PromptSubState extends FlxSubState {
 		questionTxt.scrollFactor.set();
 		add(questionTxt);
 
-		var btnYes:FlxButton = new FlxButton(0, box.height / 2 + 130, Localization.get("yes", SaveData.settings.lang), () -> {
+		var btnYes:FlxButton = new FlxButton(box.width / 2 - 80, box.height / 2 + 200, Localization.get("yes", SaveData.settings.lang), () -> {
 			if (callbackYes != null)
 				callbackYes();
 			close();
@@ -36,7 +36,7 @@ class PromptSubState extends FlxSubState {
 		btnYes.label.screenCenter(XY);
 		add(btnYes);
 
-		var btnNo:FlxButton = new FlxButton(0, btnYes.y + 50, Localization.get("no", SaveData.settings.lang), () -> {
+		var btnNo:FlxButton = new FlxButton(box.width / 2 + 80, box.height / 2 + 200, Localization.get("no", SaveData.settings.lang), () -> {
 			if (callbackNo != null)
 				callbackNo();
 			close();
