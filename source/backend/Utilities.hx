@@ -44,6 +44,10 @@ class Utilities {
 			default: -1;
 		}
 	}
+
+	public static function wait(milliseconds:Int, callback:Void->Void):Void {
+		Timer.delay(callback, milliseconds);
+	}
 }
 
 class MapUtil {
