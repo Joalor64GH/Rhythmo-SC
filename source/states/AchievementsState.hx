@@ -6,9 +6,10 @@ class AchievementsState extends ExtendableState {
 	var stat:AchievementStats;
 	var achievementArray:Array<AchievementData> = [];
 	var achievementGrp:FlxTypedGroup<FlxText>;
-	var iconArray:Array<AchievementIcon> = [];
+	var iconGrp:FlxTypedGroup<AchievementIcon>;
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
+	
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
@@ -33,6 +34,9 @@ class AchievementsState extends ExtendableState {
 		achievementGrp = new FlxTypedGroup<FlxText>();
 		add(achievementGrp);
 
+		iconGrp = new FlxTypedGroup<AchievementIcon>;
+		add(iconGrp);
+
 		for (i in 0...Achievements.achievements.length) {
 			var coolAchieve:AchievementData = cast Json.parse(File.getContent(Paths.json('achievements/' + Achievements.achievements[i])));
 			achievementArray.push(coolAchieve);
@@ -54,8 +58,8 @@ class AchievementsState extends ExtendableState {
 
 			var icon:AchievementIcon = new AchievementIcon(0, 0, Achievements.achievements[i].trim());
 			icon.sprTracker = text;
-			iconArray.push(icon);
-			add(icon);
+			icon.ID = i;
+			iconGrp.add(icon);
 		}
 
 		description = new FlxText(0, FlxG.height * 0.1, FlxG.width * 0.9, '', 28);
@@ -141,9 +145,13 @@ class AchievementsState extends ExtendableState {
 			achievementGrp.remove(ach, true);
 			ach.destroy();
 		});
-		achievementGrp.clear(); // clear whatever is left
+		iconGrp.forEach(icon -> {
+			iconGrp.remove(icon, true);
+			icon.destroy();
+		});
 
-		iconArray = [];
+		achievementGrp.clear();
+		iconGrp.clear();
 
 		for (i in 0...Achievements.achievements.length) {
 			var coolAchieve:AchievementData = cast Json.parse(File.getContent(Paths.json('achievements/' + Achievements.achievements[i])));
@@ -166,8 +174,8 @@ class AchievementsState extends ExtendableState {
 
 			var icon:AchievementIcon = new AchievementIcon(0, 0, Achievements.achievements[i].trim());
 			icon.sprTracker = text;
-			iconArray.push(icon);
-			add(icon);
+			icon.ID = i;
+			iconGrp.add(icon);
 		}
 
 		changeSelection(0, false);
