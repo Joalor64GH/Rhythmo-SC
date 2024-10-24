@@ -538,7 +538,8 @@ class PlayState extends ExtendableState {
 					noteDataTimes[Utilities.getNoteIndex(note.dir)] = note.strum;
 					doNotHit[Utilities.getNoteIndex(note.dir)] = true;
 
-					strumline.members[Utilities.getNoteIndex(note.dir)].press();
+					if (!SaveData.settings.botPlay)
+						strumline.members[Utilities.getNoteIndex(note.dir)].press();
 
 					switch (curRating) {
 						case "perfect" | "perfect-golden":

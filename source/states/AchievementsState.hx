@@ -9,7 +9,6 @@ class AchievementsState extends ExtendableState {
 	var iconArray:Array<AchievementIcon> = [];
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
-
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
@@ -89,7 +88,7 @@ class AchievementsState extends ExtendableState {
 					for (i in 0...achievementArray.length) {
 						var formattedName:String = StringTools.replace(achievementArray[i].name.toLowerCase(), " ", "_");
 						Achievements.forget(formattedName);
-						ExtendableState.resetState();
+						regenList();
 					}
 				}, () -> {
 					FlxG.sound.play(Paths.sound('cancel'));
@@ -99,7 +98,7 @@ class AchievementsState extends ExtendableState {
 					FlxG.sound.play(Paths.sound('select'));
 					var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
 					Achievements.forget(formattedName);
-					ExtendableState.resetState();
+					regenList();
 				}, () -> {
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
@@ -133,6 +132,45 @@ class AchievementsState extends ExtendableState {
 				+ achievementArray[curSelected].hint;
 			description.screenCenter(X);
 		}
+	}
+
+	function regenList() {
+		achievementArray = [];
+
+		achievementGrp.forEach(ach -> {
+			achievementGrp.remove(ach, true);
+			ach.destroy();
+		});
+		achievementGrp.clear(); // clear whatever is left
+
+		iconArray = [];
+
+		for (i in 0...Achievements.achievements.length) {
+			var coolAchieve:AchievementData = cast Json.parse(File.getContent(Paths.json('achievements/' + Achievements.achievements[i])));
+			achievementArray.push(coolAchieve);
+
+			var stringToUse:String = coolAchieve.name;
+			var unlocked:Bool = true;
+
+			if (!Achievements.achievementsMap.exists(Achievements.achievements[i])) {
+				stringToUse = "???";
+				unlocked = false;
+			}
+
+			isUnlocked.push(unlocked);
+
+			var text:FlxText = new FlxText(20, 60 + (i * 80), stringToUse, 32);
+			text.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.ID = i;
+			achievementGrp.add(text);
+
+			var icon:AchievementIcon = new AchievementIcon(0, 0, Achievements.achievements[i].trim());
+			icon.sprTracker = text;
+			iconArray.push(icon);
+			add(icon);
+		}
+
+		changeSelection(0, false);
 	}
 }
 
