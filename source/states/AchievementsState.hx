@@ -34,7 +34,7 @@ class AchievementsState extends ExtendableState {
 		achievementGrp = new FlxTypedGroup<FlxText>();
 		add(achievementGrp);
 
-		iconGrp = new FlxTypedGroup<AchievementIcon>;
+		iconGrp = new FlxTypedGroup<AchievementIcon>();
 		add(iconGrp);
 
 		for (i in 0...Achievements.achievements.length) {
