@@ -192,15 +192,15 @@ class Paths {
 
 	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
 		switch (type) {
-			case ASEPRITE: 
+			case ASEPRITE:
 				return FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
-			case PACKER: 
+			case PACKER:
 				return FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
-			case SPARROW: 
+			case SPARROW:
 				return FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
-			case TEXTURE_PATCHER_JSON: 
+			case TEXTURE_PATCHER_JSON:
 				return FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
-			case TEXTURE_PATCHER_XML: 
+			case TEXTURE_PATCHER_XML:
 				return FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
 		}
 

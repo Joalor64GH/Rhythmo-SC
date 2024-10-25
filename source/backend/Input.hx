@@ -90,7 +90,7 @@ class Input {
 
 	public static function anyJustPressed(tags:Array<String>):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		
+
 		for (tag in tags) {
 			if (gamepad != null) {
 				if (binds.exists(tag)) {
@@ -116,7 +116,7 @@ class Input {
 
 	public static function anyPressed(tags:Array<String>):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		
+
 		for (tag in tags) {
 			if (gamepad != null) {
 				if (binds.exists(tag)) {
@@ -142,7 +142,7 @@ class Input {
 
 	public static function anyJustReleased(tags:Array<String>):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		
+
 		for (tag in tags) {
 			if (gamepad != null) {
 				if (binds.exists(tag)) {

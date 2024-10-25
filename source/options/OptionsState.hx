@@ -44,15 +44,15 @@ class OptionsState extends ExtendableState {
 					openSubState(new options.OptionsSubState());
 					persistentUpdate = persistentDraw = false;
 				case 1:
-                    Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
-                case 2:
-                    ExtendableState.switchState(new options.LanguageState());
+					Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
+				case 2:
+					ExtendableState.switchState(new options.LanguageState());
 				case 3:
 					ExtendableState.switchState(new options.NoteColorState());
 			}
 		}
 
-        if (Input.justPressed('exit')) {
+		if (Input.justPressed('exit')) {
 			if (PauseSubState.fromPlayState) {
 				ExtendableState.switchState(new PlayState());
 				PauseSubState.fromPlayState = false;

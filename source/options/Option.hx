@@ -36,7 +36,7 @@ class Option {
 			case OptionType.Choice(choices):
 				value = choices[FlxMath.wrap(choices.indexOf(value) + direction, 0, choices.length - 1)];
 			default:
-                // nothing
+				// nothing
 		}
 
 		if (type != OptionType.Function && onChange != null)

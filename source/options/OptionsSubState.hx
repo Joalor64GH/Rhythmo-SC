@@ -57,13 +57,14 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.downScroll = value;
 		options.push(option);
 
-		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 1), SaveData.settings.laneUnderlay);
+		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 1),
+			SaveData.settings.laneUnderlay);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Type", "Only works if the hitsound volume isn't at 0.", OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']),
-			SaveData.settings.hitSoundType);
+		var option:Option = new Option("Hitsound Type", "Only works if the hitsound volume isn't at 0.",
+			OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']), SaveData.settings.hitSoundType);
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.hitSoundType = value;
 			FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType));
@@ -83,7 +84,8 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.botPlay = value;
 		options.push(option);
 
-		var option:Option = new Option("Millisecond Display", "If enabled, displays your hit time in milliseconds.", OptionType.Toggle, SaveData.settings.displayMS);
+		var option:Option = new Option("Millisecond Display", "If enabled, displays your hit time in milliseconds.", OptionType.Toggle,
+			SaveData.settings.displayMS);
 		option.onChange = (value:Dynamic) -> SaveData.settings.displayMS = value;
 		options.push(option);
 

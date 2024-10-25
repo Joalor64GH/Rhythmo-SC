@@ -10,26 +10,26 @@ class ColorSwap {
 
 	private function set_r(value:Float) {
 		r = value;
-		shader.red.value = [r/255];
+		shader.red.value = [r / 255];
 		return r;
 	}
 
 	private function set_g(value:Float) {
 		g = value;
-		shader.green.value = [g/255];
+		shader.green.value = [g / 255];
 		return g;
 	}
 
 	private function set_b(value:Float) {
 		b = value;
-		shader.blue.value = [b/255];
+		shader.blue.value = [b / 255];
 		return b;
 	}
 
 	public function new() {
-		r = 255/255;
-		g = 0/255;
-		b = 0/255;
+		r = 255 / 255;
+		g = 0 / 255;
+		b = 0 / 255;
 	}
 }
 

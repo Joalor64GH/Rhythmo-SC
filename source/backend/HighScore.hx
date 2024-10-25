@@ -7,8 +7,7 @@ class HighScore {
 		if (songScores.exists(song)) {
 			if (songScores.get(song) < score)
 				setScore(song, score);
-		} 
-		else
+		} else
 			setScore(song, score);
 	}
 
