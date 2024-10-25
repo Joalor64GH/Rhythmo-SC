@@ -403,6 +403,7 @@ class PlayState extends ExtendableState {
 
 	function openChartEditor() {
 		persistentUpdate = false;
+		paused = true;
 		ExtendableState.switchState(new ChartingState());
 		ChartingState.instance.song = song;
 		chartingMode = true;
@@ -458,7 +459,7 @@ class PlayState extends ExtendableState {
 				konami = 0;
 			}
 		}
-		
+
 		if (konami == 8)
 			didKonami = true;
 
@@ -692,7 +693,8 @@ class PlayState extends ExtendableState {
 
 			if (!gotAchievement) {
 				var achievementName = checkForAchievement([
-					'full_combo', 'single_digit_miss', 'multi_miss', 'perfect', 'super', 'amazing', 'be_better', 'can_improve', 'dont_give_up', 'failed', 'konami'
+					'full_combo', 'single_digit_miss', 'multi_miss', 'perfect', 'super', 'amazing', 'be_better', 'can_improve', 'dont_give_up', 'failed',
+					'konami'
 				]);
 
 				if (achievementName != null)

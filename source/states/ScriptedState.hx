@@ -3,6 +3,7 @@ package states;
 class ScriptedState extends ExtendableState {
 	public var path:String = "";
 	public var script:Hscript = null;
+
 	public static var instance:ScriptedState = null;
 
 	public function new(_path:String = null) {

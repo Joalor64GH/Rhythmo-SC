@@ -7,14 +7,12 @@ import haxe.io.Path;
 import sys.io.Process;
 import backend.ALSoftConfig;
 #end
-
 import debug.FPS;
 
 #if linux
 @:cppInclude('./external/gamemode_client.h')
 @:cppFileCode('#define GAMEMODE_AUTO')
 #end
-
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
@@ -92,8 +90,8 @@ class Main extends openfl.display.Sprite {
 			FlxG.sound.play(Paths.sound('error'));
 
 			Lib.application.window.alert('Uncaught Error: \n'
-				+ msg +
-				'\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
+				+ msg
+				+ '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
 				'Error!');
 			Sys.exit(1);
 		});

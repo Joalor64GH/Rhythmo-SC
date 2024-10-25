@@ -3,12 +3,13 @@ package substates;
 class ScriptedSubState extends ExtendableSubState {
 	public var path:String = "";
 	public var script:Hscript = null;
+
 	public static var instance:ScriptedSubState = null;
 
 	public function new(_path:String = null, ?args:Array<Dynamic>) {
 		if (_path != null)
 			path = _path;
-		
+
 		instance = this;
 
 		try {

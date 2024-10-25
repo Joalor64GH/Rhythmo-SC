@@ -3,11 +3,9 @@ package states;
 import backend.Conductor;
 import backend.Song;
 import objects.Note;
-
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
-
 import flixel.addons.ui.FlxUIInputText;
 
 class ChartingState extends ExtendableState {
@@ -46,7 +44,7 @@ class ChartingState extends ExtendableState {
 
 	var saveButton:FlxButton;
 	var saveAsButton:FlxButton;
-	
+
 	var clearSectionButton:FlxButton;
 	var clearSongButton:FlxButton;
 
@@ -469,8 +467,7 @@ class ChartingState extends ExtendableState {
 		_file = null;
 	}
 
-	function onSaveError(_):Void
-	{
+	function onSaveError(_):Void {
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);

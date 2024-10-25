@@ -133,11 +133,11 @@ class CreditsState extends ExtendableState {
 		rightMarker.y = topBar.y + 5;
 
 		var controlArray:Array<Bool> = [
-			FlxG.keys.justPressed.UP, 
-			FlxG.keys.justPressed.DOWN, 
-			Input.justPressed('up'), 
-			Input.justPressed('down'), 
-			FlxG.mouse.wheel == 1, 
+			FlxG.keys.justPressed.UP,
+			FlxG.keys.justPressed.DOWN,
+			Input.justPressed('up'),
+			Input.justPressed('down'),
+			FlxG.mouse.wheel == 1,
 			FlxG.mouse.wheel == -1
 		];
 		if (controlArray.contains(true)) {

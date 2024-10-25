@@ -9,7 +9,6 @@ class AchievementsState extends ExtendableState {
 	var iconGrp:FlxTypedGroup<AchievementIcon>;
 	var isUnlocked:Array<Bool> = [];
 	var description:FlxText;
-	
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
 
@@ -140,6 +139,7 @@ class AchievementsState extends ExtendableState {
 
 	function regenList() {
 		achievementArray = [];
+		isUnlocked = [];
 
 		achievementGrp.forEach(ach -> {
 			achievementGrp.remove(ach, true);

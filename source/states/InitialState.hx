@@ -10,7 +10,7 @@ class InitialState extends ExtendableState {
 
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.lang);
-		
+
 		ModHandler.reload();
 		SaveData.init();
 		Achievements.load();
