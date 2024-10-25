@@ -122,7 +122,7 @@ class MenuState extends ExtendableState {
 						#if sys
 						Sys.exit(0);
 						#else
-						openfl.system.System.exit(0);
+						System.exit(0);
 						#end
 					});
 				} else {

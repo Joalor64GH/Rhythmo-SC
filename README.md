@@ -9,9 +9,11 @@ Mostly based off of [FNF](https://github.com/FunkinCrew/Funkin/), go check that 
 ## Features
 * Modding System (using [Polymod](https://github.com/larsiusprime/polymod/))
 * Softcoded Song / Credits Menu
-* Scripting System
+* Scripting System / Scripted States
+* RGB Note Coloring
 * Language Translations
 * Simple Crash Handler
+* Achievements
 
 ## Credits
 * Joalor64 - Creator / Main Programmer / Composer / Artist
