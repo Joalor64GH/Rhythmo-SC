@@ -46,6 +46,8 @@ class PlayState extends ExtendableState {
 	public var camZooming:Bool = true;
 	public var paused:Bool = false;
 	public var startingSong:Bool = false;
+	public var canPause:Bool = true;
+	public var startedCountdown:Bool = false;
 
 	public var countdown3:FlxSprite;
 	public var countdown2:FlxSprite;
@@ -57,8 +59,6 @@ class PlayState extends ExtendableState {
 
 	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
-	var canPause:Bool = true;
-	var startedCountdown:Bool = false;
 	var isPerfect:Bool = true;
 
 	override public function new() {
