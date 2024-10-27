@@ -29,11 +29,8 @@
       "type": "haxelib"
     },
     {
-      "name": "hscript-improved",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/FNF-CNE-Devs/hscript-improved"
+      "name": "hscript",
+      "type": "haxelib"
     },
     {
       "name": "funkin.vis",

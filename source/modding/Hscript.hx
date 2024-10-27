@@ -13,7 +13,6 @@ class Hscript extends FlxBasic {
 		super();
 
 		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
-		interp.allowStaticVariables = interp.allowPublicVariables = true;
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
