@@ -46,6 +46,10 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
+		setVariable('stopScript', function() {
+			this.destroy();
+		});
+
 		setVariable('Function_Stop', Function_Stop);
 		setVariable('Function_Continue', Function_Continue);
 

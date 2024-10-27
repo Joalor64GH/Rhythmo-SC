@@ -17,8 +17,8 @@ Also, the size of your cover should be a square, preferably `720 by 720`.
 
 ## Adding Song Data
 For song data, you need the following:
-* `assets/songs/[song-name]/chart.json` (Required)
-* `assets/songs/[song-name]/music.ogg` (Required)
+* `assets/songs/[song-name]/chart.json`
+* `assets/songs/[song-name]/music.ogg`
 
 ## Charting
 Before you actually chart your song, you need `chart.json`. <br>

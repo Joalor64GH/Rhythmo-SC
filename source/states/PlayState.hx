@@ -55,9 +55,8 @@ class PlayState extends ExtendableState {
 	public var go:FlxSprite;
 
 	public var coolBG:FlxSprite;
-	public var bg:FlxSprite;
 
-	var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
+	public var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
 	var isPerfect:Bool = true;
 
@@ -75,7 +74,6 @@ class PlayState extends ExtendableState {
 			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
 
 		instance = this;
-		FlxG.mouse.visible = false;
 	}
 
 	override function create() {
@@ -96,13 +94,13 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		bg = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
 		add(bg);
 
 		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
 		coolBG.alpha = SaveData.settings.laneUnderlay / 100;
 		coolBG.screenCenter(X);
-		if (coolBG.alpha > 0)
+		if (SaveData.settings.laneUnderlay != 0)
 			add(coolBG);
 
 		strumline = new FlxTypedGroup<Note>();
