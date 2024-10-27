@@ -14,7 +14,7 @@ Firstly, you need a json file for your achievement. Copy this template:
 Then, for your achievement to actually be loaded, navigate to `assets/achievements/achList.txt` and add it there. <br>
 Keep in mind the name has to be all lowercase.
 
-Now, you simply need an icon for your achievement. Your icon should be in `assets/images/achievements/[name]/png`. <br>
+Now, you simply need an icon for your achievement. Your icon should be in `assets/images/achievements/[name].png`. <br>
 I recommend that the image's size should be a square, preferably `150 x 150`.
 
 ## Unlocking your Achievement

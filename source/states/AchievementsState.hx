@@ -57,7 +57,6 @@ class AchievementsState extends ExtendableState {
 
 			var icon:AchievementIcon = new AchievementIcon(0, 0, Achievements.achievements[i].trim());
 			icon.sprTracker = text;
-			icon.ID = i;
 			iconGrp.add(icon);
 		}
 
@@ -174,7 +173,6 @@ class AchievementsState extends ExtendableState {
 
 			var icon:AchievementIcon = new AchievementIcon(0, 0, Achievements.achievements[i].trim());
 			icon.sprTracker = text;
-			icon.ID = i;
 			iconGrp.add(icon);
 		}
 
@@ -188,10 +186,16 @@ class AchievementIcon extends GameSprite {
 	public function new(x:Float, y:Float, ach:String) {
 		super(x, y);
 
-		if (Achievements.isUnlocked(ach))
-			loadGraphic(Paths.image('achievements/' + ach));
-		else
+		if (Achievements.isUnlocked(ach)) {
+			try {
+				loadGraphic(Paths.image('achievements/$ach'));
+			} catch (e:Dynamic) {
+				trace('Error getting achievement icon: $e');
+				loadGraphic(Paths.image('achievements/unknown'));
+			}
+		} else
 			loadGraphic(Paths.image('achievements/locked'));
+		
 		setGraphicSize(75, 75);
 		scrollFactor.set();
 		updateHitbox();

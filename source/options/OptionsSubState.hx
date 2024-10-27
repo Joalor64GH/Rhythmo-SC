@@ -57,7 +57,7 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.downScroll = value;
 		options.push(option);
 
-		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 1),
+		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 10),
 			SaveData.settings.laneUnderlay);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
@@ -71,7 +71,7 @@ class OptionsSubState extends ExtendableSubState {
 		};
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 1),
+		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 10),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> {

@@ -41,7 +41,7 @@ class ScriptedSubState extends ExtendableSubState {
 			ExtendableState.switchState(new TitleState());
 		}
 
-		scriptExecute('new', (args != null) ? args : []);
+		scriptExecute('new', args);
 
 		super();
 	}

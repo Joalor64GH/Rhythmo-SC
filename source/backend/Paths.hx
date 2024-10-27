@@ -9,7 +9,6 @@ import neko.vm.Gc;
 #end
 import openfl.media.Sound;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxFramesCollection;
 
 using haxe.io.Path;
 
@@ -26,7 +25,6 @@ enum SpriteSheetType {
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
-	public static var tempFramesCache:Map<String, FlxFramesCollection> = [];
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -187,28 +185,26 @@ class Paths {
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic
 		return returnGraphic('images/$key', cache);
 
-	inline static public function imageAlt(key:String)
-		return file('images/$key.png');
-
 	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
-		switch (type) {
-			case ASEPRITE:
-				return FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
-			case PACKER:
-				return FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
-			case SPARROW:
-				return FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
-			case TEXTURE_PATCHER_JSON:
-				return FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
-			case TEXTURE_PATCHER_XML:
-				return FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
-		}
-
-		if (type == null) {
+		if (type != null) {
+			return switch (type) {
+				case ASEPRITE:
+					FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
+				case PACKER:
+					FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
+				case SPARROW:
+					FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
+				case TEXTURE_PATCHER_JSON:
+					FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
+				case TEXTURE_PATCHER_XML:
+					FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
+			}
+		} else {
 			type = SPARROW;
 			return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 		}
 
+		trace('oops! $key returned null');
 		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 	}
 

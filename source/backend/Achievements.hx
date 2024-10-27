@@ -1,7 +1,5 @@
 package backend;
 
-import flixel.FlxCamera;
-
 typedef AchievementData = {
 	public var name:String;
 	public var desc:String;
@@ -38,10 +36,10 @@ class Achievements {
 					if (achievementName != "") {
 						achievements.push(achievementName);
 						try {
-							Json.parse(File.getContent(Paths.json('achievements/' + achievementName)));
-							trace("achievement " + achievement + " loaded");
+							Json.parse(File.getContent(Paths.json('achievements/$achievementName')));
+							trace("Achievement '" + achievement + "' loaded");
 						} catch (e:Dynamic) {
-							trace("error while loading achievement:" + e);
+							trace('Error loading achievement: $e');
 						}
 					}
 				}

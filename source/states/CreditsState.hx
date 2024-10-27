@@ -42,6 +42,7 @@ class CreditsState extends ExtendableState {
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
+		add(camFollow);
 
 		if (credData.menuBG != null && credData.menuBG.length > 0)
 			menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
@@ -269,9 +270,10 @@ class CreditsIcon extends GameSprite {
 		try {
 			loadGraphic(Paths.image('credits/$icon'));
 		} catch (e:Dynamic) {
-			trace('error getting icon: $e');
+			trace('Error getting credit icon: $e');
 			loadGraphic(Paths.image('credits/placeholder'));
 		}
+
 		setGraphicSize(75, 75);
 		scrollFactor.set();
 		updateHitbox();

@@ -154,7 +154,7 @@ function update(elapsed:Float) {
     if (Input.justPressed('accept'))
         ExtendableState.switchState(new ScriptedState('name')); // load custom state
     
-    if (Input.justPressed('accept'))
+    if (Input.justPressed('exit'))
         state.openSubState(new ScriptedSubState('name', [])); // load custom substate
 }
 ```
