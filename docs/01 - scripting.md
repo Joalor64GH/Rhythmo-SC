@@ -18,7 +18,7 @@ import('package.Class');
 ```
 
 You can basically use this to import any class you'd like.
-Otherwise, here is a list of the current Libraries/Classes that are already imported:
+Otherwise, here is a list of the current Libraries/Classes you can use that are already imported:
 
 ### Standard Haxe Classes
 * Array

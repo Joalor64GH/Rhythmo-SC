@@ -7,7 +7,7 @@ class PauseSubState extends ExtendableSubState {
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
-	var pauseOptions:Array<String> = ['Resume', 'Restart', 'Options', 'Song Menu', 'Main Menu'];
+	final pauseOptions:Array<String> = ['Resume', 'Restart', 'Options', 'Song Menu', 'Main Menu'];
 	var pauseGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
