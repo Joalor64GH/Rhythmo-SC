@@ -57,9 +57,11 @@ class Note extends GameSprite {
 
 		calculateCanBeHit();
 
-		if (tooLate)
-			if (alpha > 0.3)
-				alpha = 0.3;
+		if (type != 'receptor') {
+			if (tooLate)
+				if (alpha > 0.3)
+					alpha = 0.3;
+		}
 	}
 
 	public function calculateCanBeHit() {
