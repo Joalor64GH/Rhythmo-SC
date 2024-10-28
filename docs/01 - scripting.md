@@ -17,9 +17,9 @@ To import a class, use:
 import('package.Class');
 ```
 
-This is a list of the current Libraries/Classes that you can use:
+You can basically use this to import any class you'd like.
+Otherwise, here is a list of the current Libraries/Classes that are already imported:
 
-**NOTE: These classes are already imported anyways.**
 ### Standard Haxe Classes
 * Array
 * Bool

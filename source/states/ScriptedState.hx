@@ -45,7 +45,7 @@ class ScriptedState extends ExtendableState {
 		} catch (e:Dynamic) {
 			script = null;
 			trace('Error while getting script!\n$e');
-			ExtendableState.switchState(new TitleState());
+			ExtendableState.switchState(new MenuState());
 		}
 
 		scriptExecute('create', []);
@@ -56,6 +56,9 @@ class ScriptedState extends ExtendableState {
 	override function update(elapsed:Float) {
 		scriptExecute('update', [elapsed]);
 		super.update(elapsed);
+
+		if (Input.justPressed('f4')) // emergency exit
+			ExtendableState.switchState(new MenuState());
 	}
 
 	override function beatHit() {
