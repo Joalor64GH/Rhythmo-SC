@@ -409,25 +409,27 @@ class PlayState extends ExtendableState {
 
 	public var curRating:String = "perfect";
 
+	var justPressed:Array<Bool> = [];
+	var pressed:Array<Bool> = [];
+	var justReleased:Array<Bool> = [];
+
 	function inputFunction() {
-		var justPressed:Array<Bool> = [
-			Input.justPressed('left'),
-			Input.justPressed('down'),
-			Input.justPressed('up'),
-			Input.justPressed('right')
-		];
-		var pressed:Array<Bool> = [
-			Input.pressed('left'),
-			Input.pressed('down'),
-			Input.pressed('up'),
-			Input.pressed('right')
-		];
-		var released:Array<Bool> = [
-			Input.justReleased('left'),
-			Input.justReleased('down'),
-			Input.justReleased('up'),
-			Input.justReleased('right')
-		];
+		justPressed = [];
+		pressed = [];
+		released = [];
+
+		for (i in 0...4) {
+			if (!SaveData.settings.botPlay) {
+				var key = noteDirs[i];
+				justPressed.push(Input.justPressed(key));
+				pressed.push(Input.pressed(key));
+				justReleased.push(Input.justReleased(key));
+			} else { // prevent player input when botplay is on
+				justPressed.push(false);
+				pressed.push(false);
+				justReleased.push(false);
+			}
+		}
 
 		if (Input.justPressed('left')) {
 			if (konami == 4 || konami == 6) {
@@ -453,6 +455,8 @@ class PlayState extends ExtendableState {
 		if (Input.justPressed('right')) {
 			if (konami == 5 || konami == 7) {
 				konami += 1;
+				if (konami > 7)
+					FlxG.sound.play(Paths.sound('unlock'));
 			} else {
 				konami = 0;
 			}
@@ -460,13 +464,6 @@ class PlayState extends ExtendableState {
 
 		if (konami == 8)
 			didKonami = true;
-
-		// prevent player input when botplay is on
-		if (SaveData.settings.botPlay) {
-			justPressed = [false, false, false, false];
-			pressed = [false, false, false, false];
-			released = [false, false, false, false];
-		}
 
 		for (i in 0...justPressed.length) {
 			if (justPressed[i]) {
