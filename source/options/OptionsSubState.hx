@@ -57,7 +57,7 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.downScroll = value;
 		options.push(option);
 
-		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 10),
+		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 1),
 			SaveData.settings.laneUnderlay);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
