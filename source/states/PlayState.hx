@@ -411,7 +411,7 @@ class PlayState extends ExtendableState {
 
 	var justPressed:Array<Bool> = [];
 	var pressed:Array<Bool> = [];
-	var justReleased:Array<Bool> = [];
+	var released:Array<Bool> = [];
 
 	function inputFunction() {
 		justPressed = [];
@@ -423,11 +423,11 @@ class PlayState extends ExtendableState {
 				var key = noteDirs[i];
 				justPressed.push(Input.justPressed(key));
 				pressed.push(Input.pressed(key));
-				justReleased.push(Input.justReleased(key));
+				released.push(Input.justReleased(key));
 			} else { // prevent player input when botplay is on
 				justPressed.push(false);
 				pressed.push(false);
-				justReleased.push(false);
+				released.push(false);
 			}
 		}
 
