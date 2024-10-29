@@ -448,7 +448,7 @@ class ChartingState extends ExtendableState {
 
 	function loadJson(song:String):Void {
 		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
-		ExtendableState.resetState();
+		FlxG.resetState();
 	}
 
 	function onSaveComplete(_):Void {

@@ -47,7 +47,7 @@ class UpdateState extends ExtendableState {
 			FlxG.openURL("https://github.com/Joalor64GH/Rhythmo-SC/releases/latest");
 			#end
 		} else if (Input.justPressed('exit')) {
-			ExtendableState.switchState(new TitleState());
+			switchState(new TitleState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}

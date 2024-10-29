@@ -70,15 +70,15 @@ class PauseSubState extends ExtendableSubState {
 				case 1:
 					FlxG.resetState();
 				case 2:
-					ExtendableState.switchState(new options.OptionsState());
+					switchState(new options.OptionsState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 					fromPlayState = true;
 				case 3:
-					ExtendableState.switchState(new SongSelectState());
+					switchState(new SongSelectState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 					PlayState.chartingMode = false;
 				case 4:
-					ExtendableState.switchState(new MenuState());
+					switchState(new MenuState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 					PlayState.chartingMode = false;
 			}

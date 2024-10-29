@@ -5,9 +5,10 @@ import backend.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
+import flixel.addons.ui.FlxUIState;
 import flixel.graphics.FlxGraphic;
 
-class ExtendableState extends FlxTransitionableState {
+class ExtendableState extends FlxUIState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;
 
@@ -53,7 +54,7 @@ class ExtendableState extends FlxTransitionableState {
 		super.update(elapsed);
 	}
 
-	public static function switchState(state:FlxState, ?noTransition:Bool = false) {
+	public function switchState(state:FlxState, ?noTransition:Bool = false) {
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 

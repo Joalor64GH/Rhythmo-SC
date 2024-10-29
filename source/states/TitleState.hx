@@ -59,7 +59,7 @@ class TitleState extends ExtendableState {
 			if (SaveData.settings.flashing)
 				FlxG.camera.flash(FlxColor.WHITE, 1);
 			new FlxTimer().start(1, (tmr:FlxTimer) -> {
-				ExtendableState.switchState(new MenuState());
+				switchState(new MenuState());
 			});
 		}
 	}

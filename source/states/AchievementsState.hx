@@ -83,7 +83,7 @@ class AchievementsState extends ExtendableState {
 		if (Input.justPressed('exit')) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancel'));
-			ExtendableState.switchState(new MenuState());
+			switchState(new MenuState());
 		}
 
 		if (Input.justPressed('reset')) {

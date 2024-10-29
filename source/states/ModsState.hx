@@ -66,7 +66,7 @@ class ModsState extends ExtendableState {
 			FlxG.sound.play(Paths.sound('cancel'));
 			ModHandler.reload();
 			mustResetMusic = true;
-			ExtendableState.switchState(new MenuState());
+			switchState(new MenuState());
 		} else if (Input.justPressed('accept')) {
 			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
 				FlxG.save.data.disabledMods.push(ModHandler.trackedMods[curSelected].id);

@@ -50,10 +50,10 @@ class InitialState extends ExtendableState {
 		gradientBar.y = FlxG.height - gradientBar.height;
 
 		if (Input.justPressed('accept'))
-			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+			switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {
-				ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+				switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 			});
 		}
 	}

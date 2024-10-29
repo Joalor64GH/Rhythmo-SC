@@ -132,37 +132,37 @@ class MenuState extends ExtendableState {
 					new FlxTimer().start(1, (tmr:FlxTimer) -> {
 						switch (selections[curSelected]) {
 							case 'play':
-								ExtendableState.switchState(new SongSelectState());
+								switchState(new SongSelectState());
 							#if FUTURE_POLYMOD
 							case 'mods':
 								if (ModHandler.trackedMods.length > 0) 
-									ExtendableState.switchState(new ModsState()); 
+									switchState(new ModsState()); 
 								else {
 									lockInputs = false;
 									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
 								}
 							#end
 							case 'awards':
-								ExtendableState.switchState(new AchievementsState());
+								switchState(new AchievementsState());
 							case 'credits':
-								ExtendableState.switchState(new CreditsState());
+								switchState(new CreditsState());
 							case 'options':
-								ExtendableState.switchState(new options.OptionsState());
+								switchState(new options.OptionsState());
 							default:
-								ExtendableState.switchState(new ScriptedState(selections[curSelected]));
+								switchState(new ScriptedState(selections[curSelected]));
 						}
 					});
 				}
 			}
 
 			if (Input.justPressed('exit')) {
-				ExtendableState.switchState(new TitleState());
+				switchState(new TitleState());
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 
 			#if desktop
 			if (Input.justPressed('seven'))
-				ExtendableState.switchState(new EditorState());
+				switchState(new EditorState());
 			#end
 		}
 	}

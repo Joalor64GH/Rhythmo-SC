@@ -116,10 +116,10 @@ class SongSelectState extends ExtendableState {
 			if (Input.justPressed('accept')) {
 				if (Input.pressed('shift')) {
 					ChartingState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
-					ExtendableState.switchState(new ChartingState());
+					switchState(new ChartingState());
 				} else {
 					PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
-					ExtendableState.switchState(new PlayState());
+					switchState(new PlayState());
 				}
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
@@ -128,7 +128,7 @@ class SongSelectState extends ExtendableState {
 
 		if (Input.justPressed('exit')) {
 			if (!isResetting) {
-				ExtendableState.switchState(new MenuState());
+				switchState(new MenuState());
 				FlxG.sound.play(Paths.sound('cancel'));
 			} else {
 				FlxG.sound.play(Paths.sound('cancel'));
@@ -146,7 +146,7 @@ class SongSelectState extends ExtendableState {
 			if (Input.pressed('space')) {
 				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
 				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
-				ExtendableState.switchState(new PlayState());
+				switchState(new PlayState());
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
 			} else {
