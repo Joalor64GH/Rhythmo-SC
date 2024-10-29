@@ -115,7 +115,7 @@ class SongSelectState extends ExtendableState {
 
 			if (Input.justPressed('accept')) {
 				if (Input.pressed('shift')) {
-					ChartingState.instance.song = songListData.songs[currentIndex].name;
+					ChartingState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
 					ExtendableState.switchState(new ChartingState());
 				} else {
 					PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));

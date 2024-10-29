@@ -6,12 +6,12 @@ import objects.Note;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
+import openfl.net.FileFilter;
 import flixel.addons.ui.FlxUIInputText;
 
 class ChartingState extends ExtendableState {
 	public static var instance:ChartingState = null;
-
-	public var song:SongData;
+	public static var song:SongData = null;
 
 	var gridBG:FlxSprite;
 	var gridSize:Int = 40;
@@ -24,19 +24,6 @@ class ChartingState extends ExtendableState {
 	var beatSnap:Int = 16;
 
 	var renderedNotes:FlxTypedGroup<Note>;
-
-	override public function new() {
-		super();
-
-		instance = this;
-
-		song = {
-			song: "Test",
-			notes: [],
-			bpm: 100,
-			timeSignature: [4, 4]
-		};
-	}
 
 	var curSelectedNote:NoteData;
 
@@ -59,6 +46,22 @@ class ChartingState extends ExtendableState {
 	var redos = [];
 
 	var _file:FileReference;
+
+	override public function new() {
+		super();
+
+		if (song == null) {
+			song = {
+				song: "Test",
+				notes: [],
+				bpm: 100,
+				timeSignature: [4, 4]
+			};
+		} else
+			song = Song.loadSongfromJson(Paths.formatToSongPath(song.song));
+
+		instance = this;
+	}
 
 	override function create() {
 		super.create();
@@ -267,7 +270,7 @@ class ChartingState extends ExtendableState {
 			+ curBeat
 			+ "\nNote Snap: "
 			+ beatSnap
-			+ (FlxG.keys.pressed.SHIFT ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
+			+ (Input.pressed('shift') ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
 			+ "\n");
 	}
 

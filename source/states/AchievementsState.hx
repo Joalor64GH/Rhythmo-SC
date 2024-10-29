@@ -15,6 +15,9 @@ class AchievementsState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		FlxG.mouse.visible = true;
 
 		camFollow = new FlxObject(80, 0, 0, 0);
