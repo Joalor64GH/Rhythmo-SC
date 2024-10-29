@@ -172,7 +172,7 @@ class CreditsState extends ExtendableState {
 
 		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound('cancel'));
-			switchState(new MenuState());
+			ExtendableState.switchState(new MenuState());
 		}
 	}
 

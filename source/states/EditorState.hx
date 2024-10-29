@@ -41,7 +41,7 @@ class EditorState extends ExtendableState {
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
 		if (Input.justPressed('exit')) {
-			switchState(new MenuState());
+			ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}

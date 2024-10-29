@@ -64,14 +64,14 @@ class LanguageState extends ExtendableState {
 
 		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound("cancel"));
-			switchState(new OptionsState());
+			ExtendableState.switchState(new OptionsState());
 		}
 
 		if (Input.justPressed('accept')) {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();
-			switchState(new OptionsState());
+			ExtendableState.switchState(new OptionsState());
 		}
 	}
 

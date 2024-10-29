@@ -193,7 +193,7 @@ class ChartingState extends ExtendableState {
 			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
-			switchState(new PlayState());
+			ExtendableState.switchState(new PlayState());
 			PlayState.song = song;
 		}
 
@@ -448,7 +448,7 @@ class ChartingState extends ExtendableState {
 
 	function loadJson(song:String):Void {
 		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
-		FlxG.resetState();
+		ExtendableState.resetState();
 	}
 
 	function onSaveComplete(_):Void {

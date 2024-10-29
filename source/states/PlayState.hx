@@ -402,7 +402,7 @@ class PlayState extends ExtendableState {
 	function openChartEditor() {
 		persistentUpdate = false;
 		paused = true;
-		switchState(new ChartingState());
+		ExtendableState.switchState(new ChartingState());
 		ChartingState.song = song;
 		chartingMode = true;
 	}

@@ -46,20 +46,20 @@ class OptionsState extends ExtendableState {
 				case 1:
 					Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
 				case 2:
-					switchState(new options.LanguageState());
+					ExtendableState.switchState(new options.LanguageState());
 				case 3:
-					switchState(new options.NoteColorState());
+					ExtendableState.switchState(new options.NoteColorState());
 			}
 		}
 
 		if (Input.justPressed('exit')) {
 			if (PauseSubState.fromPlayState) {
-				switchState(new PlayState());
+				ExtendableState.switchState(new PlayState());
 				PauseSubState.fromPlayState = false;
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
 			} else
-				switchState(new MenuState());
+				ExtendableState.switchState(new MenuState());
 			FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}

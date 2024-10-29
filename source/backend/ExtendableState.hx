@@ -2,41 +2,18 @@ package backend;
 
 import backend.Conductor.BPMChangeEvent;
 import backend.Conductor.TimeScaleChangeEvent;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
-import flixel.addons.ui.FlxUIState;
-import flixel.graphics.FlxGraphic;
 
-class ExtendableState extends FlxUIState {
+class ExtendableState extends FlxTransitionableState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;
 
-	override public function new(?noTransition:Bool = false) {
-		super();
-
-		if (!InitialState.transitionsAllowed) {
-			noTransition = true;
-			InitialState.transitionsAllowed = true;
-		}
-
-		var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-		diamond.persist = true;
-		diamond.destroyOnNoUse = false;
-		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-			new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1), {asset: diamond, width: 32, height: 32},
-			new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-
-		FlxTransitionableState.skipNextTransIn = noTransition;
-		FlxTransitionableState.skipNextTransOut = noTransition;
-	}
-
 	override public function create() {
 		super.create();
+
+		if (!FlxTransitionableState.skipNextTransOut)
+			openSubState(new CoolTransition(0.5, true));
+		FlxTransitionableState.skipNextTransOut = false;
 	}
 
 	override public function update(elapsed:Float) {
@@ -54,14 +31,43 @@ class ExtendableState extends FlxUIState {
 		super.update(elapsed);
 	}
 
-	public function switchState(state:FlxState, ?noTransition:Bool = false) {
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
+	public static function switchState(nextState:FlxState = null) {
+		if (nextState == null)
+			nextState = FlxG.state;
+		if (nextState == FlxG.state) {
+			resetState();
+			return;
+		}
 
-		FlxTransitionableState.skipNextTransIn = noTransition;
-		FlxTransitionableState.skipNextTransOut = noTransition;
+		if (FlxTransitionableState.skipNextTransIn)
+			FlxG.switchState(nextState);
+		else
+			startTransition(nextState);
+		FlxTransitionableState.skipNextTransIn = false;
+	}
 
-		FlxG.switchState(state);
+	public static function resetState() {
+		if (FlxTransitionableState.skipNextTransIn)
+			FlxG.resetState();
+		else
+			startTransition();
+		FlxTransitionableState.skipNextTransIn = false;
+	}
+
+	public static function startTransition(nextState:FlxState = null) {
+		if (nextState == null)
+			nextState = FlxG.state;
+
+		FlxG.state.openSubState(new CoolTransition(0.35, false));
+		if (nextState == FlxG.state) {
+			CoolTransition.finishCallback = function() {
+				FlxG.resetState();
+			};
+		} else {
+			CoolTransition.finishCallback = function() {
+				FlxG.switchState(nextState);
+			};
+		}
 	}
 
 	function updateBeat():Void {

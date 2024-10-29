@@ -1,8 +1,6 @@
 package states;
 
 class InitialState extends ExtendableState {
-	public static var transitionsAllowed:Bool = false;
-
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAA00AA);
 	var intro:FlxSprite;
 
@@ -50,10 +48,10 @@ class InitialState extends ExtendableState {
 		gradientBar.y = FlxG.height - gradientBar.height;
 
 		if (Input.justPressed('accept'))
-			switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {
-				switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+				ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 			});
 		}
 	}

@@ -57,7 +57,7 @@ class ResultsSubState extends ExtendableSubState {
 
 		if (Input.justPressed('any')) {
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-			switchState(new SongSelectState());
+			ExtendableState.switchState(new SongSelectState());
 		}
 	}
 
