@@ -2,9 +2,9 @@ package backend;
 
 class CoolTransition extends FlxSubState {
 	public static var finishCallback:Void->Void;
-	public static var nextCamera:FlxCamera;
 
 	var rhombus:FlxSprite;
+	var stopNow:Bool = false;
 	var isTransIn:Bool = false;
 
 	public function new(duration:Float, isTransIn:Bool) {
@@ -29,13 +29,7 @@ class CoolTransition extends FlxSubState {
 		add(rhombus);
 	}
 
-	var stopNow:Bool = false;
-
 	override function update(elapsed:Float) {
-		var camList = FlxG.cameras.list;
-		camera = camList[camList.length - 1];
-		rhombus.cameras = [camera];
-
 		super.update(elapsed);
 
 		if (rhombus.animation.curAnim.finished && !stopNow) {
@@ -46,9 +40,5 @@ class CoolTransition extends FlxSubState {
 			else if (finishCallback != null)
 				finishCallback();
 		}
-	}
-
-	override function destroy() {
-		super.destroy();
 	}
 }
