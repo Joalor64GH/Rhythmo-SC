@@ -186,26 +186,25 @@ class Paths {
 		return returnGraphic('images/$key', cache);
 
 	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
-		if (type != null) {
-			return switch (type) {
-				case ASEPRITE:
-					FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
-				case PACKER:
-					FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
-				case SPARROW:
-					FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
-				case TEXTURE_PATCHER_JSON:
-					FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
-				case TEXTURE_PATCHER_XML:
-					FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
-			}
-		} else {
+		if (type == null) {
 			type = SPARROW;
 			return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
 		}
 
-		trace('oops! $key returned null');
-		return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+		return switch (type) {
+			case ASEPRITE:
+				FlxAtlasFrames.fromAseprite(image(key, cache), json('images/$key'));
+			case PACKER:
+				FlxAtlasFrames.fromSpriteSheetPacker(image(key, cache), txt('images/$key'));
+			case SPARROW:
+				FlxAtlasFrames.fromSparrow(image(key, cache), xml('images/$key'));
+			case TEXTURE_PATCHER_JSON:
+				FlxAtlasFrames.fromTexturePackerJson(image(key, cache), json('images/$key'));
+			case TEXTURE_PATCHER_XML:
+				FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
+			default:
+				FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+		}
 	}
 
 	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic {
