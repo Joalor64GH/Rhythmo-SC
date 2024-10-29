@@ -9,3 +9,7 @@
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
 * [ ] New Controls Menu **[WIP]**
+
+## Future To-Dos
+* [ ] Sustain Notes + New song
+* [ ] Improve Chart Editor

@@ -55,9 +55,9 @@ class Note extends GameSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		calculateCanBeHit();
-
 		if (type != 'receptor') {
+			calculateCanBeHit();
+			
 			if (tooLate)
 				if (alpha > 0.3)
 					alpha = 0.3;
