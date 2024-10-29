@@ -68,7 +68,7 @@ class PauseSubState extends ExtendableSubState {
 				case 0:
 					close();
 				case 1:
-					ExtendableState.resetState();
+					FlxG.resetState();
 				case 2:
 					ExtendableState.switchState(new options.OptionsState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
