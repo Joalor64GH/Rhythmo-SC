@@ -4,16 +4,22 @@ import backend.Conductor.BPMChangeEvent;
 import backend.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionableState;
 
-class ExtendableState extends FlxTransitionableState {
+class ExtendableState extends FlxState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;
 
-	override public function create() {
+	override function create() {
 		super.create();
 
-		if (!FlxTransitionableState.skipNextTransOut)
-			openSubState(new CoolTransition(0.5, true));
-		FlxTransitionableState.skipNextTransOut = false;
+		if (!FlxTransitionableState.skipNextTransOut) {
+			var cam:FlxCamera = new FlxCamera();
+			cam.bgColor.alpha = 0;
+			FlxG.cameras.add(cam, false);
+			cam.fade(FlxColor.BLACK, 0.7, true, function() {
+				FlxTransitionableState.skipNextTransOut = false;
+			});
+		} else
+			FlxTransitionableState.skipNextTransOut = false;
 	}
 
 	override public function update(elapsed:Float) {
@@ -31,42 +37,18 @@ class ExtendableState extends FlxTransitionableState {
 		super.update(elapsed);
 	}
 
-	public static function switchState(nextState:FlxState = null) {
-		if (nextState == null)
-			nextState = FlxG.state;
-		if (nextState == FlxG.state) {
-			resetState();
-			return;
-		}
-
-		if (FlxTransitionableState.skipNextTransIn)
-			FlxG.switchState(nextState);
-		else
-			startTransition(nextState);
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-
-	public static function resetState() {
-		if (FlxTransitionableState.skipNextTransIn)
-			FlxG.resetState();
-		else
-			startTransition();
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-
-	public static function startTransition(nextState:FlxState = null) {
-		if (nextState == null)
-			nextState = FlxG.state;
-
-		FlxG.state.openSubState(new CoolTransition(0.35, false));
-		if (nextState == FlxG.state) {
-			CoolTransition.finishCallback = function() {
-				FlxG.resetState();
-			};
-		} else {
-			CoolTransition.finishCallback = function() {
+	public static function switchState(nextState:FlxState) {
+		if (!FlxTransitionableState.skipNextTransIn) {
+			var cam:FlxCamera = new FlxCamera();
+			cam.bgColor.alpha = 0;
+			FlxG.cameras.add(cam, false);
+			cam.fade(FlxColor.BLACK, 0.7, false, function() {
 				FlxG.switchState(nextState);
-			};
+				FlxTransitionableState.skipNextTransIn = false;
+			});
+		} else {
+			FlxG.switchState(nextState);
+			FlxTransitionableState.skipNextTransIn = false;
 		}
 	}
 

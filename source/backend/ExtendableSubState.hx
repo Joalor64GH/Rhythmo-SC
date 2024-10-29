@@ -1,10 +1,8 @@
 package backend;
 
 import backend.Conductor.BPMChangeEvent;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.ui.FlxUISubState;
 
-class ExtendableSubState extends FlxUISubState {
+class ExtendableSubState extends FlxSubState {
 	var curStep:Int = 0;
 	var curBeat:Int = 0;
 
@@ -24,13 +22,6 @@ class ExtendableSubState extends FlxUISubState {
 		FlxG.stage.frameRate = SaveData.settings.framerate;
 
 		super.update(elapsed);
-	}
-
-	public function switchState(state:FlxState, ?noTransition:Bool = false) {
-		FlxTransitionableState.skipNextTransIn = noTransition;
-		FlxTransitionableState.skipNextTransOut = noTransition;
-
-		FlxG.switchState(state);
 	}
 
 	private function updateBeat():Void {

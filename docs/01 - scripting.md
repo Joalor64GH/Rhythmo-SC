@@ -152,7 +152,7 @@ var state = FlxG.state;
 
 function update(elapsed:Float) {
     if (Input.justPressed('accept'))
-        switchState(new ScriptedState('name')); // load custom state
+        ExtendableState.switchState(new ScriptedState('name')); // load custom state
     
     if (Input.justPressed('exit'))
         state.openSubState(new ScriptedSubState('name', [])); // load custom substate
