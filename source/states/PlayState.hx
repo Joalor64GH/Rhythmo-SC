@@ -403,7 +403,7 @@ class PlayState extends ExtendableState {
 		persistentUpdate = false;
 		paused = true;
 		ExtendableState.switchState(new ChartingState());
-		ChartingState.instance.song = song;
+		ChartingState.song = song;
 		chartingMode = true;
 	}
 
