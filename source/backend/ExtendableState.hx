@@ -54,9 +54,6 @@ class ExtendableState extends FlxTransitionableState {
 	}
 
 	public static function switchState(nextState:FlxState, ?noTransition:Bool = false) {
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-
 		FlxTransitionableState.skipNextTransIn = noTransition;
 		FlxTransitionableState.skipNextTransOut = noTransition;
 
