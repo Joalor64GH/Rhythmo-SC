@@ -1,5 +1,6 @@
 package states;
 
+import objects.GameSprite;
 import backend.Song.SongData;
 
 class PlayState extends ExtendableState {
