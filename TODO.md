@@ -13,3 +13,6 @@
 ## Future To-Dos
 * [ ] Sustain Notes + New song
 * [ ] Improve Chart Editor
+* [ ] Silly Visualizer Option
+* [ ] Gameplay Modifiers
+* [ ] Noteskins
