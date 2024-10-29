@@ -1,8 +1,9 @@
 package backend;
 
 import backend.Conductor.BPMChangeEvent;
+import flixel.addons.ui.FlxUISubState;
 
-class ExtendableSubState extends FlxSubState {
+class ExtendableSubState extends FlxUISubState {
 	var curStep:Int = 0;
 	var curBeat:Int = 0;
 
