@@ -193,7 +193,7 @@ class ChartingState extends ExtendableState {
 			FlxG.mouse.visible = false;
 			if (FlxG.sound.music.playing)
 				FlxG.sound.music.stop();
-			ExtendableState.switchState(new PlayState());
+			switchState(new PlayState());
 			PlayState.song = song;
 		}
 
