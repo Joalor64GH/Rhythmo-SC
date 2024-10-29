@@ -5,8 +5,9 @@ import backend.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
+import flixel.graphics.FlxGraphic;
 
-class ExtendableState extends FlxState {
+class ExtendableState extends FlxTransitionableState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;
 
