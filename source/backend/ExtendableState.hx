@@ -53,7 +53,7 @@ class ExtendableState extends FlxTransitionableState {
 		super.update(elapsed);
 	}
 
-	public function switchState(state:FlxState, ?noTransition:Bool = false) {
+	public static function switchState(state:FlxState, ?noTransition:Bool = false) {
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
