@@ -11,6 +11,7 @@ class Note extends GameSprite {
 	public var wasGoodHit:Bool = false;
 
 	public var lastNote:Note;
+	public var nextNote:Note;
 	public var rawNoteData:Int = 0;
 
 	public var strum:Float = 0.0;
@@ -55,13 +56,9 @@ class Note extends GameSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (type != 'receptor') {
-			calculateCanBeHit();
-			
-			if (tooLate)
-				if (alpha > 0.3)
-					alpha = 0.3;
-		}
+		if (tooLate)
+			if (alpha > 0.3)
+				alpha = 0.3;
 	}
 
 	public function calculateCanBeHit() {

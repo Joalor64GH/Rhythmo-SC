@@ -17,7 +17,7 @@ class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
 		initialState: InitialState,
-		defaultFPS: 60,
+		defaultFPS: SaveData.settings.framerate,
 		skipSplash: true,
 		startFullscreen: false
 	};
@@ -37,6 +37,8 @@ class Main extends openfl.display.Sprite {
 
 		fpsDisplay = new FPS(10, 10, 0xffffff);
 		addChild(fpsDisplay);
+
+		FlxG.mouse.visible = false;
 
 		#if desktop
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e:UncaughtErrorEvent) -> {

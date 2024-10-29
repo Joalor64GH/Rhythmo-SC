@@ -2,27 +2,42 @@ package backend;
 
 import backend.Conductor.BPMChangeEvent;
 import backend.Conductor.TimeScaleChangeEvent;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.TransitionData;
 
 class ExtendableState extends FlxState {
 	var curBeat:Int = 0;
 	var curStep:Int = 0;
 
-	override function create() {
-		super.create();
+	override public function new(?noTransition:Bool = false) {
+		super();
 
-		if (!FlxTransitionableState.skipNextTransOut) {
-			var cam:FlxCamera = new FlxCamera();
-			cam.bgColor.alpha = 0;
-			FlxG.cameras.add(cam, false);
-			cam.fade(FlxColor.BLACK, 0.7, true, function() {
-				FlxTransitionableState.skipNextTransOut = false;
-			});
-		} else
-			FlxTransitionableState.skipNextTransOut = false;
+		if (!InitialState.transitionsAllowed) {
+			noTransition = true;
+			InitialState.transitionsAllowed = true;
+		}
+
+		var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+		diamond.persist = true;
+		diamond.destroyOnNoUse = false;
+		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
+			new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1), {asset: diamond, width: 32, height: 32},
+			new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+
+		transIn = FlxTransitionableState.defaultTransIn;
+		transOut = FlxTransitionableState.defaultTransOut;
+
+		FlxTransitionableState.skipNextTransIn = noTransition;
+		FlxTransitionableState.skipNextTransOut = noTransition;
 	}
 
-	override function update(elapsed:Float) {
+	override public function create() {
+		super.create();
+	}
+
+	override public function update(elapsed:Float) {
 		var oldStep:Int = curStep;
 
 		updateCurStep();
@@ -37,19 +52,14 @@ class ExtendableState extends FlxState {
 		super.update(elapsed);
 	}
 
-	public static function switchState(nextState:FlxState) {
-		if (!FlxTransitionableState.skipNextTransIn) {
-			var cam:FlxCamera = new FlxCamera();
-			cam.bgColor.alpha = 0;
-			FlxG.cameras.add(cam, false);
-			cam.fade(FlxColor.BLACK, 0.7, false, function() {
-				FlxG.switchState(nextState);
-				FlxTransitionableState.skipNextTransIn = false;
-			});
-		} else {
-			FlxG.switchState(nextState);
-			FlxTransitionableState.skipNextTransIn = false;
-		}
+	public static function switchState(nextState:FlxState, ?noTransition:Bool = false) {
+		transIn = FlxTransitionableState.defaultTransIn;
+		transOut = FlxTransitionableState.defaultTransOut;
+
+		FlxTransitionableState.skipNextTransIn = noTransition;
+		FlxTransitionableState.skipNextTransOut = noTransition;
+
+		FlxG.switchState(nextState);
 	}
 
 	public static function resetState() {

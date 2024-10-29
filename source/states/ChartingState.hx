@@ -7,6 +7,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
 import openfl.net.FileFilter;
+import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUIInputText;
 
 class ChartingState extends ExtendableState {
@@ -106,12 +107,7 @@ class ChartingState extends ExtendableState {
 		add(saveButton);
 
 		saveAsButton = new FlxButton(FlxG.width - 110, 40, "Save Chart As", () -> {
-			var json = {
-				"song": song
-			};
-
-			var data:String = Json.stringify(json);
-
+			var data:String = Json.stringify(song, null, "\t");
 			if ((data != null) && (data.length > 0)) {
 				_file = new FileReference();
 				_file.addEventListener(Event.COMPLETE, onSaveComplete);
@@ -483,4 +479,16 @@ class ChartingState extends ExtendableState {
 	}
 
 	function redo() {}
+}
+
+class LoadSongSubState extends ExtendableSubState {
+	public function new() {
+		super();
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+		if (Input.justPressed('exit'))
+			close();
+	}
 }

@@ -1,6 +1,8 @@
 package states;
 
 class InitialState extends ExtendableState {
+	public static var transitionsAllowed:Bool = false;
+
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAA00AA);
 	var intro:FlxSprite;
 
@@ -8,8 +10,6 @@ class InitialState extends ExtendableState {
 
 	override function create() {
 		super.create();
-
-		FlxG.mouse.visible = false;
 
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.lang);
