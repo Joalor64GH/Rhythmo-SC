@@ -38,8 +38,6 @@ class Main extends openfl.display.Sprite {
 		fpsDisplay = new FPS(10, 10, 0xffffff);
 		addChild(fpsDisplay);
 
-		FlxG.mouse.visible = false;
-
 		#if desktop
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e:UncaughtErrorEvent) -> {
 			var stack:Array<String> = [];
@@ -123,6 +121,8 @@ class Main extends openfl.display.Sprite {
 			}
 		});
 		#end
+
+		FlxG.mouse.visible = false;
 
 		toast = new ToastCore();
 		addChild(toast);

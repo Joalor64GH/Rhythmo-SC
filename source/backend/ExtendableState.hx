@@ -22,7 +22,7 @@ class ExtendableState extends FlxState {
 			FlxTransitionableState.skipNextTransOut = false;
 	}
 
-	override public function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		var oldStep:Int = curStep;
 
 		updateCurStep();

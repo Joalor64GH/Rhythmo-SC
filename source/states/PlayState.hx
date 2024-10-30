@@ -212,6 +212,12 @@ class PlayState extends ExtendableState {
 		startingSong = true;
 		startCountdown();
 
+		// precache because cool
+		for (key in ['miss1', 'miss2', 'miss3', 'miss4'])
+			Paths.sound(key);
+		
+		Paths.music('Basically_Professionally_Musically');
+
 		Paths.clearUnusedMemory();
 	}
 

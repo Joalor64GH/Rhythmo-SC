@@ -6,11 +6,11 @@ class ExtendableSubState extends FlxSubState {
 	var curStep:Int = 0;
 	var curBeat:Int = 0;
 
-	override public function create() {
+	override function create() {
 		super.create();
 	}
 
-	override public function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		var oldStep:Int = curStep;
 
 		updateCurStep();
