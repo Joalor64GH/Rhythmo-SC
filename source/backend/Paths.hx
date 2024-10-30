@@ -25,6 +25,8 @@ enum SpriteSheetType {
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
+	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
+
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -225,20 +227,15 @@ class Paths {
 	}
 
 	public static function returnSound(key:String, ?cache:Bool = true):Sound {
-		if (Assets.exists(file('$key.ogg'), SOUND)) {
-			var path:String = file('$key.ogg');
-			if (!currentTrackedSounds.exists(path))
-				currentTrackedSounds.set(path, Assets.getSound(path, cache));
+		for (i in SOUND_EXT) {
+			if (Assets.exists('assets/$key.$i', SOUND)) {
+				var path:String = 'assets/$key.$i';
+				if (!currentTrackedSounds.exists(path))
+					currentTrackedSounds.set(path, Assets.getSound(path, cache));
 
-			localTrackedAssets.push(path);
-			return currentTrackedSounds.get(path);
-		} else if (Assets.exists(file('$key.wav'), SOUND)) {
-			var path:String = file('$key.wav');
-			if (!currentTrackedSounds.exists(path))
-				currentTrackedSounds.set(path, Assets.getSound(path, cache));
-
-			localTrackedAssets.push(path);
-			return currentTrackedSounds.get(path);
+				localTrackedAssets.push(path);
+				return currentTrackedSounds.get(path);
+			}
 		}
 
 		trace('oops! $key returned null');

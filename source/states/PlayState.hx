@@ -280,12 +280,12 @@ class PlayState extends ExtendableState {
 	}
 
 	override function update(elapsed:Float) {
+		callOnScripts('update', [elapsed]);
+		
 		super.update(elapsed);
 
 		if (paused)
 			return;
-
-		callOnScripts('update', [elapsed]);
 
 		if (!startingSong && updateTime)
 			timeTxt.text = "[" + msToTimestamp(FlxG.sound.music.time) + "/" + msToTimestamp(FlxG.sound.music.length) + "]";
@@ -382,26 +382,43 @@ class PlayState extends ExtendableState {
 	}
 
 	override function openSubState(SubState:FlxSubState) {
-		paused = true;
-		FlxG.sound.music.pause();
+		if (!paused) {
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.pause();
+
+			paused = true;
+		}
 		super.openSubState(SubState);
+
 		Paths.clearUnusedMemory();
 	}
 
 	override function closeSubState() {
-		paused = false;
-		callOnScripts('resume', []);
-		FlxG.sound.music.resume();
+		if (paused) {
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.resume();
+			
+			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = true);
+			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
+
+			paused = false;
+			callOnScripts('resume', []);
+		}
 		super.closeSubState();
+
 		Paths.clearUnusedMemory();
 	}
 
 	function pause() {
 		var ret:Dynamic = callOnScripts('pause', []);
 		if (ret != Hscript.Function_Stop) {
-			openSubState(new PauseSubState());
 			persistentUpdate = false;
 			persistentDraw = true;
+
+			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
+			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
+
+			openSubState(new PauseSubState());
 		}
 	}
 
