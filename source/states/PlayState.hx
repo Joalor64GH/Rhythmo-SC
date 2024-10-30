@@ -215,7 +215,7 @@ class PlayState extends ExtendableState {
 		// precache because cool
 		for (key in ['miss1', 'miss2', 'miss3', 'miss4'])
 			Paths.sound(key);
-		
+
 		Paths.music('Basically_Professionally_Musically');
 
 		Paths.clearUnusedMemory();
@@ -281,7 +281,7 @@ class PlayState extends ExtendableState {
 
 	override function update(elapsed:Float) {
 		callOnScripts('update', [elapsed]);
-		
+
 		super.update(elapsed);
 
 		if (paused)
@@ -397,9 +397,16 @@ class PlayState extends ExtendableState {
 		if (paused) {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.resume();
-			
-			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = true);
-			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
+
+			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) {
+				if (!tmr.finished)
+					tmr.active = true;
+			});
+
+			FlxTween.globalManager.forEach(function(twn:FlxTween) {
+				if (!twn.finished)
+					twn.active = true;
+			});
 
 			paused = false;
 			callOnScripts('resume', []);
@@ -415,8 +422,15 @@ class PlayState extends ExtendableState {
 			persistentUpdate = false;
 			persistentDraw = true;
 
-			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
-			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
+			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) {
+				if (!tmr.finished)
+					tmr.active = false;
+			});
+
+			FlxTween.globalManager.forEach(function(twn:FlxTween) {
+				if (!twn.finished)
+					twn.active = false;
+			});
 
 			openSubState(new PauseSubState());
 		}

@@ -228,8 +228,8 @@ class Paths {
 
 	public static function returnSound(key:String, ?cache:Bool = true):Sound {
 		for (i in SOUND_EXT) {
-			if (Assets.exists('assets/$key.$i', SOUND)) {
-				var path:String = 'assets/$key.$i';
+			if (Assets.exists(file('$key.$i'), SOUND)) {
+				var path:String = file('$key.$i');
 				if (!currentTrackedSounds.exists(path))
 					currentTrackedSounds.set(path, Assets.getSound(path, cache));
 
