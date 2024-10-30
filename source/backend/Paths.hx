@@ -23,15 +23,13 @@ enum SpriteSheetType {
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
-	inline public static final DEFAULT_FOLDER:String = 'assets';
-
 	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
-
-	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var localTrackedAssets:Array<String> = [];
+
+	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
 
 	@:noCompletion private inline static function _gc(major:Bool) {
 		#if (cpp || neko)
@@ -63,6 +61,7 @@ class Paths {
 				currentTrackedAssets.remove(key);
 			}
 		}
+		
 		compress();
 		gc(true);
 	}
@@ -80,6 +79,7 @@ class Paths {
 				currentTrackedSounds.remove(key);
 			}
 		}
+
 		localTrackedAssets = [];
 		Assets.cache.clear("songs");
 		gc(true);
@@ -117,17 +117,8 @@ class Paths {
 	inline static public function exists(asset:String)
 		return FileAssets.exists(asset);
 
-	static public function getPath(folder:Null<String>, file:String) {
-		if (folder == null)
-			folder = DEFAULT_FOLDER;
-		return folder + '/' + file;
-	}
-
-	static public function file(file:String, folder:String = DEFAULT_FOLDER) {
-		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
-			return getPath(folder, file);
-		return getPath(null, file);
-	}
+	static public function file(file:String)
+		return 'assets/$file';
 
 	inline public static function getText(path:String):Array<String>
 		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];

@@ -1,6 +1,6 @@
 package states;
 
-import backend.Song.SongData;
+import backend.Song;
 
 class PlayState extends ExtendableState {
 	public static var instance:PlayState = null;
@@ -122,6 +122,7 @@ class PlayState extends ExtendableState {
 			strumline.add(note);
 		}
 
+		// load from "scripts" folder
 		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
 		#if FUTURE_POLYMOD
 		for (mod in ModHandler.getMods())
@@ -194,6 +195,7 @@ class PlayState extends ExtendableState {
 
 		generateSong();
 
+		// load from song folder
 		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
 		#if FUTURE_POLYMOD
 		for (mod in ModHandler.getMods())
@@ -207,6 +209,12 @@ class PlayState extends ExtendableState {
 					}
 				}
 			}
+		}
+
+		for (script in scriptArray) {
+			script.setVariable('addScript', function(path:String) {
+				scriptArray.push(new Hscript(path));
+			});
 		}
 
 		startingSong = true;
