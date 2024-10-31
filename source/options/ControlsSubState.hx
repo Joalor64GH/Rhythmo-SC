@@ -1,11 +1,9 @@
 package options;
 
-import backend.Input;
-
 // not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
-	var kBinds:Array<Array<FlxKey>> = [];
-	var gBinds:Array<Array<FlxGamepadInputID>> = [];
+	var keyArray:Array<Array<FlxKey>> = [];
+	var btnArray:Array<Array<FlxGamepadInputID>> = [];
 
 	var coolControls:Array<String> = [];
 
@@ -22,21 +20,21 @@ class ControlsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		kBinds = SaveData.settings.keyboardBinds;
-		gBinds = SaveData.settings.gamepadBinds;
+		keyArray = SaveData.settings.keyboardBinds;
+		btnArray = SaveData.settings.gamepadBinds;
 
 		coolControls = [
-			"Left: " + kBinds[0][0].toString(),
-			"Left (Alt): " + kBinds[0][1].toString(),
-			"Down: " + kBinds[1][0].toString(),
-			"Down (Alt): " + kBinds[1][1].toString(),
-			"Up: " + kBinds[2][0].toString(),
-			"Up (Alt): " + kBinds[2][1].toString(),
-			"Right: " + kBinds[3][0].toString(),
-			"Right (Alt): " + kBinds[3][1].toString(),
-			"Accept: " + kBinds[4][0].toString(),
-			"Exit: " + kBinds[5][0].toString(),
-			"Restart: " + kBinds[6][0].toString()
+			"Left: " + keyArray[0][0].toString(),
+			"Left (Alt): " + keyArray[0][1].toString(),
+			"Down: " + keyArray[1][0].toString(),
+			"Down (Alt): " + keyArray[1][1].toString(),
+			"Up: " + keyArray[2][0].toString(),
+			"Up (Alt): " + keyArray[2][1].toString(),
+			"Right: " + keyArray[3][0].toString(),
+			"Right (Alt): " + keyArray[3][1].toString(),
+			"Accept: " + keyArray[4][0].toString(),
+			"Exit: " + keyArray[5][0].toString(),
+			"Restart: " + keyArray[6][0].toString()
 		];
 
 		camFollow = new FlxObject(80, 0, 0, 0);
