@@ -6,17 +6,17 @@ typedef Bind = {
 }
 
 class Input {
-	var kBinds = SaveData.settings.keyboardBinds;
-	var gBinds = SaveData.settings.gamepadBinds;
+	var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
+	var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 	
 	public static var binds:Map<String, Bind> = [
-		'left' => {key: [LEFT, A], gamepad: [DPAD_LEFT, LEFT_TRIGGER]},
-		'down' => {key: [DOWN, S], gamepad: [DPAD_DOWN, LEFT_SHOULDER]},
-		'up' => {key: [UP, W], gamepad: [DPAD_UP, RIGHT_SHOULDER]},
-		'right' => {key: [RIGHT, D], gamepad: [DPAD_RIGHT, RIGHT_TRIGGER]},
-		'accept' => {key: [ENTER], gamepad: [A, START]},
-		'exit' => {key: [ESCAPE], gamepad: [B, BACK]},
-		'reset' => {key: [R], gamepad: [RIGHT_STICK_CLICK]}
+		'left' => {key: [kBinds[0][0], kBinds[0][1]], gamepad: [gBinds[0][0], gBinds[0][1]]},
+		'down' => {key: [kBinds[1][0], kBinds[1][1]], gamepad: [gBinds[1][0], gBinds[1][1]]},
+		'up' => {key: [kBinds[2][0], kBinds[2][1]], gamepad: [gBinds[2][0], gBinds[2][1]]},
+		'right' => {key: [kBinds[3][0], kBinds[3][1]], gamepad: [gBinds[3][0], gBinds[3][1]]},
+		'accept' => {key: [kBinds[4][0]], gamepad: [gBinds[4][0], gBinds[4][1]]},
+		'exit' => {key: [kBinds[5][0]], gamepad: [gBinds[5][0], gBinds[5][1]]},
+		'reset' => {key: [kBinds[6][0]], gamepad: [gBinds[6][0]]}
 	];
 
 	public static function justPressed(tag:String):Bool {

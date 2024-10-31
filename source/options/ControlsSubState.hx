@@ -4,11 +4,21 @@ import backend.Input;
 
 // not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
-	var kBinds = SaveData.settings.keyboardBinds;
-	var gBinds = SaveData.settings.gamepadBinds;
+	var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
+	var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 
 	var coolControls:Array<String> = [
-		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
+		"Left: " + kBinds[0][0].toString(), 
+		"Left (Alt): " + kBinds[0][1].toString(), 
+		"Down: " + kBinds[1][0].toString(), 
+		"Down (Alt): " + kBinds[1][1].toString(), 
+		"Up: " + kBinds[2][0].toString(), 
+		"Up (Alt): " + kBinds[2][1].toString(), 
+		"Right: " + kBinds[3][0].toString(), 
+		"Right (Alt): " + kBinds[3][1].toString(), 
+		"Accept: " + kBinds[4][0].toString(), 
+		"Exit: " + kBinds[5][0].toString(), 
+		"Restart: " + kBinds[6][0].toString()
 	];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
@@ -107,4 +117,5 @@ class ControlsSubState extends ExtendableSubState {
 	}
 
 	function regenList() {}
+	function updateCtrlList() {}
 }
