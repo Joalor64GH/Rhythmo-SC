@@ -6,8 +6,8 @@ typedef Bind = {
 }
 
 class Input {
-	var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
-	var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
+	static public var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
+	static public var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 	
 	public static var binds:Map<String, Bind> = [
 		'left' => {key: [kBinds[0][0], kBinds[0][1]], gamepad: [gBinds[0][0], gBinds[0][1]]},
