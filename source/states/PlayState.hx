@@ -94,7 +94,7 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		var bg:FlxSprite = new objects.GameSprite().loadGraphic(Paths.image('gameplay/bg'));
 		add(bg);
 
 		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
@@ -169,26 +169,22 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/three'));
-		countdown3.antialiasing = SaveData.settings.antialiasing;
+		countdown3 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/three'));
 		countdown3.screenCenter();
 		countdown3.visible = false;
 		add(countdown3);
 
-		countdown2 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/two'));
-		countdown2.antialiasing = SaveData.settings.antialiasing;
+		countdown2 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/two'));
 		countdown2.screenCenter();
 		countdown2.visible = false;
 		add(countdown2);
 
-		countdown1 = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/one'));
-		countdown1.antialiasing = SaveData.settings.antialiasing;
+		countdown1 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/one'));
 		countdown1.screenCenter();
 		countdown1.visible = false;
 		add(countdown1);
 
-		go = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/go'));
-		go.antialiasing = SaveData.settings.antialiasing;
+		go = new objects.GameSprite().loadGraphic(Paths.image('gameplay/go'));
 		go.screenCenter();
 		go.visible = false;
 		add(go);

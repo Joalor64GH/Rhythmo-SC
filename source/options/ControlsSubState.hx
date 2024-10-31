@@ -2,9 +2,6 @@ package options;
 
 // not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
-	var keyArray:Array<Array<FlxKey>> = [];
-	var btnArray:Array<Array<FlxGamepadInputID>> = [];
-
 	var coolControls:Array<String> = [];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
@@ -20,21 +17,18 @@ class ControlsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		keyArray = SaveData.settings.keyboardBinds;
-		btnArray = SaveData.settings.gamepadBinds;
-
 		coolControls = [
-			"Left: " + keyArray[0][0].toString(),
-			"Left (Alt): " + keyArray[0][1].toString(),
-			"Down: " + keyArray[1][0].toString(),
-			"Down (Alt): " + keyArray[1][1].toString(),
-			"Up: " + keyArray[2][0].toString(),
-			"Up (Alt): " + keyArray[2][1].toString(),
-			"Right: " + keyArray[3][0].toString(),
-			"Right (Alt): " + keyArray[3][1].toString(),
-			"Accept: " + keyArray[4][0].toString(),
-			"Exit: " + keyArray[5][0].toString(),
-			"Restart: " + keyArray[6][0].toString()
+			"Left: ",
+			"Left (Alt): ",
+			"Down: ",
+			"Down (Alt): ",
+			"Up: ",
+			"Up (Alt): ",
+			"Right: ",
+			"Right (Alt): ",
+			"Accept: ",
+			"Exit: ",
+			"Restart: "
 		];
 
 		camFollow = new FlxObject(80, 0, 0, 0);
