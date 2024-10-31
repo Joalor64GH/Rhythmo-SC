@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="errorSparrow.png">
-	<!-- Created with Adobe Animate version 21.0.6.41649 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="missing0000" x="0" y="0" width="16" height="16"/>
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="haxeflixel0000" x="0" y="0" width="16" height="16" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
 </TextureAtlas>

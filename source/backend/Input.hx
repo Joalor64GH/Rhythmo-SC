@@ -6,6 +6,9 @@ typedef Bind = {
 }
 
 class Input {
+	var kBinds = SaveData.settings.keyboardBinds;
+	var gBinds = SaveData.settings.gamepadBinds;
+	
 	public static var binds:Map<String, Bind> = [
 		'left' => {key: [LEFT, A], gamepad: [DPAD_LEFT, LEFT_TRIGGER]},
 		'down' => {key: [DOWN, S], gamepad: [DPAD_DOWN, LEFT_SHOULDER]},

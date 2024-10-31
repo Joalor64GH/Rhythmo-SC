@@ -44,7 +44,8 @@ class OptionsState extends ExtendableState {
 					openSubState(new options.OptionsSubState());
 					persistentUpdate = persistentDraw = false;
 				case 1:
-					Main.toast.create('Menu not finished!', 0xFFFFFF00, 'This menu will be finished soon!');
+					openSubState(new options.ControlsSubState());
+					persistentUpdate = persistentDraw = false;
 				case 2:
 					ExtendableState.switchState(new options.LanguageState());
 				case 3:
