@@ -213,7 +213,7 @@ class PlayState extends ExtendableState {
 
 		for (script in scriptArray) {
 			script.setVariable('addScript', function(path:String) {
-				scriptArray.push(new Hscript(path));
+				scriptArray.push(new Hscript('$path.hxs'));
 			});
 		}
 

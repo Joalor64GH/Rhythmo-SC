@@ -152,12 +152,8 @@ class Paths {
 	inline static public function song(key:String, ?cache:Bool = true):Sound
 		return returnSound('songs/$key/music', cache);
 
-	inline static public function formatToSongPath(path:String) {
-		final invalidChars = ~/[~&;:<>#\s]/g;
-		final hideChars = ~/[.,'"%?!]/g;
-
-		return hideChars.replace(invalidChars.replace(path, '-'), '').trim().toLowerCase();
-	}
+	inline static public function formatToSongPath(path:String)
+		return path.toLowerCase().replace(' ', '-');
 
 	inline static public function chart(key:String)
 		return file('songs/$key/chart.json');
