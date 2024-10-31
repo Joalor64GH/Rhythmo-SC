@@ -7,19 +7,7 @@ class ControlsSubState extends ExtendableSubState {
 	var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
 	var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 
-	var coolControls:Array<String> = [
-		"Left: " + kBinds[0][0].toString(), 
-		"Left (Alt): " + kBinds[0][1].toString(), 
-		"Down: " + kBinds[1][0].toString(), 
-		"Down (Alt): " + kBinds[1][1].toString(), 
-		"Up: " + kBinds[2][0].toString(), 
-		"Up (Alt): " + kBinds[2][1].toString(), 
-		"Right: " + kBinds[3][0].toString(), 
-		"Right (Alt): " + kBinds[3][1].toString(), 
-		"Accept: " + kBinds[4][0].toString(), 
-		"Exit: " + kBinds[5][0].toString(), 
-		"Restart: " + kBinds[6][0].toString()
-	];
+	var coolControls:Array<String> = [];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -33,6 +21,20 @@ class ControlsSubState extends ExtendableSubState {
 
 	public function new() {
 		super();
+
+		coolControls = [
+			"Left: " + kBinds[0][0].toString(),
+			"Left (Alt): " + kBinds[0][1].toString(),
+			"Down: " + kBinds[1][0].toString(),
+			"Down (Alt): " + kBinds[1][1].toString(),
+			"Up: " + kBinds[2][0].toString(),
+			"Up (Alt): " + kBinds[2][1].toString(),
+			"Right: " + kBinds[3][0].toString(),
+			"Right (Alt): " + kBinds[3][1].toString(),
+			"Accept: " + kBinds[4][0].toString(),
+			"Exit: " + kBinds[5][0].toString(),
+			"Restart: " + kBinds[6][0].toString()
+		];
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
@@ -71,18 +73,18 @@ class ControlsSubState extends ExtendableSubState {
 		super.update(elapsed);
 
 		// if (!isChangingBind) {
-			if (Input.justPressed('up') || Input.justPressed('down'))
-				changeSelection(Input.justPressed('up') ? -1 : 1);
+		if (Input.justPressed('up') || Input.justPressed('down'))
+			changeSelection(Input.justPressed('up') ? -1 : 1);
 
-			/* if (Input.justPressed('accept')) {
-				isChangingBind = true;
-				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
-			} */
+		/* if (Input.justPressed('accept')) {
+			isChangingBind = true;
+			anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
+		}*/
 
-			if (Input.justPressed('exit')) {
-				persistentDraw = persistentUpdate = true;
-				close();
-			}
+		if (Input.justPressed('exit')) {
+			persistentDraw = persistentUpdate = true;
+			close();
+		}
 		// }
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -117,5 +119,6 @@ class ControlsSubState extends ExtendableSubState {
 	}
 
 	function regenList() {}
+
 	function updateCtrlList() {}
 }
