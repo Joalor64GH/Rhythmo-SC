@@ -175,10 +175,8 @@ class Paths {
 		return returnGraphic('images/$key', cache);
 
 	public static inline function spritesheet(key:String, ?cache:Bool = true, ?type:SpriteSheetType):FlxAtlasFrames {
-		if (type == null) {
+		if (type == null)
 			type = SPARROW;
-			return FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
-		}
 
 		return switch (type) {
 			case ASEPRITE:
@@ -192,7 +190,7 @@ class Paths {
 			case TEXTURE_PATCHER_XML:
 				FlxAtlasFrames.fromTexturePackerXml(image(key, cache), xml('images/$key'));
 			default:
-				FlxAtlasFrames.fromSparrow(returnGraphic('images/errorSparrow', cache), xml('images/errorSparrow'));
+				FlxAtlasFrames.fromSparrow(image('errorSparrow', cache), xml('images/errorSparrow'));
 		}
 	}
 
