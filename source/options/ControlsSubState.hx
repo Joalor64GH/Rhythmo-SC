@@ -8,7 +8,7 @@ class ControlsSubState extends ExtendableSubState {
 	var gBinds = SaveData.settings.gamepadBinds;
 
 	var coolControls:Array<String> = [
-		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit" "Restart"
+		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
 	];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
@@ -99,7 +99,7 @@ class ControlsSubState extends ExtendableSubState {
 		if (playSound)
 			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, coolControls.length - 1);
-		grpOptions.forEach(function(txt:FlxText) {
+		ctrlGroup.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;
 			if (txt.ID == curSelected)
 				camFollow.y = txt.y;
