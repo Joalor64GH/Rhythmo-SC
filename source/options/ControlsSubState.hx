@@ -4,8 +4,8 @@ import backend.Input;
 
 // not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
-	var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
-	var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
+	var kBinds:Array<Array<FlxKey>> = [];
+	var gBinds:Array<Array<FlxGamepadInputID>> = [];
 
 	var coolControls:Array<String> = [];
 
@@ -21,6 +21,9 @@ class ControlsSubState extends ExtendableSubState {
 
 	public function new() {
 		super();
+
+		kBinds = SaveData.settings.keyboardBinds;
+		gBinds = SaveData.settings.gamepadBinds;
 
 		coolControls = [
 			"Left: " + kBinds[0][0].toString(),
