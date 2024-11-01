@@ -109,9 +109,9 @@ class ControlsSubState extends ExtendableSubState {
 
 	function regenList() {
 		ctrlGroup.clear();
-		for (i in 0...coolControls.length) { // i literally did not test this at all
-			// var otherStrToAdd:String = (i.contains("(Alt)")) ? SaveData.settings.keyboardBinds[i][1] : SaveData.settings.keyboardBinds[i][0];
-			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, coolControls[i]/* + otherStrToAdd*/, 32);
+		for (i in 0...coolControls.length) {
+			var otherStrToAdd:String = (coolControls[i].indexOf("(Alt)") != -1) ? SaveData.settings.keyboardBinds[i][1] : SaveData.settings.keyboardBinds[i][0];
+			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, coolControls[i] + otherStrToAdd, 32);
 			bindTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			bindTxt.ID = i;
 			ctrlGroup.add(bindTxt);
