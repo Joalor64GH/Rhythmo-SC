@@ -1,6 +1,5 @@
 package options;
 
-// not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
 	var coolControls:Array<String> = [
 		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
@@ -16,11 +15,12 @@ class ControlsSubState extends ExtendableSubState {
 	var curControl:FlxText;
 
 	var switchSpr:FlxSprite;
-
 	var bg:FlxSprite;
 
 	public function new() {
 		super();
+
+		FlxG.mouse.visible = true;
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
@@ -29,6 +29,7 @@ class ControlsSubState extends ExtendableSubState {
 		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.scrollFactor.set();
 		bg.screenCenter();
+		bg.color = 0xFFac21ff;
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -69,6 +70,8 @@ class ControlsSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
 		if (!isChangingBind) {
 			if (Input.justPressed('up') || Input.justPressed('down'))
 				changeSelection(Input.justPressed('up') ? -1 : 1);
@@ -80,72 +83,107 @@ class ControlsSubState extends ExtendableSubState {
 
 			if (Input.justPressed('exit')) {
 				persistentDraw = persistentUpdate = true;
+				FlxG.mouse.visible = false;
 				close();
+			}
+
+			if (FlxG.mouse.overlaps(switchSpr) && FlxG.mouse.justPressed) {
+				gamepadMode = !gamepadMode;
+				FlxTween.cancelTweensOf(bg);
+				FlxTween.color(bg, 0.5, bg.color, gamepadMode ? 0xFF22ebf2 : 0xFFac21ff, {ease: FlxEase.linear});
+				if (gamepad != null)
+					FlxG.sound.play(Paths.sound('select'));
+				else {
+					gamepadMode = false;
+					FlxG.sound.play(Paths.sound('cancel'));
+					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
+				}
 			}
 		}
 
 		if (gamepadMode) {
 			switch (curSelected) {
 				case 0:
-					curControl.text = SaveData.settings.gamepadBinds[0][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[0][0]);
 				case 1:
-					curControl.text = SaveData.settings.gamepadBinds[0][1].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[0][1]);
 				case 2:
-					curControl.text = SaveData.settings.gamepadBinds[1][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[1][0]);
 				case 3:
-					curControl.text = SaveData.settings.gamepadBinds[1][1].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[1][1]);
 				case 4:
-					curControl.text = SaveData.settings.gamepadBinds[2][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[2][0]);
 				case 5:
-					curControl.text = SaveData.settings.gamepadBinds[2][1].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[2][1]);
 				case 6:
-					curControl.text = SaveData.settings.gamepadBinds[3][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[3][0]);
 				case 7:
-					curControl.text = SaveData.settings.gamepadBinds[3][1].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[3][1]);
 				case 8:
-					curControl.text = SaveData.settings.gamepadBinds[4][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[4][0]);
 				case 9:
-					curControl.text = SaveData.settings.gamepadBinds[5][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[5][0]);
 				case 10:
-					curControl.text = SaveData.settings.gamepadBinds[6][0].toString();
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[6][0]);
 			}
 		} else {
 			switch (curSelected) {
 				case 0:
-					curControl.text = SaveData.settings.keyboardBinds[0][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[0][0]);
 				case 1:
-					curControl.text = SaveData.settings.keyboardBinds[0][1].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[0][1]);
 				case 2:
-					curControl.text = SaveData.settings.keyboardBinds[1][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[1][0]);
 				case 3:
-					curControl.text = SaveData.settings.keyboardBinds[1][1].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[1][1]);
 				case 4:
-					curControl.text = SaveData.settings.keyboardBinds[2][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[2][0]);
 				case 5:
-					curControl.text = SaveData.settings.keyboardBinds[2][1].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[2][1]);
 				case 6:
-					curControl.text = SaveData.settings.keyboardBinds[3][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[3][0]);
 				case 7:
-					curControl.text = SaveData.settings.keyboardBinds[3][1].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[3][1]);
 				case 8:
-					curControl.text = SaveData.settings.keyboardBinds[4][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[4][0]);
 				case 9:
-					curControl.text = SaveData.settings.keyboardBinds[5][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[5][0]);
 				case 10:
-					curControl.text = SaveData.settings.keyboardBinds[6][0].toString();
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[6][0]);
 			}
 		}
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
 		if (isChangingBind) {
 			if (Input.justPressed('any')) {
-				/*if (gamepadMode) {
+				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
 					if (gamepad != null && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) {
-						// nothing yet
+						switch (curSelected) {
+							case 0:
+								SaveData.settings.gamepadBinds[0][0] = keyPressed;
+							case 1:
+								SaveData.settings.gamepadBinds[0][1] = keyPressed;
+							case 2:
+								SaveData.settings.gamepadBinds[1][0] = keyPressed;
+							case 3:
+								SaveData.settings.gamepadBinds[1][1] = keyPressed;
+							case 4:
+								SaveData.settings.gamepadBinds[2][0] = keyPressed;
+							case 5:
+								SaveData.settings.gamepadBinds[2][1] = keyPressed;
+							case 6:
+								SaveData.settings.gamepadBinds[3][0] = keyPressed;
+							case 7:
+								SaveData.settings.gamepadBinds[3][1] = keyPressed;
+							case 8:
+								SaveData.settings.gamepadBinds[4][0] = keyPressed;
+							case 9:
+								SaveData.settings.gamepadBinds[5][0] = keyPressed;
+							case 10:
+								SaveData.settings.gamepadBinds[6][0] = keyPressed;
+						}
 					}
-				} else {*/
+				} else {
 					switch (curSelected) {
 						case 0:
 							SaveData.settings.keyboardBinds[0][0] = FlxG.keys.getIsDown()[0].ID.toString();
@@ -170,7 +208,7 @@ class ControlsSubState extends ExtendableSubState {
 						case 10:
 							SaveData.settings.keyboardBinds[6][0] = FlxG.keys.getIsDown()[0].ID.toString();
 					}
-				// }
+				}
 				SaveData.saveSettings();
 				Input.refreshControls();
 				FlxG.sound.play(Paths.sound('select'));
