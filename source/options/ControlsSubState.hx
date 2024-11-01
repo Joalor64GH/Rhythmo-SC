@@ -14,7 +14,7 @@ class ControlsSubState extends ExtendableSubState {
 			"Accept: ",
 			"Exit: ",
 			"Restart: "
-		];;
+		];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
