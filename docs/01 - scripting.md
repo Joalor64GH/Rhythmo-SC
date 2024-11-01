@@ -17,8 +17,13 @@ To import a class, use:
 import('package.Class');
 ```
 
-You can basically use this to import any class you'd like.
-Otherwise, here is a list of the current Libraries/Classes you can use that are already imported:
+Alternatively, to import an Enumerator, use:
+```hx
+import('package.Enum');
+```
+
+You can basically use this to import any class/enum you'd like.
+Otherwise, here is a list of the current classes you can use that are already imported:
 
 ### Standard Haxe Classes
 * Array

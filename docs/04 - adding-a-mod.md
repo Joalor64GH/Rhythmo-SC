@@ -29,7 +29,7 @@ Example:
 ```
 
 ### `_polymod_icon.png`
-As for `_polymod_icon.png`, it's just a simple `.png` icon for the mod. Any square image is recommended. Just keep in mind that **whatever image it is, it will always be squished into a `75 by 75` resolution**.
+As for `_polymod_icon.png`, it's just a simple `.png` icon for the mod. Any square image is recommended. Just keep in mind that **whatever image it is, it will always be squished into a `75 x 75` resolution**.
 
 If you've done everything correctly, your mod should appear in the Mods Menu. <br>
 Then, you're basically good to go!

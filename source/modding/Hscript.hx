@@ -13,6 +13,7 @@ class Hscript extends FlxBasic {
 		super();
 
 		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
+		parser.preprocesorValues = MacrosUtil.getDefines();
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
@@ -120,11 +121,6 @@ class Hscript extends FlxBasic {
 		setVariable('ScriptedSubState', ScriptedSubState);
 		setVariable('Song', Song);
 		setVariable('Utilities', Utilities);
-
-		setVariable('cpp', #if cpp true #else false #end);
-		setVariable('debug', #if debug true #else false #end);
-		setVariable('desktop', #if desktop true #else false #end);
-		setVariable('sys', #if sys true #else false #end);
 
 		if (execute)
 			this.execute(file);
