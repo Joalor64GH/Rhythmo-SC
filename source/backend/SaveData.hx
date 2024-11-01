@@ -24,8 +24,8 @@ package backend;
 		[DPAD_DOWN, LEFT_SHOULDER],
 		[DPAD_UP, RIGHT_SHOULDER],
 		[DPAD_RIGHT, RIGHT_TRIGGER],
-		[A, START],
-		[B, BACK],
+		[A],
+		[B],
 		[RIGHT_STICK_CLICK]
 	];
 }

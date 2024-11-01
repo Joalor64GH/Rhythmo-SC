@@ -2,7 +2,19 @@ package options;
 
 // not much functionality yet until i actually do some stuff idk
 class ControlsSubState extends ExtendableSubState {
-	var coolControls:Array<String> = [];
+	var coolControls:Array<String> = [
+			"Left: ",
+			"Left (Alt): ",
+			"Down: ",
+			"Down (Alt): ",
+			"Up: ",
+			"Up (Alt): ",
+			"Right: ",
+			"Right (Alt): ",
+			"Accept: ",
+			"Exit: ",
+			"Restart: "
+		];;
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
@@ -16,20 +28,6 @@ class ControlsSubState extends ExtendableSubState {
 
 	public function new() {
 		super();
-
-		coolControls = [
-			"Left: ",
-			"Left (Alt): ",
-			"Down: ",
-			"Down (Alt): ",
-			"Up: ",
-			"Up (Alt): ",
-			"Right: ",
-			"Right (Alt): ",
-			"Accept: ",
-			"Exit: ",
-			"Restart: "
-		];
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
@@ -47,12 +45,7 @@ class ControlsSubState extends ExtendableSubState {
 		ctrlGroup = new FlxTypedGroup<FlxText>();
 		add(ctrlGroup);
 
-		for (i in 0...coolControls.length) {
-			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, coolControls[i], 32);
-			bindTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			bindTxt.ID = i;
-			ctrlGroup.add(bindTxt);
-		}
+		regenList();
 
 		anyKeyTxt = new FlxText(0, 0, 0, "", 12);
 		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -97,6 +90,7 @@ class ControlsSubState extends ExtendableSubState {
 					}
 					FlxG.sound.play(Paths.sound('select'));
 					isChangingBind = false;
+					regenList();
 				}
 			}
 		 */
@@ -113,7 +107,16 @@ class ControlsSubState extends ExtendableSubState {
 		});
 	}
 
-	function regenList() {}
+	function regenList() {
+		ctrlGroup.clear();
+		for (i in 0...coolControls.length) { // i literally did not test this at all
+			// var otherStrToAdd:String = (i.contains("(Alt)")) ? SaveData.settings.keyboardBinds[i][1] : SaveData.settings.keyboardBinds[i][0];
+			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, coolControls[i]/* + otherStrToAdd*/, 32);
+			bindTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			bindTxt.ID = i;
+			ctrlGroup.add(bindTxt);
+		}
 
-	function updateCtrlList() {}
+		changeSelection();
+	}
 }
