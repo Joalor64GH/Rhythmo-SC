@@ -84,8 +84,8 @@ class ControlsSubState extends ExtendableSubState {
 			}
 		}
 
-		switch (curSelected) {
-			if (gamepadMode) {
+		if (gamepadMode) {
+			switch (curSelected) {
 				case 0:
 					curControl.text = SaveData.settings.gamepadBinds[0][0].toString();
 				case 1:
@@ -108,7 +108,9 @@ class ControlsSubState extends ExtendableSubState {
 					curControl.text = SaveData.settings.gamepadBinds[5][0].toString();
 				case 10:
 					curControl.text = SaveData.settings.gamepadBinds[6][0].toString();
-			} else {
+			}
+		} else {
+			switch (curSelected) {
 				case 0:
 					curControl.text = SaveData.settings.keyboardBinds[0][0].toString();
 				case 1:
