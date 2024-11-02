@@ -165,7 +165,7 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-					if (gamepad != null && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != FlxGamepadInputID.NONE) {
+					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (curSelected) {
 							case 0:
 								SaveData.settings.gamepadBinds[0][0] = keyPressed;
@@ -192,32 +192,31 @@ class ControlsSubState extends ExtendableSubState {
 						}
 					}
 				} else {
-					var pressedKey = FlxG.keys.getIsDown();
-					if (pressedKey.length > 0) {
-						var keyDown = pressedKey[0].ID;
+					var pressedKey = FlxG.keys.firstPressed();
+					if (pressedKey != null && pressedKey.toString() != FlxKey.NONE) {
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.keyboardBinds[0][0] = keyDown;
+								SaveData.settings.keyboardBinds[0][0] = pressedKey;
 							case 1:
-								SaveData.settings.keyboardBinds[0][1] = keyDown;
+								SaveData.settings.keyboardBinds[0][1] = pressedKey;
 							case 2:
-								SaveData.settings.keyboardBinds[1][0] = keyDown;
+								SaveData.settings.keyboardBinds[1][0] = pressedKey;
 							case 3:
-								SaveData.settings.keyboardBinds[1][1] = keyDown;
+								SaveData.settings.keyboardBinds[1][1] = pressedKey;
 							case 4:
-								SaveData.settings.keyboardBinds[2][0] = keyDown;
+								SaveData.settings.keyboardBinds[2][0] = pressedKey;
 							case 5:
-								SaveData.settings.keyboardBinds[2][1] = keyDown;
+								SaveData.settings.keyboardBinds[2][1] = pressedKey;
 							case 6:
-								SaveData.settings.keyboardBinds[3][0] = keyDown;
+								SaveData.settings.keyboardBinds[3][0] = pressedKey;
 							case 7:
-								SaveData.settings.keyboardBinds[3][1] = keyDown;
+								SaveData.settings.keyboardBinds[3][1] = pressedKey;
 							case 8:
-								SaveData.settings.keyboardBinds[4][0] = keyDown;
+								SaveData.settings.keyboardBinds[4][0] = pressedKey;
 							case 9:
-								SaveData.settings.keyboardBinds[5][0] = keyDown;
+								SaveData.settings.keyboardBinds[5][0] = pressedKey;
 							case 10:
-								SaveData.settings.keyboardBinds[6][0] = keyDown;
+								SaveData.settings.keyboardBinds[6][0] = pressedKey;
 						}
 					}
 				}
