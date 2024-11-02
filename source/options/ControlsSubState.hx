@@ -196,27 +196,27 @@ class ControlsSubState extends ExtendableSubState {
 					if (pressedKey != -1) {
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.keyboardBinds[0][0] = pressedKey;
+								SaveData.settings.keyboardBinds[0][0] = FlxKey.toStringMap.get(pressedKey);
 							case 1:
-								SaveData.settings.keyboardBinds[0][1] = pressedKey;
+								SaveData.settings.keyboardBinds[0][1] = FlxKey.toStringMap.get(pressedKey);
 							case 2:
-								SaveData.settings.keyboardBinds[1][0] = pressedKey;
+								SaveData.settings.keyboardBinds[1][0] = FlxKey.toStringMap.get(pressedKey);
 							case 3:
-								SaveData.settings.keyboardBinds[1][1] = pressedKey;
+								SaveData.settings.keyboardBinds[1][1] = FlxKey.toStringMap.get(pressedKey);
 							case 4:
-								SaveData.settings.keyboardBinds[2][0] = pressedKey;
+								SaveData.settings.keyboardBinds[2][0] = FlxKey.toStringMap.get(pressedKey);
 							case 5:
-								SaveData.settings.keyboardBinds[2][1] = pressedKey;
+								SaveData.settings.keyboardBinds[2][1] = FlxKey.toStringMap.get(pressedKey);
 							case 6:
-								SaveData.settings.keyboardBinds[3][0] = pressedKey;
+								SaveData.settings.keyboardBinds[3][0] = FlxKey.toStringMap.get(pressedKey);
 							case 7:
-								SaveData.settings.keyboardBinds[3][1] = pressedKey;
+								SaveData.settings.keyboardBinds[3][1] = FlxKey.toStringMap.get(pressedKey);
 							case 8:
-								SaveData.settings.keyboardBinds[4][0] = pressedKey;
+								SaveData.settings.keyboardBinds[4][0] = FlxKey.toStringMap.get(pressedKey);
 							case 9:
-								SaveData.settings.keyboardBinds[5][0] = pressedKey;
+								SaveData.settings.keyboardBinds[5][0] = FlxKey.toStringMap.get(pressedKey);
 							case 10:
-								SaveData.settings.keyboardBinds[6][0] = pressedKey;
+								SaveData.settings.keyboardBinds[6][0] = FlxKey.toStringMap.get(pressedKey);
 						}
 					}
 				}
