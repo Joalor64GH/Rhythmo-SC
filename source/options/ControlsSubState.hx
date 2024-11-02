@@ -165,7 +165,7 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
+					if (gamepad != null && keyPressed != -1) {
 						switch (curSelected) {
 							case 0:
 								SaveData.settings.gamepadBinds[0][0] = keyPressed;
