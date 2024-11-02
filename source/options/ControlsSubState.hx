@@ -58,7 +58,7 @@ class ControlsSubState extends ExtendableSubState {
 		curControl.screenCenter(Y);
 		add(curControl);
 
-		switchSpr = new FlxSprite(5, FlxG.height - 24).makeGraphic(50, 50, FlxColor.BLACK); // placeholder for now
+		switchSpr = new FlxSprite(5, FlxG.height - 44).makeGraphic(50, 50, FlxColor.BLACK); // placeholder for now
 		switchSpr.scrollFactor.set();
 		add(switchSpr);
 
@@ -124,7 +124,7 @@ class ControlsSubState extends ExtendableSubState {
 				case 9:
 					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('exit').gamepad[0]);
 				case 10:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('restart').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('reset').gamepad[0]);
 			}
 		} else {
 			switch (curSelected) {
@@ -149,7 +149,7 @@ class ControlsSubState extends ExtendableSubState {
 				case 9:
 					curControl.text = FlxKey.toStringMap.get(Input.binds.get('exit').key[0]);
 				case 10:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('restart').key[0]);
+					curControl.text = FlxKey.toStringMap.get(Input.binds.get('reset').key[0]);
 			}
 		}
 
