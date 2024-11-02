@@ -186,27 +186,27 @@ class ControlsSubState extends ExtendableSubState {
 				} else {
 					switch (curSelected) {
 						case 0:
-							SaveData.settings.keyboardBinds[0][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[0][0] = FlxG.keys.firstJustPressed();
 						case 1:
-							SaveData.settings.keyboardBinds[0][1] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[0][1] = FlxG.keys.firstJustPressed();
 						case 2:
-							SaveData.settings.keyboardBinds[1][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[1][0] = FlxG.keys.firstJustPressed();
 						case 3:
-							SaveData.settings.keyboardBinds[1][1] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[1][1] = FlxG.keys.firstJustPressed();
 						case 4:
-							SaveData.settings.keyboardBinds[2][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[2][0] = FlxG.keys.firstJustPressed();
 						case 5:
-							SaveData.settings.keyboardBinds[2][1] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[2][1] = FlxG.keys.firstJustPressed();
 						case 6:
-							SaveData.settings.keyboardBinds[3][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[3][0] = FlxG.keys.firstJustPressed();
 						case 7:
-							SaveData.settings.keyboardBinds[3][1] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[3][1] = FlxG.keys.firstJustPressed();
 						case 8:
-							SaveData.settings.keyboardBinds[4][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[4][0] = FlxG.keys.firstJustPressed();
 						case 9:
-							SaveData.settings.keyboardBinds[5][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[5][0] = FlxG.keys.firstJustPressed();
 						case 10:
-							SaveData.settings.keyboardBinds[6][0] = FlxG.keys.getIsDown()[0].ID.toString();
+							SaveData.settings.keyboardBinds[6][0] = FlxG.keys.firstJustPressed();
 					}
 				}
 				SaveData.saveSettings();
