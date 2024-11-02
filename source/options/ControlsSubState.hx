@@ -17,6 +17,8 @@ class ControlsSubState extends ExtendableSubState {
 	var switchSpr:FlxSprite;
 	var bg:FlxSprite;
 
+	var tempBG:FlxSprite;
+
 	public function new() {
 		super();
 
@@ -46,12 +48,6 @@ class ControlsSubState extends ExtendableSubState {
 			ctrlGroup.add(bindTxt);
 		}
 
-		anyKeyTxt = new FlxText(0, 0, 0, "", 12);
-		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		anyKeyTxt.scrollFactor.set();
-		anyKeyTxt.screenCenter();
-		add(anyKeyTxt);
-
 		curControl = new FlxText(700, 0, 0, "", 12);
 		curControl.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		curControl.scrollFactor.set();
@@ -61,6 +57,19 @@ class ControlsSubState extends ExtendableSubState {
 		switchSpr = new FlxSprite(5, FlxG.height - 44).makeGraphic(50, 50, FlxColor.BLACK); // placeholder for now
 		switchSpr.scrollFactor.set();
 		add(switchSpr);
+
+		tempBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		tempBG.scrollFactor.set();
+		tempBG.screenCenter();
+		tempBG.alpha = 0.65;
+		tempBG.visible = false;
+		add(tempBG);
+
+		anyKeyTxt = new FlxText(0, 0, 0, "", 12);
+		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		anyKeyTxt.scrollFactor.set();
+		anyKeyTxt.screenCenter(XY);
+		add(anyKeyTxt);
 
 		changeSelection(0, false);
 
@@ -130,6 +139,7 @@ class ControlsSubState extends ExtendableSubState {
 
 			if (Input.justPressed('accept')) {
 				isChangingBind = true;
+				tempBG.visible = true;
 				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
 			}
 
@@ -158,27 +168,27 @@ class ControlsSubState extends ExtendableSubState {
 					if (gamepad != null && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.gamepadBinds[0][0] = keyPressed;
+								Input.binds.set('left', keyPressed).gamepad[0];
 							case 1:
-								SaveData.settings.gamepadBinds[0][1] = keyPressed;
+								Input.binds.set('left', keyPressed).gamepad[1];
 							case 2:
-								SaveData.settings.gamepadBinds[1][0] = keyPressed;
+								Input.binds.set('down', keyPressed).gamepad[0];
 							case 3:
-								SaveData.settings.gamepadBinds[1][1] = keyPressed;
+								Input.binds.set('down', keyPressed).gamepad[1];
 							case 4:
-								SaveData.settings.gamepadBinds[2][0] = keyPressed;
+								Input.binds.set('up', keyPressed).gamepad[0];
 							case 5:
-								SaveData.settings.gamepadBinds[2][1] = keyPressed;
+								Input.binds.set('up', keyPressed).gamepad[1];
 							case 6:
-								SaveData.settings.gamepadBinds[3][0] = keyPressed;
+								Input.binds.set('right', keyPressed).gamepad[0];
 							case 7:
-								SaveData.settings.gamepadBinds[3][1] = keyPressed;
+								Input.binds.set('right', keyPressed).gamepad[1];
 							case 8:
-								SaveData.settings.gamepadBinds[4][0] = keyPressed;
+								Input.binds.set('accept', keyPressed).gamepad[0];
 							case 9:
-								SaveData.settings.gamepadBinds[5][0] = keyPressed;
+								Input.binds.set('exit', keyPressed).gamepad[0];
 							case 10:
-								SaveData.settings.gamepadBinds[6][0] = keyPressed;
+								Input.binds.set('reset', keyPressed).gamepad[0];
 						}
 					}
 				} else {
@@ -187,32 +197,31 @@ class ControlsSubState extends ExtendableSubState {
 						var keyDown = pressedKey[0].ID;
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.keyboardBinds[0][0] = keyDown;
+								Input.binds.set('left', keyDown).key[0];
 							case 1:
-								SaveData.settings.keyboardBinds[0][1] = keyDown;
+								Input.binds.set('left', keyDown).key[1];
 							case 2:
-								SaveData.settings.keyboardBinds[1][0] = keyDown;
+								Input.binds.set('down', keyDown).key[0];
 							case 3:
-								SaveData.settings.keyboardBinds[1][1] = keyDown;
+								Input.binds.set('down', keyDown).key[1];
 							case 4:
-								SaveData.settings.keyboardBinds[2][0] = keyDown;
+								Input.binds.set('up', keyDown).key[0];
 							case 5:
-								SaveData.settings.keyboardBinds[2][1] = keyDown;
+								Input.binds.set('up', keyDown).key[1];
 							case 6:
-								SaveData.settings.keyboardBinds[3][0] = keyDown;
+								Input.binds.set('right', keyDown).key[0];
 							case 7:
-								SaveData.settings.keyboardBinds[3][1] = keyDown;
+								Input.binds.set('right', keyDown).key[1];
 							case 8:
-								SaveData.settings.keyboardBinds[4][0] = keyDown;
+								Input.binds.set('accept', keyDown).key[0];
 							case 9:
-								SaveData.settings.keyboardBinds[5][0] = keyDown;
+								Input.binds.set('exit', keyDown).key[0];
 							case 10:
-								SaveData.settings.keyboardBinds[6][0] = keyDown;
+								Input.binds.set('reset', keyDown).key[0];
 						}
 					}
 				}
 				SaveData.saveSettings();
-				Input.refreshControls();
 				FlxG.sound.play(Paths.sound('select'));
 				isChangingBind = false;
 				anyKeyTxt.text = "";
