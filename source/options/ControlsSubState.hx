@@ -70,37 +70,6 @@ class ControlsSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		if (!isChangingBind) {
-			if (Input.justPressed('up') || Input.justPressed('down'))
-				changeSelection(Input.justPressed('up') ? -1 : 1);
-
-			if (Input.justPressed('accept')) {
-				isChangingBind = true;
-				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
-			}
-
-			if (Input.justPressed('exit')) {
-				persistentDraw = persistentUpdate = true;
-				FlxG.mouse.visible = false;
-				close();
-			}
-
-			if (FlxG.mouse.overlaps(switchSpr) && FlxG.mouse.justPressed) {
-				gamepadMode = !gamepadMode;
-				FlxTween.cancelTweensOf(bg);
-				FlxTween.color(bg, 0.5, bg.color, gamepadMode ? 0xFF22ebf2 : 0xFFac21ff, {ease: FlxEase.linear});
-				if (gamepad != null)
-					FlxG.sound.play(Paths.sound('select'));
-				else {
-					gamepadMode = false;
-					FlxG.sound.play(Paths.sound('cancel'));
-					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
-				}
-			}
-		}
-
 		if (gamepadMode) {
 			switch (curSelected) {
 				case 0:
@@ -153,7 +122,36 @@ class ControlsSubState extends ExtendableSubState {
 			}
 		}
 
-		if (isChangingBind) {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (!isChangingBind) {
+			if (Input.justPressed('up') || Input.justPressed('down'))
+				changeSelection(Input.justPressed('up') ? -1 : 1);
+
+			if (Input.justPressed('accept')) {
+				isChangingBind = true;
+				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
+			}
+
+			if (Input.justPressed('exit')) {
+				persistentDraw = persistentUpdate = true;
+				FlxG.mouse.visible = false;
+				close();
+			}
+
+			if (FlxG.mouse.overlaps(switchSpr) && FlxG.mouse.justPressed) {
+				gamepadMode = !gamepadMode;
+				FlxTween.cancelTweensOf(bg);
+				FlxTween.color(bg, 0.5, bg.color, gamepadMode ? 0xFF22ebf2 : 0xFFac21ff, {ease: FlxEase.linear});
+				if (gamepad != null)
+					FlxG.sound.play(Paths.sound('select'));
+				else {
+					gamepadMode = false;
+					FlxG.sound.play(Paths.sound('cancel'));
+					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
+				}
+			}
+		} else {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
@@ -184,29 +182,33 @@ class ControlsSubState extends ExtendableSubState {
 						}
 					}
 				} else {
-					switch (curSelected) {
-						case 0:
-							SaveData.settings.keyboardBinds[0][0] = FlxG.keys.firstJustPressed();
-						case 1:
-							SaveData.settings.keyboardBinds[0][1] = FlxG.keys.firstJustPressed();
-						case 2:
-							SaveData.settings.keyboardBinds[1][0] = FlxG.keys.firstJustPressed();
-						case 3:
-							SaveData.settings.keyboardBinds[1][1] = FlxG.keys.firstJustPressed();
-						case 4:
-							SaveData.settings.keyboardBinds[2][0] = FlxG.keys.firstJustPressed();
-						case 5:
-							SaveData.settings.keyboardBinds[2][1] = FlxG.keys.firstJustPressed();
-						case 6:
-							SaveData.settings.keyboardBinds[3][0] = FlxG.keys.firstJustPressed();
-						case 7:
-							SaveData.settings.keyboardBinds[3][1] = FlxG.keys.firstJustPressed();
-						case 8:
-							SaveData.settings.keyboardBinds[4][0] = FlxG.keys.firstJustPressed();
-						case 9:
-							SaveData.settings.keyboardBinds[5][0] = FlxG.keys.firstJustPressed();
-						case 10:
-							SaveData.settings.keyboardBinds[6][0] = FlxG.keys.firstJustPressed();
+					var pressedKey = FlxG.keys.getIsDown();
+					if (pressedKey.length > 0) {
+						var keyDown = pressedKey[0].ID;
+						switch (curSelected) {
+							case 0:
+								SaveData.settings.keyboardBinds[0][0] = keyDown;
+							case 1:
+								SaveData.settings.keyboardBinds[0][1] = keyDown;
+							case 2:
+								SaveData.settings.keyboardBinds[1][0] = keyDown;
+							case 3:
+								SaveData.settings.keyboardBinds[1][1] = keyDown;
+							case 4:
+								SaveData.settings.keyboardBinds[2][0] = keyDown;
+							case 5:
+								SaveData.settings.keyboardBinds[2][1] = keyDown;
+							case 6:
+								SaveData.settings.keyboardBinds[3][0] = keyDown;
+							case 7:
+								SaveData.settings.keyboardBinds[3][1] = keyDown;
+							case 8:
+								SaveData.settings.keyboardBinds[4][0] = keyDown;
+							case 9:
+								SaveData.settings.keyboardBinds[5][0] = keyDown;
+							case 10:
+								SaveData.settings.keyboardBinds[6][0] = keyDown;
+						}
 					}
 				}
 				SaveData.saveSettings();
