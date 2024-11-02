@@ -165,7 +165,7 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-					if (gamepad != null && keyPressed != -1) {
+					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (curSelected) {
 							case 0:
 								SaveData.settings.gamepadBinds[0][0] = keyPressed;
@@ -193,7 +193,7 @@ class ControlsSubState extends ExtendableSubState {
 					}
 				} else {
 					var pressedKey = FlxG.keys.firstPressed();
-					if (pressedKey != null && pressedKey.toString() != FlxKey.NONE) {
+					if (pressedKey != null && pressedKey != -1) {
 						switch (curSelected) {
 							case 0:
 								SaveData.settings.keyboardBinds[0][0] = pressedKey;
