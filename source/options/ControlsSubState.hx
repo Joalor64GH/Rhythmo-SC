@@ -166,21 +166,57 @@ class ControlsSubState extends ExtendableSubState {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
 					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
-						var index = Math.floor(curSelected / 2);
-						if (curSelected % 2 == 0) {
-							SaveData.settings.gamepadBinds[index][0] = keyPressed;
-						} else {
-							SaveData.settings.gamepadBinds[index][1] = keyPressed;
+						switch (curSelected) {
+							case 0:
+								SaveData.settings.gamepadBinds[0][0] = keyPressed;
+							case 1:
+								SaveData.settings.gamepadBinds[0][1] = keyPressed;
+							case 2:
+								SaveData.settings.gamepadBinds[1][0] = keyPressed;
+							case 3:
+								SaveData.settings.gamepadBinds[1][1] = keyPressed;
+							case 4:
+								SaveData.settings.gamepadBinds[2][0] = keyPressed;
+							case 5:
+								SaveData.settings.gamepadBinds[2][1] = keyPressed;
+							case 6:
+								SaveData.settings.gamepadBinds[3][0] = keyPressed;
+							case 7:
+								SaveData.settings.gamepadBinds[3][1] = keyPressed;
+							case 8:
+								SaveData.settings.gamepadBinds[4][0] = keyPressed;
+							case 9:
+								SaveData.settings.gamepadBinds[5][0] = keyPressed;
+							case 10:
+								SaveData.settings.gamepadBinds[6][0] = keyPressed;
 						}
 					}
 				} else {
 					var pressedKey = FlxG.keys.firstJustPressed();
 					if (pressedKey != -1) {
-						var index = Math.floor(curSelected / 2);
-						if (curSelected % 2 == 0) {
-							SaveData.settings.keyboardBinds[index][0] = pressedKey;
-						} else {
-							SaveData.settings.keyboardBinds[index][1] = pressedKey;
+						switch (curSelected) {
+							case 0:
+								SaveData.settings.keyboardBinds[0][0] = pressedKey;
+							case 1:
+								SaveData.settings.keyboardBinds[0][1] = pressedKey;
+							case 2:
+								SaveData.settings.keyboardBinds[1][0] = pressedKey;
+							case 3:
+								SaveData.settings.keyboardBinds[1][1] = pressedKey;
+							case 4:
+								SaveData.settings.keyboardBinds[2][0] = pressedKey;
+							case 5:
+								SaveData.settings.keyboardBinds[2][1] = pressedKey;
+							case 6:
+								SaveData.settings.keyboardBinds[3][0] = pressedKey;
+							case 7:
+								SaveData.settings.keyboardBinds[3][1] = pressedKey;
+							case 8:
+								SaveData.settings.keyboardBinds[4][0] = pressedKey;
+							case 9:
+								SaveData.settings.keyboardBinds[5][0] = pressedKey;
+							case 10:
+								SaveData.settings.keyboardBinds[6][0] = pressedKey;
 						}
 					}
 				}
