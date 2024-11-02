@@ -168,27 +168,27 @@ class ControlsSubState extends ExtendableSubState {
 					if (gamepad != null && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (curSelected) {
 							case 0:
-								Input.binds.set('left', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[0][0] = keyPressed;
 							case 1:
-								Input.binds.set('left', [keyPressed]).gamepad[1];
+								SaveData.settings.gamepadBinds[0][1] = keyPressed;
 							case 2:
-								Input.binds.set('down', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[1][0] = keyPressed;
 							case 3:
-								Input.binds.set('down', [keyPressed]).gamepad[1];
+								SaveData.settings.gamepadBinds[1][1] = keyPressed;
 							case 4:
-								Input.binds.set('up', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[2][0] = keyPressed;
 							case 5:
-								Input.binds.set('up', [keyPressed]).gamepad[1];
+								SaveData.settings.gamepadBinds[2][1] = keyPressed;
 							case 6:
-								Input.binds.set('right', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[3][0] = keyPressed;
 							case 7:
-								Input.binds.set('right', [keyPressed]).gamepad[1];
+								SaveData.settings.gamepadBinds[3][1] = keyPressed;
 							case 8:
-								Input.binds.set('accept', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[4][0] = keyPressed;
 							case 9:
-								Input.binds.set('exit', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[5][0] = keyPressed;
 							case 10:
-								Input.binds.set('reset', [keyPressed]).gamepad[0];
+								SaveData.settings.gamepadBinds[6][0] = keyPressed;
 						}
 					}
 				} else {
@@ -197,31 +197,32 @@ class ControlsSubState extends ExtendableSubState {
 						var keyDown = pressedKey[0].ID;
 						switch (curSelected) {
 							case 0:
-								Input.binds.set('left', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[0][0] = keyDown;
 							case 1:
-								Input.binds.set('left', [keyDown]).key[1];
+								SaveData.settings.keyboardBinds[0][1] = keyDown;
 							case 2:
-								Input.binds.set('down', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[1][0] = keyDown;
 							case 3:
-								Input.binds.set('down', [keyDown]).key[1];
+								SaveData.settings.keyboardBinds[1][1] = keyDown;
 							case 4:
-								Input.binds.set('up', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[2][0] = keyDown;
 							case 5:
-								Input.binds.set('up', [keyDown]).key[1];
+								SaveData.settings.keyboardBinds[2][1] = keyDown;
 							case 6:
-								Input.binds.set('right', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[3][0] = keyDown;
 							case 7:
-								Input.binds.set('right', [keyDown]).key[1];
+								SaveData.settings.keyboardBinds[3][1] = keyDown;
 							case 8:
-								Input.binds.set('accept', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[4][0] = keyDown;
 							case 9:
-								Input.binds.set('exit', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[5][0] = keyDown;
 							case 10:
-								Input.binds.set('reset', [keyDown]).key[0];
+								SaveData.settings.keyboardBinds[6][0] = keyDown;
 						}
 					}
 				}
 				SaveData.saveSettings();
+				Input.refreshControls();
 				FlxG.sound.play(Paths.sound('select'));
 				isChangingBind = false;
 				anyKeyTxt.text = "";
