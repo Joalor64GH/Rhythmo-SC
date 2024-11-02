@@ -166,58 +166,12 @@ class ControlsSubState extends ExtendableSubState {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
 					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
-						switch (curSelected) {
-							case 0:
-								SaveData.settings.gamepadBinds[0][0] = keyPressed;
-							case 1:
-								SaveData.settings.gamepadBinds[0][1] = keyPressed;
-							case 2:
-								SaveData.settings.gamepadBinds[1][0] = keyPressed;
-							case 3:
-								SaveData.settings.gamepadBinds[1][1] = keyPressed;
-							case 4:
-								SaveData.settings.gamepadBinds[2][0] = keyPressed;
-							case 5:
-								SaveData.settings.gamepadBinds[2][1] = keyPressed;
-							case 6:
-								SaveData.settings.gamepadBinds[3][0] = keyPressed;
-							case 7:
-								SaveData.settings.gamepadBinds[3][1] = keyPressed;
-							case 8:
-								SaveData.settings.gamepadBinds[4][0] = keyPressed;
-							case 9:
-								SaveData.settings.gamepadBinds[5][0] = keyPressed;
-							case 10:
-								SaveData.settings.gamepadBinds[6][0] = keyPressed;
-						}
+						SaveData.settings.gamepadBinds[curSelected / 2 | 0][curSelected % 2] = keyPressed;
 					}
 				} else {
 					var pressedKey = FlxG.keys.firstJustPressed();
 					if (pressedKey != -1) {
-						switch (curSelected) {
-							case 0:
-								SaveData.settings.keyboardBinds[0][0] = FlxKey.toStringMap.get(pressedKey);
-							case 1:
-								SaveData.settings.keyboardBinds[0][1] = FlxKey.toStringMap.get(pressedKey);
-							case 2:
-								SaveData.settings.keyboardBinds[1][0] = FlxKey.toStringMap.get(pressedKey);
-							case 3:
-								SaveData.settings.keyboardBinds[1][1] = FlxKey.toStringMap.get(pressedKey);
-							case 4:
-								SaveData.settings.keyboardBinds[2][0] = FlxKey.toStringMap.get(pressedKey);
-							case 5:
-								SaveData.settings.keyboardBinds[2][1] = FlxKey.toStringMap.get(pressedKey);
-							case 6:
-								SaveData.settings.keyboardBinds[3][0] = FlxKey.toStringMap.get(pressedKey);
-							case 7:
-								SaveData.settings.keyboardBinds[3][1] = FlxKey.toStringMap.get(pressedKey);
-							case 8:
-								SaveData.settings.keyboardBinds[4][0] = FlxKey.toStringMap.get(pressedKey);
-							case 9:
-								SaveData.settings.keyboardBinds[5][0] = FlxKey.toStringMap.get(pressedKey);
-							case 10:
-								SaveData.settings.keyboardBinds[6][0] = FlxKey.toStringMap.get(pressedKey);
-						}
+						SaveData.settings.keyboardBinds[curSelected / 2 | 0][curSelected % 2] = pressedKey;
 					}
 				}
 				SaveData.saveSettings();
