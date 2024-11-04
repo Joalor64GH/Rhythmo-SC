@@ -53,7 +53,7 @@ class OptionsState extends ExtendableState {
 				case 4:
 					openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
 						SaveData.eraseData();
-						ExtendableState.resetState();
+						FlxG.resetState();
 					}, () -> {
 						FlxG.sound.play(Paths.sound('cancel'));
 					}));
