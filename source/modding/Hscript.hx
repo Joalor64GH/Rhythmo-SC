@@ -139,21 +139,15 @@ class Hscript extends FlxBasic {
 	}
 
 	public function setVariable(name:String, val:Dynamic):Void {
-		if (interp == null)
-			return;
-
 		try {
-			interp.variables.set(name, val);
+			interp?.variables.set(name, val);
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 	}
 
 	public function getVariable(name:String):Dynamic {
-		if (interp == null)
-			return null;
-
 		try {
-			return interp.variables.get(name);
+			return interp?.variables.get(name);
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 
@@ -161,21 +155,15 @@ class Hscript extends FlxBasic {
 	}
 
 	public function removeVariable(name:String):Void {
-		if (interp == null)
-			return;
-
 		try {
-			interp.variables.remove(name);
+			interp?.variables.remove(name);
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 	}
 
 	public function existsVariable(name:String):Bool {
-		if (interp == null)
-			return false;
-
 		try {
-			return interp.variables.exists(name);
+			return interp?.variables.exists(name);
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 
@@ -183,9 +171,6 @@ class Hscript extends FlxBasic {
 	}
 
 	public function executeFunc(funcName:String, ?args:Array<Dynamic>):Dynamic {
-		if (interp == null)
-			return null;
-
 		if (existsVariable(funcName)) {
 			try {
 				return Reflect.callMethod(this, getVariable(funcName), args == null ? [] : args);

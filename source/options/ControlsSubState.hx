@@ -1,6 +1,6 @@
 package options;
 
-class ControlsSubState extends ExtendableSubState { // no functionality until i find a fix
+class ControlsSubState extends ExtendableSubState {
 	var coolControls:Array<String> = [
 		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
 	];
@@ -133,15 +133,15 @@ class ControlsSubState extends ExtendableSubState { // no functionality until i 
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		// if (!isChangingBind) {
+		if (!isChangingBind) {
 			if (Input.justPressed('up') || Input.justPressed('down'))
 				changeSelection(Input.justPressed('up') ? -1 : 1);
 
-			/*if (Input.justPressed('accept')) {
+			if (Input.justPressed('accept')) {
 				isChangingBind = true;
 				tempBG.visible = true;
 				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
-			}*/
+			}
 
 			if (Input.justPressed('exit')) {
 				persistentDraw = persistentUpdate = true;
@@ -161,7 +161,7 @@ class ControlsSubState extends ExtendableSubState { // no functionality until i 
 					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
 				}
 			}
-		/*} else {
+		} else {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
@@ -192,29 +192,32 @@ class ControlsSubState extends ExtendableSubState { // no functionality until i 
 						}
 					}
 				} else {
-					switch (curSelected) {
-						case 0:
-							SaveData.settings.keyboardBinds[0][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 1:
-							SaveData.settings.keyboardBinds[0][1] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 2:
-							SaveData.settings.keyboardBinds[1][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 3:
-							SaveData.settings.keyboardBinds[1][1] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 4:
-							SaveData.settings.keyboardBinds[2][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 5:
-							SaveData.settings.keyboardBinds[2][1] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 6:
-							SaveData.settings.keyboardBinds[3][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 7:
-							SaveData.settings.keyboardBinds[3][1] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 8:
-							SaveData.settings.keyboardBinds[4][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 9:
-							SaveData.settings.keyboardBinds[5][0] = FlxG.keys.getIsDown()[0].ID.toString();
-						case 10:
-							SaveData.settings.keyboardBinds[6][0] = FlxG.keys.getIsDown()[0].ID.toString();
+					var keyPressed:FlxKey = FlxG.keys.firstJustPressed();
+					if (keyPressed != FlxKey.NONE) {
+						switch (curSelected) {
+							case 0:
+								SaveData.settings.keyboardBinds[0][0] = keyPressed;
+							case 1:
+								SaveData.settings.keyboardBinds[0][1] = keyPressed;
+							case 2:
+								SaveData.settings.keyboardBinds[1][0] = keyPressed;
+							case 3:
+								SaveData.settings.keyboardBinds[1][1] = keyPressed;
+							case 4:
+								SaveData.settings.keyboardBinds[2][0] = keyPressed;
+							case 5:
+								SaveData.settings.keyboardBinds[2][1] = keyPressed;
+							case 6:
+								SaveData.settings.keyboardBinds[3][0] = keyPressed;
+							case 7:
+								SaveData.settings.keyboardBinds[3][1] = keyPressed;
+							case 8:
+								SaveData.settings.keyboardBinds[4][0] = keyPressed;
+							case 9:
+								SaveData.settings.keyboardBinds[5][0] = keyPressed;
+							case 10:
+								SaveData.settings.keyboardBinds[6][0] = keyPressed;
+						}
 					}
 				}
 				SaveData.saveSettings();
@@ -224,7 +227,7 @@ class ControlsSubState extends ExtendableSubState { // no functionality until i 
 				anyKeyTxt.text = "";
 				tempBG.visible = false;
 			}
-		}*/
+		}
 	}
 
 	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
