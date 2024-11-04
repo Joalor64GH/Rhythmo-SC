@@ -41,6 +41,7 @@ class SaveData {
 		}
 
 		Main.updateFramerate(settings.framerate);
+		Input.refreshControls();
 	}
 
 	public static function saveSettings() {
