@@ -2,7 +2,7 @@ package options;
 
 class ControlsSubState extends ExtendableSubState {
 	var coolControls:Array<String> = [
-		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
+		"Left", "Down", "Up", "Right", "Left (Alt)", "Down (Alt)", "Up (Alt)", "Right (Alt)", "Accept", "Exit", "Restart"
 	];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
@@ -18,9 +18,6 @@ class ControlsSubState extends ExtendableSubState {
 	var bg:FlxSprite;
 
 	var tempBG:FlxSprite;
-
-	var keyBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
-	var gameBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 
 	public function new() {
 		super();
@@ -82,57 +79,10 @@ class ControlsSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (gamepadMode) {
-			switch (curSelected) {
-				case 0:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('left').gamepad[0]);
-				case 1:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('left').gamepad[1]);
-				case 2:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('down').gamepad[0]);
-				case 3:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('down').gamepad[1]);
-				case 4:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('up').gamepad[0]);
-				case 5:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('up').gamepad[1]);
-				case 6:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('right').gamepad[0]);
-				case 7:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('right').gamepad[1]);
-				case 8:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('accept').gamepad[0]);
-				case 9:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('exit').gamepad[0]);
-				case 10:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('reset').gamepad[0]);
-			}
-		} else {
-			switch (curSelected) {
-				case 0:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('left').key[0]);
-				case 1:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('left').key[1]);
-				case 2:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('down').key[0]);
-				case 3:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('down').key[1]);
-				case 4:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('up').key[0]);
-				case 5:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('up').key[1]);
-				case 6:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('right').key[0]);
-				case 7:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('right').key[1]);
-				case 8:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('accept').key[0]);
-				case 9:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('exit').key[0]);
-				case 10:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('reset').key[0]);
-			}
-		}
+		if (gamepadMode)
+			curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]);
+		else
+			curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -169,59 +119,10 @@ class ControlsSubState extends ExtendableSubState {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
 					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
-						switch (curSelected) {
-							case 0:
-								gameBinds[0][0] = keyPressed;
-							case 1:
-								gameBinds[0][1] = keyPressed;
-							case 2:
-								gameBinds[1][0] = keyPressed;
-							case 3:
-								gameBinds[1][1] = keyPressed;
-							case 4:
-								gameBinds[2][0] = keyPressed;
-							case 5:
-								gameBinds[2][1] = keyPressed;
-							case 6:
-								gameBinds[3][0] = keyPressed;
-							case 7:
-								gameBinds[3][1] = keyPressed;
-							case 8:
-								gameBinds[4][0] = keyPressed;
-							case 9:
-								gameBinds[5][0] = keyPressed;
-							case 10:
-								gameBinds[6][0] = keyPressed;
-						}
+						SaveData.settings.gamepadBinds[curSelected] = keyPressed;
 					}
 				} else {
-					var keyPressed:Int = FlxG.keys.firstJustPressed();
-					if (keyPressed > -1) {
-						switch (curSelected) {
-							case 0:
-								keyBinds[0][0] = keyPressed;
-							case 1:
-								keyBinds[0][1] = keyPressed;
-							case 2:
-								keyBinds[1][0] = keyPressed;
-							case 3:
-								keyBinds[1][1] = keyPressed;
-							case 4:
-								keyBinds[2][0] = keyPressed;
-							case 5:
-								keyBinds[2][1] = keyPressed;
-							case 6:
-								keyBinds[3][0] = keyPressed;
-							case 7:
-								keyBinds[3][1] = keyPressed;
-							case 8:
-								keyBinds[4][0] = keyPressed;
-							case 9:
-								keyBinds[5][0] = keyPressed;
-							case 10:
-								keyBinds[6][0] = keyPressed;
-						}
-					}
+					SaveData.settings.keyboardBinds[curSelected] = FlxG.keys.getIsDown()[0].ID.toString();
 				}
 				SaveData.saveSettings();
 				Input.refreshControls();

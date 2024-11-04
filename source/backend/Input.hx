@@ -6,29 +6,29 @@ typedef Bind = {
 }
 
 class Input {
-	static public var kBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
-	static public var gBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
+	static public var kBinds:Array<FlxKey>> = SaveData.settings.keyboardBinds;
+	static public var gBinds:Array<FlxGamepadInputID> = SaveData.settings.gamepadBinds;
 
 	public static var binds:Map<String, Bind> = [
-		'left' => {key: [kBinds[0][0], kBinds[0][1]], gamepad: [gBinds[0][0], gBinds[0][1]]},
-		'down' => {key: [kBinds[1][0], kBinds[1][1]], gamepad: [gBinds[1][0], gBinds[1][1]]},
-		'up' => {key: [kBinds[2][0], kBinds[2][1]], gamepad: [gBinds[2][0], gBinds[2][1]]},
-		'right' => {key: [kBinds[3][0], kBinds[3][1]], gamepad: [gBinds[3][0], gBinds[3][1]]},
-		'accept' => {key: [kBinds[4][0]], gamepad: [gBinds[4][0]]},
-		'exit' => {key: [kBinds[5][0]], gamepad: [gBinds[5][0]]},
-		'reset' => {key: [kBinds[6][0]], gamepad: [gBinds[6][0]]}
+		'left' => {key: [kBinds[0], kBinds[4]], gamepad: [gBinds[0], gBinds[0]]},
+		'down' => {key: [kBinds[1], kBinds[5]], gamepad: [gBinds[1], gBinds[1]]},
+		'up' => {key: [kBinds[2], kBinds[6]], gamepad: [gBinds[2], gBinds[2]]},
+		'right' => {key: [kBinds[3], kBinds[7]], gamepad: [gBinds[3], gBinds[3]]},
+		'accept' => {key: [kBinds[8]], gamepad: [gBinds[8]]},
+		'exit' => {key: [kBinds[9]], gamepad: [gBinds[9]]},
+		'reset' => {key: [kBinds[10]], gamepad: [gBinds[10]]}
 	];
 
 	public static function refreshControls() {
 		binds.clear();
 		binds = [
-			'left' => {key: [kBinds[0][0], kBinds[0][1]], gamepad: [gBinds[0][0], gBinds[0][1]]},
-			'down' => {key: [kBinds[1][0], kBinds[1][1]], gamepad: [gBinds[1][0], gBinds[1][1]]},
-			'up' => {key: [kBinds[2][0], kBinds[2][1]], gamepad: [gBinds[2][0], gBinds[2][1]]},
-			'right' => {key: [kBinds[3][0], kBinds[3][1]], gamepad: [gBinds[3][0], gBinds[3][1]]},
-			'accept' => {key: [kBinds[4][0]], gamepad: [gBinds[4][0]]},
-			'exit' => {key: [kBinds[5][0]], gamepad: [gBinds[5][0]]},
-			'reset' => {key: [kBinds[6][0]], gamepad: [gBinds[6][0]]}
+			'left' => {key: [kBinds[0], kBinds[4]], gamepad: [gBinds[0], gBinds[0]]},
+			'down' => {key: [kBinds[1], kBinds[5]], gamepad: [gBinds[1], gBinds[1]]},
+			'up' => {key: [kBinds[2], kBinds[6]], gamepad: [gBinds[2], gBinds[2]]},
+			'right' => {key: [kBinds[3], kBinds[7]], gamepad: [gBinds[3], gBinds[3]]},
+			'accept' => {key: [kBinds[8]], gamepad: [gBinds[8]]},
+			'exit' => {key: [kBinds[9]], gamepad: [gBinds[9]]},
+			'reset' => {key: [kBinds[10]], gamepad: [gBinds[10]]}
 		];
 	}
 

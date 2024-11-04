@@ -18,15 +18,9 @@ package backend;
 	public var antiMash:Bool = false;
 	public var displayMS:Bool = false;
 	public var notesRGB:Array<Array<Int>> = [[221, 0, 255], [0, 128, 255], [0, 215, 54], [255, 0, 106]];
-	public var keyboardBinds:Array<Array<FlxKey>> = [[LEFT, A], [DOWN, S], [UP, W], [RIGHT, D], [ENTER], [ESCAPE], [R]];
-	public var gamepadBinds:Array<Array<FlxGamepadInputID>> = [
-		[DPAD_LEFT, LEFT_TRIGGER],
-		[DPAD_DOWN, LEFT_SHOULDER],
-		[DPAD_UP, RIGHT_SHOULDER],
-		[DPAD_RIGHT, RIGHT_TRIGGER],
-		[A],
-		[B],
-		[RIGHT_STICK_CLICK]
+	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
+	public var gamepadBinds:Array<FlxGamepadInputID> = [
+		DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK
 	];
 }
 
