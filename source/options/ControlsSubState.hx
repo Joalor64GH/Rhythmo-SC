@@ -195,8 +195,8 @@ class ControlsSubState extends ExtendableSubState {
 						}
 					}
 				} else {
-					var keyPressed:FlxKey = cast(FlxG.keys.firstJustPressed(), FlxKey);
-					if (keyPressed != FlxKey.NONE) {
+					var keyPressed = FlxG.keys.getIsDown()[0].ID.toString();
+					if (curSelected > -1) {
 						switch (curSelected) {
 							case 0:
 								keyBinds[0][0] = keyPressed;
