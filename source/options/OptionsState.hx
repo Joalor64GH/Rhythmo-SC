@@ -1,7 +1,7 @@
 package options;
 
 class OptionsState extends ExtendableState {
-	final options:Array<String> = ['Preferences', 'Controls', 'Language', 'Note Colors', 'Reset to Defaults'];
+	final options:Array<String> = ['Preferences', 'Controls', 'Language', 'Note Colors'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
@@ -50,13 +50,6 @@ class OptionsState extends ExtendableState {
 					ExtendableState.switchState(new options.LanguageState());
 				case 3:
 					ExtendableState.switchState(new options.NoteColorState());
-				case 4:
-					openSubState(new PromptSubState(Localization.get("youDecide", SaveData.settings.lang), () -> {
-						SaveData.eraseData();
-						FlxG.resetState();
-					}, () -> {
-						FlxG.sound.play(Paths.sound('cancel'));
-					}));
 			}
 		}
 

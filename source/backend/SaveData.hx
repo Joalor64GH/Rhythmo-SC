@@ -41,7 +41,6 @@ class SaveData {
 		}
 
 		Main.updateFramerate(settings.framerate);
-		Input.refreshControls();
 	}
 
 	public static function saveSettings() {
@@ -51,10 +50,5 @@ class SaveData {
 		FlxG.save.flush();
 
 		trace('settings saved!');
-	}
-
-	public static function eraseData() {
-		FlxG.save.erase();
-		init();
 	}
 }
