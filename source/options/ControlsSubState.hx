@@ -82,7 +82,7 @@ class ControlsSubState extends ExtendableSubState {
 		if (gamepadMode)
 			curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]);
 		else
-			curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
+			curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
