@@ -82,52 +82,52 @@ class ControlsSubState extends ExtendableSubState {
 		if (gamepadMode) {
 			switch (curSelected) {
 				case 0:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('left').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[0]);
 				case 1:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('left').gamepad[1]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[1]);
 				case 2:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('down').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[2]);
 				case 3:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('down').gamepad[1]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[3]);
 				case 4:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('up').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[4]);
 				case 5:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('up').gamepad[1]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[5]);
 				case 6:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('right').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[6]);
 				case 7:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('right').gamepad[1]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[7]);
 				case 8:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('accept').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[8]);
 				case 9:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('exit').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[9]);
 				case 10:
-					curControl.text = FlxGamepadInputID.toStringMap.get(Input.binds.get('reset').gamepad[0]);
+					curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[10]);
 			}
 		} else {
 			switch (curSelected) {
 				case 0:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('left').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[0]);
 				case 1:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('left').key[1]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[1]);
 				case 2:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('down').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[2]);
 				case 3:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('down').key[1]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[3]);
 				case 4:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('up').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[4]);
 				case 5:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('up').key[1]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[5]);
 				case 6:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('right').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[6]);
 				case 7:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('right').key[1]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[7]);
 				case 8:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('accept').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[8]);
 				case 9:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('exit').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[9]);
 				case 10:
-					curControl.text = FlxKey.toStringMap.get(Input.binds.get('reset').key[0]);
+					curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[10]);
 			}
 		}
 
@@ -194,29 +194,29 @@ class ControlsSubState extends ExtendableSubState {
 				} else {
 					var keyPressed = FlxG.keys.getIsDown()[0].ID.toString();
 					switch (curSelected) {
-							case 0:
-								SaveData.settings.keyboardBinds[0] = keyPressed;
-							case 1:
-								SaveData.settings.keyboardBinds[1] = keyPressed;
-							case 2:
-								SaveData.settings.keyboardBinds[2] = keyPressed;
-							case 3:
-								SaveData.settings.keyboardBinds[3] = keyPressed;
-							case 4:
-								SaveData.settings.keyboardBinds[4] = keyPressed;
-							case 5:
-								SaveData.settings.keyboardBinds[5] = keyPressed;
-							case 6:
-								SaveData.settings.keyboardBinds[6] = keyPressed;
-							case 7:
-								SaveData.settings.keyboardBinds[7] = keyPressed;
-							case 8:
-								SaveData.settings.keyboardBinds[8] = keyPressed;
-							case 9:
-								SaveData.settings.keyboardBinds[9] = keyPressed;
-							case 10:
-								SaveData.settings.keyboardBinds[10] = keyPressed;
-						}
+						case 0:
+							SaveData.settings.keyboardBinds[0] = keyPressed;
+						case 1:
+							SaveData.settings.keyboardBinds[1] = keyPressed;
+						case 2:
+							SaveData.settings.keyboardBinds[2] = keyPressed;
+						case 3:
+							SaveData.settings.keyboardBinds[3] = keyPressed;
+						case 4:
+							SaveData.settings.keyboardBinds[4] = keyPressed;
+						case 5:
+							SaveData.settings.keyboardBinds[5] = keyPressed;
+						case 6:
+							SaveData.settings.keyboardBinds[6] = keyPressed;
+						case 7:
+							SaveData.settings.keyboardBinds[7] = keyPressed;
+						case 8:
+							SaveData.settings.keyboardBinds[8] = keyPressed;
+						case 9:
+							SaveData.settings.keyboardBinds[9] = keyPressed;
+						case 10:
+							SaveData.settings.keyboardBinds[10] = keyPressed;
+					}
 				}
 				SaveData.saveSettings();
 				Input.refreshControls();
