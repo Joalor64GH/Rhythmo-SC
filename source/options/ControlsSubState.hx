@@ -19,6 +19,9 @@ class ControlsSubState extends ExtendableSubState {
 
 	var tempBG:FlxSprite;
 
+	var keyBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
+	var gameBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gameBinds;
+
 	public function new() {
 		super();
 
@@ -168,27 +171,27 @@ class ControlsSubState extends ExtendableSubState {
 					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.gamepadBinds[0][0] = keyPressed;
+								gameBinds[0][0] = keyPressed;
 							case 1:
-								SaveData.settings.gamepadBinds[0][1] = keyPressed;
+								gameBinds[0][1] = keyPressed;
 							case 2:
-								SaveData.settings.gamepadBinds[1][0] = keyPressed;
+								gameBinds[1][0] = keyPressed;
 							case 3:
-								SaveData.settings.gamepadBinds[1][1] = keyPressed;
+								gameBinds[1][1] = keyPressed;
 							case 4:
-								SaveData.settings.gamepadBinds[2][0] = keyPressed;
+								gameBinds[2][0] = keyPressed;
 							case 5:
-								SaveData.settings.gamepadBinds[2][1] = keyPressed;
+								gameBinds[2][1] = keyPressed;
 							case 6:
-								SaveData.settings.gamepadBinds[3][0] = keyPressed;
+								gameBinds[3][0] = keyPressed;
 							case 7:
-								SaveData.settings.gamepadBinds[3][1] = keyPressed;
+								gameBinds[3][1] = keyPressed;
 							case 8:
-								SaveData.settings.gamepadBinds[4][0] = keyPressed;
+								gameBinds[4][0] = keyPressed;
 							case 9:
-								SaveData.settings.gamepadBinds[5][0] = keyPressed;
+								gameBinds[5][0] = keyPressed;
 							case 10:
-								SaveData.settings.gamepadBinds[6][0] = keyPressed;
+								gameBinds[6][0] = keyPressed;
 						}
 					}
 				} else {
@@ -196,27 +199,27 @@ class ControlsSubState extends ExtendableSubState {
 					if (keyPressed != FlxKey.NONE) {
 						switch (curSelected) {
 							case 0:
-								SaveData.settings.keyboardBinds[0][0] = keyPressed;
+								keyBinds[0][0] = keyPressed;
 							case 1:
-								SaveData.settings.keyboardBinds[0][1] = keyPressed;
+								keyBinds[0][1] = keyPressed;
 							case 2:
-								SaveData.settings.keyboardBinds[1][0] = keyPressed;
+								keyBinds[1][0] = keyPressed;
 							case 3:
-								SaveData.settings.keyboardBinds[1][1] = keyPressed;
+								keyBinds[1][1] = keyPressed;
 							case 4:
-								SaveData.settings.keyboardBinds[2][0] = keyPressed;
+								keyBinds[2][0] = keyPressed;
 							case 5:
-								SaveData.settings.keyboardBinds[2][1] = keyPressed;
+								keyBinds[2][1] = keyPressed;
 							case 6:
-								SaveData.settings.keyboardBinds[3][0] = keyPressed;
+								keyBinds[3][0] = keyPressed;
 							case 7:
-								SaveData.settings.keyboardBinds[3][1] = keyPressed;
+								keyBinds[3][1] = keyPressed;
 							case 8:
-								SaveData.settings.keyboardBinds[4][0] = keyPressed;
+								keyBinds[4][0] = keyPressed;
 							case 9:
-								SaveData.settings.keyboardBinds[5][0] = keyPressed;
+								keyBinds[5][0] = keyPressed;
 							case 10:
-								SaveData.settings.keyboardBinds[6][0] = keyPressed;
+								keyBinds[6][0] = keyPressed;
 						}
 					}
 				}
