@@ -8,7 +8,7 @@
 * [X] Options organization + better options system
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
-* [ ] New Controls Menu **[WIP]**
+* [X] New Controls Menu
 
 ## Future To-Dos
 * [ ] Sustain Notes + New song
