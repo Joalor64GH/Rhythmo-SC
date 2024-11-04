@@ -1,6 +1,6 @@
 package options;
 
-class ControlsSubState extends ExtendableSubState {
+class ControlsSubState extends ExtendableSubState { // no functionality until i find a fix
 	var coolControls:Array<String> = [
 		"Left", "Left (Alt)", "Down", "Down (Alt)", "Up", "Up (Alt)", "Right", "Right (Alt)", "Accept", "Exit", "Restart"
 	];
@@ -133,15 +133,15 @@ class ControlsSubState extends ExtendableSubState {
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (!isChangingBind) {
+		// if (!isChangingBind) {
 			if (Input.justPressed('up') || Input.justPressed('down'))
 				changeSelection(Input.justPressed('up') ? -1 : 1);
 
-			if (Input.justPressed('accept')) {
+			/*if (Input.justPressed('accept')) {
 				isChangingBind = true;
 				tempBG.visible = true;
 				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
-			}
+			}*/
 
 			if (Input.justPressed('exit')) {
 				persistentDraw = persistentUpdate = true;
@@ -161,7 +161,7 @@ class ControlsSubState extends ExtendableSubState {
 					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
 				}
 			}
-		} else {
+		/*} else {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
@@ -224,7 +224,7 @@ class ControlsSubState extends ExtendableSubState {
 				anyKeyTxt.text = "";
 				tempBG.visible = false;
 			}
-		}
+		}*/
 	}
 
 	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {

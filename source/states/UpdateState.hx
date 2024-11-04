@@ -39,16 +39,20 @@ class UpdateState extends ExtendableState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (Input.justPressed('accept')) {
-			FlxG.sound.play(Paths.sound('select'));
-			#if linux
-			Sys.command('/usr/bin/xdg-open', ["https://github.com/Joalor64GH/Rhythmo-SC/releases/latest"]);
-			#else
-			FlxG.openURL("https://github.com/Joalor64GH/Rhythmo-SC/releases/latest");
-			#end
-		} else if (Input.justPressed('exit')) {
+		if (Input.justPressed('accept') || Input.justPressed('exit')) {
 			ExtendableState.switchState(new TitleState());
-			FlxG.sound.play(Paths.sound('cancel'));
+			if (!Input.justPressed('exit')) {
+				FlxG.sound.play(Paths.sound('select'));
+				#if linux
+				var url:String = "https://github.com/Joalor64GH/Rhythmo-SC/releases/latest";
+				var cmd = Sys.command("xdg-open", [url]);
+				if (cmd != 0) cmd = Sys.command("/usr/bin/xdg-open", [url]);
+				Sys.command('/usr/bin/xdg-open', [url]);
+				#else
+				FlxG.openURL(url);
+				#end
+			} else
+				FlxG.sound.play(Paths.sound('cancel'));
 		}
 	}
 }
