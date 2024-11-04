@@ -20,7 +20,7 @@ class ControlsSubState extends ExtendableSubState {
 	var tempBG:FlxSprite;
 
 	var keyBinds:Array<Array<FlxKey>> = SaveData.settings.keyboardBinds;
-	var gameBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gameBinds;
+	var gameBinds:Array<Array<FlxGamepadInputID>> = SaveData.settings.gamepadBinds;
 
 	public function new() {
 		super();
