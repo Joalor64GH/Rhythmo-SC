@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/balls-in_your_jaws-green)
 
 A random rhythm game made from scratch. <br>
-Mostly based off of [FNF](https://github.com/FunkinCrew/Funkin/), go check that out!
+Mostly based on [FNF](https://github.com/FunkinCrew/Funkin/), go check that out!
 
 ## Features
 * Modding System (using [Polymod](https://github.com/larsiusprime/polymod/))

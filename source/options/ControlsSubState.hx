@@ -79,10 +79,7 @@ class ControlsSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (gamepadMode)
-			curControl.text = FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]);
-		else
-			curControl.text = FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
+		curControl.text = (gamepadMode) ? FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]) : FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -104,13 +101,15 @@ class ControlsSubState extends ExtendableSubState {
 
 			if (FlxG.mouse.overlaps(switchSpr) && FlxG.mouse.justPressed) {
 				gamepadMode = !gamepadMode;
-				FlxTween.cancelTweensOf(bg);
-				FlxTween.color(bg, 0.5, bg.color, gamepadMode ? 0xFF22ebf2 : 0xFFac21ff, {ease: FlxEase.linear});
-				if (gamepad != null)
+				if (gamepad != null) {
 					FlxG.sound.play(Paths.sound('select'));
-				else {
+					FlxTween.cancelTweensOf(bg);
+					FlxTween.color(bg, 0.5, bg.color, gamepadMode ? 0xFF22ebf2 : 0xFFac21ff, {ease: FlxEase.linear});
+				} else {
 					gamepadMode = false;
 					FlxG.sound.play(Paths.sound('cancel'));
+					FlxTween.cancelTweensOf(bg);
+					FlxTween.color(bg, 0.5, bg.color, 0xFFac21ff, {ease: FlxEase.linear});
 					Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
 				}
 			}
