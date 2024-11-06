@@ -94,7 +94,7 @@ class PlayState extends ExtendableState {
 		if (speed < 0.1 && songMultiplier > 1)
 			speed = 0.1;
 
-		var bg:FlxSprite = new objects.GameSprite().loadGraphic(Paths.image('gameplay/bg'));
+		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('gameplay/bg'));
 		add(bg);
 
 		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
@@ -169,22 +169,22 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/three'));
+		countdown3 = new GameSprite().loadGraphic(Paths.image('gameplay/three'));
 		countdown3.screenCenter();
 		countdown3.visible = false;
 		add(countdown3);
 
-		countdown2 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/two'));
+		countdown2 = new GameSprite().loadGraphic(Paths.image('gameplay/two'));
 		countdown2.screenCenter();
 		countdown2.visible = false;
 		add(countdown2);
 
-		countdown1 = new objects.GameSprite().loadGraphic(Paths.image('gameplay/one'));
+		countdown1 = new GameSprite().loadGraphic(Paths.image('gameplay/one'));
 		countdown1.screenCenter();
 		countdown1.visible = false;
 		add(countdown1);
 
-		go = new objects.GameSprite().loadGraphic(Paths.image('gameplay/go'));
+		go = new GameSprite().loadGraphic(Paths.image('gameplay/go'));
 		go.screenCenter();
 		go.visible = false;
 		add(go);
@@ -339,13 +339,8 @@ class PlayState extends ExtendableState {
 				note.y = strum.y - (0.45 * (Conductor.songPosition - note.strum) * FlxMath.roundDecimal(speed, 2));
 
 			if (Conductor.songPosition > note.strum + (120 * songMultiplier) && note != null) {
-				isPerfect = false;
-				combo = 0;
-				score -= 10;
-				misses++;
-				notes.remove(note);
-				note.kill();
-				note.destroy();
+				noteMiss(note.dir);
+				destroyNote(note);
 			}
 		}
 
@@ -553,8 +548,6 @@ class PlayState extends ExtendableState {
 					if (SaveData.settings.hitSoundVolume > 0)
 						FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType), SaveData.settings.hitSoundVolume / 100);
 
-					var ratingScores:Array<Int> = [350, 200, 100, 50];
-
 					var noteMs = (SaveData.settings.botPlay) ? 0 : (Conductor.songPosition - note.strum) / songMultiplier;
 					var roundedDecimalNoteMs:Float = FlxMath.roundDecimal(noteMs, 3);
 
@@ -578,86 +571,13 @@ class PlayState extends ExtendableState {
 					if (!SaveData.settings.botPlay)
 						strumline.members[Utilities.getNoteIndex(note.dir)].press();
 
-					switch (curRating) {
-						case "perfect" | "perfect-golden":
-							score += ratingScores[0];
-							perfects++;
-						case "nice":
-							score += ratingScores[1];
-							isPerfect = false;
-							nices++;
-						case "okay":
-							score += ratingScores[2];
-							isPerfect = false;
-							okays++;
-						case "no":
-							score += ratingScores[3];
-							isPerfect = false;
-							nos++;
-					}
-
-					if (curRating == 'perfect' || curRating == 'perfect-golden') {
-						var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
-						splash.setupSplash(note.x, note.y, Utilities.getNoteIndex(note.dir));
-						noteSplashes.add(splash);
-					}
-
-					ratingDisplay.showCurrentRating(curRating);
-					ratingDisplay.screenCenter(X);
+					noteHit(note, curRating);
 
 					combo++;
 					hits++;
 
-					var comboSplit:Array<String> = Std.string(combo).split('');
-					var seperatedScore:Array<Int> = [];
-					for (i in 0...comboSplit.length)
-						seperatedScore.push(Std.parseInt(comboSplit[i]));
-
-					var daLoop:Int = 0;
-
-					for (i in precisions)
-						remove(i);
-					var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
-						Math.round(Conductor.songPosition - note.strum) + ' ms');
-					precision.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-					precision.screenCenter(X);
-					FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
-					precisions.push(precision);
-
-					for (i in seperatedScore) {
-						var numScore:FlxSprite = new FlxSprite(0, 0);
-						numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
-						numScore.scale.set(0.5, 0.5);
-						numScore.screenCenter();
-						numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;
-						numScore.y = (SaveData.settings.downScroll) ? ratingDisplay.y - 140 : ratingDisplay.y + 120;
-						numScore.acceleration.y = FlxG.random.int(200, 300);
-						numScore.velocity.y -= FlxG.random.int(140, 160);
-						numScore.velocity.x = FlxG.random.float(-5, 5);
-						insert(members.indexOf(strumline), numScore);
-						if (SaveData.settings.displayMS)
-							add(precision);
-
-						FlxTween.tween(numScore, {alpha: 0}, 0.2, {
-							onComplete: (twn:FlxTween) -> {
-								numScore.destroy();
-							},
-							startDelay: 1
-						});
-
-						daLoop++;
-					}
-
-					if (SaveData.settings.displayMS) {
-						FlxTween.tween(precision, {alpha: 0}, 0.2, {
-							startDelay: Conductor.crochet * 0.001
-						});
-					}
-
 					note.active = false;
-					notes.remove(note);
-					note.kill();
-					note.destroy();
+					destroyNote(note);
 				}
 			}
 
@@ -667,13 +587,107 @@ class PlayState extends ExtendableState {
 
 					if (note.strum == noteDataTimes[Utilities.getNoteIndex(note.dir)] && doNotHit[Utilities.getNoteIndex(note.dir)]) {
 						note.active = false;
-						notes.remove(note);
-						note.kill();
-						note.destroy();
+						destroyNote(note);
 					}
 				}
 			}
 		}
+	}
+
+	function destroyNote(note:Note) {
+		notes.remove(note, true);
+		note.kill();
+		note.destroy();
+	}
+
+	function noteHit(note:Note, rating:String) {
+		var ratingScores:Array<Int> = [350, 200, 100, 50];
+		var scoreToAdd:Int = 0;
+
+		switch (rating) {
+			case "perfect" | "perfect-golden":
+				scoreToAdd = ratingScores[0];
+				perfects++;
+			case "nice":
+				scoreToAdd = ratingScores[1];
+				isPerfect = false;
+				nices++;
+			case "okay":
+				scoreToAdd = ratingScores[2];
+				isPerfect = false;
+				okays++;
+			case "no":
+				scoreToAdd = ratingScores[3];
+				isPerfect = false;
+				nos++;
+		}
+
+		score += scoreToAdd;
+
+		if (rating == 'perfect' || rating == 'perfect-golden') {
+			var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
+			splash.setupSplash(note.x, note.y, Utilities.getNoteIndex(note.dir));
+			noteSplashes.add(splash);
+		}
+
+		ratingDisplay.showCurrentRating(rating);
+		ratingDisplay.screenCenter(X);
+
+		var comboSplit:Array<String> = Std.string(combo).split('');
+		var seperatedScore:Array<Int> = [];
+		for (i in 0...comboSplit.length)
+			seperatedScore.push(Std.parseInt(comboSplit[i]));
+
+		var daLoop:Int = 0;
+
+		for (i in precisions)
+			remove(i);
+		var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
+			Math.round(Conductor.songPosition - note.strum) + ' ms');
+		precision.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		precision.screenCenter(X);
+		FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
+		precisions.push(precision);
+
+		for (i in seperatedScore) {
+			var numScore:FlxSprite = new FlxSprite(0, 0);
+			numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
+			numScore.scale.set(0.5, 0.5);
+			numScore.screenCenter();
+			numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;
+			numScore.y = (SaveData.settings.downScroll) ? ratingDisplay.y - 140 : ratingDisplay.y + 120;
+			numScore.acceleration.y = FlxG.random.int(200, 300);
+			numScore.velocity.y -= FlxG.random.int(140, 160);
+			numScore.velocity.x = FlxG.random.float(-5, 5);
+			insert(members.indexOf(strumline), numScore);
+			if (SaveData.settings.displayMS)
+				add(precision);
+
+			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
+				onComplete: (twn:FlxTween) -> {
+					numScore.destroy();
+				},
+				startDelay: 1
+			});
+
+			daLoop++;
+		}
+
+		if (SaveData.settings.displayMS) {
+			FlxTween.tween(precision, {alpha: 0}, 0.2, {
+				startDelay: Conductor.crochet * 0.001
+			});
+		}
+
+		callOnScripts('noteHit', [note, rating]);
+	}
+
+	function noteMiss(direction:String) {
+		isPerfect = false;
+		combo = 0;
+		score -= 10;
+		misses++;
+		callOnScripts('noteMiss', [direction]);
 	}
 
 	function generateRank():String {

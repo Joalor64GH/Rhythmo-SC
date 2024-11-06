@@ -26,6 +26,14 @@ function resume() {
     // when the game resumes
 }
 
+function noteHit(note:Note, rating:String) {
+    // when a note is hit
+}
+
+function noteMiss(direction:String) {
+    // when a note is missed
+}
+
 function endSong() {
     // when the song ends
 }
