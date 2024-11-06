@@ -77,7 +77,7 @@ class ChartingState extends ExtendableState {
 
 		FlxG.mouse.visible = true;
 
-		setBPM();
+		Conductor.bpm = song.bpm;
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 
