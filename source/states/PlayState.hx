@@ -507,10 +507,7 @@ class PlayState extends ExtendableState {
 					strumline.members[i].press();
 				if (SaveData.settings.antiMash) {
 					FlxG.sound.play(Paths.sound('miss${FlxG.random.int(1, 4)}'), 0.65);
-					isPerfect = false;
-					score -= 10;
-					combo = 0;
-					misses++;
+					noteMiss(noteDirs[i]);
 				}
 			}
 		}
@@ -555,14 +552,11 @@ class PlayState extends ExtendableState {
 
 					if (Math.abs(noteMs) > 22.5)
 						curRating = (isPerfect) ? 'perfect-golden' : 'perfect';
-
-					if (Math.abs(noteMs) > 45)
+					else if (Math.abs(noteMs) > 45)
 						curRating = 'nice';
-
-					if (Math.abs(noteMs) > 90)
+					else if (Math.abs(noteMs) > 90)
 						curRating = 'okay';
-
-					if (Math.abs(noteMs) > 135)
+					else if (Math.abs(noteMs) > 135)
 						curRating = 'no';
 
 					noteDataTimes[Utilities.getNoteIndex(note.dir)] = note.strum;
@@ -572,12 +566,6 @@ class PlayState extends ExtendableState {
 						strumline.members[Utilities.getNoteIndex(note.dir)].press();
 
 					noteHit(note, curRating);
-
-					combo++;
-					hits++;
-
-					note.active = false;
-					destroyNote(note);
 				}
 			}
 
@@ -623,6 +611,8 @@ class PlayState extends ExtendableState {
 		}
 
 		score += scoreToAdd;
+		combo++;
+		hits++;
 
 		if (rating == 'perfect' || rating == 'perfect-golden') {
 			var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
@@ -680,6 +670,8 @@ class PlayState extends ExtendableState {
 		}
 
 		callOnScripts('noteHit', [note, rating]);
+
+		destroyNote(note);
 	}
 
 	function noteMiss(direction:String) {

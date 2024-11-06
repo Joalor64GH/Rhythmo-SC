@@ -41,7 +41,14 @@ class ChartingState extends ExtendableState {
 	var copySectionButton:FlxButton;
 	var pasteSectionButton:FlxButton;
 
+	var setBPMButton:FlxButton;
+	var loadSongButton:FlxButton;
+	var loadSongFromButton:FlxButton;
+
 	var strumLine:FlxSprite;
+
+	var bpmInput:FlxInputText;
+	var songInput:FlxInputText;
 
 	var undos = [];
 	var redos = [];
@@ -156,6 +163,10 @@ class ChartingState extends ExtendableState {
 			}));
 		});
 		add(clearSongButton);
+
+		bpmInput = new FlxInputText(FlxG.width - 60, 90, 50);
+		bpmInput.text = Std.string(song.bpm);
+		add(bpmInput);
 
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
