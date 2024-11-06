@@ -41,14 +41,12 @@ class ChartingState extends ExtendableState {
 	var copySectionButton:FlxButton;
 	var pasteSectionButton:FlxButton;
 
+	var bpmInput:FlxInputText;
 	var setBPMButton:FlxButton;
 	var loadSongButton:FlxButton;
 	var loadSongFromButton:FlxButton;
 
 	var strumLine:FlxSprite;
-
-	var bpmInput:FlxInputText;
-	var songInput:FlxInputText;
 
 	var undos = [];
 	var redos = [];
@@ -113,16 +111,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(saveButton);
 
-		saveAsButton = new FlxButton(FlxG.width - 110, 40, "Save Chart As", () -> {
-			var data:String = Json.stringify(song, null, "\t");
-			if ((data != null) && (data.length > 0)) {
-				_file = new FileReference();
-				_file.addEventListener(Event.COMPLETE, onSaveComplete);
-				_file.addEventListener(Event.CANCEL, onSaveCancel);
-				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-				_file.save(data.trim(), Paths.formatToSongPath(song.song) + ".json");
-			}
-		});
+		saveAsButton = new FlxButton(FlxG.width - 110, 40, "Save Chart As", saveSong);
 		add(saveAsButton);
 
 		copySectionButton = new FlxButton(FlxG.width - 110, 70, "Copy Section", () -> {
@@ -164,9 +153,24 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
-		bpmInput = new FlxInputText(FlxG.width - 60, 90, 50);
+		loadSongButton = new FlxButton(FlxG.width - 110, 190, "Load Song", () -> {
+			openSubState(new LoadSongSubState());
+		});
+		add(loadSongButton);
+
+		loadSongFromButton = new FlxButton(FlxG.width - 110, 190, "Load Song From", loadSongFromFile);
+		add(loadSongFromButton);
+
+		bpmInput = new FlxInputText(FlxG.width - 110, 250, 50);
 		bpmInput.text = Std.string(song.bpm);
 		add(bpmInput);
+
+		setBPMButton = new FlxButton(FlxG.width - 110, 220, "Set BPM", () -> {
+			song.bpm = Std.parseFloat(bpmInput.text);
+			Conductor.bpm = song.bpm;
+			updateGrid();
+		});
+		add(setBPMButton);
 
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
@@ -174,7 +178,7 @@ class ChartingState extends ExtendableState {
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
 
-		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-BETA // Functionality is subject to change.', 12);
+		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-pre // Functionality is subject to change.', 12);
 		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
@@ -436,7 +440,6 @@ class ChartingState extends ExtendableState {
 		}
 
 		updateCurStep();
-
 		updateGrid();
 	}
 
@@ -457,9 +460,46 @@ class ChartingState extends ExtendableState {
 		return daPos;
 	}
 
-	function loadJson(song:String):Void {
-		PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(song));
-		FlxG.resetState();
+	function loadSongFromFile():Void {
+		_file = new FileReference();
+		_file.addEventListener(Event.SELECT, onFileSelected);
+		_file.addEventListener(IOErrorEvent.IO_ERROR, onLoadError);
+		_file.browse([#if !mac new FileFilter("JSON Files", "*.json") #end]);
+	}
+
+	function onFileSelected(event:Event):Void {
+		_file.addEventListener(Event.COMPLETE, onLoadComplete);
+		_file.load();
+	}
+
+	function onLoadComplete(event:Event):Void {
+		_file.removeEventListener(Event.COMPLETE, onLoadComplete);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onLoadError);
+
+		var jsonData:String = _file.data.readUTFBytes(_file.data.length);
+		var loadedSong:SongData = Json.parse(jsonData);
+
+		song = loadedSong;
+		updateGrid();
+
+		bpmInput.text = Std.string(song.bpm);
+	}
+
+	function onLoadError(event:IOErrorEvent):Void {
+		_file.removeEventListener(Event.COMPLETE, onLoadComplete);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onLoadError);
+		trace("Error loading song: " + event.text);
+	}
+
+	function saveSong():Void {
+		var data:String = Json.stringify(song, null, "\t");
+		if ((data != null) && (data.length > 0)) {
+			_file = new FileReference();
+			_file.addEventListener(Event.COMPLETE, onSaveComplete);
+			_file.addEventListener(Event.CANCEL, onSaveCancel);
+			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+			_file.save(data.trim(), Paths.formatToSongPath(song.song) + ".json");
+		}
 	}
 
 	function onSaveComplete(_):Void {
@@ -493,13 +533,42 @@ class ChartingState extends ExtendableState {
 }
 
 class LoadSongSubState extends ExtendableSubState {
+	var input:FlxUIInputText;
+
 	public function new() {
 		super();
+
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		bg.screenCenter();
+		bg.alpha = 0.65;
+		add(bg);
+
+		var text:FlxText = new FlxText(0, 0, 0, "Enter a song to load\n(Note: Unsaved progress will be lost!)", 32);
+		text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.screenCenter(X);
+		add(text);
+
+		input = new FlxUIInputText(10, 10, FlxG.width, '', 8);
+		input.setFormat(Paths.font('vcr.ttf'), 96, FlxColor.WHITE, FlxTextAlign.CENTER);
+		input.alignment = CENTER;
+		input.setBorderStyle(OUTLINE, 0xFF000000, 5, 1);
+		input.screenCenter(XY);
+		input.y += 50;
+		input.backgroundColor = 0xFF000000;
+		input.lines = 1;
+		input.caretColor = 0xFFFFFFFF;
+		add(input);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		if (Input.justPressed('exit'))
+
+		input.hasFocus = true;
+
+		if (Input.justPressed('accept') && input.text != '') {
+			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(input.text));
+			FlxG.resetState();
+		} else if (Input.justPressed('exit'))
 			close();
 	}
 }

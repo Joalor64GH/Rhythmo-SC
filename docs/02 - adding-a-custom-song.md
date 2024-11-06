@@ -20,9 +20,7 @@ For song data, you need the following:
 * `assets/songs/[song-name]/chart.json`
 * `assets/songs/[song-name]/music.ogg`
 
-## Charting
-Before you actually chart your song, you need `chart.json`. <br>
-Use this template:
+For your chart, use this empty template:
 ```json
 {
     "song": "Song Name",
@@ -32,7 +30,9 @@ Use this template:
 }
 ```
 
-Now, to chart your song, go to PlayState and then press "7" to go to ChartingState. <br>
-When you're done, simply save the chart. It should save in `assets/songs/[song-name]/chart.json`.
+## Charting
+To chart your song, go to `PlayState.hx` and then press "7" to go to ChartingState. <br>
+Or you can go to your song in `SongSelectState.hx`, and use `SHIFT + ENTER`.
 
-Also, you'll have to manually change the BPM and time signature beforehand.
+When you're done, simply save the chart by using `Save Chart` or `Save Chart As`. <br> 
+Denpending on what you choose, it should save in `assets/songs/[song-name]/chart.json` or `./[song-name].json`.

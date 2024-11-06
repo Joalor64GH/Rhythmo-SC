@@ -38,6 +38,7 @@ class PlayState extends ExtendableState {
 
 	public var scriptArray:Array<Hscript> = [];
 
+	public var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 	public var noteSplashes:FlxTypedGroup<NoteSplash>;
 	public var strumline:FlxTypedGroup<Note>;
 	public var notes:FlxTypedGroup<Note>;
@@ -55,8 +56,6 @@ class PlayState extends ExtendableState {
 	public var go:FlxSprite;
 
 	public var coolBG:FlxSprite;
-
-	public var noteDirs:Array<String> = ['left', 'down', 'up', 'right'];
 
 	var isPerfect:Bool = true;
 
@@ -671,6 +670,7 @@ class PlayState extends ExtendableState {
 
 		callOnScripts('noteHit', [note, rating]);
 
+		note.active = false;
 		destroyNote(note);
 	}
 
