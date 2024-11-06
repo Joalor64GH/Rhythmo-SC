@@ -77,6 +77,7 @@ class ChartingState extends ExtendableState {
 
 		FlxG.mouse.visible = true;
 
+		setBPM();
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 
@@ -158,18 +159,14 @@ class ChartingState extends ExtendableState {
 		});
 		add(loadSongButton);
 
-		loadSongFromButton = new FlxButton(FlxG.width - 110, 190, "Load Song From", loadSongFromFile);
+		loadSongFromButton = new FlxButton(FlxG.width - 110, 220, "Load Song From", loadSongFromFile);
 		add(loadSongFromButton);
 
-		bpmInput = new FlxInputText(FlxG.width - 110, 250, 50);
+		bpmInput = new FlxInputText(FlxG.width - 110, 280, 50);
 		bpmInput.text = Std.string(song.bpm);
 		add(bpmInput);
 
-		setBPMButton = new FlxButton(FlxG.width - 110, 220, "Set BPM", () -> {
-			song.bpm = Std.parseFloat(bpmInput.text);
-			Conductor.bpm = song.bpm;
-			updateGrid();
-		});
+		setBPMButton = new FlxButton(FlxG.width - 110, 250, "Set BPM", setBPM);
 		add(setBPMButton);
 
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
@@ -192,9 +189,8 @@ class ChartingState extends ExtendableState {
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * song.notes[curSection].stepsPerSection));
 
 		if (curBeat % 4 == 0 && curStep > 16 * (curSection + 1)) {
-			if (song.notes[curSection + 1] == null) {
+			if (song.notes[curSection + 1] == null)
 				addSection();
-			}
 
 			changeSection(curSection + 1, false);
 		}
@@ -298,6 +294,12 @@ class ChartingState extends ExtendableState {
 			curSection = 0;
 			updateGrid();
 		};
+	}
+
+	function setBPM():Void {
+		song.bpm = Std.parseFloat(bpmInput.text);
+		Conductor.bpm = song.bpm;
+		updateGrid();
 	}
 
 	function addNote() {
@@ -566,8 +568,12 @@ class LoadSongSubState extends ExtendableSubState {
 		input.hasFocus = true;
 
 		if (Input.justPressed('accept') && input.text != '') {
-			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(input.text));
-			FlxG.resetState();
+			try {
+				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(input.text));
+				FlxG.resetState();
+			} catch (e:Dynamic) {
+				trace('Error loading chart!\n$e');
+			}
 		} else if (Input.justPressed('exit'))
 			close();
 	}
