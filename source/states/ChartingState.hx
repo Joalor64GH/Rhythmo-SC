@@ -159,7 +159,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(loadSongButton);
 
-		loadSongFromButton = new FlxButton(FlxG.width - 110, 220, "Load Song From", loadSongFromFile);
+		loadSongFromButton = new FlxButton(FlxG.width - 110, 220, "Load JSON", loadSongFromFile);
 		add(loadSongFromButton);
 
 		bpmInput = new FlxInputText(FlxG.width - 110, 280, 50);
@@ -569,7 +569,7 @@ class LoadSongSubState extends ExtendableSubState {
 
 		if (Input.justPressed('accept') && input.text != '') {
 			try {
-				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(input.text));
+				ChartingState.song = Song.loadSongfromJson(Paths.formatToSongPath(input.text));
 				FlxG.resetState();
 			} catch (e:Dynamic) {
 				trace('Error loading chart!\n$e');
