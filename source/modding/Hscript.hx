@@ -28,7 +28,7 @@ class Hscript extends FlxBasic {
 		parser.preprocesorValues = MacrosUtil.getDefines();
 
 		setVariable('this', this);
-		setVariable('import', function(daClass:String, ?asDa:String) { // to-do: wildcard imports or whatever they're called
+		setVariable('import', function(daClass:String, ?asDa:String) {
 			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
 			final className:String = splitClassName.join('.');
 			final daClass:Class<Dynamic> = Type.resolveClass(className);
@@ -59,7 +59,12 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('importScript', importScript);
+		setVariable('importScript', function(source:String) {
+			var name:String = StringTools.replace(source, '.', '/');
+			var script:Hscript = new Hscript(name, false);
+			script.execute(name, false);
+			return script.getAll();
+		});
 
 		setVariable('stopScript', function() {
 			this.destroy();
@@ -202,13 +207,6 @@ class Hscript extends FlxBasic {
 		return null;
 	}
 
-	public function importScript(source:String) {
-		var name:String = StringTools.replace(source, '.', '/');
-		var script:Hscript = new Hscript(name, false);
-		script.execute(name, false);
-		return script.getAll();
-	}
-
 	public function getAll():Dynamic {
 		var balls:Dynamic = {};
 
@@ -221,37 +219,39 @@ class Hscript extends FlxBasic {
 	}
 
 	public function getFlxColor() {
-        return {
-            // colors
-            "BLACK": FlxColor.BLACK,
-            "BLUE": FlxColor.BLUE,
-            "BROWN": FlxColor.BROWN,
-            "CYAN": FlxColor.CYAN,
-            "GRAY": FlxColor.GRAY,
-            "GREEN": FlxColor.GREEN,
-            "LIME": FlxColor.LIME,
-            "MAGENTA": FlxColor.MAGENTA,
-            "ORANGE": FlxColor.ORANGE,
-            "PINK": FlxColor.PINK,
-            "PURPLE": FlxColor.PURPLE,
-            "RED": FlxColor.RED,
-            "TRANSPARENT": FlxColor.TRANSPARENT,
-            "WHITE": FlxColor.WHITE,
-            "YELLOW": FlxColor.YELLOW,
+		return {
+			// colors
+			"BLACK": FlxColor.BLACK,
+			"BLUE": FlxColor.BLUE,
+			"BROWN": FlxColor.BROWN,
+			"CYAN": FlxColor.CYAN,
+			"GRAY": FlxColor.GRAY,
+			"GREEN": FlxColor.GREEN,
+			"LIME": FlxColor.LIME,
+			"MAGENTA": FlxColor.MAGENTA,
+			"ORANGE": FlxColor.ORANGE,
+			"PINK": FlxColor.PINK,
+			"PURPLE": FlxColor.PURPLE,
+			"RED": FlxColor.RED,
+			"TRANSPARENT": FlxColor.TRANSPARENT,
+			"WHITE": FlxColor.WHITE,
+			"YELLOW": FlxColor.YELLOW,
 
-            // functions
-            "add": FlxColor.add,
-            "fromCMYK": FlxColor.fromCMYK,
-            "fromHSB": FlxColor.fromHSB,
-            "fromHSL": FlxColor.fromHSL,
-            "fromInt": FlxColor.fromInt,
-            "fromRGB": FlxColor.fromRGB,
-            "fromRGBFloat": FlxColor.fromRGBFloat,
-            "fromString": FlxColor.fromString,
-            "interpolate": FlxColor.interpolate,
-            "to24Bit": function(color:Int) {return color & 0xffffff;},
-        };
-    }
+			// functions
+			"add": FlxColor.add,
+			"fromCMYK": FlxColor.fromCMYK,
+			"fromHSB": FlxColor.fromHSB,
+			"fromHSL": FlxColor.fromHSL,
+			"fromInt": FlxColor.fromInt,
+			"fromRGB": FlxColor.fromRGB,
+			"fromRGBFloat": FlxColor.fromRGBFloat,
+			"fromString": FlxColor.fromString,
+			"interpolate": FlxColor.interpolate,
+			"to24Bit": function(color:Int) {
+				return color & 0xffffff;
+			},
+		};
+	}
 
 	override function destroy() {
 		super.destroy();
