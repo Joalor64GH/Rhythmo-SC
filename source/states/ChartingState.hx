@@ -545,8 +545,8 @@ class LoadSongSubState extends ExtendableSubState {
 		bg.alpha = 0.65;
 		add(bg);
 
-		var text:FlxText = new FlxText(0, 0, 0, "Enter a song to load\n(Note: Unsaved progress will be lost!)", 32);
-		text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var text:FlxText = new FlxText(0, 180, 0, "Enter a song to load.\n(Note: Unsaved progress will be lost!)", 32);
+		text.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
 

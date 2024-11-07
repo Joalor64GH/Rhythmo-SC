@@ -47,6 +47,15 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
+		setVariable('importScript', function(source:String) {
+			if (source == null) 
+				return;
+			var name:String = StringTools.replace(source, '.', '/');
+			var script:Hscript = new Hscript(name, false);
+			script.execute(name, false);
+			return script;
+		});
+
 		setVariable('stopScript', function() {
 			this.destroy();
 		});
@@ -111,7 +120,9 @@ class Hscript extends FlxBasic {
 		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
 		setVariable('Main', Main);
+		#if FUTURE_POLYMOD
 		setVariable('ModHandler', ModHandler);
+		#end
 		setVariable('Note', Note);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);

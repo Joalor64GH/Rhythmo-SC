@@ -693,30 +693,16 @@ class PlayState extends ExtendableState {
 			accuracy <= 60 // F
 		];
 
+		var rankArray:Array<String> = ["P", "S", "A", "B", "C", "D", "F"];
+
 		for (i in 0...rankConditions.length) {
-			var b = rankConditions[i];
-			if (b) {
-				switch (i) {
-					case 0:
-						rank = "P";
-					case 1:
-						rank = "S";
-					case 2:
-						rank = "A";
-					case 3:
-						rank = "B";
-					case 4:
-						rank = "C";
-					case 5:
-						rank = "D";
-					case 6:
-						rank = "F";
-				}
+			if (rankConditions[i]) {
+				rank = rankArray[i];
 				break;
 			}
 		}
 
-		if (accuracy == 0 || SaveData.settings.botPlay)
+		if (accuracy <= 0 || SaveData.settings.botPlay)
 			rank = "?";
 
 		return rank;
