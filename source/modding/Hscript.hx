@@ -210,7 +210,7 @@ class Hscript extends FlxBasic {
 		return script.getAll();
 	}
 
-	public function getAll():Void {
+	public function getAll() {
 		var balls = {};
 
 		for (i in locals.keys())
