@@ -1,5 +1,0 @@
-package modding;
-
-class HscriptHelpers {
-    
-}
