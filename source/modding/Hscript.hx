@@ -3,6 +3,18 @@ package modding;
 import hscript.*;
 
 class Hscript extends FlxBasic {
+	public var locals(get, set):Map<String, {r:Dynamic, depth:Int}>;
+
+	function get_locals():Map<String, {r:Dynamic, depth:Int}> {
+		@:privateAccess
+		return interp.locals;
+	}
+
+	function set_locals(local:Map<String, {r:Dynamic, depth:Int}>) {
+		@:privateAccess
+		return interp.locals = local;
+	}
+
 	public static var Function_Stop:Dynamic = 1;
 	public static var Function_Continue:Dynamic = 0;
 
@@ -47,13 +59,13 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('importScript', function(source:String) {
-			if (source == null) 
+		setVariable('importScript', function(source:String):Void {
+			if (source == null)
 				return;
 			var name:String = StringTools.replace(source, '.', '/');
 			var script:Hscript = new Hscript(name, false);
 			script.execute(name, false);
-			return script;
+			return script.getAll();
 		});
 
 		setVariable('stopScript', function() {
@@ -152,13 +164,17 @@ class Hscript extends FlxBasic {
 	public function setVariable(name:String, val:Dynamic):Void {
 		try {
 			interp?.variables.set(name, val);
+			locals.set(variable, {r: value, depth: 0});
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 	}
 
 	public function getVariable(name:String):Dynamic {
 		try {
-			return interp?.variables.get(name);
+			if (locals.exists(name) && locals[name] != null)
+				return locals.get(name).r;
+			else if (interp.variables.exists(name))
+				return interp?.variables.get(name);
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 
@@ -190,6 +206,17 @@ class Hscript extends FlxBasic {
 		}
 
 		return null;
+	}
+
+	public function getAll() {
+		var balls = {};
+
+		for (i in locals.keys())
+			Reflect.setField(balls, i, get(i));
+		for (i in interp.variables.keys())
+			Reflect.setField(balls, i, get(i));
+			
+		return balls;
 	}
 
 	override function destroy() {
