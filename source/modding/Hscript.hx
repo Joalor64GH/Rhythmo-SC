@@ -210,8 +210,8 @@ class Hscript extends FlxBasic {
 		return script.getAll();
 	}
 
-	public function getAll() {
-		var balls = {};
+	public function getAll():Void {
+		var balls:Dynamic = {};
 
 		for (i in locals.keys())
 			Reflect.setField(balls, i, getVariable(i));
