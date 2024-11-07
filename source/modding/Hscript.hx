@@ -201,7 +201,7 @@ class Hscript extends FlxBasic {
 		return null;
 	}
 
-	public function importScript(source) {
+	public function importScript(source:String):Void {
 		if (source == null)
 			return;
 		var name:String = StringTools.replace(source, '.', '/');
@@ -210,7 +210,7 @@ class Hscript extends FlxBasic {
 		return script.getAll();
 	}
 
-	public function getAll() {
+	public function getAll():Void {
 		var balls = {};
 
 		for (i in locals.keys())
