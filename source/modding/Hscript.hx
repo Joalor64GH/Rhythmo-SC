@@ -59,7 +59,7 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('importScript', importScript);
+		setVariable('importScript', HscriptHelpers.importScript);
 
 		setVariable('stopScript', function() {
 			this.destroy();
@@ -102,6 +102,7 @@ class Hscript extends FlxBasic {
 		setVariable('FlxBackdrop', FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
+		setVariable('FlxColor', HscriptHelpers.getFlxColor());
 		setVariable('FlxEase', FlxEase);
 		setVariable('FlxG', FlxG);
 		setVariable('FlxGroup', FlxGroup);
@@ -201,17 +202,8 @@ class Hscript extends FlxBasic {
 		return null;
 	}
 
-	public function importScript(source:String):Void {
-		if (source == null)
-			return;
-		var name:String = StringTools.replace(source, '.', '/');
-		var script:Hscript = new Hscript(name, false);
-		script.execute(name, false);
-		return script.getAll();
-	}
-
-	public function getAll():Void {
-		var balls:Dynamic = {};
+	public function getAll() {
+		var balls = {};
 
 		for (i in locals.keys())
 			Reflect.setField(balls, i, getVariable(i));
