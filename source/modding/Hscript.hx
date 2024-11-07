@@ -203,8 +203,6 @@ class Hscript extends FlxBasic {
 	}
 
 	public function importScript(source:String) {
-		if (source == null)
-			return;
 		var name:String = StringTools.replace(source, '.', '/');
 		var script:Hscript = new Hscript(name, false);
 		script.execute(name, false);
