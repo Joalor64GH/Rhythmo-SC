@@ -59,7 +59,7 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('importScript', HscriptHelpers.importScript);
+		setVariable('importScript', importScript);
 
 		setVariable('stopScript', function() {
 			this.destroy();
@@ -102,7 +102,7 @@ class Hscript extends FlxBasic {
 		setVariable('FlxBackdrop', FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
-		setVariable('FlxColor', HscriptHelpers.getFlxColor());
+		setVariable('FlxColor', getFlxColor());
 		setVariable('FlxEase', FlxEase);
 		setVariable('FlxG', FlxG);
 		setVariable('FlxGroup', FlxGroup);
@@ -202,7 +202,16 @@ class Hscript extends FlxBasic {
 		return null;
 	}
 
-	public function getAll() {
+	public function importScript(source:String) {
+		if (source == null)
+			return;
+		var name:String = StringTools.replace(source, '.', '/');
+		var script:Hscript = new Hscript(name, false);
+		script.execute(name, false);
+		return script.getAll();
+	}
+
+	public function getAll():Void {
 		var balls = {};
 
 		for (i in locals.keys())
@@ -212,6 +221,39 @@ class Hscript extends FlxBasic {
 
 		return balls;
 	}
+
+	public function getFlxColor() {
+        return {
+            // colors
+            "BLACK": FlxColor.BLACK,
+            "BLUE": FlxColor.BLUE,
+            "BROWN": FlxColor.BROWN,
+            "CYAN": FlxColor.CYAN,
+            "GRAY": FlxColor.GRAY,
+            "GREEN": FlxColor.GREEN,
+            "LIME": FlxColor.LIME,
+            "MAGENTA": FlxColor.MAGENTA,
+            "ORANGE": FlxColor.ORANGE,
+            "PINK": FlxColor.PINK,
+            "PURPLE": FlxColor.PURPLE,
+            "RED": FlxColor.RED,
+            "TRANSPARENT": FlxColor.TRANSPARENT,
+            "WHITE": FlxColor.WHITE,
+            "YELLOW": FlxColor.YELLOW,
+
+            // functions
+            "add": FlxColor.add,
+            "fromCMYK": FlxColor.fromCMYK,
+            "fromHSB": FlxColor.fromHSB,
+            "fromHSL": FlxColor.fromHSL,
+            "fromInt": FlxColor.fromInt,
+            "fromRGB": FlxColor.fromRGB,
+            "fromRGBFloat": FlxColor.fromRGBFloat,
+            "fromString": FlxColor.fromString,
+            "interpolate": FlxColor.interpolate,
+            "to24Bit": function(color:Int) {return color & 0xffffff;},
+        };
+    }
 
 	override function destroy() {
 		super.destroy();
