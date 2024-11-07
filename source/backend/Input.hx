@@ -22,10 +22,10 @@ class Input {
 	public static function refreshControls() {
 		binds.clear();
 		binds = [
-			'left' => {key: [kBinds[0], kBinds[4]], gamepad: [gBinds[0], gBinds[0]]},
-			'down' => {key: [kBinds[1], kBinds[5]], gamepad: [gBinds[1], gBinds[1]]},
-			'up' => {key: [kBinds[2], kBinds[6]], gamepad: [gBinds[2], gBinds[2]]},
-			'right' => {key: [kBinds[3], kBinds[7]], gamepad: [gBinds[3], gBinds[3]]},
+			'left' => {key: [kBinds[0], kBinds[4]], gamepad: [gBinds[0], gBinds[4]]},
+			'down' => {key: [kBinds[1], kBinds[5]], gamepad: [gBinds[1], gBinds[5]]},
+			'up' => {key: [kBinds[2], kBinds[6]], gamepad: [gBinds[2], gBinds[6]]},
+			'right' => {key: [kBinds[3], kBinds[7]], gamepad: [gBinds[3], gBinds[7]]},
 			'accept' => {key: [kBinds[8]], gamepad: [gBinds[8]]},
 			'exit' => {key: [kBinds[9]], gamepad: [gBinds[9]]},
 			'reset' => {key: [kBinds[10]], gamepad: [gBinds[10]]}
