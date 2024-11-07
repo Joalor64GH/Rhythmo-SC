@@ -3,14 +3,14 @@ package modding;
 import hscript.*;
 
 class Hscript extends FlxBasic {
-	public var locals(get, set):Map<String, {r:Dynamic, depth:Int}>;
+	public var locals(get, set):Map<String, {r:Dynamic}>;
 
-	function get_locals():Map<String, {r:Dynamic, depth:Int}> {
+	function get_locals():Map<String, {r:Dynamic}> {
 		@:privateAccess
 		return interp.locals;
 	}
 
-	function set_locals(local:Map<String, {r:Dynamic, depth:Int}>) {
+	function set_locals(local:Map<String, {r:Dynamic}>) {
 		@:privateAccess
 		return interp.locals = local;
 	}
@@ -28,7 +28,7 @@ class Hscript extends FlxBasic {
 		parser.preprocesorValues = MacrosUtil.getDefines();
 
 		setVariable('this', this);
-		setVariable('import', function(daClass:String, ?asDa:String) {
+		setVariable('import', function(daClass:String, ?asDa:String) { // to-do: wildcard imports or whatever they're called
 			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
 			final className:String = splitClassName.join('.');
 			final daClass:Class<Dynamic> = Type.resolveClass(className);
@@ -59,14 +59,7 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('importScript', function(source:String):Void {
-			if (source == null)
-				return;
-			var name:String = StringTools.replace(source, '.', '/');
-			var script:Hscript = new Hscript(name, false);
-			script.execute(name, false);
-			return script.getAll();
-		});
+		setVariable('importScript', importScript);
 
 		setVariable('stopScript', function() {
 			this.destroy();
@@ -164,7 +157,7 @@ class Hscript extends FlxBasic {
 	public function setVariable(name:String, val:Dynamic):Void {
 		try {
 			interp?.variables.set(name, val);
-			locals.set(variable, {r: value, depth: 0});
+			locals.set(name, {r: val});
 		} catch (e:Dynamic)
 			Lib.application.window.alert(e, 'Hscript Error!');
 	}
@@ -208,14 +201,23 @@ class Hscript extends FlxBasic {
 		return null;
 	}
 
+	public function importScript(source) {
+		if (source == null)
+			return;
+		var name:String = StringTools.replace(source, '.', '/');
+		var script:Hscript = new Hscript(name, false);
+		script.execute(name, false);
+		return script.getAll();
+	}
+
 	public function getAll() {
 		var balls = {};
 
 		for (i in locals.keys())
-			Reflect.setField(balls, i, get(i));
+			Reflect.setField(balls, i, getVariable(i));
 		for (i in interp.variables.keys())
-			Reflect.setField(balls, i, get(i));
-			
+			Reflect.setField(balls, i, getVariable(i));
+
 		return balls;
 	}
 
