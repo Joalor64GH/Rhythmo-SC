@@ -59,6 +59,8 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
+		setVariable('platform', PlatformUtil.getPlatform());
+
 		setVariable('importScript', function(source:String) {
 			var name:String = StringTools.replace(source, '.', '/');
 			var script:Hscript = new Hscript('$name.hxs', false);
@@ -135,6 +137,7 @@ class Hscript extends FlxBasic {
 		setVariable('ModHandler', ModHandler);
 		#end
 		setVariable('Note', Note);
+		setVariable('Path', Path);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
 		setVariable('Rating', Rating);
