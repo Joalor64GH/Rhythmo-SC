@@ -22,11 +22,6 @@ To import an enumerator, use:
 import('package.Enum');
 ```
 
-To import another script, use:
-```hx
-importScript('path.script');
-```
-
 You can basically use this to import any class/enum you'd like. <br>
 Otherwise, here is a list of the current classes you can use that are already imported:
 
@@ -99,6 +94,11 @@ Otherwise, here is a list of the current classes you can use that are already im
 * Song
 * Utilities
 
+Additionally, if you want to import another script, use:
+```hx
+importScript('path.script');
+```
+
 ## Templates
 Some useful templates. For the default template, use [this](/assets/scripts/template.hxs).
 
@@ -108,7 +108,7 @@ import('flixel.FlxSprite');
 import('states.PlayState');
 
 function create() {
-    var spr:FlxSprite = new FlxSprite(0, 0).makeGraphic(50, 50, 0xFF000000);
+    var spr:FlxSprite = new FlxSprite(0, 0).makeGraphic(50, 50, FlxColor.BLACK);
     PlayState.instance.add(spr);
 }
 ```
