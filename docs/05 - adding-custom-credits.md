@@ -29,5 +29,5 @@ Explanation:
 * `name` - The user's name.
 * `iconData` - An array with the filename for their icon, and optional X and Y offsets for positioning the icon.
 * `textData` - Includes the user's contribution and an optional description.
-* `urlData` - A list of links related to the user. Each entry is an array: the first element is the platform name, and the second is the URL.
+* `urlData` - A list of links related to the user. Each entry is an array: the first element is the platform name, and the second is the URL, or you can set it to `nolink`.
 * `colors` - An array using RGB values to set the background to a custom color (`[R, G, B]`).

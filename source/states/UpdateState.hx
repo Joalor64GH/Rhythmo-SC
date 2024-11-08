@@ -43,14 +43,7 @@ class UpdateState extends ExtendableState {
 			ExtendableState.switchState(new TitleState());
 			if (!Input.justPressed('exit')) {
 				FlxG.sound.play(Paths.sound('select'));
-				var url:String = "https://github.com/Joalor64GH/Rhythmo-SC/releases/latest";
-				#if linux
-				var cmd = Sys.command("xdg-open", [url]);
-				if (cmd != 0) cmd = Sys.command("/usr/bin/xdg-open", [url]);
-				Sys.command('/usr/bin/xdg-open', [url]);
-				#else
-				FlxG.openURL(url);
-				#end
+				Utilities.openUrlPlease("https://github.com/Joalor64GH/Rhythmo-SC/releases/latest");
 			} else
 				FlxG.sound.play(Paths.sound('cancel'));
 		}

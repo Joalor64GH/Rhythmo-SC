@@ -163,11 +163,10 @@ class CreditsState extends ExtendableState {
 			updateSocial(Input.justPressed('left') ? -1 : 1);
 
 		if (Input.justPressed('accept') && credData.users[curSelected].urlData[curSocial][1] != null) {
-			#if linux
-			Sys.command('/usr/bin/xdg-open', [credData.users[curSelected].urlData[curSocial][1]]);
-			#else
-			FlxG.openURL(credData.users[curSelected].urlData[curSocial][1]);
-			#end
+			if ((credData.users[curSelected].urlData[curSocial][1] == "nolink"))
+				FlxG.sound.play(Paths.sound('cancel'));
+			else
+				Utilities.openUrlPlease(credData.users[curSelected].urlData[curSocial][1]);
 		}
 
 		if (Input.justPressed('exit')) {
