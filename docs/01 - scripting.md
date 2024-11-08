@@ -178,6 +178,33 @@ function new(/* arguments, if any */) {
 }
 ```
 
+### Using Imported Scripts
+Script 1:
+```hx
+import('flixel.FlxSprite');
+import('backend.Paths');
+import('flixel.FlxG');
+
+var state = FlxG.state;
+
+function createSprite(x:Float, y:Float, graphic:String) {
+    var spr:FlxSprite = new FlxSprite(x, y);
+    spr.loadGraphic(Paths.image(graphic));
+    state.add(spr);
+
+    trace("sprite " + sprite + " created");
+}
+```
+
+Script 2:
+```hx
+var otherScript = importScript('assets.helpers.spriteHandler');
+
+function create() {
+    otherScript.createSprite(0, 0, 'sprite');
+}
+```
+
 Also, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
 
 As long as you've done everything correctly, your script should functioning. Otherwise, report an issue.
