@@ -11,6 +11,17 @@ However, if your script is a scripted state or substate, it should be located in
 * `typedef`
 * `metadata`
 
+## Default Variables
+* `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`)
+* `Function_Continue` - Continues the game like normal
+* `platform` - Returns the current platform
+
+## Default Functions
+* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/01%20-%20scripting.md#imports) for more.
+* `trace` - The equivalent of `trace` in normal Haxe.
+* `stopScript` - Stops the current script.
+* `addScript` - Adds a new script to `scriptArray`.
+
 ## Imports
 To import a class, use:
 ```hx
@@ -20,6 +31,11 @@ import('package.Class');
 To import an enumerator, use:
 ```hx
 import('package.Enum');
+```
+
+To emulate `as`, use:
+```hx
+import('package.Class', 'Name');
 ```
 
 You can basically use this to import any class/enum you'd like. <br>
@@ -85,6 +101,7 @@ Otherwise, here is a list of the current classes you can use that are already im
 * Main
 * ModHandler
 * Note
+* Path
 * Paths
 * PlayState
 * Rating
@@ -178,6 +195,8 @@ function new(/* arguments, if any */) {
 }
 ```
 
+Also, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
+
 ### Using Imported Scripts
 Script 1:
 ```hx
@@ -204,7 +223,5 @@ function create() {
     otherScript.createSprite(0, 0, 'sprite');
 }
 ```
-
-Also, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
 
 As long as you've done everything correctly, your script should functioning. Otherwise, report an issue.
