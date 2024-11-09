@@ -155,7 +155,7 @@ class Hscript extends FlxBasic {
 		try {
 			interp.execute(parser.parseString(File.getContent(file)));
 		} catch (e:Dynamic)
-			Lib.application.window.alert(e, 'Hscript Error!');
+			Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 
 		trace('Script Loaded Succesfully: $file');
 
@@ -168,7 +168,7 @@ class Hscript extends FlxBasic {
 			interp?.variables.set(name, val);
 			locals.set(name, {r: val});
 		} catch (e:Dynamic)
-			Lib.application.window.alert(e, 'Hscript Error!');
+			Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 	}
 
 	public function getVariable(name:String):Dynamic {
@@ -178,7 +178,7 @@ class Hscript extends FlxBasic {
 			else if (interp.variables.exists(name))
 				return interp?.variables.get(name);
 		} catch (e:Dynamic)
-			Lib.application.window.alert(e, 'Hscript Error!');
+			Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 
 		return null;
 	}
@@ -187,14 +187,14 @@ class Hscript extends FlxBasic {
 		try {
 			interp?.variables.remove(name);
 		} catch (e:Dynamic)
-			Lib.application.window.alert(e, 'Hscript Error!');
+			Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 	}
 
 	public function existsVariable(name:String):Bool {
 		try {
 			return interp?.variables.exists(name);
 		} catch (e:Dynamic)
-			Lib.application.window.alert(e, 'Hscript Error!');
+			Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 
 		return false;
 	}
@@ -204,7 +204,7 @@ class Hscript extends FlxBasic {
 			try {
 				return Reflect.callMethod(this, getVariable(funcName), args == null ? [] : args);
 			} catch (e:Dynamic)
-				Lib.application.window.alert(e, 'Hscript Error!');
+				Lib.application.window.alert(Std.string(e), 'Hscript Error!');
 		}
 
 		return null;
