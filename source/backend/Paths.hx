@@ -23,6 +23,7 @@ enum SpriteSheetType {
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
+	public static final DEFAULT_FOLDER:String = 'assets';
 	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
@@ -117,8 +118,17 @@ class Paths {
 	inline static public function exists(asset:String)
 		return FileAssets.exists(asset);
 
-	static public function file(file:String)
-		return 'assets/$file';
+	static public function getPath(folder:Null<String>, file:String) {
+		if (folder == null)
+			folder = DEFAULT_FOLDER;
+		return folder + '/' + file;
+	}
+
+	static public function file(file:String, folder:String = DEFAULT_FOLDER) {
+		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
+			return getPath(folder, file);
+		return getPath(null, file);
+	}
 
 	inline public static function getText(path:String):Array<String>
 		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
