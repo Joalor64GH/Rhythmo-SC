@@ -124,7 +124,7 @@ class PlayState extends ExtendableState {
 		// load from "scripts" folder
 		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
 		#if FUTURE_POLYMOD
-		for (mod in ModHandler.getMods())
+		for (mod in ModHandler.getModIDs())
 			foldersToCheck.push('mods/' + mod + '/scripts/');
 		#end
 		for (folder in foldersToCheck) {
@@ -193,7 +193,7 @@ class PlayState extends ExtendableState {
 		// load from song folder
 		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
 		#if FUTURE_POLYMOD
-		for (mod in ModHandler.getMods())
+		for (mod in ModHandler.getModIDs())
 			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
 		#end
 		for (folder in foldersToCheck) {

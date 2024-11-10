@@ -8,7 +8,8 @@ import polymod.format.ParseRules;
 
 class ModHandler {
 	static final MOD_DIR:String = 'mods';
-	static final API_VERSION:String = '1.0.0';
+	static final CORE_DIR:String = 'assets';
+	static final API_VERSION:String = '1.0.5';
 
 	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
@@ -48,6 +49,9 @@ class ModHandler {
 			framework: OPENFL,
 			apiVersionRule: API_VERSION,
 			errorCallback: onError,
+			frameworkParams: {
+				coreAssetRedirect: CORE_DIR
+			},
 			parseRules: getParseRules(),
 			extensionMap: extensions,
 			ignoredFiles: Polymod.getDefaultIgnoreList()
@@ -84,6 +88,11 @@ class ModHandler {
 			trace('Found ${daList.length} new mods.');
 
 		return daList != null && daList.length > 0 ? daList : [];
+	}
+
+	public static function getModIDs():Array<String> {
+		var modIDs:Array<String> = [for (i in getMods()) i.id];
+		return modIDs;
 	}
 
 	public static function getParseRules():ParseRules {
