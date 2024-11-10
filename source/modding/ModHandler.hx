@@ -91,7 +91,7 @@ class ModHandler {
 	}
 
 	public static function getModIDs():Array<String> {
-		var modIDs:Array<String> = [for (i in getMods()) i.id];
+		var modIDs:Array<String> = [for (i in trackedMods) i.id];
 		return modIDs;
 	}
 
