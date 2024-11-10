@@ -23,7 +23,7 @@ enum SpriteSheetType {
 @:keep
 @:access(openfl.display.BitmapData)
 class Paths {
-	public static final DEFAULT_FOLDER:String = 'assets';
+	inline public static final DEFAULT_FOLDER:String = 'assets';
 	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
