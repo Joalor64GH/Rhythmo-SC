@@ -8,6 +8,7 @@ class ControlsSubState extends ExtendableSubState {
 	var ctrlGroup:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
+	
 	var isChangingBind:Bool = false;
 	var gamepadMode:Bool = false;
 
@@ -54,11 +55,10 @@ class ControlsSubState extends ExtendableSubState {
 		curControl.screenCenter(Y);
 		add(curControl);
 
-		switchSpr = new FlxSprite(-10, FlxG.height - 88).loadGraphic(Paths.image('menu/deviceSwitcher'), true, 136, 136);
+		switchSpr = new FlxSprite(FlxG.width - 160, FlxG.height - 160).loadGraphic(Paths.image('menu/deviceSwitcher'), true, 136, 136);
 		switchSpr.animation.add('key', [0], 1, false);
 		switchSpr.animation.add('btn', [1], 1, false);
 		switchSpr.scrollFactor.set();
-		switchSpr.scale.set(2, 2);
 		add(switchSpr);
 
 		tempBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);

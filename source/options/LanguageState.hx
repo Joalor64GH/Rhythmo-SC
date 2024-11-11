@@ -31,6 +31,7 @@ class LanguageState extends ExtendableState {
 		add(camFollow);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);
 
@@ -40,6 +41,7 @@ class LanguageState extends ExtendableState {
 
 		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		title.scrollFactor.set();
 		title.screenCenter(X);
 		add(title);
 
@@ -56,6 +58,7 @@ class LanguageState extends ExtendableState {
 
 		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
 		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noticeTxt.scrollFactor.set();
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);
 
@@ -80,6 +83,7 @@ class LanguageState extends ExtendableState {
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();
 			ExtendableState.switchState(new OptionsState());
+			FlxG.sound.play(Paths.sound("select"));
 		}
 	}
 
