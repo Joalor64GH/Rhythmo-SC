@@ -65,8 +65,8 @@ class Input {
 
 		if (gamepad != null) {
 			if (binds.exists(tag)) {
-				for (i in binds[tag].gamepad)
-					if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(binds[tag].gamepad[i], state))
+				for (i in 0...binds[tag].gamepad.length)
+					if (gamepad.checkStatus(binds[tag].gamepad[i], state))
 						return true;
 			} else {
 				if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
@@ -74,8 +74,8 @@ class Input {
 			}
 		} else {
 			if (binds.exists(tag)) {
-				for (i in binds[tag].key)
-					if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
+				for (i in 0...binds[tag].key.length)
+					if (FlxG.keys.checkStatus(binds[tag].key[i], state))
 						return true;
 			} else {
 				if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
@@ -95,8 +95,8 @@ class Input {
 		for (tag in tags) {
 			if (gamepad != null) {
 				if (binds.exists(tag)) {
-					for (i in binds[tag].gamepad)
-						if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(binds[tag].gamepad[i], state))
+					for (i in 0...binds[tag].gamepad.length)
+						if (gamepad.checkStatus(binds[tag].gamepad[i], state))
 							return true;
 				} else {
 					if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
@@ -104,8 +104,8 @@ class Input {
 				}
 			} else {
 				if (binds.exists(tag)) {
-					for (i in binds[tag].key)
-						if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
+					for (i in 0...binds[tag].key.length)
+						if (FlxG.keys.checkStatus(binds[tag].key[i], state))
 							return true;
 				} else {
 					if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
