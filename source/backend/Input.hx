@@ -74,7 +74,7 @@ class Input {
 		} else {
 			if (binds.exists(tag)) {
 				for (i in binds[tag].key)
-					if (FlxG.keys.checkStatus(binds[tag].key[i], state))
+					if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
 						return true;
 			} else {
 				return FlxG.keys.checkStatus(FlxKey.fromString(tag), state);
@@ -99,7 +99,7 @@ class Input {
 			} else {
 				if (binds.exists(tag)) {
 					for (i in binds[tag].key)
-						if (FlxG.keys.checkStatus(binds[tag].key[i], state))
+						if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
 							return true;
 				} else {
 					return FlxG.keys.checkStatus(FlxKey.fromString(tag), state);
