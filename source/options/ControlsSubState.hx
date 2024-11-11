@@ -16,14 +16,17 @@ class ControlsSubState extends ExtendableSubState {
 	var curControl:FlxText;
 
 	var switchSpr:FlxSprite;
+	var tempBG:FlxSprite;
 	var bg:FlxSprite;
 
-	var tempBG:FlxSprite;
+	var ignoreInputTimer:Float = 0;
 
 	public function new() {
 		super();
 
 		FlxG.mouse.visible = true;
+
+		ignoreInputTimer = 0.5;
 
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
@@ -81,6 +84,11 @@ class ControlsSubState extends ExtendableSubState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (ignoreInputTimer > 0) {
+			ignoreInputTimer -= elapsed;
+			return;
+		}
 
 		curControl.text = (gamepadMode) ? FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]) : FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
 		switchSpr.animation.play((gamepadMode) ? 'btn' : 'key');
