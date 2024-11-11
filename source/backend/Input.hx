@@ -69,7 +69,7 @@ class Input {
 					if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(binds[tag].gamepad[i], state))
 						return true;
 			} else {
-				if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+				if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
 					return true;
 			}
 		} else {
@@ -78,7 +78,7 @@ class Input {
 					if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
 						return true;
 			} else {
-				if (i != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+				if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
 					return true;
 			}
 		}
@@ -99,7 +99,7 @@ class Input {
 						if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(binds[tag].gamepad[i], state))
 							return true;
 				} else {
-					if (i != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+					if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
 						return true;
 				}
 			} else {
@@ -108,7 +108,7 @@ class Input {
 						if (i != FlxKey.NONE && FlxG.keys.checkStatus(binds[tag].key[i], state))
 							return true;
 				} else {
-					if (i != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+					if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
 						return true;
 				}
 			}
