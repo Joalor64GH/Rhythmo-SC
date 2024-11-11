@@ -29,6 +29,11 @@ class OptionsState extends ExtendableState {
 			opGrp.add(text);
 		}
 
+		var resetControlsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "If your controls don't work, press R to reset them.", 12);
+		resetControlsTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		resetControlsTxt.scrollFactor.set();
+		add(resetControlsTxt);
+
 		changeSelection(0, false);
 	}
 
@@ -37,6 +42,11 @@ class OptionsState extends ExtendableState {
 
 		if (Input.justPressed('up') || Input.justPressed('down'))
 			changeSelection(Input.justPressed('up') ? -1 : 1);
+
+		if (Input.justPressed('reset')) {
+			Input.resetControls();
+			FlxG.sound.play(Paths.sound('select'));
+		}
 
 		if (Input.justPressed('accept')) {
 			switch (curSelected) {

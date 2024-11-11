@@ -91,8 +91,7 @@ class ModHandler {
 	}
 
 	public static function getModIDs():Array<String> {
-		var modIDs:Array<String> = [for (i in trackedMods) i.id];
-		return modIDs;
+		return (trackedMods.length > 0) ? [for (i in trackedMods) i.id] : [];
 	}
 
 	public static function getParseRules():ParseRules {

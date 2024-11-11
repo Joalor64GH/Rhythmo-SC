@@ -32,6 +32,16 @@ class Input {
 		];
 	}
 
+	public static function resetControls() {
+		kBinds = [];
+		gBinds = [];
+
+		kBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
+		gBinds = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK];
+
+		refreshControls();
+	}
+
 	public static function justPressed(tag:String):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 

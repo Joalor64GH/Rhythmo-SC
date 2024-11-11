@@ -7,6 +7,8 @@ class LanguageState extends ExtendableState {
 	var group:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
+	var camFollow:FlxObject;
+
 	override function create() {
 		super.create();
 
@@ -23,6 +25,10 @@ class LanguageState extends ExtendableState {
 			var data:Array<String> = initLangString[i].split(':');
 			langStrings.push(new Locale(data[0], data[1]));
 		}
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollow.screenCenter(X);
+		add(camFollow);
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.screenCenter();
@@ -54,6 +60,8 @@ class LanguageState extends ExtendableState {
 		add(noticeTxt);
 
 		changeSelection(0, false);
+
+		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
 	override function update(elapsed:Float) {
@@ -81,6 +89,8 @@ class LanguageState extends ExtendableState {
 		curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
 		group.forEach(function(txt:FlxText) {
 			txt.color = (txt.ID == curSelected) ? FlxColor.LIME : FlxColor.WHITE;
+			if (txt.ID == curSelected)
+				camFollow.y = txt.y;
 		});
 	}
 }

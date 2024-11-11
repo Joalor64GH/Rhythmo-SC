@@ -54,8 +54,11 @@ class ControlsSubState extends ExtendableSubState {
 		curControl.screenCenter(Y);
 		add(curControl);
 
-		switchSpr = new FlxSprite(5, FlxG.height - 44).makeGraphic(50, 50, FlxColor.BLACK); // placeholder for now
+		switchSpr = new FlxSprite(-10, FlxG.height - 88).loadGraphic(Paths.image('menu/deviceSwitcher'), true, 136, 136);
+		switchSpr.animation.add('key', [0], 1, false);
+		switchSpr.animation.add('btn', [1], 1, false);
 		switchSpr.scrollFactor.set();
+		switchSpr.scale.set(2, 2);
 		add(switchSpr);
 
 		tempBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -80,6 +83,7 @@ class ControlsSubState extends ExtendableSubState {
 		super.update(elapsed);
 
 		curControl.text = (gamepadMode) ? FlxGamepadInputID.toStringMap.get(SaveData.settings.gamepadBinds[curSelected]) : FlxKey.toStringMap.get(SaveData.settings.keyboardBinds[curSelected]);
+		switchSpr.animation.play((gamepadMode) ? 'btn' : 'key');
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -90,7 +94,7 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('accept')) {
 				isChangingBind = true;
 				tempBG.visible = true;
-				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE";
+				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE.";
 			}
 
 			if (Input.justPressed('exit')) {
