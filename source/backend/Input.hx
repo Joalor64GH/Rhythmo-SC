@@ -36,7 +36,9 @@ class Input {
 
 	public static function resetControls() {
 		kBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
-		gBinds = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK];
+		gBinds = [
+			DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK
+		];
 
 		SaveData.saveSettings();
 		refreshControls();
@@ -63,24 +65,26 @@ class Input {
 	public static function checkInput(tag:String, state:FlxInputState):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null) {
-			if (binds.exists(tag)) {
-				for (i in 0...binds[tag].gamepad.length)
-					if (gamepad.checkStatus(binds[tag].gamepad[i], state))
+		if (binds.exists(tag)) {
+			if (gamepad != null) {
+				for (i in 0...binds[tag].gamepad.length) {
+					var input = binds[tag].gamepad[i];
+					if (input != FlxGamepadInputID.NONE && gamepad.checkStatus(input, state))
 						return true;
+				}
 			} else {
-				if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
-					return true;
+				for (i in 0...binds[tags].key.length) {
+					var input = binds[tag].key[i];
+					if (input != FlxKey.NONE && FlxG.keys.checkStatus(input, state))
+						return true;
+				}
 			}
 		} else {
-			if (binds.exists(tag)) {
-				for (i in 0...binds[tag].key.length)
-					if (FlxG.keys.checkStatus(binds[tag].key[i], state))
-						return true;
-			} else {
-				if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
-					return true;
-			}
+			if (gamepad != null && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+				return true;
+
+			if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+				return true;
 		}
 
 		return false;
@@ -92,25 +96,28 @@ class Input {
 		if (tags == null || tags.length <= 0)
 			return false;
 
-		for (tag in tags) {
-			if (gamepad != null) {
-				if (binds.exists(tag)) {
-					for (i in 0...binds[tag].gamepad.length)
-						if (gamepad.checkStatus(binds[tag].gamepad[i], state))
+		for (i in 0...tags.length) {
+			var tag = tags[i];
+			if (binds.exists(tag)) {
+				if (gamepad != null) {
+					for (j in 0...binds[tag].gamepad.length) {
+						var input = binds[tag].gamepad[j];
+						if (input != FlxGamepadInputID.NONE && gamepad.checkStatus(input, state))
 							return true;
+					}
 				} else {
-					if (gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
-						return true;
+					for (j in 0...binds[tags].key.length) {
+						var input = binds[tag].key[j];
+						if (input != FlxKey.NONE && FlxG.keys.checkStatus(input, state))
+							return true;
+					}
 				}
 			} else {
-				if (binds.exists(tag)) {
-					for (i in 0...binds[tag].key.length)
-						if (FlxG.keys.checkStatus(binds[tag].key[i], state))
-							return true;
-				} else {
-					if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
-						return true;
-				}
+				if (gamepad != null && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+					return true;
+
+				if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+					return true;
 			}
 		}
 
