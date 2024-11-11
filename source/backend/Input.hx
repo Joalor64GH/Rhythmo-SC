@@ -80,10 +80,11 @@ class Input {
 				}
 			}
 		} else {
-			if (gamepad != null && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
-				return true;
+			if (gamepad != null)
+				if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+					return true;
 
-			if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+			if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
 				return true;
 		}
 
@@ -113,10 +114,11 @@ class Input {
 					}
 				}
 			} else {
-				if (gamepad != null && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
-					return true;
+				if (gamepad != null)
+					if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+						return true;
 
-				if (FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+				if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
 					return true;
 			}
 		}
