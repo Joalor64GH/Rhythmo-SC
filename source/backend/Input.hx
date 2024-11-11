@@ -73,7 +73,7 @@ class Input {
 						return true;
 				}
 			} else {
-				for (i in 0...binds[tags].key.length) {
+				for (i in 0...binds[tag].key.length) {
 					var input = binds[tag].key[i];
 					if (input != FlxKey.NONE && FlxG.keys.checkStatus(input, state))
 						return true;
@@ -106,7 +106,7 @@ class Input {
 							return true;
 					}
 				} else {
-					for (j in 0...binds[tags].key.length) {
+					for (j in 0...binds[tag].key.length) {
 						var input = binds[tag].key[j];
 						if (input != FlxKey.NONE && FlxG.keys.checkStatus(input, state))
 							return true;
