@@ -39,6 +39,7 @@ class Input {
 		kBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
 		gBinds = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK];
 
+		SaveData.saveSettings();
 		refreshControls();
 	}
 
