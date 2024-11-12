@@ -1,11 +1,9 @@
 package backend;
 
-import haxe.macro.Expr;
-import haxe.macro.Context;
 import sys.io.Process;
 
 class MacrosUtil {
-	public static macro function getCommitId():Expr.ExprOf<String> {
+	public static macro function getCommitId():haxe.macro.Expr.ExprOf<String> {
 		try {
 			var daProcess = new Process('git', ['log', '--format=%h', '-n', '1']);
 			daProcess.exitCode(true);
@@ -14,7 +12,7 @@ class MacrosUtil {
 		return macro $v{"-"};
 	}
 
-	public static macro function getDefines():Expr {
-		return macro $v{Context.getDefines()};
+	public static macro function getDefines():haxe.macro.Expr {
+		return macro $v{haxe.macro.Context.getDefines()};
 	}
 }
