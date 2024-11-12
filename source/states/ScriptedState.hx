@@ -24,17 +24,19 @@ class ScriptedState extends ExtendableState {
 			for (mod in ModHandler.getModIDs())
 				folders.push('mods/' + mod + '/classes/');
 			#end
-			
-			var foundPath:String = null;
 			for (folder in folders) {
-				if (FileSystem.exists(folder + path)) {
-					foundPath = folder + path + '.hxs';
-					break;
+				if (FileSystem.exists(folder)) {
+					for (file in FileSystem.readDirectory(folder)) {
+						if (file.endsWith('.hxs')) {
+							path = folder + file;
+							break;
+						}
+					}
 				}
 			}
 			
-			script = new Hscript(foundPath, false);
-			script.execute(foundPath, false);
+			script = new Hscript(path, false);
+			script.execute(path, false);
 
 			scriptSet('this', this);
 			scriptSet('add', add);
