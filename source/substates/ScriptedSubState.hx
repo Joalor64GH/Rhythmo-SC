@@ -13,20 +13,8 @@ class ScriptedSubState extends ExtendableSubState {
 		instance = this;
 
 		try {
-			var folders:Array<String> = [Paths.file('classes/')];
-			#if FUTURE_POLYMOD
-			for (mod in ModHandler.getModIDs())
-				folders.push('mods/' + mod + '/classes/');
-			#end
-			for (folder in folders) {
-				if (FileSystem.exists(folder)) {
-					for (file in FileSystem.readDirectory(folder)) {
-						if (file.endsWith('.hxs')) {
-							path = folder + file;
-						}
-					}
-				}
-			}
+			if (FileSystem.exists(Paths.script('classes/$path')))
+				path = Paths.script('classes/$path');
 			
 			script = new Hscript(path, false);
 			script.execute(path, false);
