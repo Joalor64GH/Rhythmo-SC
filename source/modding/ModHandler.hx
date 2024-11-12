@@ -89,7 +89,7 @@ class ModHandler {
 
 		trace('Searching for Mods...');
 
-		for (i in Polymod.scan({modRoot: MOD_DIR, apiVersionRule: API_VERSION, errorCallback: onError})) {
+		for (i in Polymod.scan({modRoot: MOD_DIR, apiVersionRule: '*.*.*', errorCallback: onError})) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);

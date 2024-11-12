@@ -1,10 +1,10 @@
 # How to Use the Scripting System
 This will teach you how to use Rhythmo's special scripting system. Basically, you can use this to make custom backgrounds, add special functions, make cool mechanics, etc.
 
-Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[your-song]/[name].hxs`. <br>
+Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[song-name]/[name].hxs`. <br>
 However, if your script is a scripted state or substate, it should be located in `assets/classes/[name].hxs`.
 
-**NOTE: These Haxe syntaxes are not supported in hscript**:
+**NOTE: These Haxe syntaxes are not supported**:
 * `package`
 * `import` (there's another function that emulates the purpose of this function)
 * `class`
@@ -12,15 +12,15 @@ However, if your script is a scripted state or substate, it should be located in
 * `metadata`
 
 ## Default Variables
-* `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`)
-* `Function_Continue` - Continues the game like normal
-* `platform` - Returns the current platform
+* `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`).
+* `Function_Continue` - Continues the game like normal.
+* `platform` - Returns the current platform (e.g., Windows, Linux).
 
 ## Default Functions
 * `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/01%20-%20scripting.md#imports) for more.
 * `trace` - The equivalent of `trace` in normal Haxe.
 * `stopScript` - Stops the current script.
-* `addScript` - Adds a new script to `scriptArray`.
+* `addScript` - Adds a new script to `scriptArray` (Used in `PlayState.hx` only).
 
 ## Imports
 To import a class, use:
@@ -113,7 +113,7 @@ Otherwise, here is a list of the current classes you can use that are already im
 
 Additionally, if you want to import another script, use:
 ```hx
-importScript('path.script');
+importScript('path.to.script');
 ```
 
 ## Templates
@@ -142,7 +142,7 @@ function create() {
 }
 ```
 
-### Adding a new function
+### Adding a new Function
 ```hx
 function create() {
     yourFunction();
@@ -195,7 +195,9 @@ function new(/* arguments, if any */) {
 }
 ```
 
-Also, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
+Additionally, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
+
+And just in case your script doesn't load or something goes wrong, press `F4` to be sent to `MainMenuState.hx`
 
 ### Using Imported Scripts
 Script 1:
