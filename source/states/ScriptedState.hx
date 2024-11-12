@@ -24,14 +24,10 @@ class ScriptedState extends ExtendableState {
 			for (mod in ModHandler.getModIDs())
 				folders.push('mods/' + mod + '/classes/');
 			#end
+			
 			for (folder in folders) {
-				if (FileSystem.exists(folder)) {
-					for (file in FileSystem.readDirectory(folder)) {
-						if (file.endsWith('.hxs')) {
-							path = folder + file;
-							break;
-						}
-					}
+				if (FileSystem.exists(Paths.script(folder + path))) {
+					path = Paths.script(folder + path);
 				}
 			}
 			
