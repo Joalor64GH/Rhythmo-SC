@@ -19,11 +19,22 @@ class ScriptedState extends ExtendableState {
 		Paths.clearUnusedMemory();
 
 		try {
-			if (FileSystem.exists(Paths.script('classes/$path')))
-				path = Paths.script('classes/$path');
+			var folders:Array<String> = [Paths.file('classes/')];
+			#if FUTURE_POLYMOD
+			for (mod in ModHandler.getModIDs())
+				folders.push('mods/' + mod + '/classes/');
+			#end
 			
-			script = new Hscript(path, false);
-			script.execute(path, false);
+			var foundPath:String = null;
+			for (folder in folders) {
+				if (FileSystem.exists(folder + path)) {
+					foundPath = folder + path + '.hxs';
+					break;
+				}
+			}
+			
+			script = new Hscript(foundPath, false);
+			script.execute(foundPath, false);
 
 			scriptSet('this', this);
 			scriptSet('add', add);
