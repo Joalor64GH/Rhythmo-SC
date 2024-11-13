@@ -33,6 +33,11 @@ class ExtendableState extends FlxState {
 
 		if (FlxG.stage != null)
 			FlxG.stage.frameRate = SaveData.settings.framerate;
+		
+		#if debug
+		if (FlxG.keys.justPressed.F5)
+			FlxG.resetState();
+		#end
 
 		super.update(elapsed);
 	}

@@ -29,10 +29,10 @@ class Hscript extends FlxBasic {
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
-			var splitClassName:Array<String> = daClass.split('.');
-			var className:String = splitClassName.join('.');
-			var daClass:Class<Dynamic> = Type.resolveClass(className);
-			var daEnum:Enum<Dynamic> = Type.resolveEnum(className);
+			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
+			final className:String = splitClassName.join('.');
+			final daClass:Class<Dynamic> = Type.resolveClass(className);
+			final daEnum:Enum<Dynamic> = Type.resolveEnum(className);
 
 			if (daClass == null && daEnum == null)
 				Lib.application.window.alert('Class / Enum at $className does not exist.', 'Hscript Error!');
@@ -49,21 +49,8 @@ class Hscript extends FlxBasic {
 				} else {
 					if (asDa != null && asDa != '')
 						setVariable(asDa, daClass);
-					else {
-						var daClassName = splitClassName[splitClassName.length - 1];
-						if (daClassName == '*') {
-							while (splitClassName.length > 0 && daClass != null) {
-								daClassName = splitClassName.pop();
-								daClass = Type.resolveClass(splitClassName.join('.'));
-								if (daClass != null) break;
-							}
-
-							if (daClass != null)
-								for (field in Reflect.fields(daClass))
-									setVariable(field, Reflect.field(daClass, field));
-						} else
-							setVariable(daClassName, daClass);
-					}
+					else
+						setVariable(splitClassName[splitClassName.length - 1], daClass);
 				}
 			}
 		});
@@ -262,7 +249,10 @@ class Hscript extends FlxBasic {
 			"fromRGB": FlxColor.fromRGB,
 			"fromRGBFloat": FlxColor.fromRGBFloat,
 			"fromString": FlxColor.fromString,
-			"interpolate": FlxColor.interpolate
+			"interpolate": FlxColor.interpolate,
+			"to24Bit": function(color:Int) {
+				return color & 0xffffff;
+			},
 		};
 	}
 
