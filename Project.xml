@@ -65,8 +65,10 @@
 
 	<!-- [ Polymod Defines ] -->
 
-	<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
-	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
+	<section if="polymod">
+		<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
+		<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
+	</section>
 
 	<!-- [ Flags ] -->
 
