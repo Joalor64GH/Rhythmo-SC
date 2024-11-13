@@ -29,7 +29,7 @@ class Hscript extends FlxBasic {
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
-			var splitClassName:Array<String> = daClass.split('.'));
+			var splitClassName:Array<String> = daClass.split('.');
 			var className:String = splitClassName.join('.');
 			var daClass:Class<Dynamic> = Type.resolveClass(className);
 			var daEnum:Enum<Dynamic> = Type.resolveEnum(className);
