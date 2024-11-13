@@ -49,8 +49,21 @@ class Hscript extends FlxBasic {
 				} else {
 					if (asDa != null && asDa != '')
 						setVariable(asDa, daClass);
-					else
-						setVariable(splitClassName[splitClassName.length - 1], daClass);
+					else {
+						var daClassName = splitClassName[splitClassName.length - 1];
+						if (daClassName == '*') {
+							while (splitClassName.length > 0 && daClass != null) {
+								daClassName = splitClassName.pop();
+								daClass = Type.resolveClass(splitClassName.join('.'));
+								if (daClass != null) break;
+							}
+
+							if (daClass != null)
+								for (field in Reflect.fields(daClass))
+									setVariable(field, Reflect.field(daClass, field));
+						} else
+							setVariable(daClassName, daClass);
+					}
 				}
 			}
 		});
@@ -249,10 +262,7 @@ class Hscript extends FlxBasic {
 			"fromRGB": FlxColor.fromRGB,
 			"fromRGBFloat": FlxColor.fromRGBFloat,
 			"fromString": FlxColor.fromString,
-			"interpolate": FlxColor.interpolate,
-			"to24Bit": function(color:Int) {
-				return color & 0xffffff;
-			},
+			"interpolate": FlxColor.interpolate
 		};
 	}
 
