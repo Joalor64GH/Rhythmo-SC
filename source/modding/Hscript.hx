@@ -29,10 +29,10 @@ class Hscript extends FlxBasic {
 
 		setVariable('this', this);
 		setVariable('import', function(daClass:String, ?asDa:String) {
-			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
-			final className:String = splitClassName.join('.');
-			final daClass:Class<Dynamic> = Type.resolveClass(className);
-			final daEnum:Enum<Dynamic> = Type.resolveEnum(className);
+			var splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
+			var className:String = splitClassName.join('.');
+			var daClass:Class<Dynamic> = Type.resolveClass(className);
+			var daEnum:Enum<Dynamic> = Type.resolveEnum(className);
 
 			if (daClass == null && daEnum == null)
 				Lib.application.window.alert('Class / Enum at $className does not exist.', 'Hscript Error!');
