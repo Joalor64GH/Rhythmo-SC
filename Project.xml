@@ -58,15 +58,15 @@
 	<haxedef name="HXCPP_STACK_TRACE" if="release" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
-	<section if="polymod">
-		<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
-		<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
-	</section>
-
 	<haxedef name="hscriptPos" />
 	<haxedef name="analyzer-optimize" />
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
+
+	<!-- [ Polymod Defines ] -->
+
+	<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
+	<haxedef name="POLYMOD_SCRIPT_EXT" value=".hxs" />
 
 	<!-- [ Flags ] -->
 

@@ -10,6 +10,7 @@ class ModHandler {
 	static final MOD_DIR:String = 'mods';
 	static final CORE_DIR:String = 'assets';
 	static final API_VERSION:String = '1.0.5';
+	static final API_VERSION_MATCH:String = '*.*.*';
 
 	#if FUTURE_POLYMOD
 	private static final extensions:Map<String, PolymodAssetType> = [
@@ -89,7 +90,7 @@ class ModHandler {
 
 		trace('Searching for Mods...');
 
-		for (i in Polymod.scan({modRoot: MOD_DIR, apiVersionRule: '*.*.*', errorCallback: onError})) {
+		for (i in Polymod.scan({modRoot: MOD_DIR, apiVersionRule: API_VERSION_MATCH, errorCallback: onError})) {
 			trackedMods.push(i);
 			if (!FlxG.save.data.disabledMods.contains(i.id))
 				daList.push(i.id);

@@ -1,43 +1,43 @@
 function create() {
-    trace("Script initialized!");
+	trace("Script initialized!");
 }
 
 function startCountdown() {
-    // when the countdown starts
+	// when the countdown starts
 }
 
 function update(elapsed:Float) {
-    // while the game is updating
+	// while the game is updating
 }
 
 function beatHit(curBeat:Int) {
-    // every beat hit
+	// every beat hit
 }
 
 function stepHit(curStep:Int) {
-    // every step hit
+	// every step hit
 }
 
 function pause() {
-    // when the game pauses
+	// when the game pauses
 }
 
 function resume() {
-    // when the game resumes
+	// when the game resumes
 }
 
 function noteHit(note:Note, rating:String) {
-    // when a note is hit
+	// when a note is hit
 }
 
 function noteMiss(direction:String) {
-    // when a note is missed
+	// when a note is missed
 }
 
 function endSong() {
-    // when the song ends
+	// when the song ends
 }
 
 function destroy() {
-    // when playstate ends
+	// when playstate ends
 }
