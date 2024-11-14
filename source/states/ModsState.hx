@@ -7,7 +7,6 @@ class ModsState extends ExtendableState {
 	var iconArray:Array<ModIcon> = [];
 	var description:FlxText;
 	var curSelected:Int = 0;
-
 	var camFollow:FlxObject;
 
 	override function create() {
@@ -113,10 +112,7 @@ class ModIcon extends GameSprite {
 
 		if (bytes != null && bytes.length > 0) {
 			try {
-				loadGraphic(BitmapData.fromBytes(bytes), true, 150, 150);
-				var totalFrames = Math.floor(this.width / 150) * Math.floor(this.height / 150);
-				animation.add('icon', [for (i in 0...totalFrames) i], 10);
-				animation.play('icon');
+				loadGraphic(BitmapData.fromBytes(bytes));
 			} catch (e:Dynamic) {
 				FlxG.log.warn(e);
 				loadGraphic(Paths.image('menu/unknownMod'));

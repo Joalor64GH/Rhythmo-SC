@@ -39,7 +39,6 @@ class ScriptedSubState extends ExtendableSubState {
 		} catch (e:Dynamic) {
 			script = null;
 			trace('Error while getting script: $path!\n$e');
-			showNoScriptText(path);
 		}
 
 		scriptExecute('new', args);
@@ -90,13 +89,5 @@ class ScriptedSubState extends ExtendableSubState {
 				trace('Error executing $func!\n$e');
 			}
 		}
-	}
-
-	function showNoScriptText(file:String) {
-		var message:String = "Uh oh! Error reading script:\n'" + file + "'\nEither your script doesn't exist, or it's not formatted properly!\nPress F4 to exit to the main menu.";
-		var text:FlxText = new FlxText(0, 0, FlxG.width, message, 12);
-		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text.screenCenter(XY);
-		add(text);
 	}
 }

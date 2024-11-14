@@ -114,11 +114,12 @@ class SongSelectState extends ExtendableState {
 				changeSelection(Input.justPressed('left') ? -1 : 1);
 
 			if (Input.justPressed('accept')) {
+				var songToLoad = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
 				if (Input.pressed('shift')) {
-					ChartingState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
+					ChartingState.song = songToLoad;
 					ExtendableState.switchState(new ChartingState());
 				} else {
-					PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
+					PlayState.song = songToLoad;
 					ExtendableState.switchState(new PlayState());
 				}
 				if (FlxG.sound.music != null)
@@ -127,11 +128,9 @@ class SongSelectState extends ExtendableState {
 		}
 
 		if (Input.justPressed('exit')) {
-			if (!isResetting) {
+			if (!isResetting)
 				ExtendableState.switchState(new MenuState());
-				FlxG.sound.play(Paths.sound('cancel'));
-			} else {
-				FlxG.sound.play(Paths.sound('cancel'));
+			else {
 				isResetting = false;
 				lockInputs = false;
 				titleTxt.color = FlxColor.WHITE;
@@ -140,6 +139,7 @@ class SongSelectState extends ExtendableState {
 					+ Localization.get("diffTxt", SaveData.settings.lang) + Std.string(songListData.songs[currentIndex].diff) + "/5";
 				tinyTxt.text = Localization.get("tinyGuide", SaveData.settings.lang);
 			}
+			FlxG.sound.play(Paths.sound('cancel'));
 		}
 
 		if (Input.justPressed('reset')) {
