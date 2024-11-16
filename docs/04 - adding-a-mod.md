@@ -6,8 +6,8 @@ Create a folder in the `mods` folder and rename it to whatever you want.
 
 Doing this manually isn't a problem, but it would be better and faster if you copy-and-pasted the Template.
 
-![](https://github.com/Joalor64GH/Chocolate-Engine/blob/master/art/polymodtutorial/polymods1.png?raw=true)
-![](https://github.com/Joalor64GH/Chocolate-Engine/blob/master/art/polymodtutorial/polymods2.png?raw=true)
+![](https://github.com/user-attachments/assets/85d6cc54-72e0-406f-b5a0-131b65e32b62?raw=true)
+![](https://github.com/user-attachments/assets/add932d1-8a09-40c8-ae2a-89d57ca1c9cf?raw=true)
 
 ## In-Game Mod Info
 
