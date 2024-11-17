@@ -4,12 +4,19 @@ This will teach you how to use Rhythmo's special scripting system. Basically, yo
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[song-name]/[name].hxs`. <br>
 However, if your script is a scripted state or substate, it should be located in `assets/classes/[name].hxs`.
 
-**NOTE: These Haxe syntaxes are not supported**:
-* `package`
-* `import` (there's another function that emulates the purpose of this function)
-* `class`
-* `typedef`
-* `metadata`
+## Limitations
+The following are not supported:
+* Keywords:
+    * `package`
+    * `import` (there's another function that emulates the purpose of this function)
+    * `class`
+    * `typedef`
+    * `metadata`
+    * `final`
+* Wildcard imports
+* Access modifiers (e.g., `private`, `public`)
+* Multi-line comments (`/* ... */`)
+
 
 ## Default Variables
 * `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`).

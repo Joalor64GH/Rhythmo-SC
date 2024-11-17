@@ -50,11 +50,11 @@ class PauseSubState extends ExtendableSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (isTweening) {
-			tipTxt.screenCenter(X);
+		tipTxt.screenCenter(X);
+
+		if (isTweening)
 			timer = 0;
-		} else {
-			tipTxt.screenCenter(X);
+		else {
 			timer += elapsed;
 			if (timer >= 3)
 				changeText();

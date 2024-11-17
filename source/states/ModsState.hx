@@ -67,15 +67,12 @@ class ModsState extends ExtendableState {
 			mustResetMusic = true;
 			ExtendableState.switchState(new MenuState());
 		} else if (Input.justPressed('accept')) {
-			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id)) {
+			if (!FlxG.save.data.disabledMods.contains(ModHandler.trackedMods[curSelected].id))
 				FlxG.save.data.disabledMods.push(ModHandler.trackedMods[curSelected].id);
-				FlxG.save.flush();
-				changeSelection();
-			} else {
+			else
 				FlxG.save.data.disabledMods.remove(ModHandler.trackedMods[curSelected].id);
-				FlxG.save.flush();
-				changeSelection();
-			}
+			FlxG.save.flush();
+			changeSelection();
 		}
 	}
 

@@ -30,6 +30,8 @@ class EditorState extends ExtendableState {
 		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
 		daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(daText);
+
+		changeSelection(0, false);
 	}
 
 	override function update(elapsed:Float) {
@@ -46,8 +48,9 @@ class EditorState extends ExtendableState {
 		}
 	}
 
-	private function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scroll'));
+	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {
+		if (playSound)
+			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 		grpOptions.forEach(function(txt:FlxText) {
 			txt.alpha = (txt.ID == curSelected) ? 1 : 0.6;

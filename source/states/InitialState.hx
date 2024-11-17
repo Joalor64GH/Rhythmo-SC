@@ -19,7 +19,7 @@ class InitialState extends ExtendableState {
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
-		#if (desktop || UPDATE_CHECK)
+		#if (desktop && UPDATE_CHECK)
 		UpdateState.updateCheck();
 		#else
 		trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');

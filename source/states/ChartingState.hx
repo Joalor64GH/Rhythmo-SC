@@ -225,11 +225,7 @@ class ChartingState extends ExtendableState {
 			var snappedGridSize = (gridSize / (beatSnap / Conductor.stepsPerSection));
 
 			dummyArrow.x = Math.floor(FlxG.mouse.x / gridSize) * gridSize;
-
-			if (Input.pressed('shift'))
-				dummyArrow.y = FlxG.mouse.y;
-			else
-				dummyArrow.y = Math.floor(FlxG.mouse.y / snappedGridSize) * snappedGridSize;
+			dummyArrow.y = (Input.pressed('shift')) ? FlxG.mouse.y : Math.floor(FlxG.mouse.y / snappedGridSize) * snappedGridSize;
 		}
 
 		if (FlxG.mouse.justPressed) {

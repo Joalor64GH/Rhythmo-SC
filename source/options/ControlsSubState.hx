@@ -129,12 +129,11 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('any')) {
 				if (gamepadMode) {
 					var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE) {
+					if (gamepad != null && keyPressed.toString() != FlxGamepadInputID.NONE)
 						SaveData.settings.gamepadBinds[curSelected] = keyPressed;
-					}
-				} else {
+				} else
 					SaveData.settings.keyboardBinds[curSelected] = FlxG.keys.getIsDown()[0].ID.toString();
-				}
+				
 				SaveData.saveSettings();
 				Input.refreshControls();
 				FlxG.sound.play(Paths.sound('select'));
