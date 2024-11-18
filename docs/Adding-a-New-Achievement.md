@@ -24,13 +24,13 @@ import('backend.Achievements');
 var condition:Bool = false;
 
 function update(elapsed:Float) {
-    if (PlayState.instance.score > 9000)
+    if (PlayState.instance.score >= 1000000)
         condition = true;
 }
 
 function endSong() {
     if (condition) {
-        Achievements.unlock('over_nine_thousand', {
+        Achievements.unlock('road_to_a_million', {
             date: Date.now(),
             song: PlayState.song.song
         }, {
