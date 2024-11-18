@@ -34,6 +34,6 @@ If that language is already selected, the change will not happen.
 Localization.get('key', 'language-code');
 ```
 
-If the second parameter is empty, defaults to currnt language.
+If the second parameter is empty, defaults to current language.
 
 For further documentation, check out [`SimpleLocalization`](https://github.com/Joalor64GH/SimpleLocalization).
