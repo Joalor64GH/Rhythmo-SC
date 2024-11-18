@@ -22,7 +22,7 @@ The following are not supported:
 * `platform` - Returns the current platform (e.g., Windows, Linux).
 
 ## Default Functions
-* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/Scripting.md#imports) for more.
+* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting#imports) for more.
 * `trace` - The equivalent of `trace` in normal Haxe.
 * `stopScript` - Stops the current script.
 * `addScript` - Adds a new script to `scriptArray` (Used in `PlayState.hx` only).
@@ -122,7 +122,7 @@ importScript('path.to.script');
 ```
 
 ## Templates
-Some useful templates. For the default template, use [this](/assets/scripts/template.hxs).
+Some useful templates. For the default template, use [this](https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/assets/scripts/template.hxs).
 
 ### FlxSprite
 ```hx

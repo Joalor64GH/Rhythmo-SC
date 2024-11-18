@@ -15,7 +15,7 @@ Now, you simply need an icon for your achievement. Your icon should be in `asset
 I recommend that the image's size should be a square, preferably `150 x 150`.
 
 ## Unlocking your Achievement
-To actually be able to unlock your custom achievement, you can do it through [scripting](./Scripting.md). <br>
+To actually be able to unlock your custom achievement, you can do it through [scripting](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting). <br>
 Example:
 ```hx
 import('states.PlayState');

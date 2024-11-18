@@ -38,4 +38,4 @@ Also, the size of your cover should be a square, preferably `720 by 720`.
 
 ## Adding a Script (Optional)
 Additionally, you also add in a script that will only run on a specific song. <br>
-See [Scripting](./Scripting.md) for more.
+See [Scripting](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting) for more.

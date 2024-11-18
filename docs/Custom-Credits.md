@@ -1,10 +1,10 @@
 ## Credits Data
-In `assets/credits.json`, you can set the following fields:
+In `assets/credits.json`, you can edit the following fields:
 * `menuBG` - Your custom menu background.
 * `menuBGColor` - The color of your custom background (`[R, G, B]`).
 * `tweenColor` - If the colors should set to the user's colors or not.
 
-Then, in the `users` array, copy this credit block:
+Then, in the `users` array, copy-and-paste this credit block:
 ```json
 {
     "sectionName": "Section",
@@ -20,7 +20,7 @@ Then, in the `users` array, copy this credit block:
  }
  ```
 
-Explanation:
+You can then edit the following:
 * `sectionName` *(optional)* - A header you can place in a specific user block.
 * `name` - The user's name.
 * `iconData` - An array with the filename for their icon, and optional X and Y offsets for positioning the icon.

@@ -11,7 +11,7 @@ The mod metadata comes in two files. Those two files are `_polymod_meta.json` an
 ### `_polymod_meta.json` (Required)
 In `_polymod_meta.json`, you can define the mod name, the name of the author, etc.
 
-Example:
+Here's an example of a valid mod metadata file:
 ```json
 {
 	"title": "Template",
@@ -22,6 +22,8 @@ Example:
 	"license": "Apache 2.0"
 }
 ```
+
+Note that both `api_version` and `mod_version` should use valid [Semantic Versioning 2.0.0](https://semver.org/) values.
 
 ### `_polymod_icon.png` (Optional)
 As for `_polymod_icon.png`, it's just a simple `.png` icon for the mod. Any square image is recommended, preferably `150 x 150`. Just keep in mind that **whatever image it is, it will always be squished into a `75 x 75` resolution**.

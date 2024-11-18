@@ -15,4 +15,4 @@ Deutsch (Deutschland):de
 
 Now, you need your `.json` file, which should be located in `assets/languages/[language-code].json`. <br>
 Of course, this contains the data for your language. <br>
-To add your data, just copy [this](/assets/languages/en.json), and edit it with your translations.
+To add your data, just copy [this](https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/assets/languages/en.json), and edit it with your translations.
