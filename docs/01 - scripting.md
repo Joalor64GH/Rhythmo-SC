@@ -1,5 +1,5 @@
 # How to Use the Scripting System
-This will teach you how to use Rhythmo's special scripting system. Basically, you can use this to make custom backgrounds, add special functions, make cool mechanics, etc.
+This will teach you how to use Rhythmo's scripting system. Basically, you can use this to make custom backgrounds, add special functions, make cool mechanics, etc.
 
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[song-name]/[name].hxs`. <br>
 However, if your script is a scripted state or substate, it should be located in `assets/classes/[name].hxs`.
@@ -16,7 +16,6 @@ The following are not supported:
 * Wildcard imports
 * Access modifiers (e.g., `private`, `public`)
 * Multi-line comments (`/* ... */`)
-
 
 ## Default Variables
 * `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`).
@@ -204,7 +203,7 @@ function new(/* arguments, if any */) {
 
 Additionally, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
 
-And just in case your script doesn't load or something goes wrong, press `F4` to be sent to `MainMenuState.hx`
+And just in case your script doesn't load or something goes wrong, press `F4` to be sent to `MainMenuState.hx`.
 
 ### Using Imported Scripts
 Script 1:
