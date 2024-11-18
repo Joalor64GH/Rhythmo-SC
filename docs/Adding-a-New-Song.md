@@ -1,6 +1,3 @@
-# How to Add a Custom Song
-This will teach you how to add your own song to the game.
-
 ## Song Audio
 First of all, you need your song's audio. You only need an audio file with your music called `music.ogg`. <br>
 It should be located in `assets/songs/[song-name]/music.ogg`.
@@ -26,7 +23,7 @@ When you're done, simply save the chart by using `Save Chart` or `Save Chart As`
 Denpending on what you choose, it should save in `assets/songs/[song-name]/chart.json` or `./[song-name].json`.
 
 ## Adding your Song to the Song Selection Menu
-To add your song to the Song Selection Menu, go to `assets/songs.json`.  <br>
+To add your song to the Song Selection Menu, go to `assets/songs.json`. <br>
 Then, to add your song, use this template:
 ```json
 {
@@ -41,4 +38,4 @@ Also, the size of your cover should be a square, preferably `720 by 720`.
 
 ## Adding a Script (Optional)
 Additionally, you also add in a script that will only run on a specific song. <br>
-See [Scripting](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/01%20-%20scripting.md) for more.
+See [Scripting](./Scripting.md) for more.

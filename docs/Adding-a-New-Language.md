@@ -1,7 +1,4 @@
-# How to Add a Custom Language
-This is another simple tutorial on how to add a custom language.
-
-## Adding your Language
+## Language Data
 Firstly, you need to edit these two main text files:
 * `assets/languages/languagesList.txt` - Your list of languages. (e.g., `de`, `en`, `es`, `fr`)
 * `assets/languages/languagesData.txt` - This is so that your language can be pushed into `LanguagesState.hx`.

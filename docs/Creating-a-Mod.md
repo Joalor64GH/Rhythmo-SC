@@ -1,9 +1,6 @@
-# How to Add a Mod
-This tutorial simply shows you how you can add your own mod.
-
-## Creating a Folder
+## Creating the Folder
 Create a folder in the `mods` folder and rename it to whatever you want. <br>
-Doing this manually isn't a problem, but it would be better and faster if you copy-and-pasted the Template.
+Doing this manually isn't a problem, but it would be better and faster if you copy-and-pasted the `template` folder.
 
 ![](https://github.com/user-attachments/assets/85d6cc54-72e0-406f-b5a0-131b65e32b62?raw=true)
 ![](https://github.com/user-attachments/assets/add932d1-8a09-40c8-ae2a-89d57ca1c9cf?raw=true)

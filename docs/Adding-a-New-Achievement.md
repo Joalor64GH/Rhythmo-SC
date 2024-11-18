@@ -1,7 +1,4 @@
-# How to Add a Custom Achievement
-The tutorial will show you how to add your own custom achievement.
-
-## Adding your Achievement
+## Achievement Data
 Firstly, you need a json file for your achievement. Copy this template:
 ```json
 {
@@ -11,14 +8,14 @@ Firstly, you need a json file for your achievement. Copy this template:
 }
 ```
 
-Then, for your achievement to actually be loaded, navigate to `assets/achievements/achList.txt` and add it there. <br>
-Keep in mind the name has to be all lowercase.
+It should be located in `assets/achievements/[achievement-name].json`. <br>
+Then, for your achievement to actually be loaded, navigate to `assets/achievements/achList.txt` and add it there.
 
 Now, you simply need an icon for your achievement. Your icon should be in `assets/images/achievements/[name].png`. <br>
 I recommend that the image's size should be a square, preferably `150 x 150`.
 
 ## Unlocking your Achievement
-To actually be able to unlock your custom achievement, you can do it through [scripting](./01%20-%20scripting.md). <br>
+To actually be able to unlock your custom achievement, you can do it through [scripting](./Scripting.md). <br>
 Example:
 ```hx
 import('states.PlayState');

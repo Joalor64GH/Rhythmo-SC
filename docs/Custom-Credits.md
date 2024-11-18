@@ -1,14 +1,10 @@
-# How to Add Custom Credits
-If you want to add your own credits to `CreditsState.hx`, this will show you how to.
-
-## Adding Custom Credits
-To add your custom credits, you first need to go to `assets/credits.json`. <br>
-Then you can edit the following:
+## Credits Data
+In `assets/credits.json`, you can set the following fields:
 * `menuBG` - Your custom menu background.
 * `menuBGColor` - The color of your custom background (`[R, G, B]`).
 * `tweenColor` - If the colors should set to the user's colors or not.
 
-Example Credit Block:
+Then, in the `users` array, copy this credit block:
 ```json
 {
     "sectionName": "Section",

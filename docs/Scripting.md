@@ -1,5 +1,4 @@
-# How to Use the Scripting System
-This will teach you how to use Rhythmo's scripting system. Basically, you can use this to make custom backgrounds, add special functions, make cool mechanics, etc.
+Scripts in Rhythmo can be active in only one song, or be applied globally to every song. You can use scripts to make custom backgrounds, add special functions, make cool mechanics, etc.
 
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[song-name]/[name].hxs`. <br>
 However, if your script is a scripted state or substate, it should be located in `assets/classes/[name].hxs`.
@@ -23,7 +22,7 @@ The following are not supported:
 * `platform` - Returns the current platform (e.g., Windows, Linux).
 
 ## Default Functions
-* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/01%20-%20scripting.md#imports) for more.
+* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/blob/main/docs/Scripting.md#imports) for more.
 * `trace` - The equivalent of `trace` in normal Haxe.
 * `stopScript` - Stops the current script.
 * `addScript` - Adds a new script to `scriptArray` (Used in `PlayState.hx` only).
@@ -48,74 +47,74 @@ You can basically use this to import any class/enum you'd like. <br>
 Otherwise, here is a list of the current classes you can use that are already imported:
 
 ### Standard Haxe Classes
-* Array
-* Bool
-* Date
-* DateTools
-* Dynamic
-* EReg
-* Float
-* Int
-* Lambda
-* Math
-* Reflect
-* Std
-* String
-* StringBuf
-* StringTools
-* Sys
-* Type
-* Xml
+* `Array`
+* `Bool`
+* `Date`
+* `DateTools`
+* `Dynamic`
+* `EReg`
+* `Float`
+* `Int`
+* `Lambda`
+* `Math`
+* `Reflect`
+* `Std`
+* `String`
+* `StringBuf`
+* `StringTools`
+* `Sys`
+* `Type`
+* `Xml`
 
 ### Game-Specific Classes
-* Achievements
-* Application
-* Assets
-* Bar
-* Conductor
-* ExtendableState
-* ExtendableSubState
-* File
-* FileSystem
-* FlxAtlasFrames
-* FlxBackdrop
-* FlxBasic
-* FlxCamera
-* FlxColor
-* FlxEase
-* FlxG
-* FlxGroup
-* FlxMath
-* FlxObject
-* FlxSave
-* FlxSort
-* FlxSound
-* FlxSprite
-* FlxSpriteGroup
-* FlxStringUtil
-* FlxText
-* FlxTextBorderStyle
-* FlxTimer
-* FlxTween
-* FlxTypedGroup
-* GameSprite
-* HighScore
-* Input
-* Json
-* Lib
-* Localization
-* Main
-* ModHandler
-* Note
-* Path
-* Paths
-* PlayState
-* Rating
-* SaveData
-* ScriptedState
-* ScriptedSubState
-* Song
-* Utilities
+* `Achievements`
+* `Application`
+* `Assets`
+* `Bar`
+* `Conductor`
+* `ExtendableState`
+* `ExtendableSubState`
+* `File`
+* `FileSystem`
+* `FlxAtlasFrames`
+* `FlxBackdrop`
+* `FlxBasic`
+* `FlxCamera`
+* `FlxColor`
+* `FlxEase`
+* `FlxG`
+* `FlxGroup`
+* `FlxMath`
+* `FlxObject`
+* `FlxSave`
+* `FlxSort`
+* `FlxSound`
+* `FlxSprite`
+* `FlxSpriteGroup`
+* `FlxStringUtil`
+* `FlxText`
+* `FlxTextBorderStyle`
+* `FlxTimer`
+* `FlxTween`
+* `FlxTypedGroup`
+* `GameSprite`
+* `HighScore`
+* `Input`
+* `Json`
+* `Lib`
+* `Localization`
+* `Main`
+* `ModHandler`
+* `Note`
+* `Path`
+* `Paths`
+* `PlayState`
+* `Rating`
+* `SaveData`
+* `ScriptedState`
+* `ScriptedSubState`
+* `Song`
+* `Utilities`
 
 Additionally, if you want to import another script, use:
 ```hx
