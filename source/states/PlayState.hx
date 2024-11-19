@@ -233,7 +233,6 @@ class PlayState extends ExtendableState {
 							FlxG.sound.play(Paths.sound('cDown1'));
 							countdown1 = new GameSprite().loadGraphic(Paths.image('gameplay/one'));
 							countdown1.screenCenter();
-							countdown1.visible = false;
 							add(countdown1);
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
