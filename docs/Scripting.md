@@ -25,7 +25,7 @@ The following are not supported:
 * `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting#imports) for more.
 * `trace` - The equivalent of `trace` in normal Haxe.
 * `stopScript` - Stops the current script.
-* `addScript` - Adds a new script to `scriptArray` (Used in `PlayState.hx` only).
+* `addScript` - Adds a new script to `scriptArray` (Used in PlayState only).
 
 ## Imports
 To import a class, use:
@@ -144,17 +144,6 @@ function create() {
     var text:FlxText = new FlxText(0, 0, 0, "Hello World", 64);
     text.screenCenter();
     PlayState.instance.add(text);
-}
-```
-
-### Adding a new Function
-```hx
-function create() {
-    yourFunction();
-}
-
-function yourFunction(/* arguments, if any */) {
-    // code goes here...
 }
 ```
 

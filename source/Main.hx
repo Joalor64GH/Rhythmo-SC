@@ -90,8 +90,8 @@ class Main extends openfl.display.Sprite {
 			FlxG.sound.play(Paths.sound('error'));
 
 			#if windows
-			WindowsAPI.messageBox('Uncaught Error!',
-				msg + '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
+			WindowsAPI.messageBox('Error!',
+				'Uncaught Error: \n: ' + msg + '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
 				MSG_ERROR);
 			#else
 			Lib.application.window.alert('Uncaught Error: \n'

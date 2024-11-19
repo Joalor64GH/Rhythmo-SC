@@ -168,26 +168,6 @@ class PlayState extends ExtendableState {
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
 
-		countdown3 = new GameSprite().loadGraphic(Paths.image('gameplay/three'));
-		countdown3.screenCenter();
-		countdown3.visible = false;
-		add(countdown3);
-
-		countdown2 = new GameSprite().loadGraphic(Paths.image('gameplay/two'));
-		countdown2.screenCenter();
-		countdown2.visible = false;
-		add(countdown2);
-
-		countdown1 = new GameSprite().loadGraphic(Paths.image('gameplay/one'));
-		countdown1.screenCenter();
-		countdown1.visible = false;
-		add(countdown1);
-
-		go = new GameSprite().loadGraphic(Paths.image('gameplay/go'));
-		go.screenCenter();
-		go.visible = false;
-		add(go);
-
 		generateSong();
 
 		// load from song folder
@@ -234,26 +214,35 @@ class PlayState extends ExtendableState {
 		if (ret != Hscript.Function_Stop) {
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
-			countdown3.visible = true;
 			FlxG.sound.play(Paths.sound('cDown3'));
+			countdown3 = new GameSprite().loadGraphic(Paths.image('gameplay/three'));
+			countdown3.screenCenter();
+			add(countdown3);
 			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
 				onComplete: (twn:FlxTween) -> {
 					remove(countdown3);
 					countdown3.destroy();
-					countdown2.visible = true;
 					FlxG.sound.play(Paths.sound('cDown2'));
+					countdown2 = new GameSprite().loadGraphic(Paths.image('gameplay/two'));
+					countdown2.screenCenter();
+					add(countdown2);
 					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet / 1000, {
 						onComplete: (twn:FlxTween) -> {
 							remove(countdown2);
 							countdown2.destroy();
-							countdown1.visible = true;
 							FlxG.sound.play(Paths.sound('cDown1'));
+							countdown1 = new GameSprite().loadGraphic(Paths.image('gameplay/one'));
+							countdown1.screenCenter();
+							countdown1.visible = false;
+							add(countdown1);
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
 								onComplete: (twn:FlxTween) -> {
 									remove(countdown1);
 									countdown1.destroy();
-									go.visible = true;
 									FlxG.sound.play(Paths.sound('cDownGo'));
+									go = new GameSprite().loadGraphic(Paths.image('gameplay/go'));
+									go.screenCenter();
+									add(go);
 									strumline.forEachAlive((strum:FlxSprite) -> {
 										FlxTween.tween(strum, {angle: 360}, Conductor.crochet / 1000 * 2, {ease: FlxEase.cubeInOut});
 									});
@@ -436,10 +425,9 @@ class PlayState extends ExtendableState {
 
 	function openChartEditor() {
 		persistentUpdate = false;
-		paused = true;
-		ExtendableState.switchState(new ChartingState());
 		ChartingState.song = song;
-		chartingMode = true;
+		ExtendableState.switchState(new ChartingState());
+		chartingMode = paused = true;
 	}
 
 	public var curRating:String = "perfect";

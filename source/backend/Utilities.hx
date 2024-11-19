@@ -38,7 +38,8 @@ class Utilities {
 	public static function openUrlPlease(url:String) {
 		#if linux
 		var cmd = Sys.command("xdg-open", [url]);
-		if (cmd != 0) cmd = Sys.command("/usr/bin/xdg-open", [url]);
+		if (cmd != 0)
+			cmd = Sys.command("/usr/bin/xdg-open", [url]);
 		Sys.command('/usr/bin/xdg-open', [url]);
 		#else
 		FlxG.openURL(url);
