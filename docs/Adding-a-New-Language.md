@@ -29,7 +29,7 @@ Localization.switchLanguage('language-code');
 
 If that language is already selected, the change will not happen.
 
-## Retrieving a Key
+### Retrieving a Key
 ```hx
 Localization.get('key', 'language-code');
 ```
