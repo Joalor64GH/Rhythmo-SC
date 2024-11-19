@@ -202,7 +202,7 @@ function new(/* arguments, if any */) {
 
 Additionally, if you want to load your custom state from the main menu, navigate to `assets/menuList.txt` and add in your state's name, as well as a main menu asset for it in `assets/images/menu/mainmenu/[name].png`.
 
-And just in case your script doesn't load or something goes wrong, press `F4` to be sent to `MainMenuState.hx`.
+And just in case your script doesn't load or something goes wrong, press `F4` to be sent to the main menu.
 
 ### Using Imported Scripts
 Script 1:
