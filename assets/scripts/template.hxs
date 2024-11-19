@@ -1,43 +1,60 @@
-function create() {
-	trace("Script initialized!");
-}
+/**
+ * Called when the script is created.
+ */
+function create() {}
 
-function startCountdown() {
-	// when the countdown starts
-}
+/**
+ * Called when the countdown starts in PlayState.
+ */
+function startCountdown() {}
 
-function update(elapsed:Float) {
-	// while the game is updating
-}
+/**
+ * Called every frame.
+ * @param elapsed The elapsed time between frames.
+ */
+function update(elapsed:Float) {}
 
-function beatHit(curBeat:Int) {
-	// every beat hit
-}
+/**
+ * Called every beat hit in PlayState.
+ * @param curBeat The current song beat.
+ */
+function beatHit(curBeat:Int) {}
 
-function stepHit(curStep:Int) {
-	// every step hit
-}
+/**
+ * Called every step hit in PlayState.
+ * @param curStep The current song step.
+ */
+function stepHit(curStep:Int) {}
 
-function pause() {
-	// when the game pauses
-}
+/**
+ * Called when the game is paused.
+ */
+function pause() {}
 
-function resume() {
-	// when the game resumes
-}
+/**
+ * Called when the game is resumed.
+ */
+function resume() {}
 
-function noteHit(note:Note, rating:String) {
-	// when a note is hit
-}
+/**
+ * Called when a note is hit.
+ * @param note The note that was hit.
+ * @param rating The rating given.
+ */
+function noteHit(note:Note, rating:String) {}
 
-function noteMiss(direction:String) {
-	// when a note is missed
-}
+/**
+ * Called when a note is missed.
+ * @param direction The note direction that was missed.
+ */
+function noteMiss(direction:String) {}
 
-function endSong() {
-	// when the song ends
-}
+/**
+ * Called when the song ends.
+ */
+function endSong() {}
 
-function destroy() {
-	// when playstate ends
-}
+/**
+ * Called when leaving PlayState.
+ */
+function destroy() {}

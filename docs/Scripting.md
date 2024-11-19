@@ -14,7 +14,6 @@ The following are not supported:
     * `final`
 * Wildcard imports
 * Access modifiers (e.g., `private`, `public`)
-* Multi-line comments (`/* ... */`)
 
 ## Default Variables
 * `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`).
