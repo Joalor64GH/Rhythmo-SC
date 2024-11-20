@@ -22,7 +22,11 @@ class InitialState extends ExtendableState {
 		#if (desktop && UPDATE_CHECK)
 		UpdateState.updateCheck();
 		#else
+		#if debug
+		trace('You\'re on a debug build, so no update check is needed.');
+		#else
 		trace('Sorry! No update support on: ${PlatformUtil.getPlatform()}!');
+		#end
 		#end
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x003500ff, 0x55a800ff, 0xAAe200ff], 1, 90, true);
