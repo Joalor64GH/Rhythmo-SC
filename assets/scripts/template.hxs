@@ -55,6 +55,6 @@ function noteMiss(direction:String) {}
 function endSong() {}
 
 /**
- * Called when leaving PlayState.
+ * Called when the script is destroyed.
  */
 function destroy() {}

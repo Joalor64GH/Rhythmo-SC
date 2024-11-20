@@ -19,12 +19,14 @@ The following are not supported:
 * `Function_Stop` - Cancels functions (e.g., `startCountdown`, `endSong`).
 * `Function_Continue` - Continues the game like normal.
 * `platform` - Returns the current platform (e.g., Windows, Linux).
+* `version` - Returns the current game version.
 
 ## Default Functions
 * `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting#imports) for more.
-* `trace` - The equivalent of `trace` in normal Haxe.
-* `stopScript` - Stops the current script.
-* `addScript` - Adds a new script to `scriptArray` (Used in PlayState only).
+* `trace(_)` - The equivalent of `trace` in normal Haxe.
+* `stopScript()` - Stops the current script.
+* `addScript(path:String)` - Adds a new script to `scriptArray` (Used in PlayState only).
+* `importScript(source:String)` - Gives the given script's local functions and variables.
 
 ## Imports
 To import a class, use:
@@ -115,11 +117,6 @@ Otherwise, here is a list of the current classes you can use that are already im
 * `Song`
 * `Utilities`
 
-Additionally, if you want to import another script, use:
-```hx
-importScript('path.to.script');
-```
-
 ## Templates
 Some useful templates. For the default template, use [this](https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/assets/scripts/template.hxs).
 
@@ -195,6 +192,7 @@ And just in case your script doesn't load or something goes wrong, press `F4` to
 ### Using Imported Scripts
 Script 1:
 ```hx
+// assets/helpers/spriteHandler.hxs
 import('flixel.FlxSprite');
 import('backend.Paths');
 import('flixel.FlxG');

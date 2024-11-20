@@ -60,6 +60,7 @@ class Hscript extends FlxBasic {
 		});
 
 		setVariable('platform', PlatformUtil.getPlatform());
+		setVariable('version', Lib.application.meta.get('version'));
 
 		setVariable('importScript', function(source:String) {
 			var name:String = StringTools.replace(source, '.', '/');
