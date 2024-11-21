@@ -172,17 +172,10 @@ var state = FlxG.state;
 
 function update(elapsed:Float) {
 	if (Input.justPressed('accept'))
-		ExtendableState.switchState(new ScriptedState('name', [])); // load custom state
+		ExtendableState.switchState(new ScriptedState('name', [/* arguments, if any */])); // load custom state
 
 	if (Input.justPressed('exit'))
-		state.openSubState(new ScriptedSubState('name', [])); // load custom substate
-}
-```
-
-Additional template for scripted substates:
-```hx
-function new(/* arguments, if any */) {
-	// code goes here...
+		state.openSubState(new ScriptedSubState('name', [/* arguments, if any */])); // load custom substate
 }
 ```
 
