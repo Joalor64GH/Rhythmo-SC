@@ -26,22 +26,22 @@ var condition:Bool = false;
 var allowEndSong:Bool = false;
 
 function update(elapsed:Float) {
-    if (PlayState.instance.score >= 1000000)
-        condition = true;
+	if (PlayState.instance.score >= 1000000)
+		condition = true;
 }
 
 function endSong() {
-    if (!allowEndSong && condition) {
-        Achievements.unlock('road_to_a_million', {
-            date: Date.now(),
-            song: PlayState.song.song
-        }, {
-            trace('achievement unlocked successfully!');
-        });
+	if (!allowEndSong && condition) {
+		Achievements.unlock('road_to_a_million', {
+			date: Date.now(),
+			song: PlayState.song.song
+		}, {
+			trace('achievement unlocked successfully!');
+		});
 
-        allowEndSong = true;
-        return Function_Stop;
-    } else
-        return Function_Continue;
+		allowEndSong = true;
+		return Function_Stop;
+	} else
+		return Function_Continue;
 }
 ```

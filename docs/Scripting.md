@@ -82,7 +82,7 @@ Otherwise, here is a list of the current classes you can use that are already im
 * `FlxBasic`
 * `FlxCamera`
 * `FlxColor`
-    * Fun Fact, `FlxColor` is actually an abstract type which isn't normally supported by `hscript` Luckily, I figured out a little workaround so you can still use `FlxColor` normally, or you can just use plain hex color values.
+    * Fun Fact, `FlxColor` is actually an abstract type which isn't normally supported by `hscript`. Luckily, I figured out a little workaround so you can still use `FlxColor` normally, or you can just use plain hex color values.
 * `FlxEase`
 * `FlxG`
 * `FlxGroup`
@@ -127,8 +127,8 @@ import('flixel.FlxSprite');
 import('states.PlayState');
 
 function create() {
-    var spr:FlxSprite = new FlxSprite(0, 0).makeGraphic(50, 50, FlxColor.BLACK);
-    PlayState.instance.add(spr);
+	var spr:FlxSprite = new FlxSprite(0, 0).makeGraphic(50, 50, FlxColor.BLACK);
+	PlayState.instance.add(spr);
 }
 ```
 
@@ -138,9 +138,9 @@ import('flixel.text.FlxText');
 import('states.PlayState');
 
 function create() {
-    var text:FlxText = new FlxText(0, 0, 0, "Hello World", 64);
-    text.screenCenter();
-    PlayState.instance.add(text);
+	var text:FlxText = new FlxText(0, 0, 0, "Hello World", 64);
+	text.screenCenter();
+	PlayState.instance.add(text);
 }
 ```
 
@@ -153,10 +153,10 @@ import('haxe.Json');
 var json:Dynamic;
 
 function create() {
-    if (FileSystem.exists('assets/data.json'))
-        json = Json.parse(File.getContent('assets/data.json'));
+	if (FileSystem.exists('assets/data.json'))
+		json = Json.parse(File.getContent('assets/data.json'));
 
-    trace(json);
+	trace(json);
 }
 ```
 
@@ -171,18 +171,18 @@ import('flixel.FlxG');
 var state = FlxG.state;
 
 function update(elapsed:Float) {
-    if (Input.justPressed('accept'))
-        ExtendableState.switchState(new ScriptedState('name')); // load custom state
-    
-    if (Input.justPressed('exit'))
-        state.openSubState(new ScriptedSubState('name', [])); // load custom substate
+	if (Input.justPressed('accept'))
+		ExtendableState.switchState(new ScriptedState('name')); // load custom state
+
+	if (Input.justPressed('exit'))
+		state.openSubState(new ScriptedSubState('name', [])); // load custom substate
 }
 ```
 
 Additional template for scripted substates:
 ```hx
 function new(/* arguments, if any */) {
-    // code goes here...
+	// code goes here...
 }
 ```
 
@@ -201,11 +201,11 @@ import('flixel.FlxG');
 var state = FlxG.state;
 
 function createSprite(x:Float, y:Float, graphic:String) {
-    var spr:FlxSprite = new FlxSprite(x, y);
-    spr.loadGraphic(Paths.image(graphic));
-    state.add(spr);
+	var spr:FlxSprite = new FlxSprite(x, y);
+	spr.loadGraphic(Paths.image(graphic));
+	state.add(spr);
 
-    trace("sprite " + sprite + " created");
+	trace("sprite " + sprite + " created");
 }
 ```
 
@@ -214,7 +214,7 @@ Script 2:
 var otherScript = importScript('assets.helpers.spriteHandler');
 
 function create() {
-    otherScript.createSprite(0, 0, 'sprite');
+	otherScript.createSprite(0, 0, 'sprite');
 }
 ```
 
