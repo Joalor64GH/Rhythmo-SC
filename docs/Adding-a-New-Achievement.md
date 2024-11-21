@@ -15,13 +15,15 @@ Now, you simply need an icon for your achievement. Your icon should be in `asset
 I recommend that the image's size should be a square, preferably `150 x 150`.
 
 ## Unlocking your Achievement
-To actually be able to unlock your custom achievement, you can do it through [scripting](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting). <br>
+To actually be able to unlock your custom achievement, you can do it through [scripting](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting).
+
 Example:
 ```hx
 import('states.PlayState');
 import('backend.Achievements');
 
 var condition:Bool = false;
+var allowEndSong:Bool = false;
 
 function update(elapsed:Float) {
     if (PlayState.instance.score >= 1000000)
@@ -29,13 +31,17 @@ function update(elapsed:Float) {
 }
 
 function endSong() {
-    if (condition) {
+    if (!allowEndSong && condition) {
         Achievements.unlock('road_to_a_million', {
             date: Date.now(),
             song: PlayState.song.song
         }, {
             trace('achievement unlocked successfully!');
         });
-    }
+
+        allowEndSong = true;
+        return Function_Stop;
+    } else
+        return Function_Continue;
 }
 ```
