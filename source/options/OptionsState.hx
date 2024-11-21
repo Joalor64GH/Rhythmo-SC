@@ -6,7 +6,7 @@ class OptionsState extends ExtendableState {
 	var curSelected:Int = 0;
 	var fromPlayState:Bool;
 
-	public function new(fromPlayState:Bool) {
+	public function new(?fromPlayState:Bool = false) {
 		super();
 		this.fromPlayState = fromPlayState;
 	}

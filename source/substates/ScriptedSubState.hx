@@ -77,17 +77,14 @@ class ScriptedSubState extends ExtendableSubState {
 	}
 
 	function scriptSet(key:String, value:Dynamic) {
-		if (script != null)
-			script.setVariable(key, value);
+		script?.setVariable(key, value);
 	}
 
 	function scriptExecute(func:String, args:Array<Dynamic>) {
-		if (script != null) {
-			try {
-				script.executeFunc(func, args);
-			} catch (e:Dynamic) {
-				trace('Error executing $func!\n$e');
-			}
+		try {
+			script?.executeFunc(func, args);
+		} catch (e:Dynamic) {
+			trace('Error executing $func!\n$e');
 		}
 	}
 }
