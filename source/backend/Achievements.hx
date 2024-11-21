@@ -49,7 +49,7 @@ class Achievements {
 		}
 	}
 
-	public static function unlock(ach:String, stats:AchievementStats, onFinish:Void->Void) {
+	public static function unlock(ach:String, stats:AchievementStats, ?onFinish:Void->Void) {
 		if (!isUnlocked(ach)) {
 			showAchievement(ach, onFinish);
 

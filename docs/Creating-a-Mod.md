@@ -52,6 +52,8 @@ Each folder in your mod should be used as follows:
 	* `songs/[song-name]/[script-name].hxs` - Song-specific script (optional).
 * `sounds` - All sound effects.
 
+Also, when it's neccessary, delete any folders you don't need.
+
 For further documentation, check out [polymod.io](https://polymod.io/docs/).
 
 ## Quick Example

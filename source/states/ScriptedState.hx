@@ -41,6 +41,8 @@ class ScriptedState extends ExtendableState {
 			scriptSet('this', this);
 			scriptSet('add', add);
 			scriptSet('remove', remove);
+			scriptSet('multiAdd', multiAdd);
+			scriptSet('multiRemove', multiRemove);
 			scriptSet('insert', insert);
 			scriptSet('openSubState', openSubState);
 		} catch (e:Dynamic) {
