@@ -59,8 +59,8 @@ class SongSelectState extends ExtendableState {
 			var newItem:Cover = new Cover();
 			try {
 				newItem.loadGraphic(Paths.image('covers/' + Paths.formatToSongPath(songListData.songs[i].name)));
-			} catch (e) {
-				trace("oops! cover returned null!");
+			} catch (e:Dynamic) {
+				trace('Error getting credit icon: $e');
 				newItem.loadGraphic(Paths.image('covers/placeholder'));
 			}
 			newItem.scale.set(0.6, 0.6);
@@ -113,18 +113,8 @@ class SongSelectState extends ExtendableState {
 			if (Input.justPressed('left') || Input.justPressed('right'))
 				changeSelection(Input.justPressed('left') ? -1 : 1);
 
-			if (Input.justPressed('accept')) {
-				var songToLoad = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[currentIndex].name));
-				if (Input.pressed('shift')) {
-					ChartingState.song = songToLoad;
-					ExtendableState.switchState(new ChartingState());
-				} else {
-					PlayState.song = songToLoad;
-					ExtendableState.switchState(new PlayState());
-				}
-				if (FlxG.sound.music != null)
-					FlxG.sound.music.stop();
-			}
+			if (Input.justPressed('accept'))
+				openPlayState(currentIndex);
 		}
 
 		if (Input.justPressed('exit')) {
@@ -145,10 +135,7 @@ class SongSelectState extends ExtendableState {
 		if (Input.justPressed('reset')) {
 			if (Input.pressed('space')) {
 				var randomSong:Int = FlxG.random.int(0, songListData.songs.length - 1);
-				PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[randomSong].name));
-				ExtendableState.switchState(new PlayState());
-				if (FlxG.sound.music != null)
-					FlxG.sound.music.stop();
+				openPlayState(randomSong);
 			} else {
 				if (!isResetting) {
 					isResetting = true;
@@ -175,6 +162,16 @@ class SongSelectState extends ExtendableState {
 				}
 			}
 		}
+	}
+
+	function openPlayState(index:Int) {
+		try {
+			PlayState.song = Song.loadSongfromJson(Paths.formatToSongPath(songListData.songs[index].name));
+			ExtendableState.switchState(new PlayState());
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+		} catch (e)
+			trace(e);
 	}
 
 	private function changeSelection(change:Int = 0, ?playSound:Bool = true) {

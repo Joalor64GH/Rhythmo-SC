@@ -19,7 +19,7 @@ class InitialState extends ExtendableState {
 
 		trace('current platform: ${PlatformUtil.getPlatform()}');
 
-		#if (desktop && UPDATE_CHECK)
+		#if UPDATE_CHECK
 		UpdateState.updateCheck();
 		#else
 		#if debug
@@ -52,11 +52,15 @@ class InitialState extends ExtendableState {
 		gradientBar.y = FlxG.height - gradientBar.height;
 
 		if (Input.justPressed('accept'))
-			ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+			startGame();
 		else {
 			new FlxTimer().start(3, (tmr:FlxTimer) -> {
-				ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
+				startGame();
 			});
 		}
+	}
+
+	function startGame() {
+		ExtendableState.switchState((UpdateState.mustUpdate) ? new UpdateState() : new TitleState());
 	}
 }

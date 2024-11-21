@@ -6,17 +6,11 @@ class ScriptedState extends ExtendableState {
 
 	public static var instance:ScriptedState = null;
 
-	public function new(_path:String = null) {
+	public function new(_path:String = null, ?args:Array<Dynamic>) {
 		if (_path != null)
 			path = _path;
-		super();
-	}
 
-	override function create() {
 		instance = this;
-
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		try {
 			var folders:Array<String> = [Paths.file('classes/')];
@@ -50,8 +44,16 @@ class ScriptedState extends ExtendableState {
 			trace('Error while getting script: $path!\n$e');
 		}
 
-		scriptExecute('create', []);
+		scriptExecute('new', args);
 
+		super();
+	}
+
+	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
+		scriptExecute('create', []);
 		super.create();
 	}
 

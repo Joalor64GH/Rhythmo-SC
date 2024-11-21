@@ -59,6 +59,16 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
+		setVariable('createThread', function(func:Void->Void) {
+			#if sys
+			sys.thread.Thread.create(() -> {
+				func();
+			});
+			#else
+			func();
+			#end
+		});
+
 		setVariable('platform', PlatformUtil.getPlatform());
 		setVariable('version', Lib.application.meta.get('version'));
 

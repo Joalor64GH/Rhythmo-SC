@@ -147,9 +147,9 @@ class MenuState extends ExtendableState {
 							case 'credits':
 								ExtendableState.switchState(new CreditsState());
 							case 'options':
-								ExtendableState.switchState(new options.OptionsState());
+								ExtendableState.switchState(new options.OptionsState(false));
 							default:
-								ExtendableState.switchState(new ScriptedState(selections[curSelected]));
+								ExtendableState.switchState(new ScriptedState(selections[curSelected], []));
 						}
 					});
 				}

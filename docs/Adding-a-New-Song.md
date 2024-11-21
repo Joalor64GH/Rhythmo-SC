@@ -16,10 +16,9 @@ For your chart, copy this empty template:
 It should be called `chart.json` and should be located in `assets/songs/[song-name]/chart.json`.
 
 ### Charting
-To chart your song, go to `PlayState.hx` and then press "`7`" to go to ChartingState. <br>
-Or you can go to your song in `SongSelectState.hx`, and use `SHIFT + ENTER`.
+To chart your song, go to `PlayState.hx` and then press "`7`" to go to ChartingState.
 
-When you're done, simply save the chart by using `Save Chart` or `Save Chart As`. <br> 
+When you're done charting, simply save it by using `Save Chart` or `Save Chart As`. <br> 
 Denpending on what you choose, it should save in `assets/songs/[song-name]/chart.json` or `./[song-name].json`.
 
 ## Adding your Song to the Song Selection Menu

@@ -4,6 +4,12 @@ class OptionsState extends ExtendableState {
 	final options:Array<String> = ['Preferences', 'Controls', 'Language', 'Note Colors'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
+	var fromPlayState:Bool;
+
+	public function new(fromPlayState:Bool) {
+		super();
+		this.fromPlayState = fromPlayState;
+	}
 
 	override function create() {
 		super.create();
@@ -64,9 +70,9 @@ class OptionsState extends ExtendableState {
 		}
 
 		if (Input.justPressed('exit')) {
-			if (PauseSubState.fromPlayState) {
+			if (fromPlayState) {
+				fromPlayState = false;
 				ExtendableState.switchState(new PlayState());
-				PauseSubState.fromPlayState = false;
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
 			} else

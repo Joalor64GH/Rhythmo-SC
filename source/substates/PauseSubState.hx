@@ -1,8 +1,6 @@
 package substates;
 
 class PauseSubState extends ExtendableSubState {
-	public static var fromPlayState:Bool = false;
-
 	var tipTxt:FlxText;
 	var isTweening:Bool = false;
 	var lastString:String = '';
@@ -70,9 +68,8 @@ class PauseSubState extends ExtendableSubState {
 				case 1:
 					FlxG.resetState();
 				case 2:
-					ExtendableState.switchState(new options.OptionsState());
+					ExtendableState.switchState(new options.OptionsState(true));
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
-					fromPlayState = true;
 				case 3:
 					ExtendableState.switchState(new SongSelectState());
 					FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
