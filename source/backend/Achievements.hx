@@ -26,8 +26,8 @@ class Achievements {
 
 		var path:String = Paths.txt('achievements/achList');
 		try {
-			if (FileSystem.exists(path)) {
-				var listContent:String = File.getContent(path);
+			if (Paths.exists(path)) {
+				var listContent:String = Paths.getText(path);
 				var achievementsFound:Array<String> = listContent.split('\n');
 
 				for (achievement in achievementsFound) {
@@ -36,7 +36,7 @@ class Achievements {
 					if (achievementName != "") {
 						achievements.push(achievementName);
 						try {
-							Json.parse(File.getContent(Paths.json('achievements/$achievementName')));
+							Json.parse(Paths.getText(Paths.json('achievements/$achievementName')));
 							trace("Achievement '" + achievement + "' loaded");
 						} catch (e:Dynamic) {
 							trace('Error loading achievement: $e');

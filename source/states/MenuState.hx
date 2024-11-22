@@ -13,7 +13,7 @@ class MenuState extends ExtendableState {
 		super.create();
 
 		var path:String = Paths.txt('menuList');
-		if (FileSystem.exists(path)) {
+		if (Paths.exists(path)) {
 			try {
 				var menuArray:Array<String> = Paths.getTextArray(path);
 				for (i in 0...menuArray.length)

@@ -299,11 +299,10 @@ class PlayState extends ExtendableState {
 
 		accuracy = (!SaveData.settings.botPlay) ? Utilities.boundTo(Math.floor((score * 100) / ((hits + misses) * 3.5)) * 0.01, 0, 100) : 0;
 		judgementCounter.text = 'Perfects: ${perfects}\nNices: ${nices}\nOkays: ${okays}\nNos: ${nos}';
-		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt",
-			SaveData.settings.lang) : Localization.get("scoreTxt", SaveData.settings.lang)
+		scoreTxt.text = (SaveData.settings.botPlay) ? Localization.get("botplayTxt") : Localization.get("scoreTxt")
 			+ score
 			+ ' // '
-			+ Localization.get("missTxt", SaveData.settings.lang)
+			+ Localization.get("missTxt")
 			+ misses
 			+ ' // Accuracy: $accuracy%'
 			+ ' (${generateRank()})';
