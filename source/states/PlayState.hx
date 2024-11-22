@@ -3,7 +3,8 @@ package states;
 import backend.Song;
 
 class PlayState extends ExtendableState {
-	public static var instance:PlayState = null;
+	public static var instance(default, null):PlayState;
+
 	public static var song:SongData = null;
 	public static var songMultiplier:Float = 1;
 	public static var chartingMode:Bool = false;
@@ -187,7 +188,7 @@ class PlayState extends ExtendableState {
 		}
 
 		for (script in scriptArray) {
-			script.setVariable('addScript', function(path:String) {
+			script?.setVariable('addScript', function(path:String) {
 				scriptArray.push(new Hscript('$path.hxs'));
 			});
 		}
@@ -424,8 +425,8 @@ class PlayState extends ExtendableState {
 
 	function openChartEditor() {
 		persistentUpdate = false;
-		ChartingState.song = song;
 		ExtendableState.switchState(new ChartingState());
+		ChartingState.song = song;
 		chartingMode = paused = true;
 	}
 
@@ -832,8 +833,10 @@ class PlayState extends ExtendableState {
 	}
 
 	override function destroy() {
-		scriptArray = [];
 		callOnScripts('destroy', []);
+		for (script in scriptArray)
+			script?.destroy();
+		scriptArray = [];
 
 		super.destroy();
 	}

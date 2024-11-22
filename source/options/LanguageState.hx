@@ -39,7 +39,7 @@ class LanguageState extends ExtendableState {
 		grid.velocity.set(40, 40);
 		add(grid);
 
-		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect", SaveData.settings.lang), 12);
+		var title:FlxText = new FlxText(0, 0, 0, Localization.get("langSelect"), 12);
 		title.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		title.scrollFactor.set();
 		title.screenCenter(X);
@@ -56,7 +56,7 @@ class LanguageState extends ExtendableState {
 			group.add(text);
 		}
 
-		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate", SaveData.settings.lang), 12);
+		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate"), 12);
 		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noticeTxt.scrollFactor.set();
 		noticeTxt.screenCenter(X);

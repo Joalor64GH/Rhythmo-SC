@@ -16,7 +16,7 @@ class PauseSubState extends ExtendableSubState {
 		bg.alpha = 0.55;
 		add(bg);
 
-		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt", SaveData.settings.lang), 12);
+		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt"), 12);
 		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
