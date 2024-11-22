@@ -49,7 +49,7 @@ Each folder in your mod should be used as follows:
 * `songs` - Songs used for gameplay.
 	* `songs/[song-name]/chart.json` - Your song's chart.
 	* `songs/[song-name]/music.ogg` - Your song's music. Can also be a `.wav`.
-	* `songs/[song-name]/[script-name].hxs` - Song-specific script (optional).
+	* `songs/[song-name]/[script-name].hxs` - Song-specific script(s).
 * `sounds` - All sound effects.
 
 Also, when it's neccessary, delete any folders you don't need.

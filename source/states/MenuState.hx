@@ -15,7 +15,7 @@ class MenuState extends ExtendableState {
 		var path:String = Paths.txt('menuList');
 		if (FileSystem.exists(path)) {
 			try {
-				var menuArray:Array<String> = Paths.getText(path);
+				var menuArray:Array<String> = Paths.getTextArray(path);
 				for (i in 0...menuArray.length)
 					selections = menuArray;
 				

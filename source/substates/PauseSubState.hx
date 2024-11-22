@@ -93,7 +93,7 @@ class PauseSubState extends ExtendableSubState {
 
 	function changeText() {
 		var selectedText:String = '';
-		var textArray:Array<String> = Paths.getText(Paths.txt('tipText'));
+		var textArray:Array<String> = Paths.getTextArray(Paths.txt('tipText'));
 
 		tipTxt.alpha = 1;
 		isTweening = true;

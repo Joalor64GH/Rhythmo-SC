@@ -24,11 +24,6 @@ typedef NoteData = {
 }
 
 class Song {
-	public static function loadSongfromJson(song:String):Dynamic {
-		#if sys
-		return Json.parse(File.getContent(Paths.chart(song)));
-		#else
-		return Json.parse(Assets.getText(Paths.chart(song)));
-		#end
-	}
+	public static function loadSongfromJson(song:String):Dynamic
+		return Json.parse(Paths.getText(Paths.chart(song)));
 }

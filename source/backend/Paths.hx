@@ -26,6 +26,8 @@ class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
 
+	public static final getText:String->String = #if sys File.getContent #else Assets.getText #end;
+
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var localTrackedAssets:Array<String> = [];
@@ -130,16 +132,11 @@ class Paths {
 		return getPath(null, file);
 	}
 
-	inline public static function getText(path:String):Array<String>
+	inline public static function getTextArray(path:String):Array<String>
 		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
 
-	static public function getTextFromFile(key:String):String {
-		#if sys
-		return (FileSystem.exists(file(key))) ? File.getContent(file(key)) : null;
-		#else
-		return (Assets.exists(file(key))) ? Assets.getText(file(key)) : null;
-		#end
-	}
+	static public function getTextFromFile(key:String):String
+		return (exists(file(key))) ? getText(file(key)) : null;
 
 	inline static public function txt(key:String)
 		return file('$key.txt');
@@ -238,4 +235,4 @@ class Paths {
 	}
 }
 
-typedef FileAssets = #if sys FileSystem; #else openfl.utils.Assets; #end
+typedef FileAssets = #if sys FileSystem; #else Assets; #end

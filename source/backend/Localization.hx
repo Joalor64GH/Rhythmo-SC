@@ -32,8 +32,8 @@ class Localization {
 		data = new Map<String, Dynamic>();
 
 		var path:String = Paths.txt("languages/languagesList");
-		if (FileSystem.exists(path)) {
-			var listContent:String = File.getContent(path);
+		if (Paths.exists(path)) {
+			var listContent:String = Paths.getText(path);
 			var languages:Array<String> = listContent.split('\n');
 
 			for (language in languages) {
@@ -47,18 +47,10 @@ class Localization {
 		var jsonContent:String;
 
 		try {
-			#if sys
-			jsonContent = File.getContent(path(language));
-			#else
-			jsonContent = Assets.getText(path(language));
-			#end
-		} catch (e) {
+			jsonContent = Paths.getText(path(language));
+		} catch (e:Dynamic) {
 			trace('file not found: $e');
-			#if sys
-			jsonContent = File.getContent(path(DEFAULT_LANGUAGE));
-			#else
-			jsonContent = Assets.getText(path(DEFAULT_LANGUAGE));
-			#end
+			jsonContent = Paths.getText(path(DEFAULT_LANGUAGE));
 		}
 
 		return Json.parse(jsonContent);
