@@ -6,13 +6,8 @@ However, if your script is a scripted state or substate, it should be located in
 ## Limitations
 The following are not supported:
 * Keywords:
-    * `package`
-    * `import` (there's another function that emulates the purpose of this function)
-    * `class`
-    * `typedef`
-    * `metadata`
-    * `final`
-* Wildcard imports
+    * `package`, `import` (another function emulates this), `class`, `typedef`, `metadata`, `final`
+* Wildcard imports (`import flixel.*`)
 * Access modifiers (e.g., `private`, `public`)
 
 ## Default Variables
@@ -22,11 +17,11 @@ The following are not supported:
 * `version` - Returns the current game version.
 
 ## Default Functions
-* `import` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting#imports) for more.
-* `trace(_)` - The equivalent of `trace` in normal Haxe.
+* `import(daClass:String, ?asDa:String)` - See [Imports](https://github.com/Joalor64GH/Rhythmo-SC/wiki/Scripting#imports) for more.
+* `trace(value:Dynamic)` - The equivalent of `trace` in normal Haxe.
 * `stopScript()` - Stops the current script.
-* `addScript(path:String)` - Adds a new script to `scriptArray` (Used in PlayState only).
-* `importScript(source:String)` - Gives the given script's local functions and variables.
+* `addScript(path:String)` - Adds a new script during gameplay (PlayState).
+* `importScript(source:String)` - Gives access to another script's local functions and variables.
 
 ## Imports
 To import a class, use:
@@ -39,9 +34,11 @@ To import an enumerator, use:
 import('package.Enum');
 ```
 
-To put an import under an alias name, use:
+To import with an alias, use:
 ```hx
 import('package.Class', 'Name');
+
+var aliasClass:Name;
 ```
 
 You can basically use this to import any class/enum you'd like. <br>
@@ -119,7 +116,7 @@ Otherwise, here is a list of the current classes you can use that are already im
 * `Utilities`
 
 ## Templates
-Some useful templates. For the default template, use [this](https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/assets/scripts/template.hxs).
+Some useful templates to get started. For the default template, use [this](https://raw.githubusercontent.com/Joalor64GH/Rhythmo-SC/main/assets/scripts/template.hxs).
 
 ### FlxSprite
 ```hx
@@ -210,5 +207,5 @@ function create() {
 	otherScript.createSprite(0, 0, 'sprite');
 }
 ```
-
-As long as you've done everything correctly, your script should functioning. Otherwise, report an issue.
+## Need Help?
+If you need any general help or something goes wrong with your script, report an issue [here](https://github.com/Joalor64GH/Rhythmo/issues).
