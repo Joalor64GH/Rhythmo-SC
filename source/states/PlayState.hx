@@ -427,6 +427,8 @@ class PlayState extends ExtendableState {
 		ExtendableState.switchState(new ChartingState());
 		ChartingState.song = song;
 		chartingMode = paused = true;
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 	}
 
 	public var curRating:String = "perfect";
