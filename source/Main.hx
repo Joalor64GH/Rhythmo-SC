@@ -91,12 +91,12 @@ class Main extends openfl.display.Sprite {
 
 			#if windows
 			WindowsAPI.messageBox('Error!',
-				'Uncaught Error: \n: ' + msg + '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
+				'Uncaught Error: \n: ' + msg + '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo-SC/issues',
 				MSG_ERROR);
 			#else
 			Lib.application.window.alert('Uncaught Error: \n'
 				+ msg
-				+ '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo/issues',
+				+ '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/Joalor64GH/Rhythmo-SC/issues',
 				'Error!');
 			#end
 			Sys.exit(1);
