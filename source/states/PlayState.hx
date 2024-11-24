@@ -456,15 +456,21 @@ class PlayState extends ExtendableState {
 		}
 
 		var konamiSequence:Array<String> = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
-		if (Input.justPressed(konamiSequence[konami])) {
-			konami++;
-			if (konami == 8) {
-				FlxG.sound.play(Paths.sound('unlock'));
-				didKonami = true;
-				konami = 0;
+		
+		for (key in konamiSequence){
+			if (Input.justPressed(key)) {
+				if (key == konamiSequence[konami]) {
+					konami++;
+					if (konami == 8) {
+						FlxG.sound.play(Paths.sound('unlock'));
+						didKonami = true;
+						konami = 0;
+					}
+				} else
+					konami = 0;
 			}
-		} else
-			konami = 0;
+			break;
+		}
 
 		for (i in 0...justPressed.length) {
 			if (justPressed[i]) {
