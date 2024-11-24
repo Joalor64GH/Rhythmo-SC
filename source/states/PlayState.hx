@@ -455,8 +455,8 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		var komaniSequence:Array<String> = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
-		if (Input.justPressed(komaniSequence[konami])) {
+		var konamiSequence:Array<String> = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
+		if (Input.justPressed(konamiSequence[konami])) {
 			konami += 1;
 			if (konami >= konamiSequence.length) {
 				FlxG.sound.play(Paths.sound('unlock'));
