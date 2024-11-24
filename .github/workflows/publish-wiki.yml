@@ -16,6 +16,7 @@ permissions:
 jobs:
   publish-wiki:
     runs-on: ubuntu-latest
+    if: github.event.head_commit.modified | contains('docs/')
     steps:
       - uses: actions/checkout@v3
       - uses: Andrew-Chen-Wang/github-wiki-action@v4
