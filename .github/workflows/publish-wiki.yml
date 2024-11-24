@@ -16,9 +16,22 @@ permissions:
 jobs:
   publish-wiki:
     runs-on: ubuntu-latest
-    if: github.event.head_commit.modified | contains('docs/')
     steps:
       - uses: actions/checkout@v3
-      - uses: Andrew-Chen-Wang/github-wiki-action@v4
+
+      - name: Check if docs folder was modified
+        id: check_docs
+        run: |
+          if [[ $(git diff --name-only HEAD^ HEAD) =~ ^docs/ ]]; then
+            echo "docs folder has changed."
+            echo "modified=true" >> $GITHUB_ENV
+          else
+            echo "docs folder has not changed."
+            echo "modified=false" >> $GITHUB_ENV
+          fi
+
+      - name: Publish to wiki
+        if: env.modified == 'true'
+        uses: Andrew-Chen-Wang/github-wiki-action@v4
         with:
           path: docs/
