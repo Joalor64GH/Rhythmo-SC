@@ -455,39 +455,16 @@ class PlayState extends ExtendableState {
 			}
 		}
 
-		if (Input.justPressed('left')) {
-			if (konami == 4 || konami == 6) {
-				konami += 1;
-			} else {
+		var komaniSequence:Array<String> = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
+		if (Input.justPressed(komaniSequence[konami])) {
+			konami += 1;
+			if (konami >= konamiSequence.length) {
+				FlxG.sound.play(Paths.sound('unlock'));
+				didKonami = true;
 				konami = 0;
 			}
-		}
-		if (Input.justPressed('down')) {
-			if (konami == 2 || konami == 3) {
-				konami += 1;
-			} else {
-				konami = 0;
-			}
-		}
-		if (Input.justPressed('up')) {
-			if (konami == 0 || konami == 1) {
-				konami += 1;
-			} else {
-				konami = 0;
-			}
-		}
-		if (Input.justPressed('right')) {
-			if (konami == 5 || konami == 7) {
-				konami += 1;
-				if (konami > 7)
-					FlxG.sound.play(Paths.sound('unlock'));
-			} else {
-				konami = 0;
-			}
-		}
-
-		if (konami == 8)
-			didKonami = true;
+		} else
+			konami = 0;
 
 		for (i in 0...justPressed.length) {
 			if (justPressed[i]) {
