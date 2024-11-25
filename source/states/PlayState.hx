@@ -309,7 +309,9 @@ class PlayState extends ExtendableState {
 			+ Localization.get("missTxt")
 			+ misses
 			+ ' // '
-			+ Localization.get("accTxt") + accuracy + '%'
+			+ Localization.get("accTxt")
+			+ accuracy
+			+ '%'
 			+ ' (${generateRank()})';
 
 		if (spawnNotes.length > 0) {
@@ -714,7 +716,16 @@ class PlayState extends ExtendableState {
 
 			if (!gotAchievement) {
 				var achievementName = checkForAchievement([
-					'full_combo', 'single_digit_miss', 'multi_miss', 'perfect', 'super', 'amazing', 'be_better', 'can_improve', 'dont_give_up', 'failed',
+					'full_combo',
+					'single_digit_miss',
+					'multi_miss',
+					'perfect',
+					'super',
+					'amazing',
+					'be_better',
+					'can_improve',
+					'dont_give_up',
+					'failed',
 					'konami'
 				]);
 

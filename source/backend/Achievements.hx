@@ -101,7 +101,7 @@ class Achievements {
 		}
 	}
 
-	public static function showAchievement(ach:String, onFinish:Void->Void) {
+	public static function showAchievement(ach:String, ?onFinish:Void->Void) {
 		var camAwards:FlxCamera = new FlxCamera(0, 0, 0, 0, 1);
 		camAwards.bgColor.alpha = 0;
 		FlxG.cameras.add(camAwards);

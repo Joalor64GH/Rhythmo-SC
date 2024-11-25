@@ -35,6 +35,9 @@ class Input {
 	}
 
 	public static function resetControls() {
+		kBinds = [];
+		gBinds = [];
+
 		kBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
 		gBinds = [
 			DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, LEFT_TRIGGER, LEFT_SHOULDER, RIGHT_SHOULDER, RIGHT_TRIGGER, A, B, RIGHT_STICK_CLICK
@@ -81,7 +84,8 @@ class Input {
 			}
 		} else {
 			if (gamepad != null)
-				if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+				if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE
+					&& gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
 					return true;
 
 			if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
@@ -115,7 +119,8 @@ class Input {
 				}
 			} else {
 				if (gamepad != null)
-					if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE && gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+					if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE
+						&& gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
 						return true;
 
 				if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))

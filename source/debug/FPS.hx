@@ -5,9 +5,9 @@ import openfl.events.Event;
 
 class FPS extends TextField {
 	public var borderSize:Int = 1;
-	private final borders:Array<TextField> = new Array<TextField>();
 
-	var times:Array<Float> = [];
+	private final borders:Array<TextField> = new Array<TextField>();
+	private var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
@@ -48,16 +48,19 @@ class FPS extends TextField {
 		});
 
 		addEventListener(Event.REMOVED, function(_) {
-			for (border in borders) this.parent.removeChild(border);
+			for (border in borders)
+				this.parent.removeChild(border);
 		});
 
 		addEventListener(Event.ADDED, function(_) {
-			for (border in borders) this.parent.addChildAt(border, this.parent.getChildIndex(this));
+			for (border in borders)
+				this.parent.addChildAt(border, this.parent.getChildIndex(this));
 		});
 	}
 
 	@:noCompletion override function set_visible(value:Bool):Bool {
-		for (border in borders) border.visible = value;
+		for (border in borders)
+			border.visible = value;
 		return super.set_visible(value);
 	}
 
@@ -70,17 +73,20 @@ class FPS extends TextField {
 	}
 
 	@:noCompletion override function set_x(x:Float):Float {
-		for (i in 0...8) borders[i].x = x + ([0, 3, 5].contains(i) ? borderSize : [2, 4, 7].contains(i) ? -borderSize : 0);
+		for (i in 0...8)
+			borders[i].x = x + ([0, 3, 5].contains(i) ? borderSize : [2, 4, 7].contains(i) ? -borderSize : 0);
 		return super.set_x(x);
 	}
 
 	@:noCompletion override function set_y(y:Float):Float {
-		for (i in 0...8) borders[i].y = y + ([0, 1, 2].contains(i) ? borderSize : [5, 6, 7].contains(i) ? -borderSize : 0);
+		for (i in 0...8)
+			borders[i].y = y + ([0, 1, 2].contains(i) ? borderSize : [5, 6, 7].contains(i) ? -borderSize : 0);
 		return super.set_y(y);
 	}
 
 	@:noCompletion override function set_text(text:String):String {
-		for (border in borders) border.text = text;
+		for (border in borders)
+			border.text = text;
 		return super.set_text(text);
 	}
 }
