@@ -4,7 +4,7 @@ class MenuState extends ExtendableState {
 	var curSelected:Int = 0;
 	var grpSelection:FlxTypedGroup<FlxSprite>;
 	var selections:Array<String> = [];
-	
+
 	var lockInputs:Bool = false;
 
 	var camFollow:FlxObject;
@@ -18,9 +18,9 @@ class MenuState extends ExtendableState {
 				var menuArray:Array<String> = Paths.getTextArray(path);
 				for (i in 0...menuArray.length)
 					selections = menuArray;
-				
+
 				trace('menu options are: ${menuArray.join(',')}');
-				
+
 				#if !FUTURE_POLYMOD
 				if (selections.contains('mods'))
 					selections.remove('mods');
@@ -86,7 +86,8 @@ class MenuState extends ExtendableState {
 			grpSelection.add(menuItem);
 		}
 
-		final versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Rhythmo v${Lib.application.meta.get('version')}' #if debug + ' (${MacrosUtil.getCommitId()})' #end, 12);
+		final versii:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Rhythmo v${Lib.application.meta.get('version')}'
+			#if debug + ' (${MacrosUtil.getCommitId()})' #end, 12);
 		versii.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versii.scrollFactor.set();
 		add(versii);
@@ -135,9 +136,7 @@ class MenuState extends ExtendableState {
 								ExtendableState.switchState(new SongSelectState());
 							#if FUTURE_POLYMOD
 							case 'mods':
-								if (ModHandler.trackedMods.length > 0) 
-									ExtendableState.switchState(new ModsState()); 
-								else {
+								if (ModHandler.trackedMods.length > 0) ExtendableState.switchState(new ModsState()); else {
 									lockInputs = false;
 									Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
 								}
@@ -168,7 +167,7 @@ class MenuState extends ExtendableState {
 	}
 
 	function changeSelection(change:Int = 0, ?doZoomThing:Bool = true, ?playSound:Bool = true) {
-		if (playSound) 
+		if (playSound)
 			FlxG.sound.play(Paths.sound('scroll'));
 		curSelected = FlxMath.wrap(curSelected + change, 0, selections.length - 1);
 		grpSelection.forEach((spr:FlxSprite) -> {

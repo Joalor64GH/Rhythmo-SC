@@ -198,7 +198,7 @@ class AchievementIcon extends GameSprite {
 			}
 		} else
 			loadGraphic(Paths.image('achievements/locked'));
-		
+
 		setGraphicSize(75, 75);
 		scrollFactor.set();
 		updateHitbox();

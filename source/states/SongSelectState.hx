@@ -125,8 +125,8 @@ class SongSelectState extends ExtendableState {
 				lockInputs = false;
 				titleTxt.color = FlxColor.WHITE;
 				titleTxt.text = songListData.songs[currentIndex].name;
-				panelTxt.text = Localization.get("scoreTxt") + lerpScore + " // "
-					+ Localization.get("diffTxt") + Std.string(songListData.songs[currentIndex].diff) + "/5";
+				panelTxt.text = Localization.get("scoreTxt") + lerpScore + " // " + Localization.get("diffTxt")
+					+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 				tinyTxt.text = Localization.get("tinyGuide");
 			}
 			FlxG.sound.play(Paths.sound('cancel'));
@@ -154,8 +154,8 @@ class SongSelectState extends ExtendableState {
 						lockInputs = false;
 						titleTxt.color = FlxColor.WHITE;
 						titleTxt.text = songListData.songs[currentIndex].name;
-						panelTxt.text = Localization.get("scoreTxt") + lerpScore + " // "
-							+ Localization.get("diffTxt") + Std.string(songListData.songs[currentIndex].diff) + "/5";
+						panelTxt.text = Localization.get("scoreTxt") + lerpScore + " // " + Localization.get("diffTxt")
+							+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 						tinyTxt.text = Localization.get("tinyGuide");
 						changeSelection();
 					});

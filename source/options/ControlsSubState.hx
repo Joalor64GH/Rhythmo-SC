@@ -2,13 +2,23 @@ package options;
 
 class ControlsSubState extends ExtendableSubState {
 	var coolControls:Array<String> = [
-		"leftKey", "downKey", "upKey", "rightKey", "leftKeyAlt", "downKeyAlt", "upKeyAlt", "rightKeyAlt", "acceptKey", "exitKey", "resetKey"
+		"leftKey",
+		"downKey",
+		"upKey",
+		"rightKey",
+		"leftKeyAlt",
+		"downKeyAlt",
+		"upKeyAlt",
+		"rightKeyAlt",
+		"acceptKey",
+		"exitKey",
+		"resetKey"
 	];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var camFollow:FlxObject;
-	
+
 	var isChangingBind:Bool = false;
 	var gamepadMode:Bool = false;
 
@@ -133,7 +143,7 @@ class ControlsSubState extends ExtendableSubState {
 						SaveData.settings.gamepadBinds[curSelected] = keyPressed;
 				} else
 					SaveData.settings.keyboardBinds[curSelected] = FlxG.keys.getIsDown()[0].ID.toString();
-				
+
 				SaveData.saveSettings();
 				Input.refreshControls();
 				FlxG.sound.play(Paths.sound('select'));

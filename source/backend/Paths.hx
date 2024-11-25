@@ -64,7 +64,7 @@ class Paths {
 				currentTrackedAssets.remove(key);
 			}
 		}
-		
+
 		compress();
 		gc(true);
 	}

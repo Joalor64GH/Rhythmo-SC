@@ -15,8 +15,7 @@ class OptionsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		var option:Option = new Option(Localization.get("opAnti"), Localization.get("descAnti"), OptionType.Toggle,
-			SaveData.settings.antialiasing);
+		var option:Option = new Option(Localization.get("opAnti"), Localization.get("descAnti"), OptionType.Toggle, SaveData.settings.antialiasing);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antialiasing = value;
 		options.push(option);
 
@@ -63,8 +62,8 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
 		options.push(option);
 
-		var option:Option = new Option(Localization.get("opHitSndT"), Localization.get("descHitSndT"),
-			OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']), SaveData.settings.hitSoundType);
+		var option:Option = new Option(Localization.get("opHitSndT"), Localization.get("descHitSndT"), OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']),
+			SaveData.settings.hitSoundType);
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.hitSoundType = value;
 			FlxG.sound.play(Paths.sound('hitsound' + SaveData.settings.hitSoundType));
@@ -84,13 +83,11 @@ class OptionsSubState extends ExtendableSubState {
 		option.onChange = (value:Dynamic) -> SaveData.settings.botPlay = value;
 		options.push(option);
 
-		var option:Option = new Option(Localization.get("opMSDisp"), Localization.get("descMSDisp"), OptionType.Toggle,
-			SaveData.settings.displayMS);
+		var option:Option = new Option(Localization.get("opMSDisp"), Localization.get("descMSDisp"), OptionType.Toggle, SaveData.settings.displayMS);
 		option.onChange = (value:Dynamic) -> SaveData.settings.displayMS = value;
 		options.push(option);
 
-		var option:Option = new Option(Localization.get("opMash"), Localization.get("descMash"), OptionType.Toggle,
-			SaveData.settings.antiMash);
+		var option:Option = new Option(Localization.get("opMash"), Localization.get("descMash"), OptionType.Toggle, SaveData.settings.antiMash);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antiMash = value;
 		options.push(option);
 
