@@ -131,7 +131,7 @@ class PlayState extends ExtendableState {
 		for (folder in foldersToCheck) {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.hxs')) {
+					if (file.endsWith('.hxs') || file.endsWith('.hxc')) {
 						scriptArray.push(new Hscript(folder + file));
 					}
 				}
@@ -180,7 +180,7 @@ class PlayState extends ExtendableState {
 		for (folder in foldersToCheck) {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
 				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.hxs')) {
+					if (file.endsWith('.hxs') || file.endsWith('.hxc')) {
 						scriptArray.push(new Hscript(folder + file));
 					}
 				}
@@ -189,7 +189,11 @@ class PlayState extends ExtendableState {
 
 		for (script in scriptArray) {
 			script?.setVariable('addScript', function(path:String) {
-				scriptArray.push(new Hscript('$path.hxs'));
+				// scriptArray.push(new Hscript('$path.hxs'));
+				if (path.endsWith('.hxs'))
+					scriptArray.push(new Hscript('$path.hxs'));
+				else if (path.endsWith('.hxc'))
+					scriptArray.push(new Hscript('$path.hxc'));
 			});
 		}
 
