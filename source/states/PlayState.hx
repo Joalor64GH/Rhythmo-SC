@@ -308,7 +308,8 @@ class PlayState extends ExtendableState {
 			+ ' // '
 			+ Localization.get("missTxt")
 			+ misses
-			+ ' // Accuracy: $accuracy%'
+			+ ' // '
+			+ Localization.get("accTxt") + accuracy + '%'
 			+ ' (${generateRank()})';
 
 		if (spawnNotes.length > 0) {

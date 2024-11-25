@@ -40,9 +40,7 @@ class NoteColorState extends ExtendableState {
 			strumline.add(note);
 		}
 
-		daText = new FlxText(0, 280, FlxG.width,
-			"Use LEFT/RIGHT to change the selected arrow or the selected color.\nUse UP/DOWN to change the selected color value.\nUse ENTER to select a note.\nUse RESET to reset a note's color.",
-			12);
+		daText = new FlxText(0, 280, FlxG.width, "", 12);
 		daText.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		daText.screenCenter(X);
 		add(daText);
@@ -148,11 +146,12 @@ class NoteColorState extends ExtendableState {
 				blue = '>$blue<';
 		}
 
-		daText.text = "Use LEFT/RIGHT to change the selected arrow or the selected color.\nUse UP/DOWN to change the selected color value.\nUse ENTER to select a note.\nUse RESET to reset a note's color.\n\nRed: "
+		daText.text = Localization.get("noteColorGuide")
+			+ Localization.get("red")
 			+ red
-			+ "\nGreen: "
+			+ Localization.get("green")
 			+ green
-			+ "\nBlue: "
+			+ Localization.get("blue")
 			+ blue;
 		daText.screenCenter(X);
 	}

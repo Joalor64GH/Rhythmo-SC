@@ -56,7 +56,7 @@ class Option {
 
 		switch (type) {
 			case OptionType.Toggle:
-				formattedString = '$name: ${value ? 'On' : 'Off'}';
+				formattedString = '$name: ${value ? Localization.get("on") : Localization.get("off")}';
 			case OptionType.Integer(_, _, _):
 				formattedString = '$name: $value${showPercentage ? '%' : ''}';
 			case OptionType.Decimal(_, _, _):

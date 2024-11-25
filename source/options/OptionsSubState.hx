@@ -15,13 +15,13 @@ class OptionsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
-		var option:Option = new Option("Antialiasing", "If disabled, improves the game's performance at the cost of sharper visuals.", OptionType.Toggle,
+		var option:Option = new Option(Localization.get("opAnti"), Localization.get("descAnti"), OptionType.Toggle,
 			SaveData.settings.antialiasing);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antialiasing = value;
 		options.push(option);
 
 		#if desktop
-		var option:Option = new Option("Fullscreen", "Toggles fullscreen.", OptionType.Toggle, SaveData.settings.fullscreen);
+		var option:Option = new Option(Localization.get("opFlScrn"), Localization.get("descFlScrn"), OptionType.Toggle, SaveData.settings.fullscreen);
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.fullscreen = value;
 			FlxG.fullscreen = SaveData.settings.fullscreen;
@@ -29,11 +29,11 @@ class OptionsSubState extends ExtendableSubState {
 		options.push(option);
 		#end
 
-		var option:Option = new Option("Flashing Lights", "Turn this off if you're photosensitive.", OptionType.Toggle, SaveData.settings.flashing);
+		var option:Option = new Option(Localization.get("opFlash"), Localization.get("descFlash"), OptionType.Toggle, SaveData.settings.flashing);
 		option.onChange = (value:Dynamic) -> SaveData.settings.flashing = value;
 		options.push(option);
 
-		var option:Option = new Option("Framerate", "Use LEFT/RIGHT to change the framerate (Max 240).", OptionType.Integer(60, 240, 10),
+		var option:Option = new Option(Localization.get("opFrm"), Localization.get("descFrm"), OptionType.Integer(60, 240, 10),
 			Std.int(FlxMath.bound(FlxG.stage.application.window.displayMode.refreshRate, 60, 240)));
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.framerate = value;
@@ -41,7 +41,7 @@ class OptionsSubState extends ExtendableSubState {
 		};
 		options.push(option);
 
-		var option:Option = new Option("FPS Counter", "Toggles the FPS Display.", OptionType.Toggle, SaveData.settings.fpsCounter);
+		var option:Option = new Option(Localization.get("opFPS"), Localization.get("descFPS"), OptionType.Toggle, SaveData.settings.fpsCounter);
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.fpsCounter = value;
 			if (Main.fpsDisplay != null)
@@ -49,21 +49,21 @@ class OptionsSubState extends ExtendableSubState {
 		};
 		options.push(option);
 
-		var option:Option = new Option("Song Speed", "Adjust the scroll speed of the notes.", OptionType.Integer(1, 10, 1), SaveData.settings.songSpeed);
+		var option:Option = new Option(Localization.get("opSpeed"), Localization.get("descSpeed"), OptionType.Integer(1, 10, 1), SaveData.settings.songSpeed);
 		option.onChange = (value:Dynamic) -> SaveData.settings.songSpeed = value;
 		options.push(option);
 
-		var option:Option = new Option("Downscroll", "Makes the arrows go down instead of up.", OptionType.Toggle, SaveData.settings.downScroll);
+		var option:Option = new Option(Localization.get("opDwnScrl"), Localization.get("descDwnScrl"), OptionType.Toggle, SaveData.settings.downScroll);
 		option.onChange = (value:Dynamic) -> SaveData.settings.downScroll = value;
 		options.push(option);
 
-		var option:Option = new Option("Lane Underlay Alpha", "Changes the visibility of the lane underlay.", OptionType.Integer(0, 100, 1),
+		var option:Option = new Option(Localization.get("opUnderlay"), Localization.get("descUnderlay"), OptionType.Integer(0, 100, 1),
 			SaveData.settings.laneUnderlay);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> SaveData.settings.laneUnderlay = value;
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Type", "Only works if the hitsound volume isn't at 0.",
+		var option:Option = new Option(Localization.get("opHitSndT"), Localization.get("descHitSndT"),
 			OptionType.Choice(['Default', 'CD', 'OSU', 'Switch']), SaveData.settings.hitSoundType);
 		option.onChange = (value:Dynamic) -> {
 			SaveData.settings.hitSoundType = value;
@@ -71,7 +71,7 @@ class OptionsSubState extends ExtendableSubState {
 		};
 		options.push(option);
 
-		var option:Option = new Option("Hitsound Volume", "Changes the volume of the hitsound.", OptionType.Integer(0, 100, 10),
+		var option:Option = new Option(Localization.get("opHitSndV"), Localization.get("descHitSndV"), OptionType.Integer(0, 100, 10),
 			SaveData.settings.hitSoundVolume);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) -> {
@@ -80,16 +80,16 @@ class OptionsSubState extends ExtendableSubState {
 		};
 		options.push(option);
 
-		var option:Option = new Option("Botplay", "If enabled, the game plays for you.", OptionType.Toggle, SaveData.settings.botPlay);
+		var option:Option = new Option(Localization.get("opBot"), Localization.get("descBot"), OptionType.Toggle, SaveData.settings.botPlay);
 		option.onChange = (value:Dynamic) -> SaveData.settings.botPlay = value;
 		options.push(option);
 
-		var option:Option = new Option("Millisecond Display", "If enabled, displays your hit time in milliseconds.", OptionType.Toggle,
+		var option:Option = new Option(Localization.get("opMSDisp"), Localization.get("descMSDisp"), OptionType.Toggle,
 			SaveData.settings.displayMS);
 		option.onChange = (value:Dynamic) -> SaveData.settings.displayMS = value;
 		options.push(option);
 
-		var option:Option = new Option("Anti-mash", "If enabled, you will get a miss for pressing keys when no notes are present.", OptionType.Toggle,
+		var option:Option = new Option(Localization.get("opMash"), Localization.get("descMash"), OptionType.Toggle,
 			SaveData.settings.antiMash);
 		option.onChange = (value:Dynamic) -> SaveData.settings.antiMash = value;
 		options.push(option);

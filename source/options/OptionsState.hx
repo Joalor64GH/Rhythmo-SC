@@ -1,7 +1,7 @@
 package options;
 
 class OptionsState extends ExtendableState {
-	final options:Array<String> = ['Preferences', 'Controls', 'Language', 'Note Colors'];
+	final options:Array<String> = ['prefTxt', 'ctrlTxt', 'langTxt', 'notesTxt'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 	var fromPlayState:Bool;
@@ -27,7 +27,7 @@ class OptionsState extends ExtendableState {
 		add(opGrp);
 
 		for (i in 0...options.length) {
-			var text:FlxText = new FlxText(0, 260 + (i * 70), 0, options[i], 32);
+			var text:FlxText = new FlxText(0, 260 + (i * 70), 0, Localization.get(options[i]), 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.screenCenter(X);
@@ -35,7 +35,7 @@ class OptionsState extends ExtendableState {
 			opGrp.add(text);
 		}
 
-		var resetControlsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "If your controls don't work, press R to reset them.", 12);
+		var resetControlsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("ctrlResetGuide"), 12);
 		resetControlsTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		resetControlsTxt.scrollFactor.set();
 		add(resetControlsTxt);

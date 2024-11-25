@@ -2,7 +2,7 @@ package options;
 
 class ControlsSubState extends ExtendableSubState {
 	var coolControls:Array<String> = [
-		"Left", "Down", "Up", "Right", "Left (Alt)", "Down (Alt)", "Up (Alt)", "Right (Alt)", "Accept", "Exit", "Restart"
+		"leftKey", "downKey", "upKey", "rightKey", "leftKeyAlt", "downKeyAlt", "upKeyAlt", "rightKeyAlt", "acceptKey", "exitKey", "resetKey"
 	];
 
 	var ctrlGroup:FlxTypedGroup<FlxText>;
@@ -46,7 +46,7 @@ class ControlsSubState extends ExtendableSubState {
 		add(ctrlGroup);
 
 		for (i in 0...coolControls.length) {
-			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, coolControls[i], 32);
+			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, Localization.get(coolControls[i]), 32);
 			bindTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			bindTxt.ID = i;
 			ctrlGroup.add(bindTxt);
@@ -102,7 +102,7 @@ class ControlsSubState extends ExtendableSubState {
 			if (Input.justPressed('accept')) {
 				isChangingBind = true;
 				tempBG.visible = true;
-				anyKeyTxt.text = "PRESS ANY KEY TO CONTINUE.";
+				anyKeyTxt.text = Localization.get("ctrlGuide");
 			}
 
 			if (Input.justPressed('exit')) {

@@ -5,7 +5,7 @@ class PauseSubState extends ExtendableSubState {
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
-	final pauseOptions:Array<String> = ['Resume', 'Restart', 'Options', 'Song Menu', 'Main Menu'];
+	final pauseOptions:Array<String> = ['resumeTxt', 'restartTxt', 'optionsTxt', 'sMenuTxt', 'mMenuTxt'];
 	var pauseGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
 
@@ -25,7 +25,7 @@ class PauseSubState extends ExtendableSubState {
 		add(pauseGrp);
 
 		for (i in 0...pauseOptions.length) {
-			var text:FlxText = new FlxText(0, 250 + (i * 60), 0, pauseOptions[i], 32);
+			var text:FlxText = new FlxText(0, 250 + (i * 60), 0, Localization.get(pauseOptions[i]), 32);
 			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;

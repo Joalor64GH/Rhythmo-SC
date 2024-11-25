@@ -54,7 +54,7 @@
     "langSelect": "SELECCIONA UN IDIOMA",
     "langNotCompletelyAccurate": "(Las traducciones de idioma pueden no ser 100% precisas.)",
 
-    "noteColorGuide": "Usa IZQUIERDA/DERECHA para cambiar la flecha o el color seleccionado.\nUsa ARRIBA/ABAJO para cambiar el valor del color seleccionado.\nUsa ENTER para seleccionar una nota.\nUsa REINICIAR para restablecer el color de una nota.",
+    "noteColorGuide": "Usa IZQUIERDA/DERECHA para cambiar la flecha o el color seleccionado.\nUsa ARRIBA/ABAJO para cambiar el valor del color seleccionado.\nUsa ENTER para seleccionar una nota.\nUsa REINICIAR para restablecer el color de una nota.\n\n",
     "red": "Rojo: ",
     "green": "Verde: ",
     "blue": "Azul: ",
@@ -72,7 +72,7 @@
     "missTxt": "Quiebres de Combo: ",
     "accTxt": "Precisión: ",
     "botplayTxt": "BOTPLAY",
-    "resultsTxt": "RESULTADOS",
+    "resultsTxt": "RESULTADOS\n",
     
     "pauseTxt": "¿PAUSADO/A?",
     "resumeTxt": "Reanudar",
