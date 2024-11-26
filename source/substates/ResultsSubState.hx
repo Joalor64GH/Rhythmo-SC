@@ -33,8 +33,8 @@ class ResultsSubState extends ExtendableSubState {
 		}, 0);
 
 		rankTxt = new FlxText(10, 300, FlxG.width,
-			Localization.get("scoreTxt")
-			+ Localization.get("ctrlGuide")
+			Localization.get("resultsTxt")
+			+ Localization.get("scoreTxt")
 			+ score
 			+ "\n"
 			+ Localization.get("accTxt")
