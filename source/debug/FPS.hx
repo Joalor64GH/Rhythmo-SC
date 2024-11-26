@@ -3,6 +3,8 @@ package debug;
 import openfl.text.*;
 import openfl.events.Event;
 
+import external.Memory;
+
 class FPS extends TextField {
 	public var borderSize:Int = 1;
 
