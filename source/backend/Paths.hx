@@ -166,7 +166,7 @@ class Paths {
 		return file('songs/$key/chart.json');
 
 	inline static public function font(key:String) {
-		var path:String = Localization.getCustomFont() ?? file('fonts/$key');
+		var path:String =  file('fonts/$key');
 
 		if (path.extension() == '') {
 			if (exists(path.withExtension("ttf")))
@@ -175,7 +175,7 @@ class Paths {
 				path = path.withExtension("otf");
 		}
 
-		return path;
+		return Localization.getCustomFont() ?? path;
 	}
 
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic

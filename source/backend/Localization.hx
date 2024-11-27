@@ -91,7 +91,7 @@ class Localization {
 	}
 
 	public static function loadCustomFont(language:String):String {
-		var path:String = Paths.file('languages/fonts/' + language);
+		var path:String = Paths.file('languages/fonts/' + language + '.ttf');
 		if (Paths.exists(path)) {
 			trace('custom font loaded for $language: $path');
 			return customFontPath = path;
