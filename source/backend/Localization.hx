@@ -90,7 +90,7 @@ class Localization {
 		return path;
 	}
 
-	private static function loadCustomFont(language:String):String {
+	public static function loadCustomFont(language:String):String {
 		var path:String = Paths.file('languages/fonts/' + language);
 		if (Paths.exists(path)) {
 			trace('custom font loaded for $language: $path');
