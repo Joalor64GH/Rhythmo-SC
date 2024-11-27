@@ -13,7 +13,7 @@ class Localization {
 	private static final DEFAULT_DIR:String = "languages";
 
 	private static var data:Map<String, Dynamic>;
-	private static var customFontPath:String;
+	pprivate static var currentLanguage:String;
 
 	public static var DEFAULT_LANGUAGE:String = "en";
 	public static var directory:String = DEFAULT_DIR;
