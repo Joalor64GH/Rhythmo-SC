@@ -2,7 +2,6 @@ package debug;
 
 import openfl.text.*;
 import openfl.events.Event;
-import external.memory.Memory;
 
 class FPS extends TextField {
 	public var borderSize:Int = 1;
@@ -30,7 +29,7 @@ class FPS extends TextField {
 		width = 1280;
 		height = 720;
 		selectable = false;
-		defaultTextFormat = new TextFormat(Paths.font(font ?? 'vcr.ttf'), 16, color);
+		defaultTextFormat = new TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 16, color);
 
 		addEventListener(Event.ENTER_FRAME, (_) -> {
 			final now:Float = Timer.stamp() * 1000;
@@ -38,7 +37,13 @@ class FPS extends TextField {
 			while (times[0] < now - 1000)
 				times.shift();
 
-			text = (visible) ? 'FPS: ${times.length}\nMEM: ${FlxStringUtil.formatBytes(Memory.getCurrentUsage())} / ${FlxStringUtil.formatBytes(Memory.getPeakUsage())}' : '';
+			var mem:Float = System.totalMemory;
+			var memPeak:Float = 0;
+			if (mem > memPeak)
+				memPeak = mem;
+
+			text = (visible) ? 'FPS: ${times.length}\nMEM: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' : '';
+
 			textColor = (times.length < FlxG.drawFramerate * 0.5) ? 0xFFFF0000 : 0xFFFFFFFF;
 		});
 
