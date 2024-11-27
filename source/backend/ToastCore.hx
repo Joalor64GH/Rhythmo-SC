@@ -154,7 +154,7 @@ class Toast extends Sprite {
 
 		title = new TextField();
 		title.text = titleText;
-		title.setTextFormat(new TextFormat(Paths.font("vcr.ttf"), 24, titleColor, true));
+		title.setTextFormat(new TextFormat(Paths.font("main.ttf"), 24, titleColor, true));
 		title.wordWrap = true;
 		title.width = 360;
 		title.y = 5;
@@ -163,7 +163,7 @@ class Toast extends Sprite {
 
 		desc = new TextField();
 		desc.text = description;
-		desc.setTextFormat(new TextFormat(Paths.font("vcr.ttf"), 18, 0xFFFFFF));
+		desc.setTextFormat(new TextFormat(Paths.font("main.ttf"), 18, 0xFFFFFF));
 		desc.wordWrap = true;
 		desc.width = 360;
 		desc.height = 95;
