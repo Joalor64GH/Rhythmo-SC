@@ -9,6 +9,9 @@
 * [X] Customizable Main Menu + Scripted States
 * [X] Accuracy + Ranking
 * [X] New Controls Menu
+* [ ] Fix font for some language can't display correctly
+* [ ] Fix Controls settings (Also the controls will crash when enter ACCEPT or something)
+* [ ] Make a better charting menu (optional)
 
 ## Future To-Dos
 * [ ] Sustain Notes + New song
