@@ -71,7 +71,6 @@ class OptionsState extends ExtendableState {
 
 		if (Input.justPressed('exit')) {
 			if (fromPlayState) {
-				fromPlayState = false;
 				ExtendableState.switchState(new PlayState());
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
