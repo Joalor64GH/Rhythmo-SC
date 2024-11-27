@@ -17,7 +17,7 @@ class ResultsSubState extends ExtendableSubState {
 		bg.alpha = 0;
 		add(bg);
 
-		rankSpr = new FlxSprite(700, 0).loadGraphic(Paths.image('gameplay/rankings/' + rank.toLowerCase()));
+		rankSpr = new GameSprite(700, 0).loadGraphic(Paths.image('gameplay/rankings/' + rank.toLowerCase()));
 		rankSpr.screenCenter(Y);
 		rankSpr.alpha = 0;
 		if (rank != "?")

@@ -189,7 +189,6 @@ class PlayState extends ExtendableState {
 
 		for (script in scriptArray) {
 			script?.setVariable('addScript', function(path:String) {
-				// scriptArray.push(new Hscript('$path.hxs'));
 				if (path.endsWith('.hxs'))
 					scriptArray.push(new Hscript('$path.hxs'));
 				else if (path.endsWith('.hxc'))

@@ -25,7 +25,7 @@ class PauseSubState extends ExtendableSubState {
 		add(pauseGrp);
 
 		for (i in 0...pauseOptions.length) {
-			var text:FlxText = new FlxText(0, 250 + (i * 65), 0, Localization.get(pauseOptions[i]), 32);
+			var text:FlxText = new FlxText(0, 245 + (i * 65), 0, Localization.get(pauseOptions[i]), 32);
 			text.setFormat(Paths.font('main.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
