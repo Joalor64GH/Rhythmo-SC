@@ -6,7 +6,6 @@ class LanguageState extends ExtendableState {
 	var langStrings:Array<Locale> = [];
 	var group:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
-
 	var camFollow:FlxObject;
 
 	override function create() {
@@ -81,6 +80,7 @@ class LanguageState extends ExtendableState {
 		if (Input.justPressed('accept')) {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
+			Localization.loadCustomFont(SaveData.settings.lang);
 			SaveData.saveSettings();
 			ExtendableState.switchState(new OptionsState());
 			FlxG.sound.play(Paths.sound("select"));
