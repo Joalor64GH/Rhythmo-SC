@@ -78,7 +78,7 @@ class MenuState extends ExtendableState {
 		add(grpSelection);
 
 		for (i in 0...selections.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 160) + (108 - (Math.max(selections.length, 4) - 4) * 80));
+			var menuItem:FlxSprite = new GameSprite(0, (i * 160) + (108 - (Math.max(selections.length, 4) - 4) * 80));
 			menuItem.loadGraphic(Paths.image('menu/mainmenu/' + selections[i]));
 			menuItem.scale.set(0.4, 0.4);
 			menuItem.screenCenter(X);

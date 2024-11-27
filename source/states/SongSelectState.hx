@@ -9,7 +9,7 @@ typedef SongArray = {
 	var diff:Float;
 }
 
-class Cover extends FlxSprite {
+class Cover extends GameSprite {
 	public var lerpSpeed:Float = 6;
 	public var posX:Float = 0;
 

@@ -153,7 +153,7 @@ class PlayState extends ExtendableState {
 		add(timeBar);
 		add(scoreTxt);
 
-		timeTxt = new FlxText(20, timeBar.y, 0, "[-:--/-:--]", 20);
+		timeTxt = new FlxText(20, timeBar.y - 5, 0, "[-:--/-:--]", 20);
 		timeTxt.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(timeTxt);
 

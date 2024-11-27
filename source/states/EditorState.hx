@@ -27,7 +27,7 @@ class EditorState extends ExtendableState {
 			grpOptions.add(optionTxt);
 		}
 
-		daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
+		daText = new FlxText(5, FlxG.height - 30, 0, "", 12);
 		daText.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(daText);
 
