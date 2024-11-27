@@ -14,6 +14,7 @@ class Localization {
 
 	private static var data:Map<String, Dynamic>;
 	private static var currentLanguage:String;
+	private static var customFontPath:String;
 
 	public static var DEFAULT_LANGUAGE:String = "en";
 	public static var directory:String = DEFAULT_DIR;
@@ -41,6 +42,8 @@ class Localization {
 				data.set(language, languageData);
 			}
 		}
+
+		loadCustomFont(DEFAULT_LANGUAGE);
 	}
 
 	private static function loadLanguageData(language:String):Dynamic {
@@ -65,6 +68,8 @@ class Localization {
 		currentLanguage = newLanguage;
 		data.set(newLanguage, languageData);
 		trace('Language changed to $currentLanguage');
+
+		loadCustomFont(newLanguage);
 	}
 
 	public static function get(key:String, ?language:String):String {
@@ -83,6 +88,18 @@ class Localization {
 		var localDir = Path.join([directory, language + ".json"]);
 		var path:String = Paths.file(localDir);
 		return path;
+	}
+
+	private static function loadCustomFont(language:String):String {
+		var path:String = Paths.file('languages/fonts/' + language);
+		if (Paths.exists(path))
+			return customFontPath = path;
+
+		return null;
+	}
+
+	public static function getCustomFont():String {
+		return customFontPath;
 	}
 }
 
