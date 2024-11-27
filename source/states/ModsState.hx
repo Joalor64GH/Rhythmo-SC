@@ -34,7 +34,7 @@ class ModsState extends ExtendableState {
 
 		for (i in 0...ModHandler.trackedMods.length) {
 			var text:FlxText = new FlxText(20, 60 + (i * 80), ModHandler.trackedMods[i].title, 32);
-			text.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.setFormat(Paths.font('main.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.ID = i;
 			daMods.add(text);
 
@@ -45,7 +45,7 @@ class ModsState extends ExtendableState {
 		}
 
 		description = new FlxText(0, FlxG.height * 0.1, FlxG.width * 0.9, '', 28);
-		description.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		description.setFormat(Paths.font('main.ttf'), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		description.screenCenter(X);
 		description.scrollFactor.set();
 		add(description);

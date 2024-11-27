@@ -40,12 +40,12 @@ class ResultsSubState extends ExtendableSubState {
 			+ Localization.get("accTxt")
 			+ accuracy
 			+ "%", 12);
-		rankTxt.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		rankTxt.setFormat(Paths.font('main.ttf'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		rankTxt.alpha = 0;
 		add(rankTxt);
 
 		anyKeyTxt = new FlxText(10, 480, 0, Localization.get("ctrlGuide"), 12);
-		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		anyKeyTxt.setFormat(Paths.font('main.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		anyKeyTxt.alpha = 0;
 		add(anyKeyTxt);
 

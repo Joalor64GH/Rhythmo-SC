@@ -61,7 +61,7 @@ class CreditsState extends ExtendableState {
 
 		for (i in 0...credData.users.length) {
 			var name:FlxText = new FlxText(20, 60 + (i * 80), 0, credData.users[i].name, 32);
-			name.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			name.setFormat(Paths.font('main.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			name.ID = i;
 			credsGrp.add(name);
 
@@ -89,26 +89,26 @@ class CreditsState extends ExtendableState {
 		add(topBar);
 		topBar.y -= topBar.height;
 
-		topMarker = new FlxText(8, 8, 0, "CREDITS").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+		topMarker = new FlxText(8, 8, 0, "CREDITS").setFormat(Paths.font('main.ttf'), 32, FlxColor.WHITE);
 		topMarker.scrollFactor.set();
 		topMarker.alpha = 0;
 		add(topMarker);
 
-		centerMarker = new FlxText(0, 8, FlxG.width, "< PLATFORM >").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+		centerMarker = new FlxText(0, 8, FlxG.width, "< PLATFORM >").setFormat(Paths.font('main.ttf'), 32, FlxColor.WHITE);
 		centerMarker.alignment = CENTER;
 		centerMarker.screenCenter(X);
 		centerMarker.scrollFactor.set();
 		centerMarker.alpha = 0;
 		add(centerMarker);
 
-		rightMarker = new FlxText(-8, 8, FlxG.width, "RHYTHMO").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+		rightMarker = new FlxText(-8, 8, FlxG.width, "RHYTHMO").setFormat(Paths.font('main.ttf'), 32, FlxColor.WHITE);
 		rightMarker.scrollFactor.set();
 		rightMarker.alignment = RIGHT;
 		rightMarker.alpha = 0;
 		add(rightMarker);
 
 		bottomMarker = new FlxText(0, FlxG.height - 24, 0, "", 32);
-		bottomMarker.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		bottomMarker.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		bottomMarker.textField.background = true;
 		bottomMarker.textField.backgroundColor = FlxColor.BLACK;
 		bottomMarker.scrollFactor.set();

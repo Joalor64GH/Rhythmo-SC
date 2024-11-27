@@ -17,7 +17,7 @@ class PauseSubState extends ExtendableSubState {
 		add(bg);
 
 		var text:FlxText = new FlxText(0, 0, 0, Localization.get("pauseTxt"), 12);
-		text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font('main.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
 
@@ -25,8 +25,8 @@ class PauseSubState extends ExtendableSubState {
 		add(pauseGrp);
 
 		for (i in 0...pauseOptions.length) {
-			var text:FlxText = new FlxText(0, 250 + (i * 60), 0, Localization.get(pauseOptions[i]), 32);
-			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			var text:FlxText = new FlxText(0, 250 + (i * 65), 0, Localization.get(pauseOptions[i]), 32);
+			text.setFormat(Paths.font('main.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.screenCenter(X);
 			text.ID = i;
 			pauseGrp.add(text);
@@ -37,7 +37,7 @@ class PauseSubState extends ExtendableSubState {
 		add(bottomPanel);
 
 		tipTxt = new FlxText(20, FlxG.height - 80, 1000, "", 22);
-		tipTxt.setFormat(Paths.font('vcr.ttf'), 26, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipTxt.setFormat(Paths.font('main.ttf'), 26, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(tipTxt);
 
 		changeSelection(0, false);

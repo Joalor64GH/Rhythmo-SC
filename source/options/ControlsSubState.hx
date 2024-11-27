@@ -57,13 +57,13 @@ class ControlsSubState extends ExtendableSubState {
 
 		for (i in 0...coolControls.length) {
 			var bindTxt:FlxText = new FlxText(20, 20 + (i * 80), 0, Localization.get(coolControls[i]), 32);
-			bindTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			bindTxt.setFormat(Paths.font('main.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			bindTxt.ID = i;
 			ctrlGroup.add(bindTxt);
 		}
 
 		curControl = new FlxText(700, 0, 0, "", 12);
-		curControl.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		curControl.setFormat(Paths.font('main.ttf'), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		curControl.scrollFactor.set();
 		curControl.screenCenter(Y);
 		add(curControl);
@@ -82,7 +82,7 @@ class ControlsSubState extends ExtendableSubState {
 		add(tempBG);
 
 		anyKeyTxt = new FlxText(0, 0, 0, "", 12);
-		anyKeyTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		anyKeyTxt.setFormat(Paths.font('main.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		anyKeyTxt.scrollFactor.set();
 		anyKeyTxt.screenCenter(XY);
 		add(anyKeyTxt);

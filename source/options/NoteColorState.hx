@@ -41,7 +41,7 @@ class NoteColorState extends ExtendableState {
 		}
 
 		daText = new FlxText(0, 280, FlxG.width, "", 12);
-		daText.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		daText.setFormat(Paths.font('main.ttf'), 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		daText.screenCenter(X);
 		add(daText);
 

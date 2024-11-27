@@ -27,8 +27,8 @@ class OptionsState extends ExtendableState {
 		add(opGrp);
 
 		for (i in 0...options.length) {
-			var text:FlxText = new FlxText(0, 260 + (i * 70), 0, Localization.get(options[i]), 32);
-			text.setFormat(Paths.font('vcr.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			var text:FlxText = new FlxText(0, 255 + (i * 70), 0, Localization.get(options[i]), 32);
+			text.setFormat(Paths.font('main.ttf'), 80, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.screenCenter(X);
 			text.ID = i;
@@ -36,7 +36,7 @@ class OptionsState extends ExtendableState {
 		}
 
 		var resetControlsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("ctrlResetGuide"), 12);
-		resetControlsTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		resetControlsTxt.setFormat(Paths.font('main.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		resetControlsTxt.scrollFactor.set();
 		add(resetControlsTxt);
 

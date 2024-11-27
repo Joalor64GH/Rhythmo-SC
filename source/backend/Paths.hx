@@ -175,7 +175,7 @@ class Paths {
 				path = path.withExtension("otf");
 		}
 
-		return Localization.getCustomFont() ?? path;
+		return path;
 	}
 
 	inline static public function image(key:String, ?cache:Bool = true):FlxGraphic

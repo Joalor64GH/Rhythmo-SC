@@ -14,7 +14,7 @@ class UpdateState extends ExtendableState {
 			+ daJson.description
 			+ '\nPress ENTER to go to GitHub. Otherwise, press ESCAPE to proceed anyways.\n
 			Thanks for playing!', 32);
-		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font('main.ttf'), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(XY);
 		add(text);
 	}

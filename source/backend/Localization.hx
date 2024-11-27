@@ -13,7 +13,6 @@ class Localization {
 	private static final DEFAULT_DIR:String = "languages";
 
 	private static var data:Map<String, Dynamic>;
-	private static var currentLanguage:String;
 	private static var customFontPath:String;
 
 	public static var DEFAULT_LANGUAGE:String = "en";
@@ -42,8 +41,6 @@ class Localization {
 				data.set(language, languageData);
 			}
 		}
-
-		loadCustomFont(DEFAULT_LANGUAGE);
 	}
 
 	private static function loadLanguageData(language:String):Dynamic {
@@ -68,8 +65,6 @@ class Localization {
 		currentLanguage = newLanguage;
 		data.set(newLanguage, languageData);
 		trace('Language changed to $currentLanguage');
-
-		loadCustomFont(newLanguage);
 	}
 
 	public static function get(key:String, ?language:String):String {
@@ -88,22 +83,6 @@ class Localization {
 		var localDir = Path.join([directory, language + ".json"]);
 		var path:String = Paths.file(localDir);
 		return path;
-	}
-
-	private static function loadCustomFont(language:String):String {
-		var target:String = language != null ? language : currentLanguage;
-		var path:String = Paths.file('languages/fonts/' + target + '.ttf');
-		if (Paths.exists(path)) {
-			trace('custom font loaded for $language: $path');
-			return customFontPath = path;
-		}
-
-		trace('no custom font for $language');
-		return Paths.font('vcr');
-	}
-
-	public static function getCustomFont():String {
-		return customFontPath;
 	}
 }
 

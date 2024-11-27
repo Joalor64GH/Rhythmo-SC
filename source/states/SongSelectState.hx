@@ -73,7 +73,7 @@ class SongSelectState extends ExtendableState {
 		add(bottomPanel);
 
 		panelTxt = new FlxText(bottomPanel.x, bottomPanel.y + 8, FlxG.width, "", 32);
-		panelTxt.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		panelTxt.setFormat(Paths.font('main.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		panelTxt.scrollFactor.set();
 		panelTxt.screenCenter(X);
 		add(panelTxt);
@@ -81,11 +81,11 @@ class SongSelectState extends ExtendableState {
 		tinyTxt = new FlxText(panelTxt.x, panelTxt.y + 50, FlxG.width, Localization.get("tinyGuide"), 22);
 		tinyTxt.screenCenter(X);
 		tinyTxt.scrollFactor.set();
-		tinyTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tinyTxt.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(tinyTxt);
 
 		titleTxt = new FlxText(0, 0, FlxG.width, "", 32);
-		titleTxt.setFormat(Paths.font('vcr.ttf'), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleTxt.setFormat(Paths.font('main.ttf'), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleTxt.scrollFactor.set();
 		titleTxt.screenCenter(X);
 		add(titleTxt);
