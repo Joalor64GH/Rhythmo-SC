@@ -176,7 +176,7 @@ class ChartingState extends ExtendableState {
 		add(strumLine);
 
 		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-pre // Functionality is subject to change.', 12);
-		prototypeNotice.setFormat(Paths.font('main.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
 
@@ -542,12 +542,12 @@ class LoadSongSubState extends ExtendableSubState {
 		add(bg);
 
 		var text:FlxText = new FlxText(0, 180, 0, "Enter a song to load.\n(Note: Unsaved progress will be lost!)", 32);
-		text.setFormat(Paths.font('main.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
 
 		input = new FlxUIInputText(10, 10, FlxG.width, '', 8);
-		input.setFormat(Paths.font('main.ttf'), 96, FlxColor.WHITE, FlxTextAlign.CENTER);
+		input.setFormat(Paths.font('vcr.ttf'), 96, FlxColor.WHITE, FlxTextAlign.CENTER);
 		input.alignment = CENTER;
 		input.setBorderStyle(OUTLINE, 0xFF000000, 5, 1);
 		input.screenCenter(XY);

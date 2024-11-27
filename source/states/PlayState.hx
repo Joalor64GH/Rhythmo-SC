@@ -139,11 +139,11 @@ class PlayState extends ExtendableState {
 		}
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font('main.ttf'), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font('vcr.ttf'), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.screenCenter(X);
 
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
-		judgementCounter.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementCounter.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounter.screenCenter(Y);
 		add(judgementCounter);
 
@@ -154,7 +154,7 @@ class PlayState extends ExtendableState {
 		add(scoreTxt);
 
 		timeTxt = new FlxText(20, timeBar.y - 5, 0, "[-:--/-:--]", 20);
-		timeTxt.setFormat(Paths.font('main.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(timeTxt);
 
 		var ratingDisplayYPos:Float = 80;
@@ -627,7 +627,7 @@ class PlayState extends ExtendableState {
 			remove(i);
 		var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
 			Math.round(Conductor.songPosition - note.strum) + ' ms');
-		precision.setFormat(Paths.font('main.ttf'), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		precision.setFormat(Paths.font('vcr.ttf'), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		precision.screenCenter(X);
 		FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
 		precisions.push(precision);

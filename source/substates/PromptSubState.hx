@@ -21,7 +21,7 @@ class PromptSubState extends FlxSubState {
 		add(box);
 
 		var questionTxt:FlxText = new FlxText(box.x, box.y + 20, width, question);
-		questionTxt.setFormat(Paths.font('main.ttf'), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		questionTxt.setFormat(Paths.font('vcr.ttf'), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		questionTxt.scrollFactor.set();
 		add(questionTxt);
 

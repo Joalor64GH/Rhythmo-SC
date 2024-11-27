@@ -45,7 +45,7 @@ class TitleState extends ExtendableState {
 		}, 0);
 
 		var text:FlxText = new FlxText(0, logo.y + 400, 0, Localization.get("pressEnter"), 12);
-		text.setFormat(Paths.font('main.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
 		add(text);
 	}

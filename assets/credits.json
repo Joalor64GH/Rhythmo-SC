@@ -10,7 +10,7 @@
             "iconData": ["joalor64", 0, 0],
             "textData": ["Main Creator/Programmer of Rhythmo, Artist, Composer", "I do stuff."],
             "urlData": [
-                ["Twitter", "https://twitter.com/fnfkeith19/"],
+                ["Bluesky", "https://bsky.app/profile/joalor64.bsky.social/"],
                 ["Discord", "https://discordapp.com/users/584516163296559117/"],
                 ["GitHub", "https://github.com/Joalor64GH/"],
                 ["YT", "https://youtube.com/@joalor64ytofficial/"]
@@ -32,7 +32,7 @@
         {
             "name": "huy1234th",
             "iconData": ["huy1234th", 0, 0],
-            "textData": ["Additional Programmer", "I like haxe."],
+            "textData": ["Additional Programmer, Vietnamese VCR Font", "I like haxe."],
             "urlData": [["GitHub", "https://github.com/khuonghoanghuy/"]],
             "colors": [26, 184, 28]
         }

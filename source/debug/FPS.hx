@@ -29,7 +29,7 @@ class FPS extends TextField {
 		width = 1280;
 		height = 720;
 		selectable = false;
-		defaultTextFormat = new TextFormat(Paths.font(font ?? 'main.ttf'), 16, color);
+		defaultTextFormat = new TextFormat(Paths.font(font ?? 'vcr.ttf'), 16, color);
 
 		addEventListener(Event.ENTER_FRAME, (_) -> {
 			final now:Float = Timer.stamp() * 1000;
