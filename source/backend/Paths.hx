@@ -166,7 +166,7 @@ class Paths {
 		return file('songs/$key/chart.json');
 
 	inline static public function font(key:String) {
-		var path:String =  file('fonts/$key');
+		var path:String = file('fonts/$key');
 
 		if (path.extension() == '') {
 			if (exists(path.withExtension("ttf")))

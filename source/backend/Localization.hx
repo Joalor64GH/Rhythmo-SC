@@ -90,14 +90,16 @@ class Localization {
 		return path;
 	}
 
-	public static function loadCustomFont(language:String):String {
-		var path:String = Paths.file('languages/fonts/' + language + '.ttf');
+	private static function loadCustomFont(language:String):String {
+		var target:String = language != null ? language : currentLanguage;
+		var path:String = Paths.file('languages/fonts/' + target + '.ttf');
 		if (Paths.exists(path)) {
 			trace('custom font loaded for $language: $path');
 			return customFontPath = path;
 		}
 
-		return null;
+		trace('no custom font for $language');
+		return Paths.font('vcr');
 	}
 
 	public static function getCustomFont():String {
