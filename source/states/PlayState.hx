@@ -3,7 +3,7 @@ package states;
 import backend.Song;
 
 class PlayState extends ExtendableState {
-	public static var instance(default, null):PlayState;
+	public static var instance:PlayState = null;
 
 	public static var song:SongData = null;
 	public static var songMultiplier:Float = 1;

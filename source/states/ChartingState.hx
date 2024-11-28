@@ -47,9 +47,6 @@ class ChartingState extends ExtendableState {
 
 	var strumLine:FlxSprite;
 
-	var undos = [];
-	var redos = [];
-
 	var _file:FileReference;
 
 	override public function new() {
@@ -74,8 +71,10 @@ class ChartingState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		FlxG.mouse.load(Paths.image('cursor/cursor'));
 		FlxG.mouse.visible = true;
+		
+		FlxG.mouse.unload();
+		FlxG.mouse.load(Paths.image('cursor/cursor'));
 
 		Conductor.bpm = song.bpm;
 		loadSong(Paths.formatToSongPath(song.song));
@@ -212,9 +211,6 @@ class ChartingState extends ExtendableState {
 			else
 				FlxG.sound.music.play();
 		}
-
-		if (Input.justPressed('z') && Input.pressed('control'))
-			undo();
 
 		if (FlxG.mouse.x > gridBG.x
 			&& FlxG.mouse.x < gridBG.x + gridBG.width
@@ -520,12 +516,6 @@ class ChartingState extends ExtendableState {
 		_file = null;
 		trace("Problem saving song");
 	}
-
-	function undo() {
-		undos.pop();
-	}
-
-	function redo() {}
 }
 
 class LoadSongSubState extends ExtendableSubState {
