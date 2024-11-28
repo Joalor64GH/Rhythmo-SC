@@ -25,7 +25,6 @@ class ChartingState extends ExtendableState {
 	var beatSnap:Int = 16;
 
 	var renderedNotes:FlxTypedGroup<Note>;
-
 	var curSelectedNote:NoteData;
 
 	var songInfoText:FlxText;
@@ -75,6 +74,7 @@ class ChartingState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		FlxG.mouse.load(Paths.image('cursor/cursor'));
 		FlxG.mouse.visible = true;
 
 		Conductor.bpm = song.bpm;
@@ -175,12 +175,10 @@ class ChartingState extends ExtendableState {
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
 
-		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-pre // Functionality is subject to change.', 12);
+		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-rc1 // Functionality is subject to change.', 12);
 		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		prototypeNotice.scrollFactor.set();
 		add(prototypeNotice);
-
-		// FlxG.camera.follow(strumLine);
 	}
 
 	override function update(elapsed:Float) {

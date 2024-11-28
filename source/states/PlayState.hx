@@ -792,7 +792,6 @@ class PlayState extends ExtendableState {
 						date: Date.now(),
 						song: song.song
 					}, () -> {
-						trace('finished showing achievement');
 						gotAchievement = false;
 						endSong();
 					});
