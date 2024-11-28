@@ -70,11 +70,11 @@ class ChartingState extends ExtendableState {
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		var mouseSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cursor/cursor'));
+		FlxG.mouse.load(mouseSpr.pixels);
 
 		FlxG.mouse.visible = true;
-		
-		FlxG.mouse.unload();
-		FlxG.mouse.load(Paths.image('cursor/cursor'));
 
 		Conductor.bpm = song.bpm;
 		loadSong(Paths.formatToSongPath(song.song));
