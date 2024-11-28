@@ -12,11 +12,17 @@ class OptionsSubState extends ExtendableSubState {
 	var holdTimer:FlxTimer;
 	var holdDirection:Int = 0;
 
+	var testSprite:FlxSprite;
+
 	public function new() {
 		super();
 
 		var option:Option = new Option(Localization.get("opAnti"), Localization.get("descAnti"), OptionType.Toggle, SaveData.settings.antialiasing);
-		option.onChange = (value:Dynamic) -> SaveData.settings.antialiasing = value;
+		option.onChange = (value:Dynamic) -> {
+			SaveData.settings.antialiasing = value;
+			reloadTheSprite();
+		};
+		option.showSillySprite = true;
 		options.push(option);
 
 		#if desktop
@@ -112,6 +118,9 @@ class OptionsSubState extends ExtendableSubState {
 			optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			optionTxt.ID = i;
 			grpOptions.add(optionTxt);
+
+			if (options[i].showSillySprite)
+				reloadTheSprite();
 		}
 
 		description = new FlxText(0, FlxG.height * 0.1, FlxG.width * 0.9, '', 28);
@@ -166,6 +175,9 @@ class OptionsSubState extends ExtendableSubState {
 
 		var option = options[curSelected];
 
+		if (testSprite != null)
+			testSprite.visible = option.showSillySprite;
+
 		if (option.desc != null) {
 			description.text = option.desc;
 			description.screenCenter(X);
@@ -208,5 +220,25 @@ class OptionsSubState extends ExtendableSubState {
 					// nothing
 			}
 		}
+	}
+
+	private function reloadTheSprite() {
+		if (testSprite != null) {
+			testSprite.kill();
+			remove(testSprite);
+			testSprite.destroy();
+		}
+		testSprite = new GameSprite(700, 0).loadGraphic(Paths.image('testSpr'));
+		testSprite.scrollFactor.set();
+		testSprite.updateHitbox();
+		testSprite.screenCenter(Y);
+		add(testSprite);
+
+		new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
+			if (testSprite.angle == -4)
+				FlxTween.angle(testSprite, testSprite.angle, 4, 4, {ease: FlxEase.quartInOut});
+			if (testSprite.angle == 4)
+				FlxTween.angle(testSprite, testSprite.angle, -4, 4, {ease: FlxEase.quartInOut});
+		}, 0);
 	}
 }

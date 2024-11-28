@@ -16,6 +16,7 @@ class Option {
 	public var type:OptionType;
 	public var value:Dynamic;
 	public var showPercentage:Bool = false;
+	public var showSillySprite:Bool = false;
 	public var onChange:Dynamic->Void;
 
 	public function new(name:String, desc:String, type:OptionType, value:Dynamic):Void {
@@ -36,7 +37,6 @@ class Option {
 			case OptionType.Choice(choices):
 				value = choices[FlxMath.wrap(choices.indexOf(value) + direction, 0, choices.length - 1)];
 			default:
-				// nothing
 		}
 
 		if (type != OptionType.Function && onChange != null)
