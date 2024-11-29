@@ -1,15 +1,14 @@
 package options;
 
 class OptionsState extends ExtendableState {
-	public static var fromPlayState:Bool = false;
-
 	final options:Array<String> = ['prefTxt', 'ctrlTxt', 'langTxt', 'notesTxt'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
+	var fromPlayState:Bool = false;
 
 	public function new(?fromPlayState:Bool = false) {
 		super();
-		OptionsState.fromPlayState = fromPlayState;
+		this.fromPlayState = fromPlayState;
 	}
 
 	override function create() {
@@ -64,9 +63,9 @@ class OptionsState extends ExtendableState {
 					openSubState(new options.ControlsSubState());
 					persistentUpdate = persistentDraw = false;
 				case 2:
-					ExtendableState.switchState(new options.LanguageState());
+					ExtendableState.switchState(new options.LanguageState(fromPlayState));
 				case 3:
-					ExtendableState.switchState(new options.NoteColorState());
+					ExtendableState.switchState(new options.NoteColorState(fromPlayState));
 			}
 		}
 

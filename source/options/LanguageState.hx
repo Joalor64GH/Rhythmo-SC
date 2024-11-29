@@ -9,6 +9,13 @@ class LanguageState extends ExtendableState {
 
 	var camFollow:FlxObject;
 
+	var fromPlayState:Bool = false;
+
+	public function new(?fromPlayState:Bool = false) {
+		super();
+		this.fromPlayState = fromPlayState;
+	}
+
 	override function create() {
 		super.create();
 
@@ -82,7 +89,7 @@ class LanguageState extends ExtendableState {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();
-			ExtendableState.switchState(new OptionsState(OptionsState.fromPlayState));
+			ExtendableState.switchState(new OptionsState(fromPlayState));
 			FlxG.sound.play(Paths.sound("select"));
 		}
 	}

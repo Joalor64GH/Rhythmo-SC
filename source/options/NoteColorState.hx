@@ -15,6 +15,13 @@ class NoteColorState extends ExtendableState {
 	final colorMins:Array<Int> = [0, 0, 0];
 	final colorMaxs:Array<Int> = [255, 255, 255];
 
+	var fromPlayState:Bool = false;
+
+	public function new(?fromPlayState:Bool = false) {
+		super();
+		this.fromPlayState = fromPlayState;
+	}
+
 	override function create() {
 		super.create();
 
@@ -67,7 +74,7 @@ class NoteColorState extends ExtendableState {
 				isSelectingSomething = false;
 			else {
 				SaveData.saveSettings();
-				ExtendableState.switchState(new OptionsState(OptionsState.fromPlayState));
+				ExtendableState.switchState(new OptionsState(fromPlayState));
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 		}
