@@ -63,8 +63,8 @@ class LanguageState extends ExtendableState {
 			group.add(text);
 		}
 
-		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, Localization.get("langNotCompletelyAccurate"), 12);
-		noticeTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var noticeTxt:FlxText = new FlxText(5, FlxG.height - 30, 0, Localization.get("langNotCompletelyAccurate"), 12);
+		noticeTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noticeTxt.scrollFactor.set();
 		noticeTxt.screenCenter(X);
 		add(noticeTxt);
@@ -82,7 +82,7 @@ class LanguageState extends ExtendableState {
 
 		if (Input.justPressed('exit')) {
 			FlxG.sound.play(Paths.sound("cancel"));
-			ExtendableState.switchState(new OptionsState());
+			ExtendableState.switchState(new OptionsState(fromPlayState));
 		}
 
 		if (Input.justPressed('accept')) {
