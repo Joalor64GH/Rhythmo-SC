@@ -228,17 +228,11 @@ class OptionsSubState extends ExtendableSubState {
 			remove(testSprite);
 			testSprite.destroy();
 		}
-		testSprite = new GameSprite(700, 0).loadGraphic(Paths.image('testSpr'));
+		testSprite = new GameSprite(840, 0).loadGraphic(Paths.image('testSpr'));
+		testSprite.scale.set(2, 2);
 		testSprite.scrollFactor.set();
 		testSprite.updateHitbox();
 		testSprite.screenCenter(Y);
 		add(testSprite);
-
-		new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
-			if (testSprite.angle == -4)
-				FlxTween.angle(testSprite, testSprite.angle, 4, 4, {ease: FlxEase.quartInOut});
-			if (testSprite.angle == 4)
-				FlxTween.angle(testSprite, testSprite.angle, -4, 4, {ease: FlxEase.quartInOut});
-		}, 0);
 	}
 }

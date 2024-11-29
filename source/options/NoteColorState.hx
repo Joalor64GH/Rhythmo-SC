@@ -67,7 +67,7 @@ class NoteColorState extends ExtendableState {
 				isSelectingSomething = false;
 			else {
 				SaveData.saveSettings();
-				ExtendableState.switchState(new OptionsState());
+				ExtendableState.switchState(new OptionsState(OptionsState.fromPlayState));
 				FlxG.sound.play(Paths.sound('cancel'));
 			}
 		}

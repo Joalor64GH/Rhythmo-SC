@@ -1,10 +1,11 @@
 package options;
 
 class OptionsState extends ExtendableState {
+	public static var fromPlayState:Bool = false;
+
 	final options:Array<String> = ['prefTxt', 'ctrlTxt', 'langTxt', 'notesTxt'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
-	var fromPlayState:Bool;
 
 	public function new(?fromPlayState:Bool = false) {
 		super();

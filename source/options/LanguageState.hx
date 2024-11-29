@@ -82,7 +82,7 @@ class LanguageState extends ExtendableState {
 			SaveData.settings.lang = langStrings[curSelected].code;
 			Localization.switchLanguage(SaveData.settings.lang);
 			SaveData.saveSettings();
-			ExtendableState.switchState(new OptionsState());
+			ExtendableState.switchState(new OptionsState(OptionsState.fromPlayState));
 			FlxG.sound.play(Paths.sound("select"));
 		}
 	}
