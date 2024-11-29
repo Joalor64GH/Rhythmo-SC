@@ -9,7 +9,7 @@ class OptionsState extends ExtendableState {
 
 	public function new(?fromPlayState:Bool = false) {
 		super();
-		this.fromPlayState = fromPlayState;
+		OptionsState.fromPlayState = fromPlayState;
 	}
 
 	override function create() {
