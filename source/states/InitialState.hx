@@ -35,7 +35,7 @@ class InitialState extends ExtendableState {
 		add(gradientBar);
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 4, {ease: FlxEase.quadInOut});
 
-		intro = new FlxSprite().loadGraphic(Paths.image('menu/title/intro'));
+		intro = new GameSprite().loadGraphic(Paths.image('menu/title/intro'));
 		intro.screenCenter();
 		intro.alpha = 0;
 		add(intro);

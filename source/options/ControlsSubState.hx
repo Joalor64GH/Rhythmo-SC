@@ -34,6 +34,9 @@ class ControlsSubState extends ExtendableSubState {
 	public function new() {
 		super();
 
+		var mouseSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cursor/cursor'));
+		FlxG.mouse.load(mouseSpr.pixels);
+
 		FlxG.mouse.visible = true;
 
 		ignoreInputTimer = 0.5;
@@ -68,7 +71,7 @@ class ControlsSubState extends ExtendableSubState {
 		curControl.screenCenter(Y);
 		add(curControl);
 
-		switchSpr = new FlxSprite(FlxG.width - 160, FlxG.height - 160).loadGraphic(Paths.image('menu/deviceSwitcher'), true, 136, 136);
+		switchSpr = new GameSprite(FlxG.width - 160, FlxG.height - 160).loadGraphic(Paths.image('menu/deviceSwitcher'), true, 136, 136);
 		switchSpr.animation.add('key', [0], 1, false);
 		switchSpr.animation.add('btn', [1], 1, false);
 		switchSpr.scrollFactor.set();

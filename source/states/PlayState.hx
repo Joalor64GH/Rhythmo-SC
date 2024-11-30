@@ -633,7 +633,7 @@ class PlayState extends ExtendableState {
 		precisions.push(precision);
 
 		for (i in seperatedScore) {
-			var numScore:FlxSprite = new FlxSprite(0, 0);
+			var numScore:FlxSprite = new GameSprite();
 			numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
 			numScore.scale.set(0.5, 0.5);
 			numScore.screenCenter();

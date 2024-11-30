@@ -29,7 +29,7 @@ class TitleState extends ExtendableState {
 		var audio:AudioDisplay = new AudioDisplay(FlxG.sound.music, 0, FlxG.height, FlxG.width, FlxG.height, 200, FlxColor.LIME);
 		add(audio);
 
-		var logo:FlxSprite = new GameSprite(0, 0).loadGraphic(Paths.image('menu/title/logo'));
+		var logo:FlxSprite = new GameSprite().loadGraphic(Paths.image('menu/title/logo'));
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;

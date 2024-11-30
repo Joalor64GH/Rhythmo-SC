@@ -4,6 +4,7 @@ class OptionsState extends ExtendableState {
 	final options:Array<String> = ['prefTxt', 'ctrlTxt', 'langTxt', 'notesTxt'];
 	var opGrp:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
+	
 	var fromPlayState:Bool = false;
 
 	public function new(?fromPlayState:Bool = false) {

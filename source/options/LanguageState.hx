@@ -6,7 +6,6 @@ class LanguageState extends ExtendableState {
 	var langStrings:Array<Locale> = [];
 	var group:FlxTypedGroup<FlxText>;
 	var curSelected:Int = 0;
-
 	var camFollow:FlxObject;
 
 	var fromPlayState:Bool = false;

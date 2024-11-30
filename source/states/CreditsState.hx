@@ -44,10 +44,11 @@ class CreditsState extends ExtendableState {
 		camFollow.screenCenter(X);
 		add(camFollow);
 
+		menuBG = new GameSprite();
 		if (credData.menuBG != null && credData.menuBG.length > 0)
-			menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
+			menuBG.loadGraphic(Paths.image(credData.menuBG));
 		else
-			menuBG = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/credits_bg'));
+			menuBG.loadGraphic(Paths.image('menu/backgrounds/credits_bg'));
 		menuBG.screenCenter();
 		menuBG.scrollFactor.set();
 		add(menuBG);
