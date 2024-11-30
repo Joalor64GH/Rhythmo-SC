@@ -848,11 +848,11 @@ class PlayState extends ExtendableState {
 
 	override function destroy() {
 		callOnScripts('destroy', []);
+		super.destroy();
+
 		for (script in scriptArray)
 			script?.destroy();
 		scriptArray = [];
-
-		super.destroy();
 	}
 
 	private function callOnScripts(funcName:String, args:Array<Dynamic>):Dynamic {
