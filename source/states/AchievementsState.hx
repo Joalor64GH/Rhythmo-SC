@@ -18,6 +18,9 @@ class AchievementsState extends ExtendableState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		var mouseSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cursor/cursor'));
+		FlxG.mouse.load(mouseSpr.pixels);
+
 		FlxG.mouse.visible = true;
 
 		camFollow = new FlxObject(80, 0, 0, 0);
