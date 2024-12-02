@@ -14,6 +14,7 @@
 * [ ] Make a better charting menu (optional)
 
 ## Future To-Dos
+* [ ] Shader Support
 * [ ] Sustain Notes + New song
 * [ ] Improve Chart Editor
 * [ ] Silly Visualizer Option

@@ -162,10 +162,21 @@ function create() {
 import('states.ScriptedState');
 import('substates.ScriptedSubState');
 import('backend.ExtendableState');
+import('flixel.text.FlxText');
+import('flixel.FlxSprite');
 import('backend.Input');
 import('flixel.FlxG');
 
 var state = FlxG.state;
+
+function create() {
+	var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(1280, 720, FlxColor.WHITE);
+	this.add(bg);
+
+	var text:FlxText = new FlxText(0, 0, FlxG.width, "I am a custom state!", 48);
+	text.color = FlxColor.BLACK;
+	this.add(text);
+}
 
 function update(elapsed:Float) {
 	if (Input.justPressed('accept'))

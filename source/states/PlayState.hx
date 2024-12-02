@@ -545,11 +545,11 @@ class PlayState extends ExtendableState {
 
 					if (Math.abs(noteMs) > 22.5)
 						curRating = (isPerfect) ? 'perfect-golden' : 'perfect';
-					else if (Math.abs(noteMs) > 45)
+					if (Math.abs(noteMs) > 45)
 						curRating = 'nice';
-					else if (Math.abs(noteMs) > 90)
+					if (Math.abs(noteMs) > 90)
 						curRating = 'okay';
-					else if (Math.abs(noteMs) > 135)
+					if (Math.abs(noteMs) > 135)
 						curRating = 'no';
 
 					noteDataTimes[Utilities.getNoteIndex(note.dir)] = note.strum;

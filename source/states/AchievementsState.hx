@@ -72,6 +72,11 @@ class AchievementsState extends ExtendableState {
 		description.scrollFactor.set();
 		add(description);
 
+		var guideTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Press R to reset the currently selected achievement. Press ALT + R to reset all achievements.', 12);
+		guideTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		guideTxt.scrollFactor.set();
+		add(guideTxt);
+
 		changeSelection(0, false);
 
 		FlxG.camera.follow(camFollow, null, 0.15);
