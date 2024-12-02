@@ -28,6 +28,13 @@ class Main extends openfl.display.Sprite {
 	public function new() {
 		super();
 
+		#if FUTURE_POLYMOD
+		if (!FileSystem.exists('./mods/'))
+			FileSystem.createDirectory('./mods/');
+		if (!FileSystem.exists('mods/mods-go-here.txt'))
+			File.saveContent('mods/mods-go-here.txt', '');
+		#end
+
 		#if windows
 		WindowsAPI.darkMode(true);
 		#end
