@@ -53,11 +53,8 @@ class InitialState extends ExtendableState {
 
 		if (Input.justPressed('accept'))
 			startGame();
-		else {
-			new FlxTimer().start(3, (tmr:FlxTimer) -> {
-				startGame();
-			});
-		}
+		else
+			new FlxTimer().start(3, startGame);
 	}
 
 	function startGame() {
