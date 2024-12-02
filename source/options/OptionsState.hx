@@ -15,7 +15,7 @@ class OptionsState extends ExtendableState {
 	override function create() {
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.scrollFactor.set();
 		bg.screenCenter();
 		add(bg);

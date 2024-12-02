@@ -19,7 +19,7 @@ class TitleState extends ExtendableState {
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
+		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));

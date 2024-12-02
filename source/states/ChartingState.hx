@@ -80,7 +80,7 @@ class ChartingState extends ExtendableState {
 		loadSong(Paths.formatToSongPath(song.song));
 		beatSnap = Conductor.stepsPerSection;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('gameplay/bg'));
+		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('gameplay/bg'));
 		bg.color = 0xFF444444;
 		add(bg);
 

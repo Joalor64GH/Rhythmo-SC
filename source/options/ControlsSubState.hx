@@ -45,7 +45,7 @@ class ControlsSubState extends ExtendableSubState {
 		camFollow.screenCenter(X);
 		add(camFollow);
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
+		bg = new GameSprite().loadGraphic(Paths.image('menu/backgrounds/options_bg'));
 		bg.scrollFactor.set();
 		bg.screenCenter();
 		bg.color = 0xFFac21ff;
