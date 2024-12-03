@@ -219,5 +219,38 @@ function create() {
 	otherScript.createSprite(0, 0, 'sprite');
 }
 ```
+
+### Using a Custom Shader
+```hx
+import('flixel.addons.display.FlxRuntimeShader');
+import('openfl.filters.ShaderFilter');
+import('openfl.utils.Assets');
+import('flixel.FlxG');
+import('backend.Paths');
+
+var shader:FlxRuntimeShader;
+var shader2:FlxRunTimeShader;
+
+function create() {
+	shader = new FlxRuntimeShader(Assets.getText(Paths.frag('rain')), null);
+	shader.setFloat('uTime', 0);
+	shader.setFloatArray('uScreenResolution', [FlxG.width, FlxG.height]);
+	shader.setFloat('uScale', FlxG.height / 200);
+	shader.setFloat("uIntensity", 0.5);
+	shader2 = new ShaderFilter(shader);
+	FlxG.camera.filters = [shader2];
+}
+
+function update(elapsed:Float) {
+	shader.setFloat("uTime", shader.getFloat("uTime") + elapsed);
+	shader.setFloatArray("uCameraBounds", [
+		FlxG.camera.scroll.x + FlxG.camera.viewMarginX,
+		FlxG.camera.scroll.y + FlxG.camera.viewMarginY,
+		FlxG.camera.scroll.x + FlxG.camera.width,
+		FlxG.camera.scroll.y + FlxG.camera.height
+	]);
+}
+
+```
 ## Need Help?
 If you need any general help or something goes wrong with your script, report an issue [here](https://github.com/Joalor64GH/Rhythmo-SC/issues).
