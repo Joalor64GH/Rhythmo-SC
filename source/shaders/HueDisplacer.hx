@@ -67,13 +67,18 @@ class HueDisplacerShader extends FlxGraphicsShader {
 			}
 			return vec4(0.0, 0.0, 0.0, 0.0);
 		}
+	
+
 
 		uniform float uTime;
 		uniform float money;
 		uniform bool awesomeOutline;
 
+
 		const float offset = 1.0 / 128.0;
 		
+		
+
 		vec3 normalizeColor(vec3 color)
 		{
 			return vec3(
@@ -90,7 +95,7 @@ class HueDisplacerShader extends FlxGraphicsShader {
 			vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
 
 			float d = q.x - min(q.w, q.y);
-			float e = 1.0e - 10;
+			float e = 1.0e-10;
 			return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 		}
 
@@ -104,13 +109,21 @@ class HueDisplacerShader extends FlxGraphicsShader {
 		void main()
 		{
 			vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
+
 			vec4 swagColor = vec4(rgb2hsv(vec3(color[0], color[1], color[2])), color[3]);
 			
+			// [0] is the hue???
 			swagColor[0] += uTime;
+			// swagColor[1] += uTime;
+
+			// money += swagColor[0];
+
 			color = vec4(hsv2rgb(vec3(swagColor[0], swagColor[1], swagColor[2])), swagColor[3]);
+			
 
 			if (awesomeOutline)
 			{
+				// Outline bullshit?
 				vec2 size = vec2(3, 3);
 
 				if (color.a <= 0.5) {
@@ -123,10 +136,29 @@ class HueDisplacerShader extends FlxGraphicsShader {
 					|| flixel_texture2D(bitmap, vec2(openfl_TextureCoordv.x, openfl_TextureCoordv.y - h)).a != 0.)
 						color = vec4(1.0, 1.0, 1.0, 1.0);
 				}
+
+
 			}
+
+		
 			
 			gl_FragColor = color;
 			
+			
+			/* 
+			if (color.a > 0.5)
+				gl_FragColor = color;
+			else
+			{
+				float a = flixel_texture2D(bitmap, vec2(openfl_TextureCoordv + offset, openfl_TextureCoordv.y)).a +
+						flixel_texture2D(bitmap, vec2(openfl_TextureCoordv, openfl_TextureCoordv.y - offset)).a +
+						flixel_texture2D(bitmap, vec2(openfl_TextureCoordv - offset, openfl_TextureCoordv.y)).a +
+						flixel_texture2D(bitmap, vec2(openfl_TextureCoordv, openfl_TextureCoordv.y + offset)).a;
+				if (color.a < 1.0 && a > 0.0)
+					gl_FragColor = vec4(0.0, 0.0, 0.0, 0.8);
+				else
+					gl_FragColor = color;
+			} */
 		}')
 	@:glVertexSource('
 		attribute float openfl_Alpha;
@@ -153,14 +185,17 @@ class HueDisplacerShader extends FlxGraphicsShader {
 		void main(void)
 		{
 			openfl_Alphav = openfl_Alpha;
-		    openfl_TextureCoordv = openfl_TextureCoord;
+		openfl_TextureCoordv = openfl_TextureCoord;
 
-		    if (openfl_HasColorTransform) {
-			    openfl_ColorMultiplierv = openfl_ColorMultiplier;
-			    openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
-		    }
+		if (openfl_HasColorTransform) {
 
-		    gl_Position = openfl_Matrix * openfl_Position;
+			openfl_ColorMultiplierv = openfl_ColorMultiplier;
+			openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
+
+		}
+
+		gl_Position = openfl_Matrix * openfl_Position;
+
 			
 			openfl_Alphav = openfl_Alpha * alpha;
 			
