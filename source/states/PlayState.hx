@@ -653,7 +653,7 @@ class PlayState extends ExtendableState {
 			remove(i);
 		var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
 			Math.round(Conductor.songPosition - note.strum) + ' ms');
-		precision..cameras = [camHUD];
+		precision.cameras = [camHUD];
 		precision.setFormat(Paths.font('vcr.ttf'), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		precision.screenCenter(X);
 		FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
