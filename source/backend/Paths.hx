@@ -150,6 +150,12 @@ class Paths {
 	inline static public function script(key:String)
 		return file('$key.hxs');
 
+	inline static public function frag(key:String)
+		return file('shaders/$key.frag');
+
+	inline static public function vert(key:String)
+		return file('shaders/$key.vert');
+
 	static public function sound(key:String, ?cache:Bool = true):Sound
 		return returnSound('sounds/$key', cache);
 

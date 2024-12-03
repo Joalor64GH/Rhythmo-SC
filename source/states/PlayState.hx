@@ -58,6 +58,9 @@ class PlayState extends ExtendableState {
 
 	public var coolBG:FlxSprite;
 
+	public var camHUD:FlxCamera;
+	public var camGame:FlxCamera;
+
 	var isPerfect:Bool = true;
 
 	override public function new() {
@@ -84,6 +87,13 @@ class PlayState extends ExtendableState {
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
+		camGame = new FlxCamera();
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camHUD, false);
+
 		persistentUpdate = persistentDraw = true;
 
 		if (songMultiplier < 0.1)
@@ -95,6 +105,7 @@ class PlayState extends ExtendableState {
 			speed = 0.1;
 
 		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('gameplay/bg'));
+		bg.cameras = [camGame];
 		add(bg);
 
 		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
@@ -104,12 +115,15 @@ class PlayState extends ExtendableState {
 			add(coolBG);
 
 		strumline = new FlxTypedGroup<Note>();
+		strumline.cameras = [camHUD];
 		add(strumline);
 
 		notes = new FlxTypedGroup<Note>();
+		notes.cameras = [camHUD];
 		add(notes);
 
 		noteSplashes = new FlxTypedGroup<NoteSplash>();
+		noteSplashes.cameras = [camHUD];
 		add(noteSplashes);
 
 		var noteWidth:Float = 200;
@@ -140,14 +154,17 @@ class PlayState extends ExtendableState {
 
 		scoreTxt = new FlxText(0, (FlxG.height * (SaveData.settings.downScroll ? 0.11 : 0.89)) + 20, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font('vcr.ttf'), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.cameras = [camHUD];
 		scoreTxt.screenCenter(X);
 
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
 		judgementCounter.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementCounter.cameras = [camHUD];
 		judgementCounter.screenCenter(Y);
 		add(judgementCounter);
 
 		timeBar = new Bar(0, 0, FlxG.width, 10, FlxColor.WHITE, FlxColor.fromRGB(30, 144, 255));
+		timeBar.cameras = [camHUD];
 		timeBar.screenCenter(X);
 		timeBar.y = (SaveData.settings.downScroll) ? scoreTxt.y : FlxG.height - 20;
 		add(timeBar);
@@ -155,6 +172,7 @@ class PlayState extends ExtendableState {
 
 		timeTxt = new FlxText(20, timeBar.y - 5, 0, "[-:--/-:--]", 20);
 		timeTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.cameras = [camHUD];
 		add(timeTxt);
 
 		var ratingDisplayYPos:Float = 80;
@@ -165,6 +183,7 @@ class PlayState extends ExtendableState {
 		ratingDisplayYPos -= 20;
 
 		ratingDisplay = new Rating(0, 0);
+		ratingDisplay.cameras = [camHUD];
 		ratingDisplay.screenCenter();
 		ratingDisplay.alpha = 0;
 		add(ratingDisplay);
@@ -220,6 +239,7 @@ class PlayState extends ExtendableState {
 			Conductor.songPosition = -Conductor.crochet * 5;
 			FlxG.sound.play(Paths.sound('cDown3'));
 			countdown3 = new GameSprite().loadGraphic(Paths.image('gameplay/three'));
+			countdown3.cameras = [camHUD];
 			countdown3.screenCenter();
 			add(countdown3);
 			FlxTween.tween(countdown3, {alpha: 0}, Conductor.crochet / 1000, {
@@ -228,6 +248,7 @@ class PlayState extends ExtendableState {
 					countdown3.destroy();
 					FlxG.sound.play(Paths.sound('cDown2'));
 					countdown2 = new GameSprite().loadGraphic(Paths.image('gameplay/two'));
+					countdown2.cameras = [camHUD];
 					countdown2.screenCenter();
 					add(countdown2);
 					FlxTween.tween(countdown2, {alpha: 0}, Conductor.crochet / 1000, {
@@ -236,6 +257,7 @@ class PlayState extends ExtendableState {
 							countdown2.destroy();
 							FlxG.sound.play(Paths.sound('cDown1'));
 							countdown1 = new GameSprite().loadGraphic(Paths.image('gameplay/one'));
+							countdown1.cameras = [camHUD];
 							countdown1.screenCenter();
 							add(countdown1);
 							FlxTween.tween(countdown1, {alpha: 0}, Conductor.crochet / 1000, {
@@ -244,6 +266,7 @@ class PlayState extends ExtendableState {
 									countdown1.destroy();
 									FlxG.sound.play(Paths.sound('cDownGo'));
 									go = new GameSprite().loadGraphic(Paths.image('gameplay/go'));
+									go.cameras = [camHUD];
 									go.screenCenter();
 									add(go);
 									strumline.forEachAlive((strum:FlxSprite) -> {
@@ -365,9 +388,12 @@ class PlayState extends ExtendableState {
 		if (lastBeatHit >= curBeat)
 			return;
 
-		if (camZooming && FlxG.sound.music.playing)
-			if (curBeat % (song.timeSignature[0] / 2) == 0)
-				FlxTween.tween(FlxG.camera, {zoom: 1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		if (camZooming && FlxG.sound.music.playing) {
+			if (curBeat % (song.timeSignature[0] / 2) == 0) {
+				FlxTween.tween(FlxG.camera, {zoom: 1.05}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+				FlxTween.tween(camHUD, {zoom: 1}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+			}
+		}
 
 		lastBeatHit = curBeat;
 		callOnScripts('beatHit', [curBeat]);
@@ -627,6 +653,7 @@ class PlayState extends ExtendableState {
 			remove(i);
 		var precision:FlxText = new FlxText(0, ((SaveData.settings.downScroll) ? -250 : 250), FlxG.width,
 			Math.round(Conductor.songPosition - note.strum) + ' ms');
+		precision..cameras = [camHUD];
 		precision.setFormat(Paths.font('vcr.ttf'), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		precision.screenCenter(X);
 		FlxTween.tween(precision, {y: (SaveData.settings.downScroll ? -260 : 260)}, 0.01, {ease: FlxEase.bounceOut});
@@ -636,6 +663,7 @@ class PlayState extends ExtendableState {
 			var numScore:FlxSprite = new GameSprite();
 			numScore.loadGraphic(Paths.image('gameplay/num' + Std.int(i) + ((isPerfect) ? '-golden' : '')));
 			numScore.scale.set(0.5, 0.5);
+			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = (FlxG.width * 0.65) + (60 * daLoop) - 160;
 			numScore.y = (SaveData.settings.downScroll) ? ratingDisplay.y - 140 : ratingDisplay.y + 120;

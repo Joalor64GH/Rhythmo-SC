@@ -13,9 +13,9 @@
 * [ ] Fix Controls settings (Also the controls will crash when enter ACCEPT or something)
 * [ ] Make a better charting menu (optional)
 * [ ] Rewrite the gameplay (like note too far for each one)
+* [X] Shader Support
 
 ## Future To-Dos
-* [ ] Shader Support
 * [ ] Sustain Notes + New song
 * [ ] Improve Chart Editor
 * [ ] Silly Visualizer Option

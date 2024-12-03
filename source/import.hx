@@ -5,6 +5,7 @@ import flixel.util.*;
 import flixel.math.*;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.display.FlxRuntimeShader;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -38,6 +39,7 @@ import substates.*;
 import backend.*;
 import modding.*;
 import objects.*;
+import shaders.*;
 
 using Globals;
 using StringTools;

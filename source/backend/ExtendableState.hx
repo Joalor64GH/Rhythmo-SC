@@ -5,8 +5,8 @@ import backend.Conductor.TimeScaleChangeEvent;
 import flixel.addons.transition.FlxTransitionableState;
 
 class ExtendableState extends FlxState {
-	var curBeat:Int = 0;
-	var curStep:Int = 0;
+	public var curBeat:Int = 0;
+	public var curStep:Int = 0;
 
 	override function create() {
 		super.create();

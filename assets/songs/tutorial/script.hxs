@@ -1,7 +1,18 @@
 import('flixel.text.FlxText');
+import('flixel.tweens.FlxTween');
+import('flixel.tweens.FlxEase');
+import('backend.Conductor');
 import('states.PlayState');
 
+var txt:FlxText;
+
 function create() {
-    var txt:FlxText = new FlxText(0, 0, 0, "Hit the notes to the beat of the song!", 48).screenCenter();
-    PlayState.instance.add(txt);
+	txt = new FlxText(0, 0, 0, "Hit the notes to the beat of the song!", 48).screenCenter();
+	PlayState.instance.add(txt);
+}
+
+function beatHit(curBeat:Int) {
+	if (curBeat >= 0) {
+		FlxTween.tween(txt, {alpha: 0}, Conductor.crochet / 1000, {ease: FlxEase.quadOut});
+	}
 }

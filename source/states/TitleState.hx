@@ -2,12 +2,15 @@ package states;
 
 class TitleState extends ExtendableState {
 	var lockInputs:Bool = false;
+	var hueShader:HueDisplacer;
 
 	override function create() {
 		super.create();
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
+		hueShader = new HueDisplacer();
 
 		#if FUTURE_POLYMOD
 		if (ModHandler.trackedMods.length > 0) {
@@ -20,6 +23,7 @@ class TitleState extends ExtendableState {
 			FlxG.sound.playMusic(Paths.music('Basically_Professionally_Musically'), 0.75);
 
 		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('menu/backgrounds/title_bg'));
+		bg.shader = hueShader.shader;
 		add(bg);
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
@@ -30,6 +34,7 @@ class TitleState extends ExtendableState {
 		add(audio);
 
 		var logo:FlxSprite = new GameSprite().loadGraphic(Paths.image('menu/title/logo'));
+		logo.shader = hueShader.shader;
 		logo.scale.set(0.7, 0.7);
 		logo.screenCenter();
 		logo.angle = -4;
@@ -52,6 +57,9 @@ class TitleState extends ExtendableState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (Input.pressed('left') || Input.pressed('right'))
+			hueShader.update(Input.pressed('left') ? elapsed * 0.1 : -elapsed * 0.1);
 
 		if (Input.justPressed('accept') && !lockInputs) {
 			lockInputs = true;

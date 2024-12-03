@@ -1,4 +1,4 @@
-package objects;
+package shaders;
 
 class NoteColors {
 	public static var noteColors:Array<Array<Int>> = SaveData.settings.notesRGB;

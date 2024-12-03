@@ -3,8 +3,8 @@ package backend;
 import backend.Conductor.BPMChangeEvent;
 
 class ExtendableSubState extends FlxSubState {
-	var curStep:Int = 0;
-	var curBeat:Int = 0;
+	public var curStep:Int = 0;
+	public var curBeat:Int = 0;
 
 	override function create() {
 		super.create();

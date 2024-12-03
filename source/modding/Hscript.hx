@@ -126,6 +126,7 @@ class Hscript extends FlxBasic {
 		setVariable('FlxGroup', FlxGroup);
 		setVariable('FlxMath', FlxMath);
 		setVariable('FlxObject', FlxObject);
+		setVariable('FlxRuntimeShader', FlxRuntimeShader);
 		setVariable('FlxSave', FlxSave);
 		setVariable('FlxSort', FlxSort);
 		setVariable('FlxSound', FlxSound);
