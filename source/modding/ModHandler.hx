@@ -21,6 +21,8 @@ class ModHandler {
 		'json' => TEXT,
 		'txt' => TEXT,
 		'hxs' => TEXT,
+		'frag' => TEXT,
+		'vert' => TEXT,
 		'ttf' => FONT,
 		'otf' => FONT
 	];

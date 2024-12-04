@@ -8,9 +8,9 @@
 	<!-- [ Window Settings ] -->
 
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" allow-high-dpi="true" />
 	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true" />
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
+	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" allow-high-dpi="true" />
 
 	<!-- [ Custom Defines ] -->
 
