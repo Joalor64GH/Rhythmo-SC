@@ -14,9 +14,10 @@ Mostly based on [FNF](https://github.com/FunkinCrew/Funkin/), go check that out!
 * Language Translations
 * Simple Crash Handler
 * Achievements
+* Shaders
 
 ## Credits
 * Joalor64 - Creator / Main Programmer / Composer / Artist
-* Nostalic - Additional Programmer
+* Huy1234Th - Additional Programmer
 * Moxie - Additional Programmer
 * freesound.org - SFX

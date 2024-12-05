@@ -68,6 +68,8 @@ class ChartingState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Main.fpsOnRight = true;
+
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		

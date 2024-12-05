@@ -79,6 +79,8 @@ class PlayState extends ExtendableState {
 	override function create() {
 		super.create();
 
+		Main.fpsOnRight = false;
+
 		Paths.clearStoredMemory();
 
 		if (FlxG.sound.music != null)

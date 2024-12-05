@@ -147,7 +147,7 @@ class Paths {
 	inline static public function xml(key:String)
 		return file('$key.xml');
 
-	inline static public function script(key:String)
+	inline static public function hxs(key:String)
 		return file('$key.hxs');
 
 	inline static public function frag(key:String)
@@ -220,11 +220,11 @@ class Paths {
 			return currentTrackedAssets.get(path);
 		}
 
-		trace('oops! $key returned null');
+		trace('oops! graphic $key returned null');
 		return null;
 	}
 
-	public static function returnSound(key:String, ?cache:Bool = true):Sound {
+	public static function returnSound(key:String, ?cache:Bool = true, ?beepOnNull:Bool = true):Sound {
 		for (i in SOUND_EXT) {
 			if (Assets.exists(file('$key.$i'), SOUND)) {
 				var path:String = file('$key.$i');
@@ -233,10 +233,13 @@ class Paths {
 
 				localTrackedAssets.push(path);
 				return currentTrackedSounds.get(path);
+			} else if (beepOnNull) {
+				trace('oops! sound $key returned null');
+				return flixel.system.FlxAssets.getSound('flixel/sounds/beep');
 			}
 		}
 
-		trace('oops! $key returned null');
+		trace('oops! sound $key returned null');
 		return null;
 	}
 }
