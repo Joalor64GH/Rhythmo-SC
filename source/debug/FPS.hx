@@ -4,20 +4,10 @@ import openfl.text.*;
 import openfl.events.Event;
 
 class FPS extends TextField {
-	public var onRight(default, set):Bool = false;
 	public var borderSize:Int = 1;
 
 	private final borders:Array<TextField> = new Array<TextField>();
 	private var times:Array<Float> = [];
-
-	var xStart:Float = 10.0;
-
-	public function set_onRight(value:Bool):Bool {
-		var align:TextFormat = new TextFormat();
-		align.align = (value ? "right" : "left");
-		setTextFormat(align);
-		return onRight = value;
-	}
 
 	public function new(x:Float, y:Float, color:Int, ?font:String) {
 		super();
@@ -35,7 +25,6 @@ class FPS extends TextField {
 
 		text = "";
 		this.x = x;
-		xStart = x;
 		this.y = y;
 		width = 1280;
 		height = 720;
@@ -53,16 +42,7 @@ class FPS extends TextField {
 			if (mem > memPeak)
 				memPeak = mem;
 
-			if (visible) {
-				if (onRight) {
-					x = Application.current.window.width - width - xStart;
-					for (border in borders)
-						border.x = Application.current.window.width - width - xStart;
-				} else
-					x = xStart;
-				
-				text = 'FPS: ${times.length}\nMEM: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}';
-			}
+			text = (visible) ? 'FPS: ${times.length}\nMEM: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' : '';
 
 			textColor = (times.length < FlxG.drawFramerate * 0.5) ? 0xFFFF0000 : 0xFFFFFFFF;
 		});

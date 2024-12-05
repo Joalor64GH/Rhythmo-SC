@@ -23,8 +23,6 @@ class Main extends openfl.display.Sprite {
 	};
 
 	public static var fpsDisplay:FPS;
-	public static var fpsOnRight(default, set):Bool = false;
-
 	public static var toast:ToastCore;
 
 	public function new() {
@@ -182,12 +180,6 @@ class Main extends openfl.display.Sprite {
 
 			FlxG.drawFramerate = config.defaultFPS;
 		}
-	}
-
-	public static function set_fpsOnRight(value:Bool):Bool {
-		fpsOnRight = value;
-		fpsDisplay.onRight = value;
-		return value;
 	}
 
 	public static function updateFramerate(newFramerate:Int) {

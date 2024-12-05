@@ -133,10 +133,10 @@ class Paths {
 	}
 
 	inline public static function getTextArray(path:String):Array<String>
-		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
+		return exists(path) ? [for (i in getText(path).trim().split('\n')) i.trim()] : [];
 
 	static public function getTextFromFile(key:String):String
-		return (exists(file(key))) ? getText(file(key)) : null;
+		return exists(file(key)) ? getText(file(key)) : null;
 
 	inline static public function txt(key:String)
 		return file('$key.txt');
