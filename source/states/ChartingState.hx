@@ -169,7 +169,7 @@ class ChartingState extends ExtendableState {
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2, gridBG.y).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
-		strumLine = new FlxSprite(gridBG.x, 50).makeGraphic(gridBG.width, 4);
+		strumLine = new FlxSprite(gridBG.x, 50).makeGraphic(Std.int(gridBG.width), 4);
 		add(strumLine);
 
 		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-rc1 // Functionality is subject to change.', 12);
