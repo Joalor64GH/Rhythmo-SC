@@ -88,7 +88,7 @@ class ChartingState extends ExtendableState {
 		gridBG.screenCenter();
 		add(gridBG);
 
-		dummyArrow = new GameSprite().makeGraphic(gridSize, gridSize);
+		dummyArrow = new FlxSprite().makeGraphic(gridSize, gridSize);
 		add(dummyArrow);
 
 		renderedNotes = new FlxTypedGroup<Note>();
@@ -153,9 +153,7 @@ class ChartingState extends ExtendableState {
 		});
 		add(clearSongButton);
 
-		loadSongButton = new FlxButton(FlxG.width - 110, 190, "Load Song", () -> {
-			openSubState(new LoadSongSubState());
-		});
+		loadSongButton = new FlxButton(FlxG.width - 110, 190, "Load Song", () -> openSubState(new LoadSongSubState()));
 		add(loadSongButton);
 
 		loadSongFromButton = new FlxButton(FlxG.width - 110, 220, "Load JSON", loadSongFromFile);
@@ -171,7 +169,7 @@ class ChartingState extends ExtendableState {
 		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width / 2, gridBG.y).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
-		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
+		strumLine = new FlxSprite(gridBG.x, 50).makeGraphic(gridBG.width, 4);
 		add(strumLine);
 
 		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-rc1 // Functionality is subject to change.', 12);
@@ -267,8 +265,8 @@ class ChartingState extends ExtendableState {
 			+ curBeat
 			+ "\nNote Snap: "
 			+ beatSnap
-			+ (Input.pressed('shift') ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
-			+ "\n");
+			+ "\n" + (Input.pressed('shift') ? "(DISABLED)" : "(CONTROL + ARROWS)")
+		);
 	}
 
 	function loadSong(daSong:String):Void {
