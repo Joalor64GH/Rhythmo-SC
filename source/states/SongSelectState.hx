@@ -166,7 +166,7 @@ class SongSelectState extends ExtendableState {
 						lockInputs = false;
 						titleTxt.color = FlxColor.WHITE;
 						titleTxt.text = songListData.songs[currentIndex].name;
-						panelTxt.text = Localization.get("scoreTxt") + lerpScore "(" + ratingSplit.join('.') + "%)" + " // " + Localization.get("diffTxt")
+						panelTxt.text = Localization.get("scoreTxt") + lerpScore + "(" + ratingSplit.join('.') + "%)" + " // " + Localization.get("diffTxt")
 							+ Std.string(songListData.songs[currentIndex].diff) + "/5";
 						tinyTxt.text = Localization.get("tinyGuide");
 						changeSelection();
