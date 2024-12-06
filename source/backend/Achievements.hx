@@ -115,7 +115,7 @@ class Achievements {
 		achBG.scrollFactor.set();
 		sprGroup.add(achBG);
 
-		var achIcon:FlxSprite = new FlxSprite(achBG.x + 10, achBG.y + 10).loadGraphic(Paths.image('achievements/$ach'));
+		var achIcon:FlxSprite = new GameSprite(achBG.x + 10, achBG.y + 10).loadGraphic(Paths.image('achievements/$ach'));
 		achIcon.setGraphicSize(Std.int(achIcon.width * (2 / 3)));
 		achIcon.scrollFactor.set();
 		achIcon.updateHitbox();
