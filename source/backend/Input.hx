@@ -35,11 +35,8 @@ class Input {
 	}
 
 	public static function resetControls() {
-		kBinds = [];
-		gBinds = [];
-
-		kBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
-		gBinds = [
+		SaveData.settings.keyboardBinds = [LEFT, DOWN, UP, RIGHT, A, S, W, D, ENTER, ESCAPE, R];
+		SaveData.settings.gamepadBinds = [
 			DPAD_LEFT,
 			DPAD_DOWN,
 			DPAD_UP,
