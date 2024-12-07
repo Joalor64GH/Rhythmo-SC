@@ -10,7 +10,7 @@
 * [X] Accuracy + Ranking
 * [X] New Controls Menu
 * [X] Fix font for some language can't display correctly
-* [ ] Fix Controls settings (Also the controls will crash when enter ACCEPT or something)
+* [X] Fix Controls settings (In main options menu, press R to reset controls)
 * [ ] Make a better charting menu (optional)
 * [ ] Rewrite the gameplay (like note too far for each one)
 * [X] Shader Support
