@@ -27,7 +27,16 @@ class Hscript extends FlxBasic {
 		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
 		parser.preprocesorValues = MacrosUtil.getDefines();
 
+		// Default Variables
 		setVariable('this', this);
+
+		setVariable('Function_Stop', Function_Stop);
+		setVariable('Function_Continue', Function_Continue);
+
+		setVariable('platform', PlatformUtil.getPlatform());
+		setVariable('version', Lib.application.meta.get('version'));
+
+		// Default Functions
 		setVariable('import', function(daClass:String, ?asDa:String) {
 			final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
 			final className:String = splitClassName.join('.');
@@ -59,19 +68,6 @@ class Hscript extends FlxBasic {
 			trace(value);
 		});
 
-		setVariable('createThread', function(func:Void->Void) {
-			#if sys
-			sys.thread.Thread.create(() -> {
-				func();
-			});
-			#else
-			func();
-			#end
-		});
-
-		setVariable('platform', PlatformUtil.getPlatform());
-		setVariable('version', Lib.application.meta.get('version'));
-
 		setVariable('importScript', function(source:String) {
 			var name:String = StringTools.replace(source, '.', '/');
 			var script:Hscript = new Hscript('$name.hxs', false);
@@ -83,41 +79,50 @@ class Hscript extends FlxBasic {
 			this.destroy();
 		});
 
-		setVariable('Function_Stop', Function_Stop);
-		setVariable('Function_Continue', Function_Continue);
-
+		// Haxe
 		setVariable('Array', Array);
 		setVariable('Bool', Bool);
 		setVariable('Date', Date);
 		setVariable('DateTools', DateTools);
 		setVariable('Dynamic', Dynamic);
 		setVariable('EReg', EReg);
+		#if sys
+		setVariable('File', File);
+		setVariable('FileSystem', FileSystem);
+		#end
 		setVariable('Float', Float);
 		setVariable('Int', Int);
+		setVariable('Json', Json);
 		setVariable('Lambda', Lambda);
 		setVariable('Math', Math);
+		setVariable('Path', Path);
 		setVariable('Reflect', Reflect);
 		setVariable('Std', Std);
 		setVariable('StringBuf', StringBuf);
 		setVariable('String', String);
 		setVariable('StringTools', StringTools);
-		#if sys
 		setVariable('Sys', Sys);
-		#end
 		setVariable('Type', Type);
 		setVariable('Xml', Xml);
+		
+		setVariable('createThread', function(func:Void->Void) {
+			#if sys
+			sys.thread.Thread.create(() -> {
+				func();
+			});
+			#else
+			func();
+			#end
+		});
 
-		setVariable('Achievements', Achievements);
-		setVariable('Application', Application);
+		// OpenFL
 		setVariable('Assets', Assets);
-		setVariable('Bar', Bar);
-		setVariable('Conductor', Conductor);
-		setVariable('ExtendableState', ExtendableState);
-		setVariable('ExtendableSubState', ExtendableSubState);
-		#if sys
-		setVariable('File', File);
-		setVariable('FileSystem', FileSystem);
-		#end
+		setVariable('BitmapData', BitmapData);
+		setVariable('Lib', Lib);
+		setVariable('ShaderFilter', ShaderFilter);
+		setVariable('Sound', Sound);
+
+		// Flixel
 		setVariable('FlxAtlasFrames', FlxAtlasFrames);
 		setVariable('FlxBackdrop', FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
@@ -140,18 +145,25 @@ class Hscript extends FlxBasic {
 		setVariable('FlxTimer', FlxTimer);
 		setVariable('FlxTween', FlxTween);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
+		setVariable('createTypedGroup', function() {
+			return new FlxTypedGroup<Dynamic>();
+		});
+
+		// Rhythmo
+		setVariable('Achievements', Achievements);
+		setVariable('Bar', Bar);
+		setVariable('Conductor', Conductor);
+		setVariable('ExtendableState', ExtendableState);
+		setVariable('ExtendableSubState', ExtendableSubState);
 		setVariable('GameSprite', GameSprite);
 		setVariable('HighScore', HighScore);
 		setVariable('Input', Input);
-		setVariable('Json', Json);
-		setVariable('Lib', Lib);
 		setVariable('Localization', Localization);
 		setVariable('Main', Main);
 		#if FUTURE_POLYMOD
 		setVariable('ModHandler', ModHandler);
 		#end
 		setVariable('Note', Note);
-		setVariable('Path', Path);
 		setVariable('Paths', Paths);
 		setVariable('PlayState', PlayState);
 		setVariable('Rating', Rating);
