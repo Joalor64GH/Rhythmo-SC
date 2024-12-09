@@ -101,7 +101,9 @@ class Hscript extends FlxBasic {
 		setVariable('StringBuf', StringBuf);
 		setVariable('String', String);
 		setVariable('StringTools', StringTools);
+		#if sys
 		setVariable('Sys', Sys);
+		#end
 		setVariable('Type', Type);
 		setVariable('Xml', Xml);
 		
@@ -278,7 +280,7 @@ class Hscript extends FlxBasic {
 			"interpolate": FlxColor.interpolate,
 			"to24Bit": function(color:Int) {
 				return color & 0xffffff;
-			},
+			}
 		};
 	}
 

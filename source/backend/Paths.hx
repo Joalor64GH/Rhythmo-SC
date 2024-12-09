@@ -7,8 +7,8 @@ import hl.Gc;
 #elseif neko
 import neko.vm.Gc;
 #end
-import openfl.media.Sound;
 import flixel.graphics.FlxGraphic;
+import flixel.system.FlxAssets;
 
 using haxe.io.Path;
 
@@ -150,6 +150,9 @@ class Paths {
 	inline static public function hxs(key:String)
 		return file('$key.hxs');
 
+	inline static public function hxc(key:String)
+		return file('$key.hxc');
+
 	inline static public function frag(key:String)
 		return file('shaders/$key.frag');
 
@@ -235,7 +238,7 @@ class Paths {
 				return currentTrackedSounds.get(path);
 			} else if (beepOnNull) {
 				trace('oops! sound $key returned null');
-				return flixel.system.FlxAssets.getSound('flixel/sounds/beep');
+				return FlxAssets.getSound('flixel/sounds/beep');
 			}
 		}
 

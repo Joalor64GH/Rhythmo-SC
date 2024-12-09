@@ -20,8 +20,10 @@ import flixel.ui.FlxButton;
 
 import openfl.Lib;
 import openfl.Assets;
+import openfl.media.Sound;
 import openfl.system.System;
 import openfl.display.BitmapData;
+import openfl.filters.ShaderFilter;
 
 import lime.app.Application;
 
