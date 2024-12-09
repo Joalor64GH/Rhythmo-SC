@@ -21,8 +21,6 @@ class AchievementsState extends ExtendableState {
 		var mouseSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cursor/cursor'));
 		FlxG.mouse.load(mouseSpr.pixels);
 
-		FlxG.mouse.visible = true;
-
 		camFollow = new FlxObject(80, 0, 0, 0);
 		camFollow.screenCenter(X);
 		add(camFollow);
@@ -89,30 +87,34 @@ class AchievementsState extends ExtendableState {
 			changeSelection(Input.justPressed('up') ? -1 : 1);
 
 		if (Input.justPressed('exit')) {
-			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancel'));
 			ExtendableState.switchState(new MenuState());
 		}
 
 		if (Input.justPressed('reset')) {
+			FlxG.mouse.visible = true;
 			if (Input.pressed('alt')) {
 				openSubState(new PromptSubState('This action will reset ALL of the achievements.\nProceed anyways?', () -> {
+					FlxG.mouse.visible = false;
 					FlxG.sound.play(Paths.sound('select'));
 					for (i in 0...achievementArray.length) {
 						var formattedName:String = StringTools.replace(achievementArray[i].name.toLowerCase(), " ", "_");
 						Achievements.forget(formattedName);
-						regenList();
 					}
+					regenList();
 				}, () -> {
+					FlxG.mouse.visible = false;
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
 			} else {
 				openSubState(new PromptSubState('This action will reset the selected achievement.\nProceed anyways?', () -> {
+					FlxG.mouse.visible = false;
 					FlxG.sound.play(Paths.sound('select'));
 					var formattedName:String = StringTools.replace(achievementArray[curSelected].name.toLowerCase(), " ", "_");
 					Achievements.forget(formattedName);
 					regenList();
 				}, () -> {
+					FlxG.mouse.visible = false;
 					FlxG.sound.play(Paths.sound('cancel'));
 				}));
 			}

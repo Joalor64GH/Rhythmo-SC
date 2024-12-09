@@ -108,6 +108,8 @@ class ModHandler {
 		output.addType("txt", TextFileFormat.LINES);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		output.addType("hxc", TextFileFormat.PLAINTEXT);
+		output.addType("frag", TextFileFormat.PLAINTEXT);
+		output.addType("vert", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
 	}
 

@@ -172,10 +172,10 @@ class ChartingState extends ExtendableState {
 		strumLine = new FlxSprite(gridBG.x, 50).makeGraphic(Std.int(gridBG.width), 4);
 		add(strumLine);
 
-		var prototypeNotice:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-rc1 // Functionality is subject to change.', 12);
-		prototypeNotice.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		prototypeNotice.scrollFactor.set();
-		add(prototypeNotice);
+		var charterVer:FlxText = new FlxText(5, FlxG.height - 24, 0, 'Charter v0.2-rc1 // Functionality is subject to change.', 12);
+		charterVer.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		charterVer.scrollFactor.set();
+		add(charterVer);
 	}
 
 	override function update(elapsed:Float) {
