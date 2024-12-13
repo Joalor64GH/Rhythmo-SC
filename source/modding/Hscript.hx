@@ -70,8 +70,8 @@ class Hscript extends FlxBasic {
 
 		setVariable('importScript', function(source:String) {
 			var name:String = StringTools.replace(source, '.', '/');
-			var script:Hscript = new Hscript('$name.hxs', false);
-			script.execute('$name.hxs', false);
+			var script:Hscript = new Hscript(Paths.script(name), false);
+			script.execute(Paths.script(name), false);
 			return script.getAll();
 		});
 

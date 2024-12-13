@@ -20,7 +20,10 @@ class ModHandler {
 		'xml' => TEXT,
 		'json' => TEXT,
 		'txt' => TEXT,
+		'hx' => TEXT,
 		'hxs' => TEXT,
+		'hxc' => TEXT,
+		'hscript' => TEXT,
 		'frag' => TEXT,
 		'vert' => TEXT,
 		'ttf' => FONT,
@@ -52,12 +55,8 @@ class ModHandler {
 			},
 			parseRules: getParseRules(),
 			extensionMap: extensions,
-			ignoredFiles: Polymod.getDefaultIgnoreList(),
-			useScriptedClasses: true,
-			loadScriptsAsync: #if html5 true #else false #end,
+			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
-
-		buildImports();
 
 		if (loadedModlist == null)
 			return;
@@ -66,13 +65,6 @@ class ModHandler {
 
 		for (mod in loadedModlist)
 			trace('Name: ${mod.title}, [${mod.id}]');
-	}
-
-	public static function buildImports():Void {
-		Polymod.addImportAlias("Paths", backend.Paths);
-		Polymod.blacklistImport('Sys');
-		Polymod.blacklistImport('Reflect');
-		Polymod.blacklistImport('Type');
 	}
 
 	public static function getMods():Array<String> {
@@ -106,8 +98,10 @@ class ModHandler {
 	public static function getParseRules():ParseRules {
 		final output:ParseRules = ParseRules.getDefault();
 		output.addType("txt", TextFileFormat.LINES);
+		output.addType("hx", TextFileFormat.PLAINTEXT);
 		output.addType("hxs", TextFileFormat.PLAINTEXT);
 		output.addType("hxc", TextFileFormat.PLAINTEXT);
+		output.addType("hscript", TextFileFormat.PLAINTEXT);
 		output.addType("frag", TextFileFormat.PLAINTEXT);
 		output.addType("vert", TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;

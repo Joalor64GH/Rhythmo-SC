@@ -3,6 +3,12 @@ Scripts in Rhythmo can be active in only one song, or be applied globally to eve
 Your script should either be located in `assets/scripts/[name].hxs`, or in `assets/songs/[song-name]/[name].hxs`. <br>
 However, if your script is a scripted state or substate, it should be located in `assets/classes/[name].hxs`.
 
+But also, it doesn't have to be an `.hxs` file. <br>
+The following extensions are also supported: 
+* `.hx`
+* `.hxc`
+* `.hscript`
+
 ## Limitations
 The following are not supported:
 * Keywords:
@@ -130,6 +136,21 @@ function create() {
 }
 ```
 
+#### Animated Sprite
+```hx
+import('flixel.FlxSprite');
+import('states.PlayState');
+import('backend.Paths');
+
+function create() {
+	var spr:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('gameplay/banan'), true, 102, 103);
+	spr.animation.add('rotate', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 14);
+	spr.animation.play('rotate');
+	spr.screenCenter();
+	PlayState.instance.add(spr);
+}
+```
+
 ### FlxText
 ```hx
 import('flixel.text.FlxText');
@@ -213,7 +234,7 @@ function createSprite(x:Float, y:Float, graphic:String) {
 
 Script 2:
 ```hx
-var otherScript = importScript('assets.helpers.spriteHandler');
+var otherScript = importScript('helpers.spriteHandler');
 
 function create() {
 	otherScript.createSprite(0, 0, 'sprite');

@@ -46,16 +46,16 @@ Each folder in your mod should be used as follows:
 * `languages` - For storing language data.
 * `music` - Non-gameplay related music.
 * `scripts` - Scripts that run on every song.
-* `shaders` - `.frag` or `.vert` shader file that create cool immersive visuals.
+* `shaders` - `.frag` or `.vert` shader files that create cool immersive visuals.
 * `songs` - Songs used for gameplay.
 	* `songs/[song-name]/chart.json` - Your song's chart.
 	* `songs/[song-name]/music.ogg` - Your song's music. Can also be a `.wav`.
-	* `songs/[song-name]/[script-name].hxs` or `songs/[song-name]/[script-name].hxc` - Song-specific script(s).
+	* `songs/[song-name]/[script-name].[script-extension]` - Song-specific script(s).
 * `sounds` - All sound effects.
 
 Also, when it's neccessary, delete any folders you don't need.
 
 For further documentation, check out [polymod.io](https://polymod.io/docs/).
 
-## Quick Example
-Here's a quick example by [EliteMasterEric](https://twitter.com/EliteMasterEric) » [here](https://github.com/EnigmaEngine/ModCore-Tricky-Mod) «
+## Example Mod
+Here's a simple example mod by [EliteMasterEric](https://twitter.com/EliteMasterEric) » [here](https://github.com/EnigmaEngine/ModCore-Tricky-Mod) «

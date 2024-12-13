@@ -24,7 +24,9 @@ enum SpriteSheetType {
 @:access(openfl.display.BitmapData)
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
-	public static final SOUND_EXT:Array<String> = ['ogg', 'wav'];
+
+	public static final SOUND_EXT:Array<String> = ['.ogg', '.wav'];
+	public static final HSCRIPT_EXT:Array<String> = ['.hx', '.hxs', '.hxc', '.hscript'];
 
 	public static final getText:String->String = #if sys File.getContent #else Assets.getText #end;
 
@@ -147,11 +149,13 @@ class Paths {
 	inline static public function xml(key:String)
 		return file('$key.xml');
 
-	inline static public function hxs(key:String)
+	inline static public function script(key:String) {
+		for (ext in HSCRIPT_EXT) {
+			if (exists(file(key + ext)))
+				return file(key + ext);
+		}
 		return file('$key.hxs');
-
-	inline static public function hxc(key:String)
-		return file('$key.hxc');
+	}
 
 	inline static public function frag(key:String)
 		return file('shaders/$key.frag');
@@ -229,8 +233,8 @@ class Paths {
 
 	public static function returnSound(key:String, ?cache:Bool = true, ?beepOnNull:Bool = true):Sound {
 		for (i in SOUND_EXT) {
-			if (Assets.exists(file('$key.$i'), SOUND)) {
-				var path:String = file('$key.$i');
+			if (Assets.exists(file(key + i), SOUND)) {
+				var path:String = file(key + i);
 				if (!currentTrackedSounds.exists(path))
 					currentTrackedSounds.set(path, Assets.getSound(path, cache));
 

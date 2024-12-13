@@ -22,8 +22,10 @@ class ScriptedSubState extends ExtendableSubState {
 			for (folder in folders) {
 				if (FileSystem.exists(folder)) {
 					for (file in FileSystem.readDirectory(folder)) {
-						if (file.startsWith(path) && file.endsWith('.hxs')) {
-							path = folder + file;
+						for (scriptExt in Paths.HSCRIPT_EXT) {
+							if (file.startsWith(path) && file.endsWith(scriptExt)) {
+								path = folder + file;
+							}
 						}
 					}
 				}
