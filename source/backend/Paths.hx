@@ -25,10 +25,10 @@ enum SpriteSheetType {
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
-	public static final SOUND_EXT:Array<String> = ['.ogg', '.wav'];
-	public static final HSCRIPT_EXT:Array<String> = ['.hx', '.hxs', '.hxc', '.hscript'];
-
 	public static final getText:String->String = #if sys File.getContent #else Assets.getText #end;
+
+	public static var SOUND_EXT:Array<String> = ['.ogg', '.wav'];
+	public static var HSCRIPT_EXT:Array<String> = ['.hx', '.hxs', '.hxc', '.hscript'];
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
