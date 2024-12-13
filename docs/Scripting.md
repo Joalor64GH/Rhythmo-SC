@@ -85,7 +85,6 @@ Otherwise, here is a list of the current classes you can use that are already im
 * `FlxBasic`
 * `FlxCamera`
 * `FlxColor`
-    * Fun Fact, `FlxColor` is actually an abstract type which isn't normally supported by `hscript`. Luckily, I figured out a little workaround so you can still use `FlxColor` normally, or you can just use plain hex color values.
 * `FlxEase`
 * `FlxG`
 * `FlxGroup`
