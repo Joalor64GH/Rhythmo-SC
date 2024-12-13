@@ -150,11 +150,12 @@ class Paths {
 		return file('$key.xml');
 
 	inline static public function script(key:String) {
-		for (ext in HSCRIPT_EXT) {
-			if (exists(file(key + ext)))
-				return file(key + ext);
-		}
-		return file('$key.hxs');
+		var extension = '.hxs';
+		
+		for (ext in HSCRIPT_EXT)
+			extension = (exists(file(key + ext))) ? ext : extension;
+		
+		return file(key + extension);
 	}
 
 	inline static public function frag(key:String)
