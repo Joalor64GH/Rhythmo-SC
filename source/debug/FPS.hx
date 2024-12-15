@@ -5,8 +5,8 @@ import openfl.events.Event;
 
 class FPS extends TextField {
 	public var borderSize:Int = 1;
-
-	private final borders:Array<TextField> = new Array<TextField>();
+	public var borders:Array<TextField> = new Array<TextField>();
+	
 	private var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String) {
@@ -43,7 +43,7 @@ class FPS extends TextField {
 				memPeak = mem;
 
 			text = (visible) ? 'FPS: ${times.length}\nMEM: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' : '';
-
+			
 			textColor = (times.length < FlxG.drawFramerate * 0.5) ? 0xFFFF0000 : 0xFFFFFFFF;
 		});
 

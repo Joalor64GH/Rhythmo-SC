@@ -24,7 +24,6 @@ import openfl.media.Sound;
 import openfl.system.System;
 import openfl.display.BitmapData;
 import openfl.filters.ShaderFilter;
-
 import lime.app.Application;
 
 import haxe.*;
@@ -43,7 +42,6 @@ import modding.*;
 import objects.*;
 import shaders.*;
 
-using Globals;
 using StringTools;
 using backend.Utilities;
 using backend.Utilities.MapUtil;
