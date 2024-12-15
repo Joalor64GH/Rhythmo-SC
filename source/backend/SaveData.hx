@@ -52,9 +52,9 @@ class SaveData {
 
 		Main.updateFramerate(settings.framerate);
 
-		FlxG.sound.muteKeys = [NUMPADZERO];
-		FlxG.sound.volumeDownKeys = [NUMPADMINUS];
-		FlxG.sound.volumeUpKeys = [NUMPADPLUS];
+		FlxG.sound.muteKeys = [NUMPADZERO, ZERO];
+		FlxG.sound.volumeDownKeys = [NUMPADMINUS, MINUS];
+		FlxG.sound.volumeUpKeys = [NUMPADPLUS, PLUS];
 	}
 
 	public static function saveSettings() {
