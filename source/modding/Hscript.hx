@@ -25,7 +25,7 @@ class Hscript extends FlxBasic {
 		super();
 
 		parser.allowJSON = parser.allowTypes = parser.allowMetadata = true;
-		parser.preprocesorValues = MacrosUtil.getDefines();
+		parser.preprocesorValues = macros.Macros.getDefines();
 
 		// Default Variables
 		setVariable('this', this);

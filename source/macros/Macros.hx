@@ -1,8 +1,8 @@
-package backend;
+package macros;
 
 import sys.io.Process;
 
-class MacrosUtil {
+class Macros {
 	public static macro function getCommitId():haxe.macro.Expr.ExprOf<String> {
 		try {
 			var daProcess = new Process('git', ['log', '--format=%h', '-n', '1']);
