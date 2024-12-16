@@ -16,7 +16,7 @@ class ScriptedSubState extends ExtendableSubState {
 			var folders:Array<String> = [Paths.file('classes/')];
 			#if FUTURE_POLYMOD
 			for (mod in ModHandler.getModIDs())
-				folders.push('mods/' + mod + '/classes/');
+				folders.push('mods/$mod/classes/');
 			#end
 
 			for (folder in folders) {
@@ -37,6 +37,8 @@ class ScriptedSubState extends ExtendableSubState {
 			scriptSet('this', this);
 			scriptSet('add', add);
 			scriptSet('remove', remove);
+			scriptSet('multiAdd', multiAdd);
+			scriptSet('multiRemove', multiRemove);
 			scriptSet('insert', insert);
 		} catch (e:Dynamic) {
 			script = null;

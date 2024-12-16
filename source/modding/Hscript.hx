@@ -125,7 +125,6 @@ class Hscript extends FlxBasic {
 		setVariable('Sound', Sound);
 
 		// Flixel
-		setVariable('FlxAtlasFrames', FlxAtlasFrames);
 		setVariable('FlxBackdrop', FlxBackdrop);
 		setVariable('FlxBasic', FlxBasic);
 		setVariable('FlxCamera', FlxCamera);
@@ -136,20 +135,17 @@ class Hscript extends FlxBasic {
 		setVariable('FlxMath', FlxMath);
 		setVariable('FlxObject', FlxObject);
 		setVariable('FlxRuntimeShader', FlxRuntimeShader);
-		setVariable('FlxSave', FlxSave);
-		setVariable('FlxSort', FlxSort);
 		setVariable('FlxSound', FlxSound);
 		setVariable('FlxSprite', FlxSprite);
 		setVariable('FlxSpriteGroup', FlxSpriteGroup);
-		setVariable('FlxStringUtil', FlxStringUtil);
 		setVariable('FlxText', FlxText);
-		setVariable('FlxTextBorderStyle', FlxTextBorderStyle);
 		setVariable('FlxTimer', FlxTimer);
 		setVariable('FlxTween', FlxTween);
 		setVariable('FlxTypedGroup', FlxTypedGroup);
 		setVariable('createTypedGroup', function() {
 			return new FlxTypedGroup<Dynamic>();
 		});
+		setVariable('state', FlxG.state);
 
 		// Rhythmo
 		setVariable('Achievements', Achievements);

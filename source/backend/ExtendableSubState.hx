@@ -52,4 +52,14 @@ class ExtendableSubState extends FlxSubState {
 	}
 
 	public function beatHit():Void {}
+
+	public function multiAdd(basic:Array<FlxBasic>) {
+		for (bsc in basic)
+			add(bsc);
+	}
+
+	public function multiRemove(basic:Array<FlxBasic>) {
+		for (bsc in basic)
+			remove(bsc);
+	}
 }

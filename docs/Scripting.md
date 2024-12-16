@@ -188,8 +188,6 @@ import('flixel.FlxSprite');
 import('backend.Input');
 import('flixel.FlxG');
 
-var state = FlxG.state;
-
 function create() {
 	var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(1280, 720, FlxColor.WHITE);
 	this.add(bg);
@@ -219,8 +217,6 @@ Script 1:
 import('flixel.FlxSprite');
 import('backend.Paths');
 import('flixel.FlxG');
-
-var state = FlxG.state;
 
 function createSprite(x:Float, y:Float, graphic:String) {
 	var spr:FlxSprite = new FlxSprite(x, y);

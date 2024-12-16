@@ -56,8 +56,6 @@ class PlayState extends ExtendableState {
 	public var countdown1:FlxSprite;
 	public var go:FlxSprite;
 
-	public var coolBG:FlxSprite;
-
 	var isPerfect:Bool = true;
 
 	override public function new() {
@@ -97,7 +95,7 @@ class PlayState extends ExtendableState {
 		var bg:FlxSprite = new GameSprite().loadGraphic(Paths.image('gameplay/bg'));
 		add(bg);
 
-		coolBG = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
+		var coolBG:FlxSprite = new FlxSprite().makeGraphic(820, FlxG.height, FlxColor.BLACK);
 		coolBG.alpha = SaveData.settings.laneUnderlay / 100;
 		coolBG.screenCenter(X);
 		if (SaveData.settings.laneUnderlay != 0)
@@ -126,7 +124,7 @@ class PlayState extends ExtendableState {
 		var foldersToCheck:Array<String> = [Paths.file('scripts/')];
 		#if FUTURE_POLYMOD
 		for (mod in ModHandler.getModIDs())
-			foldersToCheck.push('mods/' + mod + '/scripts/');
+			foldersToCheck.push('mods/$mod/scripts/');
 		#end
 		for (folder in foldersToCheck) {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
@@ -174,10 +172,10 @@ class PlayState extends ExtendableState {
 		generateSong();
 
 		// load from song folder
-		var foldersToCheck:Array<String> = [Paths.file('songs/' + Paths.formatToSongPath(song.song) + '/')];
+		var foldersToCheck:Array<String> = [Paths.file('songs/${Paths.formatToSongPath(song.song)}/')];
 		#if FUTURE_POLYMOD
 		for (mod in ModHandler.getModIDs())
-			foldersToCheck.push('mods/' + mod + '/songs/' + Paths.formatToSongPath(song.song) + '/');
+			foldersToCheck.push('mods/$mod/songs/${Paths.formatToSongPath(song.song)}/');
 		#end
 		for (folder in foldersToCheck) {
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
