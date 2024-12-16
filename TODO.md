@@ -16,7 +16,7 @@
 * [X] Shader Support
 
 ## Future To-Dos
-* [ ] Discord Rich Precense Support
+* [ ] Discord Rich Presence Support
 * [ ] Sustain Notes + New song
 * [ ] Improve Chart Editor
 * [ ] Silly Visualizer Option
