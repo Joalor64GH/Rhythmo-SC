@@ -10,7 +10,6 @@
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" allow-high-dpi="true" />
 	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true" />
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" allow-high-dpi="true" />
 
 	<!-- [ Custom Defines ] -->
 
@@ -48,9 +47,6 @@
 	<!-- [ Defines ] -->
 
 	<haxedef name="FLX_RECORD" />
-	<haxedef name="FLX_NO_MOUSE" if="mobile" />
-	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
-	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
