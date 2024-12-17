@@ -59,7 +59,7 @@ class TitleState extends ExtendableState {
 		super.update(elapsed);
 
 		if (Input.pressed('left') || Input.pressed('right'))
-			hueShader.update(Input.pressed('left') ? elapsed * 0.1 : -elapsed * 0.1);
+			hueShader?.update(Input.pressed('left') ? elapsed * 0.1 : -elapsed * 0.1);
 
 		if (Input.justPressed('accept') && !lockInputs) {
 			lockInputs = true;
